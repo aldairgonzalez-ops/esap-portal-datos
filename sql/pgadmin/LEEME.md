@@ -17,7 +17,7 @@ El Query Tool no entiende los comandos que empiezan con `\`. Por eso la extracci
 2. Sobre la base de **QA**, abre el menú contextual y elige *PSQL Tool*.
 3. Pega estas líneas. Ajusta la ruta del repositorio (con `/`), la fecha y el nombre de la base:
 ```
-\cd 'C:/proyectos/esap-portal-datos'
+\cd 'G:/Mi unidad/SuperApp ESAP/Portal_Datos_BD'
 \set salida extracciones/2026-10-22
 \set bd_esperada esap_db
 \set maestro_email auth.personas.dir_email

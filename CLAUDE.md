@@ -15,6 +15,11 @@
     2. **Portal interno** (`interno/Portal_de_Datos_ESAP_<versión>_interno.html`): el mismo portal con las vistas Calidad e Identidad y el diagnóstico de FK.
     3. **CSV de diagnóstico** (`interno/csv/`).
 
+## 1b. Ubicación
+- **Carpeta de trabajo:** `G:\Mi unidad\SuperApp ESAP\Portal_Datos_BD\`, sincronizada con Google Drive. En la PSQL Tool se escribe `\cd 'G:/Mi unidad/SuperApp ESAP/Portal_Datos_BD'`.
+- **Antecedentes** en `G:\Mi unidad\SuperApp ESAP\` (Tablero Proyectos, Refactorización, Presentación, Revisión e informes V1–V5).
+- Drive sincroniza cada archivo que se escribe. Si hace falta un historial con Git, conviene un clon fuera de Drive (por ejemplo `C:\proyectos\`) que se suba a un repositorio remoto.
+
 ## 2. Base de datos
 - **Motor:** PostgreSQL 16 (`esap_db`). Hay dos entornos, **DEV y QA**, accesibles por **Tailscale**; el usuario los usa desde pgAdmin.
 - **Se trabaja con QA.** DEV y QA pueden tener la misma base `esap_db`: verificar siempre el servidor que imprime la extracción.
