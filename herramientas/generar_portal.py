@@ -26,6 +26,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import modelo as M  # noqa: E402
+import portal_sipae as PS  # noqa: E402
 
 RAIZ = M.RAIZ
 PLANTILLA = os.path.join(RAIZ, "herramientas", "plantilla_portal.html")
@@ -223,9 +224,17 @@ def main():
     plantilla = open(PLANTILLA, encoding="utf-8").read()
     if plantilla.count("/*__DATOS__*/") != 1:
         sys.exit("La plantilla no tiene exactamente un marcador /*__DATOS__*/")
+    # Entregable: interfaz del Portal de Datos de la UAPA (plantilla_sipae) con el catálogo ESAP.
+    # Uso interno: portal propio con las vistas de diagnóstico (Calidad, Identidad).
+    html_cliente, restos, cifras = PS.construir_html(m, a.version, a.entorno)
+    if restos:
+        sys.exit("El portal conserva textos de SIPAE: " + " | ".join(restos[:5]))
     for datos, carpeta, archivo in ((cliente, "portal", nombre), (interna, "interno", nombre_int)):
-        carga = json.dumps(datos, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
-        html = plantilla.replace("/*__DATOS__*/", carga).replace("__VERSION__", a.version)
+        if datos is cliente:
+            html = html_cliente
+        else:
+            carga = json.dumps(datos, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+            html = plantilla.replace("/*__DATOS__*/", carga).replace("__VERSION__", a.version)
         destino = os.path.join(RAIZ, carpeta, archivo)
         os.makedirs(os.path.dirname(destino), exist_ok=True)
         if os.path.exists(destino):

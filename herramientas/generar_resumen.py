@@ -70,14 +70,14 @@ def construir_doc(m, version, url_portal, repo, entorno):
     con_desc_t = sum(1 for t in op if t["d"])
     con_desc_c = sum(1 for c in cols if c["d"])
     tabla(doc, ["Componente", "Cantidad", "Dónde se consulta"], [
-        ["Relaciones declaradas (llaves foráneas)", n(len(m["fks"])), "Portal › Relaciones y Modelo ER"],
-        ["Relaciones lógicas sin FK, confirmadas con los datos", n(len(m["implicitas"])), "Portal › Relaciones"],
-        ["Funciones y procedimientos", n(len(m["programables"])), "Portal › Programables"],
-        ["Triggers", n(len(m["triggers"])), "Portal › Programables"],
-        ["Vistas", n(vistas), "Portal › Programables y Catálogo"],
-        ["Tipos enumerados", n(len(m["tipos"])), "Portal › Programables"],
-        ["Tablas con descripción registrada en la base", f"{n(con_desc_t)} de {n(len(op))}", "Portal › Catálogo"],
-        ["Columnas con descripción registrada en la base", f"{n(con_desc_c)} de {n(len(cols))}", "Portal › Catálogo"],
+        ["Relaciones declaradas (llaves foráneas)", n(len(m["fks"])), "Portal › Modelo ER y ficha de cada tabla"],
+        ["Relaciones lógicas sin FK, confirmadas con los datos", n(len(m["implicitas"])), "Portal › Modelo ER (relaciones lógicas) y ficha de tabla"],
+        ["Funciones y procedimientos", n(len(m["programables"])), "Portal › Inventario de programables"],
+        ["Triggers", n(len(m["triggers"])), "Portal › Inventario de programables"],
+        ["Vistas", n(vistas), "Portal › Inventario de programables"],
+        ["Tipos enumerados", n(len(m["tipos"])), "Repositorio › docs/csv"],
+        ["Tablas con descripción registrada en la base", f"{n(con_desc_t)} de {n(len(op))}", "Portal › Inicio (indicadores) y ficha de tabla"],
+        ["Columnas con descripción registrada en la base", f"{n(con_desc_c)} de {n(len(cols))}", "Portal › ficha de tabla"],
     ], anchos=[7.5, 2.8, 5.7], derecha=(1,))
     doc.add_paragraph(
         "Las relaciones se documentan con su multiplicidad UML (por ejemplo, 0..* → 1), medida con los datos del entorno. "
@@ -88,8 +88,8 @@ def construir_doc(m, version, url_portal, repo, entorno):
     por_cat = collections.Counter(c["pii"]["cat"] for c in pii)
     doc.add_paragraph(
         f"El portal identifica {n(len(pii))} columnas que, por su nombre, contienen datos personales, clasificadas según las categorías "
-        "de la Ley 1581 de 2012. La clasificación se hace por nombre de columna, sin revisar valores, y sirve de insumo para el "
-        "responsable del tratamiento de datos.")
+        "de la Ley 1581 de 2012. La clasificación se hace por nombre y tipo de columna, sin revisar valores, se muestra en la ficha "
+        "de cada tabla y sirve de insumo para el responsable del tratamiento de datos.")
     if por_cat:
         tabla(doc, ["Categoría", "Columnas"], [[k, n(v)] for k, v in por_cat.most_common()], anchos=[8, 3], derecha=(1,))
 
@@ -99,12 +99,11 @@ def construir_doc(m, version, url_portal, repo, entorno):
         hipervinculo(p, url_portal, url_portal)
     else:
         p.add_run(f"portal/Portal_de_Datos_ESAP_{version}.html. Es un archivo HTML autónomo que se abre en cualquier navegador, sin conexión.")
-    secciones = [("Dominios", "dominios", "Esquemas con su descripción y sus cifras"),
-                 ("Catálogo", "catalogo", "Buscador de tablas y columnas, y ficha de cada tabla con columnas, claves, relaciones, índices y uso"),
-                 ("Relaciones", "relaciones", "Llaves foráneas con multiplicidad UML y relaciones lógicas por nombre de columna"),
-                 ("Modelo ER", "modelo", "Diagrama entidad-relación por dominio"),
-                 ("Programables", "programables", "Funciones, procedimientos, triggers, vistas y tipos, con las tablas que usan"),
-                 ("Datos personales", "personales", "Columnas clasificadas según la Ley 1581 de 2012")]
+    secciones = [("Inicio", "welcome", "Cifras del catálogo, indicadores del modelo de datos (ISO/IEC 25012) y dominios funcionales"),
+                 ("Buscador y fichas de tabla", "auth.personas", "Menú por esquema y buscador de tablas, columnas y programables. Cada ficha muestra "
+                  "propósito, campos, restricciones, datos personales, relaciones, vista enfocada del Modelo ER y lógica relacionada"),
+                 ("Modelo ER", "modelo", "Diagrama entidad-relación por dominio, con cardinalidad UML y relaciones lógicas; exportable a SVG y PNG"),
+                 ("Inventario de programables", "inventario", "Funciones, procedimientos, vistas y triggers, con las tablas que usan, a quién invocan y quién los invoca")]
     t = tabla(doc, ["Sección del portal", "Contenido", "Enlace"],
               [[s, d, "" if url_portal else f"#{v}"] for s, v, d in secciones], anchos=[3.3, 9.7, 3])
     if url_portal:

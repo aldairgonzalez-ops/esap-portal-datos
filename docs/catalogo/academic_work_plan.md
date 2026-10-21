@@ -267,7 +267,7 @@ _Por documentar._
 | 30 | `fechaInicioVinculacion` | `timestamp(3) without time zone` | sí | _Por documentar_ |  |
 | 31 | `fechaFinVinculacion` | `timestamp(3) without time zone` | sí | _Por documentar_ |  |
 | 32 | `puntajeSalarial` | `double precision` | sí | _Por documentar_ |  |
-| 33 | `edadReferencia` | `integer` | sí | _Por documentar_ |  |
+| 33 | `edadReferencia` | `integer` | sí | _Por documentar_ | Dato personal |
 | 34 | `rangoEdad` | `text` | sí | _Por documentar_ |  |
 | 35 | `regimenNormativo` | `text` | sí | _Por documentar_ |  |
 | 36 | `periodoCarga` | `text` | sí | _Por documentar_ |  |
@@ -413,7 +413,7 @@ _Por documentar._
 | 11 | `primer_apellido` | `text` | sí | _Por documentar_ | Nombre de persona |
 | 12 | `segundo_apellido` | `text` | sí | _Por documentar_ | Nombre de persona |
 | 13 | `genero` | `text` | sí | _Por documentar_ | Dato personal |
-| 14 | `fecha_nacimiento` | `timestamp(3) without time zone` | sí | _Por documentar_ |  |
+| 14 | `fecha_nacimiento` | `timestamp(3) without time zone` | sí | _Por documentar_ | Dato personal |
 | 15 | `extension_telefonica` | `text` | sí | _Por documentar_ |  |
 | 16 | `correo_alternativo` | `text` | sí | _Por documentar_ | Contacto |
 | 17 | `tipo_usuario` | `text` | sí | _Por documentar_ |  |

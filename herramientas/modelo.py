@@ -106,12 +106,13 @@ def clasificar_pii(col, tabla, tipo=""):
     """Categoría de dato personal según el nombre de la columna (y su tipo: banderas, fechas e ids no guardan el dato)."""
     if TIPO_DOC.search(col):
         return None
-    if tipo and not TEXTO.search(tipo):
-        return None
     for nombre, nivel, patron in CATEGORIAS_PII:
         coincide = es_documento_identidad(col) if patron is None else re.search(patron, col, re.I)
         if not coincide:
             continue
+        # banderas, fechas e ids no guardan el dato; la excepción son los datos personales propios de una fecha o un número
+        if tipo and not TEXTO.search(tipo) and not (nombre == "Dato personal" and re.search(r"(date|timestamp|int|numeric|smallint)", tipo, re.I)):
+            return None
         if nombre == "Contacto":
             if INSTITUCIONAL.search(col) or INSTITUCIONAL.search(tabla) or NO_DIRECCION.search(col):
                 return None
@@ -292,10 +293,25 @@ def construir(carpeta):
         p = {"s": r["s"], "n": r["n"], "k": r["k"], "tipo": KIND_PROG.get(r["k"], r["k"]), "lang": r["lang"],
              "args": r["args"], "ret": r.get("ret"), "d": (r.get("d") or "").strip(),
              "secdef": r.get("secdef"), "usa": usa, "escribe": escribe, "lineas": src.count("\n") + 1 if src else 0,
+             "_src": src,
              "trg_fn": (r.get("ret") or "") == "trigger"}
         programables.append(p)
         for k in usa:
             tablas[k]["prog"].append(f'{r["s"]}.{r["n"]}')
+    por_nombre = collections.defaultdict(set)
+    for p in programables:
+        por_nombre[p["n"].lower()].add(f'{p["s"]}.{p["n"]}')
+    patron_llamada = re.compile(r'(?:\b|")((?:"?[\w]+"?\.)?"?[\w]+"?)\s*\(', re.I)
+    for p in programables:
+        llama = set()
+        for ref in patron_llamada.findall(p.pop("_src") or ""):
+            ref = ref.replace('"', "")
+            nombre = ref.split(".")[-1].lower()
+            destinos = por_nombre.get(nombre, set())
+            if "." in ref:
+                destinos = {d for d in destinos if d.lower() == ref.lower()}
+            llama |= {d for d in destinos if d != f'{p["s"]}.{p["n"]}'}
+        p["llama"] = sorted(llama)
     triggers = []
     for r in ex["07_triggers"]:
         k = f'{r["s"]}.{r["t"]}'

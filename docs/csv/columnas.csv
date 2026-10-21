@@ -438,7 +438,7 @@ academic_work_plan;Docente;29;situacionAdministrativa;text;sí;;;;;;;;0.3346;;
 academic_work_plan;Docente;30;fechaInicioVinculacion;timestamp(3) without time zone;sí;;;;;;;;0.3346;;
 academic_work_plan;Docente;31;fechaFinVinculacion;timestamp(3) without time zone;sí;;;;;;;;0.631;;
 academic_work_plan;Docente;32;puntajeSalarial;double precision;sí;;;;;;;;0.3346;;
-academic_work_plan;Docente;33;edadReferencia;integer;sí;;;;;;;;0.6581;;
+academic_work_plan;Docente;33;edadReferencia;integer;sí;;;;;;;;0.6581;Dato personal;media
 academic_work_plan;Docente;34;rangoEdad;text;sí;;;;;;;;0.6581;;
 academic_work_plan;Docente;35;regimenNormativo;text;sí;;;;;;;;0.3346;;
 academic_work_plan;Docente;36;periodoCarga;text;sí;;;;;;;;0.0012;;
@@ -520,7 +520,7 @@ academic_work_plan;Persona;10;segundo_nombre;text;sí;;;;;;;;1;Nombre de persona
 academic_work_plan;Persona;11;primer_apellido;text;sí;;;;;;;;1;Nombre de persona;media
 academic_work_plan;Persona;12;segundo_apellido;text;sí;;;;;;;;1;Nombre de persona;media
 academic_work_plan;Persona;13;genero;text;sí;;;;;;;;1;Dato personal;media
-academic_work_plan;Persona;14;fecha_nacimiento;timestamp(3) without time zone;sí;;;;;;;;1;;
+academic_work_plan;Persona;14;fecha_nacimiento;timestamp(3) without time zone;sí;;;;;;;;1;Dato personal;media
 academic_work_plan;Persona;15;extension_telefonica;text;sí;;;;;;;;1;;
 academic_work_plan;Persona;16;correo_alternativo;text;sí;;;;;;;;1;Contacto;media
 academic_work_plan;Persona;17;tipo_usuario;text;sí;;;;;;;;1;;
@@ -1500,7 +1500,7 @@ auth;personas;4;nom_tercero;character varying(250);no;;;;;;;;0;Nombre de persona
 auth;personas;5;pri_apellido;character varying(250);sí;;;;;;;;0;Nombre de persona;media
 auth;personas;6;seg_apellido;character varying(250);sí;;;;;;;;0.389;Nombre de persona;media
 auth;personas;7;gen_tercero;character varying(6);no;;;;;;;;0;Dato personal;media
-auth;personas;8;fec_nacimiento;date;sí;;;;;;;;0.2668;;
+auth;personas;8;fec_nacimiento;date;sí;;;;;;;;0.2668;Dato personal;media
 auth;personas;9;dir_residencia;character varying(250);sí;;;;;;;;0.995;Contacto;media
 auth;personas;10;dir_email;character varying(100);sí;;;;;;;;0;Contacto;media
 auth;personas;11;tel_celular;character varying(255);sí;;;;;;;;;Contacto;media

@@ -7,12 +7,15 @@
 - **Usuario:** Aldair, responsable de la base de datos en la entrega del proyecto. Escribe en español.
 - **Dos públicos, dos juegos de documentos:**
   - **Entregable al cliente:** descriptivo, en lenguaje directo y neutro. **No lleva hallazgos, indicadores con meta, oportunidades de mejora ni recomendaciones.**
-    1. **Portal de Datos** (`portal/Portal_de_Datos_ESAP_<versión>.html`): HTML autónomo (sin conexión ni CDN) con dominios, catálogo, fichas de tabla, relaciones con multiplicidad UML, modelo ER por dominio, programables y datos personales.
+    1. **Portal de Datos** (`portal/Portal_de_Datos_ESAP_<versión>.html`): **misma interfaz del Portal de Datos SIPAE v2.3 de la UAPA**: barra lateral con buscador y esquemas, Inicio con indicadores, ficha de tabla, Modelo ER por dominio con vista enfocada e Inventario de programables. Se le inyecta el catálogo ESAP (`herramientas/portal_sipae.py` sobre `herramientas/plantilla_sipae/portal_base.html`, que es la plantilla sin datos de SIPAE, preparada con `preparar_plantilla_sipae.py`). Es un HTML autónomo, sin conexión ni CDN. Reglas de la adaptación:
+       - No cambiar el diseño.
+       - Solo usar clases Tailwind que ya existan en la plantilla, porque el CSS viene precompilado.
+       - Ningún texto que nombre a SIPAE, UApA o PAE: el generador se detiene si queda alguno.
     2. **Resumen ejecutivo** (`informe/Resumen_Ejecutivo_BD_ESAP_<versión>.docx`): alcance, dominios, contenido del modelo y datos personales; cita el portal (con enlace a cada sección) y el repositorio.
     3. **Detalle técnico:** `docs/csv/`, `docs/catalogo/*.md`, `docs/informe_extraccion_<versión>.md` y las consultas de `sql/`.
   - **Uso interno (personal del proyecto):** `interno/` (fuera de Git).
     1. **Informe interno de hallazgos y oportunidades de mejora** (`interno/Informe_Interno_Hallazgos_BD_ESAP_<versión>.docx`): indicadores K01–K10 con meta y estado, hallazgos H01–H12 con evidencia, oportunidades OM01–OM09 priorizadas, condiciones de intervención y anexos.
-    2. **Portal interno** (`interno/Portal_de_Datos_ESAP_<versión>_interno.html`): el mismo portal con las vistas Calidad e Identidad y el diagnóstico de FK.
+    2. **Portal interno** (`interno/Portal_de_Datos_ESAP_<versión>_interno.html`): portal de diagnóstico (plantilla propia `herramientas/plantilla_portal.html`) con las vistas Calidad e Identidad y el diagnóstico de FK.
     3. **CSV de diagnóstico** (`interno/csv/`).
 
 ## 1b. Ubicación

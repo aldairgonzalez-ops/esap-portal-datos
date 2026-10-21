@@ -18,6 +18,7 @@ academic_work_plan;AuditLog;usuario_email;text;Contacto;media;no
 academic_work_plan;AuditLog;ip_address;text;Identificador en línea (IP);media;no
 academic_work_plan;BancoDocentesInvitaciones;token_acceso;text;Credencial de acceso;alta;no
 academic_work_plan;BancoDocentesInvitaciones;sesion_token_hash;text;Credencial de acceso;alta;no
+academic_work_plan;Docente;edadReferencia;integer;Dato personal;media;no
 academic_work_plan;Docente;correoAlternativo;text;Contacto;media;no
 academic_work_plan;Docente;ip_creacion;character varying(50);Identificador en línea (IP);media;no
 academic_work_plan;Docente;sexoBiologico;text;Dato personal;media;no
@@ -28,6 +29,7 @@ academic_work_plan;Persona;segundo_nombre;text;Nombre de persona;media;no
 academic_work_plan;Persona;primer_apellido;text;Nombre de persona;media;no
 academic_work_plan;Persona;segundo_apellido;text;Nombre de persona;media;no
 academic_work_plan;Persona;genero;text;Dato personal;media;no
+academic_work_plan;Persona;fecha_nacimiento;timestamp(3) without time zone;Dato personal;media;no
 academic_work_plan;Persona;correo_alternativo;text;Contacto;media;no
 academic_work_plan;RundAccesoDatosLog;ip;text;Identificador en línea (IP);media;no
 academic_work_plan;RundAccesoExterno;token;text;Credencial de acceso;alta;no
@@ -48,6 +50,7 @@ auth;personas;nom_tercero;character varying(250);Nombre de persona;media;no
 auth;personas;pri_apellido;character varying(250);Nombre de persona;media;no
 auth;personas;seg_apellido;character varying(250);Nombre de persona;media;no
 auth;personas;gen_tercero;character varying(6);Dato personal;media;no
+auth;personas;fec_nacimiento;date;Dato personal;media;no
 auth;personas;dir_residencia;character varying(250);Contacto;media;no
 auth;personas;dir_email;character varying(100);Contacto;media;no
 auth;personas;tel_celular;character varying(255);Contacto;media;no

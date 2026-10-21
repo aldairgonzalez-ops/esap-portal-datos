@@ -1,6 +1,6 @@
 # Catálogo de la base esap_db
 
-Extracción de solo lectura del 2026-10-21 · PostgreSQL 16.14 (Debian 16.14-1.pgdg13+1) on x86_64-pc-linux-gnu. La vista navegable está en el portal (`portal/Portal_de_Datos_ESAP_v1.0.html`); aquí queda la misma información en texto para consulta y control de versiones.
+Extracción de solo lectura del 2026-10-21 · PostgreSQL 16.14 (Debian 16.14-1.pgdg13+1) on x86_64-pc-linux-gnu. La vista navegable está en el portal (`portal/Portal_de_Datos_ESAP_v1.1.html`); aquí queda la misma información en texto para consulta y control de versiones.
 
 | Dominio | Esquema | Tablas | Columnas | Filas | Programables |
 |---|---|--:|--:|--:|--:|

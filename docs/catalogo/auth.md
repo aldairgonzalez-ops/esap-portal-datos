@@ -281,7 +281,7 @@ _Por documentar._
 | 5 | `pri_apellido` | `character varying(250)` | sí | _Por documentar_ | Nombre de persona |
 | 6 | `seg_apellido` | `character varying(250)` | sí | _Por documentar_ | Nombre de persona |
 | 7 | `gen_tercero` | `character varying(6)` | no | _Por documentar_ | Dato personal |
-| 8 | `fec_nacimiento` | `date` | sí | _Por documentar_ |  |
+| 8 | `fec_nacimiento` | `date` | sí | _Por documentar_ | Dato personal |
 | 9 | `dir_residencia` | `character varying(250)` | sí | _Por documentar_ | Contacto |
 | 10 | `dir_email` | `character varying(100)` | sí | _Por documentar_ | Contacto |
 | 11 | `tel_celular` | `character varying(255)` | sí | _Por documentar_ | Contacto |
