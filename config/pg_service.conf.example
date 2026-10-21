@@ -1,0 +1,19 @@
+# Copiar a %APPDATA%\postgresql\.pg_service.conf (Windows) o ~/.pg_service.conf (Linux/macOS).
+# La contraseña NO va aquí: va en %APPDATA%\postgresql\pgpass.conf  ->  host:puerto:base:usuario:contraseña
+[esap_qa]
+host=100.x.y.z
+port=5432
+dbname=esap_db
+user=USUARIO_LECTOR
+sslmode=prefer
+application_name=portal_datos_esap
+# Fuerza solo lectura en toda la sesión, además del READ ONLY de la extracción.
+options=-c default_transaction_read_only=on -c statement_timeout=1200000
+
+# DEV queda declarado aparte para no confundirlo con QA. El portal se genera desde QA.
+# [esap_dev]
+# host=100.a.b.c
+# port=5432
+# dbname=esap_db
+# user=USUARIO_LECTOR
+# options=-c default_transaction_read_only=on

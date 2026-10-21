@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python herramientas/extraer.py:*)",
+      "Bash(python herramientas/generar_portal.py:*)",
+      "Bash(python herramientas/generar_resumen.py:*)",
+      "Bash(python herramientas/generar_comentarios.py:*)",
+      "Bash(python -m http.server:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ],
+    "ask": [
+      "Bash(psql:*)"
+    ],
+    "deny": [
+      "Bash(pg_dump:*)",
+      "Bash(dropdb:*)",
+      "Read(**/pgpass.conf)",
+      "Read(**/.pg_service.conf)",
+      "Read(**/.env)"
+    ]
+  }
+}

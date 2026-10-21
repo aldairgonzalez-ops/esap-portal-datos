@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "esap-qa": {
+      "command": "uvx",
+      "args": ["postgres-mcp", "--access-mode=restricted"],
+      "env": { "DATABASE_URI": "postgresql://USUARIO_LECTOR@100.x.y.z:5432/esap_db?options=-c%20default_transaction_read_only%3Don" }
+    }
+  }
+}

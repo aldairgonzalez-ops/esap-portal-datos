@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portal de Datos ESAP · __VERSION__</title>
+<!-- Portal de Datos ESAP · documento autónomo: no carga nada de internet. Generado por herramientas/generar_portal.py -->
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--panel2:#f1f3f6;--line:#dfe3ea;--text:#1b2330;--muted:#5d6b7e;--soft:#8a96a6;
+  --brand:#0b3d91;--brand2:#1f6feb;--brandbg:#e8effc;--ok:#1a7f4b;--okbg:#e6f4ec;--warn:#9a6700;--warnbg:#fff4d6;
+  --info:#5a32a3;--infobg:#efe9fb;--mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
+  --shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f141b;--panel:#161c25;--panel2:#1c2430;--line:#2a3442;--text:#e6ebf2;--muted:#9fb0c3;--soft:#71839a;
+  --brand:#8fb6ff;--brand2:#5b9cff;--brandbg:#1a2740;--ok:#4cc38a;--okbg:#14301f;--warn:#e3b341;--warnbg:#3a2e10;
+  --info:#b59cf0;--infobg:#2a2140;--shadow:none;}}
+:root[data-theme="dark"]{
+  --bg:#0f141b;--panel:#161c25;--panel2:#1c2430;--line:#2a3442;--text:#e6ebf2;--muted:#9fb0c3;--soft:#71839a;
+  --brand:#8fb6ff;--brand2:#5b9cff;--brandbg:#1a2740;--ok:#4cc38a;--okbg:#14301f;--warn:#e3b341;--warnbg:#3a2e10;
+  --info:#b59cf0;--infobg:#2a2140;--shadow:none;}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+a{color:var(--brand2);text-decoration:none}a:hover{text-decoration:underline}
+header{background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.top{display:flex;align-items:center;gap:12px;padding:10px 20px;flex-wrap:wrap}.top .der{display:flex;gap:8px;align-items:center;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}
+.logo{width:34px;height:34px;border-radius:8px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:700;letter-spacing:.5px}
+:root[data-theme="dark"] .logo{color:#0f141b}
+.ttl{font-weight:650;font-size:16px}.sub{color:var(--muted);font-size:12px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:11px;padding:2px 8px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.chip b{color:var(--text);font-weight:600}
+nav{display:flex;gap:2px;padding:0 14px;overflow-x:auto}
+nav a{padding:9px 12px;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;font-weight:500}
+nav a.on{color:var(--brand);border-color:var(--brand)}nav a:hover{text-decoration:none;color:var(--text)}
+main{max-width:1320px;margin:0 auto;padding:20px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:26px 0 10px}h3{font-size:15px;margin:18px 0 8px}
+.lead{color:var(--muted);margin:0 0 16px;max-width:900px}
+.grid{display:grid;gap:12px}.g4{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}.g3{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;box-shadow:var(--shadow)}
+.card.link{cursor:pointer}.card.link:hover{border-color:var(--brand2)}
+.kpi .v{font-size:26px;font-weight:650;line-height:1.1}.kpi .n{color:var(--muted);font-size:12px;margin-bottom:6px}
+.kpi .d{color:var(--muted);font-size:12px;margin-top:6px}
+.stat{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px}.stat div{font-size:12px;color:var(--muted)}.stat b{display:block;font-size:16px;color:var(--text)}
+.tag{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);margin:1px 2px 1px 0;white-space:nowrap}
+.t-ok{background:var(--okbg);color:var(--ok);border-color:transparent}.t-warn{background:var(--warnbg);color:var(--warn);border-color:transparent}
+.t-info{background:var(--infobg);color:var(--info);border-color:transparent}.t-brand{background:var(--brandbg);color:var(--brand);border-color:transparent}
+.bar{height:6px;background:var(--panel2);border-radius:4px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--brand2)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 12px}
+input[type=search],select{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text)}
+input[type=search]{min-width:280px;flex:1;max-width:520px}
+button{font:inherit;padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);cursor:pointer}
+button:hover{border-color:var(--brand2)}
+.tbl{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.tbl th,.tbl td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.tbl th{background:var(--panel2);font-weight:600;font-size:12px;color:var(--muted);position:sticky;top:0;cursor:pointer;user-select:none}
+.tbl tr:last-child td{border-bottom:0}.tbl tbody tr:hover td{background:var(--panel2)}
+.tbl td.r,.tbl th.r{text-align:right;font-variant-numeric:tabular-nums}
+.wrap{overflow:auto;max-height:70vh;border-radius:10px}
+.mono{font-family:var(--mono);font-size:12.5px}.muted{color:var(--muted)}.soft{color:var(--soft)}.it{font-style:italic}
+.pend{color:var(--soft);font-style:italic}
+.ficha-h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.ficha-h h1{font-size:20px;font-weight:500}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:16px 0 12px;flex-wrap:wrap}
+.tabs button{border:0;border-bottom:2px solid transparent;border-radius:0;background:none;color:var(--muted);padding:8px 10px}
+.tabs button.on{color:var(--brand);border-color:var(--brand)}
+pre{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px;overflow:auto;font-family:var(--mono);font-size:12px;white-space:pre-wrap}
+.er{background:var(--panel);border:1px solid var(--line);border-radius:10px;height:72vh;position:relative;overflow:hidden}
+.er svg{width:100%;height:100%;cursor:grab}.er svg:active{cursor:grabbing}
+.er .hint{position:absolute;left:10px;bottom:8px;font-size:11px;color:var(--soft);background:var(--panel);padding:2px 6px;border-radius:6px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:8px 0}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.note{background:var(--brandbg);border-radius:10px;padding:10px 14px;color:var(--text);margin:12px 0;font-size:13px}
+footer{color:var(--soft);font-size:12px;text-align:center;padding:30px 10px}
+.empty{padding:30px;text-align:center;color:var(--muted)}
+@media (max-width:700px){main{padding:14px 16px}input[type=search]{min-width:0;width:100%}.chips{margin-left:0}}
+@media print{header nav,.tools,button{display:none}header{position:static}.wrap{max-height:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div class="logo">DB</div>
+    <div><div class="ttl">Portal de Datos · ESAP SuperApp</div><div class="sub" id="subt"></div></div>
+    <div class="der"><div class="chips" id="chips"></div><button id="tema" title="Cambiar entre tema claro y oscuro">Tema</button></div>
+  </div>
+  <nav id="nav"></nav>
+</header>
+<main id="app"></main>
+<footer id="pie"></footer>
+
+<script id="datos" type="application/json">/*__DATOS__*/</script>
+<script>
+"use strict";
+const D = JSON.parse(document.getElementById("datos").textContent);
+const T = D.tablas, $ = s => document.querySelector(s), app = $("#app");
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt = n => n == null ? "—" : Number(n).toLocaleString("es-CO");
+const pct = (a, b) => b ? (100 * a / b).toFixed(1).replace(".", ",") : "0";
+const bytes = b => { if (!b) return "0 kB"; const u = ["B","kB","MB","GB","TB"]; let i = 0; while (b >= 1024 && i < 4) { b /= 1024; i++; } return b.toFixed(i ? 1 : 0).replace(".", ",") + " " + u[i]; };
+const dom = s => (D.esquemas.find(e => e.s === s) || {nombre: s}).nombre;
+const tlink = k => T[k] ? `<a href="#tabla/${encodeURIComponent(k)}" class="mono">${esc(k)}</a>` : `<span class="mono soft" title="Fuera del catálogo">${esc(k)}</span>`;
+const desc = (d, de) => d ? esc(d) + (de && de !== "base" ? ` <span class="tag t-info" title="Descripción de trabajo registrada en config/; aún no está como COMMENT en la base">${esc(de)}</span>` : "") : `<span class="pend">Por documentar</span>`;
+const fkByName = Object.fromEntries(D.fks.map(f => [f.c + "|" + f.n, f]));
+const operativas = () => Object.values(T).filter(t => "rp".includes(t.k) && !t.particion);
+
+// ---------- encabezado
+(() => {
+  const c = D.ctx;
+  $("#subt").textContent = `Diccionario y modelo de la base ${c.db} · entorno ${D.entorno}`;
+  $("#chips").innerHTML = [["Base", c.db], ["Entorno", D.entorno], ["Extracción", (c.fecha || "").replace("T", " ").slice(0, 16)],
+    ["Motor", (c.version || "").split(" on ")[0].split(" (")[0]], ["Portal", D.version]]
+    .map(([k, v]) => `<span class="chip">${k} <b>${esc(v)}</b></span>`).join("");
+  $("#pie").innerHTML = `Portal de Datos ESAP ${esc(D.version)} · generado el ${esc(D.generado)} desde la extracción de ${esc(c.db)} (${esc(D.entorno)}) del ${esc((c.fecha||"").slice(0,10))}.` +
+    (D.repo ? ` Detalle técnico (consultas, CSV y Markdown): <a href="${esc(D.repo)}">${esc(D.repo)}</a>.` : "");
+  const tema = localStorage.getItem("tema"); if (tema) document.documentElement.dataset.theme = tema;
+  $("#tema").onclick = () => { const r = document.documentElement, oscuro = r.dataset.theme ? r.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    r.dataset.theme = oscuro ? "light" : "dark"; try { localStorage.setItem("tema", r.dataset.theme); } catch (e) {} if (location.hash.startsWith("#modelo")) ruta(); };
+})();
+
+const VISTAS = [["inicio","Inicio"],["dominios","Dominios"],["catalogo","Catálogo"],["relaciones","Relaciones"],["modelo","Modelo ER"],
+  ["programables","Programables"],["calidad","Calidad"],["identidad","Identidad"],["personales","Datos personales"],["acerca","Acerca de"]];
+$("#nav").innerHTML = VISTAS.map(([k, v]) => `<a href="#${k}" data-v="${k}">${v}</a>`).join("");
+
+// ---------- utilidades de tablas HTML ordenables y exportables
+function tabla(cols, filas, opts = {}) {
+  const id = "t" + Math.random().toString(36).slice(2, 8);
+  setTimeout(() => {
+    const el = document.getElementById(id); if (!el) return;
+    el.querySelectorAll("th").forEach((th, i) => th.onclick = () => {
+      const tb = el.tBodies[0], rs = [...tb.rows], dir = th.dataset.dir === "a" ? "d" : "a";
+      el.querySelectorAll("th").forEach(x => delete x.dataset.dir); th.dataset.dir = dir;
+      rs.sort((a, b) => { const x = a.cells[i].dataset.v ?? a.cells[i].textContent, y = b.cells[i].dataset.v ?? b.cells[i].textContent;
+        const nx = parseFloat(x), ny = parseFloat(y), r = (!isNaN(nx) && !isNaN(ny)) ? nx - ny : x.localeCompare(y, "es");
+        return dir === "a" ? r : -r; });
+      rs.forEach(r => tb.appendChild(r));
+    });
+  });
+  const head = cols.map(c => `<th class="${c.r ? "r" : ""}">${c.t}</th>`).join("");
+  const body = filas.length ? filas.map(f => "<tr>" + cols.map((c, i) => {
+    const v = f[i]; const val = (v && typeof v === "object") ? v : {h: v};
+    return `<td class="${c.r ? "r" : ""}"${val.v !== undefined ? ` data-v="${esc(val.v)}"` : ""}>${val.h ?? ""}</td>`; }).join("") + "</tr>").join("")
+    : `<tr><td colspan="${cols.length}" class="empty">Sin elementos</td></tr>`;
+  return `<div class="wrap"><table class="tbl" id="${id}"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
+}
+function csv(nombre, cab, filas) {
+  const q = v => { v = v == null ? "" : String(v); return /[;"\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v; };
+  const txt = "﻿" + [cab, ...filas].map(r => r.map(q).join(";")).join("\r\n");
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([txt], {type: "text/csv;charset=utf-8"}));
+  a.download = nombre; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+const kpiCard = k => `<div class="card kpi link" onclick="location.hash='#${k.vista}'"><div class="n">${k.id} · ${esc(k.nombre)}</div>
+  <div class="v">${typeof k.valor === "number" && k.meta.includes("%") ? String(k.valor).replace(".", ",") + " %" : fmt(k.valor)}</div>
+  ${k.meta.includes("%") ? `<div class="bar"><i style="width:${Math.min(100, k.valor)}%"></i></div>` : ""}
+  <div class="d">${esc(k.detalle)}</div>
+  <div style="margin-top:6px"><span class="tag">${esc(k.dim)}</span><span class="tag ${k.ok === true ? "t-ok" : k.ok === false ? "t-warn" : ""}">meta ${esc(k.meta)}</span></div></div>`;
+
+// ---------- vistas
+const V = {};
+V.inicio = () => {
+  const op = operativas(), cols = op.reduce((a, t) => a + t.cols.length, 0);
+  const vistas = Object.values(T).filter(t => "vm".includes(t.k)).length;
+  return `<h1>Portal de Datos de la SuperApp ESAP</h1>
+  <p class="lead">Documentación de la base de datos <b>${esc(D.ctx.db)}</b> en el entorno <b>${esc(D.entorno)}</b>: qué contiene cada dominio, cómo se relacionan sus tablas
+  y en qué estado está su documentación y su calidad estructural. Todo lo que aparece aquí sale de la base, en una extracción de solo lectura del ${esc((D.ctx.fecha||"").slice(0,10))}.</p>
+  <div class="grid g4">
+    <div class="card kpi"><div class="n">Dominios (esquemas)</div><div class="v">${D.esquemas.length}</div></div>
+    <div class="card kpi"><div class="n">Tablas</div><div class="v">${fmt(op.length)}</div><div class="d">${fmt(op.filter(t => t.apoyo).length)} de apoyo · ${fmt(vistas)} vistas</div></div>
+    <div class="card kpi"><div class="n">Columnas</div><div class="v">${fmt(cols)}</div></div>
+    <div class="card kpi"><div class="n">Relaciones</div><div class="v">${fmt(D.fks.length)}</div><div class="d">FK declaradas · ${fmt(D.implicitas.length)} implícitas por nombre</div></div>
+    <div class="card kpi"><div class="n">Funciones y procedimientos</div><div class="v">${fmt(D.programables.length)}</div><div class="d">${fmt(D.triggers.length)} triggers</div></div>
+    <div class="card kpi"><div class="n">Filas (conteo exacto)</div><div class="v">${fmt(op.reduce((a, t) => a + (t.filas || 0), 0))}</div><div class="d">Tamaño total ${bytes(D.ctx.bytes)}</div></div>
+  </div>
+  <h2>Indicadores de calidad del modelo</h2>
+  <div class="grid g4">${D.kpi.map(kpiCard).join("")}</div>
+  <h2>Cómo leer este portal</h2>
+  <div class="grid g3">
+    <div class="card"><b>Dominios y Catálogo</b><br><span class="muted">Cada esquema de la base es un dominio funcional. La ficha de cada tabla muestra sus columnas, claves, relaciones, índices y quién la usa.</span></div>
+    <div class="card"><b>Relaciones y Modelo ER</b><br><span class="muted">FK declaradas con su cardinalidad UML medida con datos, y relaciones implícitas (por nombre) con el porcentaje de valores que encuentran su registro padre.</span></div>
+    <div class="card"><b>Calidad, Identidad y Datos personales</b><br><span class="muted">Indicadores por dimensión de calidad (ISO/IEC 25012), réplicas de correo y documento frente a la fuente maestra, y columnas con datos personales (Ley 1581 de 2012).</span></div>
+  </div>`;
+};
+V.dominios = () => `<h1>Dominios</h1><p class="lead">Cada esquema agrupa las tablas de un módulo de la SuperApp.</p>
+  <div class="grid g3">${D.esquemas.map(e => `<div class="card link" onclick="location.hash='#catalogo?s=${e.s}'">
+    <div style="display:flex;justify-content:space-between;gap:8px"><b>${esc(e.nombre)}</b><span class="mono soft">${esc(e.s)}</span></div>
+    <div class="muted" style="font-size:13px;margin-top:4px">${e.d ? desc(e.d, e.de) : '<span class="pend">Descripción del dominio por documentar</span>'}</div>
+    <div class="stat"><div><b>${fmt(e.tablas)}</b>tablas</div><div><b>${fmt(e.columnas)}</b>columnas</div><div><b>${fmt(e.filas)}</b>filas</div><div><b>${fmt(e.prog)}</b>programables</div></div>
+    <div style="margin-top:8px">${e.vistas ? `<span class="tag">${e.vistas} vistas</span>` : ""}${e.vacias ? `<span class="tag">${e.vacias} sin filas</span>` : ""}${e.apoyo ? `<span class="tag">${e.apoyo} de apoyo</span>` : ""}<span class="tag">${bytes(e.bytes)}</span>
+    <a href="#modelo/${e.s}" onclick="event.stopPropagation()" class="tag t-brand">ver modelo ER</a></div></div>`).join("")}</div>`;
+
+V.catalogo = (p) => {
+  const q = (p.get("q") || "").toLowerCase(), s = p.get("s") || "", k = p.get("k") || "";
+  const lista = Object.entries(T).filter(([key, t]) => (!s || t.s === s) && (!k || (k === "apoyo" ? t.apoyo : k === "vacia" ? t.filas === 0 : k === "vista" ? "vm".includes(t.k) : k === "tabla" ? "rp".includes(t.k) && !t.apoyo : true))
+    && (!q || key.toLowerCase().includes(q) || (t.d || "").toLowerCase().includes(q) || t.cols.some(c => c.n.toLowerCase().includes(q) || (c.d || "").toLowerCase().includes(q))));
+  setTimeout(() => {
+    const go = () => { const u = new URLSearchParams(); if ($("#q").value) u.set("q", $("#q").value); if ($("#fs").value) u.set("s", $("#fs").value); if ($("#fk").value) u.set("k", $("#fk").value);
+      history.replaceState(null, "", "#catalogo?" + u); ruta(true); };
+    $("#q").oninput = () => { clearTimeout(window._qt); window._qt = setTimeout(go, 250); }; $("#fs").onchange = go; $("#fk").onchange = go;
+    $("#xcsv").onclick = () => csv("catalogo_tablas.csv", ["esquema","tabla","tipo","descripcion","filas","columnas","pk","fk_salida","fk_entrada","apoyo"],
+      lista.map(([key, t]) => [t.s, t.t, t.tipo, t.d, t.filas, t.cols.length, t.pk.join(","), t.fk_out.length, t.fk_in.length, t.apoyo ? "sí" : "no"]));
+  });
+  const colHits = q ? lista.flatMap(([key, t]) => t.cols.filter(c => c.n.toLowerCase().includes(q) || (c.d || "").toLowerCase().includes(q)).map(c => [key, c])) : [];
+  return `<h1>Catálogo</h1>
+  <div class="tools"><input type="search" id="q" placeholder="Buscar tabla, columna o descripción…" value="${esc(p.get("q") || "")}">
+    <select id="fs"><option value="">Todos los dominios</option>${D.esquemas.map(e => `<option value="${e.s}"${e.s === s ? " selected" : ""}>${esc(e.nombre)}</option>`).join("")}</select>
+    <select id="fk"><option value="">Todo</option>${[["tabla","Tablas operativas"],["vista","Vistas"],["vacia","Tablas sin filas"],["apoyo","Tablas de apoyo"]].map(([v, l]) => `<option value="${v}"${v === k ? " selected" : ""}>${l}</option>`).join("")}</select>
+    <span class="muted">${fmt(lista.length)} objetos</span><button id="xcsv">Descargar CSV</button></div>
+  ${tabla([{t:"Tabla"},{t:"Dominio"},{t:"Descripción"},{t:"Filas",r:1},{t:"Columnas",r:1},{t:"Relaciones",r:1},{t:""}],
+    lista.map(([key, t]) => [tlink(key), esc(dom(t.s)), desc(t.d, t.de), {h: t.filas == null ? "—" : fmt(t.filas), v: t.filas ?? -1}, t.cols.length,
+      t.fk_out.length + t.fk_in.length + t.imp_out.length + t.imp_in.length,
+      `${t.k !== "r" ? `<span class="tag">${t.tipo}</span>` : ""}${t.apoyo ? '<span class="tag">apoyo</span>' : ""}${!t.pk.length && "rp".includes(t.k) ? '<span class="tag">sin PK</span>' : ""}${t.filas === 0 ? '<span class="tag">sin filas</span>' : ""}`]))}
+  ${colHits.length ? `<h2>Columnas que coinciden (${fmt(colHits.length)})</h2>` + tabla([{t:"Tabla"},{t:"Columna"},{t:"Tipo"},{t:"Descripción"}],
+    colHits.slice(0, 500).map(([key, c]) => [tlink(key), `<span class="mono">${esc(c.n)}</span>`, `<span class="mono muted">${esc(c.ty)}</span>`, desc(c.d, c.de)])) : ""}`;
+};
+
+V.tabla = (p, key) => {
+  const t = T[key]; if (!t) return `<div class="empty">No se encontró ${esc(key)} en el catálogo.</div>`;
+  const pestana = p.get("p") || "columnas";
+  const fkOut = t.fk_out.map(n => fkByName[key + "|" + n]).filter(Boolean);
+  const fkIn = D.fks.filter(f => f.p === key);
+  const impOut = t.imp_out.map(i => D.implicitas[i]), impIn = t.imp_in.map(i => D.implicitas[i]);
+  const P = {
+    columnas: () => tabla([{t:"#",r:1},{t:"Columna"},{t:"Tipo"},{t:"Nulos"},{t:"Descripción"},{t:"Claves y marcas"}],
+      t.cols.map((c, i) => [i + 1, `<span class="mono"><b>${esc(c.n)}</b></span>`, `<span class="mono muted">${esc(c.ty)}</span>${c.def ? `<div class="mono soft" style="font-size:11px">= ${esc(c.def)}</div>` : ""}`,
+        {h: (c.nul ? "admite" : "<b>obligatoria</b>") + (c.nf != null && c.nul ? `<div class="soft" style="font-size:11px">${pct(c.nf, 1)} % nulos</div>` : ""), v: c.nf ?? -1},
+        desc(c.d, c.de),
+        [c.pk ? '<span class="tag t-brand">PK</span>' : "", c.uq ? '<span class="tag">única</span>' : "", c.ident ? '<span class="tag">identity</span>' : "",
+         c.fk ? `<span class="tag t-ok" title="FK declarada">FK → ${tlink(c.fk.split(".").slice(0, 2).join("."))}</span>` : "",
+         c.imp ? `<span class="tag t-info" title="Relación implícita por nombre, sin FK declarada">↝ ${tlink(c.imp.split(".").slice(0, 2).join("."))}</span>` : "",
+         c.pii ? `<span class="tag t-warn" title="Clasificación por nombre de columna (Ley 1581 de 2012)">${esc(c.pii.cat)}</span>` : ""].join("")])),
+    relaciones: () => `<h3>Referencia a (${fkOut.length + impOut.length})</h3>` + tabla([{t:"Columna"},{t:"Tabla destino"},{t:"Tipo"},{t:"Multiplicidad"},{t:"Medición"}],
+        [...fkOut.map(f => [`<span class="mono">${esc(f.cols.join(", "))}</span>`, tlink(f.p), `<span class="tag t-ok">FK</span> <span class="mono soft">${esc(f.n)}</span>`,
+          `<span class="mono">${esc(f.mh)} → ${esc(f.mp)}</span>`, f.filas != null ? `${fmt(f.nn)} con valor · ${fmt(f.dist)} padres distintos${f.huerf ? ` · <b>${fmt(f.huerf)} sin padre</b>` : ""}` : '<span class="soft">FK compuesta: sin medición</span>']),
+         ...impOut.map(i => [`<span class="mono">${esc(i.col)}</span>`, tlink(i.p), `<span class="tag t-info">implícita</span> <span class="soft">${esc(i.regla)}</span>`, "—",
+          `${fmt(i.ok)} de ${fmt(i.nn)} valores encuentran su padre (${String(i.cob).replace(".", ",")} %)`])])
+      + `<h3>Es referenciada por (${fkIn.length + impIn.length})</h3>` + tabla([{t:"Tabla origen"},{t:"Columna"},{t:"Tipo"},{t:"Multiplicidad"}],
+        [...fkIn.map(f => [tlink(f.c), `<span class="mono">${esc(f.cols.join(", "))}</span>`, '<span class="tag t-ok">FK</span>', `<span class="mono">${esc(f.mp)} → ${esc(f.mh)}</span>`]),
+         ...impIn.map(i => [tlink(i.c), `<span class="mono">${esc(i.col)}</span>`, '<span class="tag t-info">implícita</span>', "—"])]),
+    indices: () => tabla([{t:"Índice"},{t:"Columnas"},{t:"Tipo"},{t:"Tamaño",r:1},{t:"Usos",r:1}],
+        t.idx.map(i => [`<span class="mono">${esc(i.n)}</span>`, `<span class="mono">${esc(i.cols.join(", "))}</span>`, i.pk ? "clave primaria" : i.uni ? "único" : "no único", {h: bytes(i.bytes), v: i.bytes}, fmt(i.usos)]))
+      + (t.uq.length || t.ck.length ? `<h3>Restricciones</h3>` + tabla([{t:"Nombre"},{t:"Definición"}], [...t.uq.map(u => [`<span class="mono">${esc(u.n)}</span>`, `UNIQUE (${esc(u.cols.join(", "))})`]), ...t.ck.map(c => [`<span class="mono">${esc(c.n)}</span>`, `<span class="mono">${esc(c.def)}</span>`])]) : ""),
+    uso: () => `<h3>Triggers (${t.trg.length})</h3>` + tabla([{t:"Trigger"},{t:"Función"},{t:"Estado"},{t:"Definición"}], t.trg.map(g => [`<span class="mono">${esc(g.n)}</span>`, `<span class="mono">${esc(g.fn)}</span>`, g.estado, `<span class="mono soft" style="font-size:11px">${esc(g.def)}</span>`]))
+      + `<h3>Funciones y procedimientos que la mencionan (${t.prog.length})</h3>` + (t.prog.length ? t.prog.map(x => `<span class="tag mono">${esc(x)}</span>`).join(" ") : '<span class="soft">Ninguno</span>')
+      + `<h3>Vistas que la usan (${t.usada_por.length})</h3>` + (t.usada_por.length ? t.usada_por.map(tlink).join(", ") : '<span class="soft">Ninguna</span>')
+      + (t.vdef ? `<h3>Definición de la vista</h3><p>Usa: ${(t.vusa || []).map(tlink).join(", ")}</p><pre>${esc(t.vdef)}</pre>` : ""),
+  };
+  setTimeout(() => document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => { history.replaceState(null, "", `#tabla/${encodeURIComponent(key)}?p=${b.dataset.p}`); ruta(true); }));
+  const pii = t.cols.filter(c => c.pii).length;
+  return `<div class="muted" style="font-size:12px"><a href="#dominios">Dominios</a> › <a href="#catalogo?s=${t.s}">${esc(dom(t.s))}</a></div>
+  <div class="ficha-h"><h1 class="mono">${esc(t.s)}.<b>${esc(t.t)}</b></h1><span class="tag">${t.tipo}</span>${t.apoyo ? '<span class="tag">tabla de apoyo</span>' : ""}</div>
+  <p class="lead">${desc(t.d, t.de)}</p>
+  <div class="stat card"><div><b>${t.filas == null ? "—" : fmt(t.filas)}</b>filas</div><div><b>${t.cols.length}</b>columnas</div><div><b class="mono" style="font-size:13px">${t.pk.length ? esc(t.pk.join(", ")) : "—"}</b>clave primaria</div>
+    <div><b>${fkOut.length}/${fkIn.length}</b>FK salen/entran</div><div><b>${impOut.length + impIn.length}</b>implícitas</div><div><b>${t.idx.length}</b>índices</div><div><b>${pii}</b>columnas con datos personales</div><div><b>${bytes(t.bytes)}</b>tamaño</div></div>
+  <div class="tabs">${[["columnas","Columnas"],["relaciones","Relaciones"],["indices","Índices y restricciones"],["uso","Uso y linaje"]].map(([k, l]) => `<button data-p="${k}" class="${k === pestana ? "on" : ""}">${l}</button>`).join("")}
+    <a href="#modelo/${t.s}?foco=${encodeURIComponent(key)}" style="margin-left:auto;align-self:center" class="tag t-brand">ver en el modelo ER</a></div>
+  ${(P[pestana] || P.columnas)()}`;
+};
+
+V.relaciones = () => {
+  setTimeout(() => {
+    $("#x1").onclick = () => csv("relaciones_fk.csv", ["origen","columnas","destino","columnas_destino","fk","multiplicidad_hijo","multiplicidad_padre","filas_con_valor","padres_distintos","max_hijos_por_padre","sin_padre","indice_en_hija"],
+      D.fks.map(f => [f.c, f.cols.join(","), f.p, f.pcols.join(","), f.n, f.mh, f.mp, f.nn, f.dist, f.maxh, f.huerf, f.indexada ? "sí" : "no"]));
+    $("#x2").onclick = () => csv("relaciones_implicitas.csv", ["origen","columna","destino","columna_destino","regla","valores","con_padre","sin_padre","cobertura_pct","estado"],
+      D.implicitas.map(i => [i.c, i.col, i.p, i.pcol, i.regla, i.nn, i.ok, i.sin_padre, i.cob, i.estado]));
+  });
+  return `<h1>Relaciones</h1>
+  <p class="lead">Multiplicidad UML medida con los datos de ${esc(D.entorno)}: <span class="mono">hijo → padre</span>. Por ejemplo, <span class="mono">0..* → 1</span> indica que cada fila hija tiene siempre un padre y que un padre puede tener cero o muchos hijos.</p>
+  <div class="tools"><b>FK declaradas (${D.fks.length})</b><button id="x1">Descargar CSV</button></div>
+  ${tabla([{t:"Tabla hija"},{t:"Columnas"},{t:"Tabla padre"},{t:"Multiplicidad"},{t:"Padres distintos",r:1},{t:"Máx. hijos",r:1},{t:"Sin padre",r:1},{t:"Índice"}],
+    D.fks.map(f => [tlink(f.c), `<span class="mono">${esc(f.cols.join(", "))}</span>`, tlink(f.p), `<span class="mono">${esc(f.mh)} → ${esc(f.mp)}</span>`, fmt(f.dist), fmt(f.maxh), fmt(f.huerf),
+      f.indexada ? '<span class="tag t-ok">sí</span>' : '<span class="tag">por revisar</span>']))}
+  <div class="tools" style="margin-top:22px"><b>Relaciones implícitas (${D.implicitas.length})</b><button id="x2">Descargar CSV</button></div>
+  <p class="muted" style="margin-top:-6px">Columnas que por su nombre apuntan a la clave de otra tabla sin FK declarada: R1 = mismo nombre que la clave destino; R2 = id_X / X_id / cod_X hacia la tabla X.</p>
+  ${tabla([{t:"Tabla"},{t:"Columna"},{t:"Apunta a"},{t:"Regla"},{t:"Valores",r:1},{t:"Con padre",r:1},{t:"Cobertura",r:1},{t:"Estado"}],
+    D.implicitas.map(i => [tlink(i.c), `<span class="mono">${esc(i.col)}</span>`, tlink(i.p) + ` <span class="mono soft">.${esc(i.pcol)}</span>`, i.regla, fmt(i.nn), fmt(i.ok),
+      {h: String(i.cob).replace(".", ",") + " %", v: i.cob}, `<span class="tag ${i.estado === "confirmada por datos" ? "t-ok" : ""}">${esc(i.estado)}</span>`]))}`;
+};
+
+V.programables = () => {
+  const fil = (location.hash.split("?")[1] || "");
+  return `<h1>Funciones, procedimientos, triggers y vistas</h1>
+  <p class="lead">Lógica que vive en la base. Las tablas que usa y escribe cada función se identifican leyendo su código fuente (SQL y PL/pgSQL).</p>
+  <h2>Funciones y procedimientos (${D.programables.length})</h2>
+  ${tabla([{t:"Objeto"},{t:"Tipo"},{t:"Parámetros"},{t:"Devuelve"},{t:"Usa"},{t:"Escribe en"},{t:"Descripción"}],
+    D.programables.map(p => [`<span class="mono">${esc(p.s)}.<b>${esc(p.n)}</b></span>`, esc(p.tipo) + (p.trg_fn ? ' <span class="tag">de trigger</span>' : "") + ` <span class="soft">${esc(p.lang)}</span>`,
+      `<span class="mono soft" style="font-size:11px">${esc(p.args)}</span>`, `<span class="mono soft" style="font-size:11px">${esc(p.ret || "")}</span>`,
+      p.usa.map(tlink).join("<br>"), p.escribe.map(tlink).join("<br>"), desc(p.d)]))}
+  <h2>Triggers (${D.triggers.length})</h2>
+  ${tabla([{t:"Tabla"},{t:"Trigger"},{t:"Función"},{t:"Estado"}], D.triggers.map(g => [tlink(g.tabla), `<span class="mono">${esc(g.n)}</span>`, `<span class="mono">${esc(g.fn)}</span>`, g.estado]))}
+  <h2>Vistas (${D.vistas.length})</h2>
+  ${tabla([{t:"Vista"},{t:"Usa"}], D.vistas.map(v => [tlink(v.v), v.usa.map(tlink).join(", ")]))}
+  ${D.tipos.length ? `<h2>Tipos enumerados (${D.tipos.length})</h2>` + tabla([{t:"Tipo"},{t:"Valores"}], D.tipos.map(x => [`<span class="mono">${esc(x.s)}.${esc(x.n)}</span>`, x.vals.map(v => `<span class="tag mono">${esc(v)}</span>`).join("")])) : ""}`;
+};
+
+V.calidad = () => {
+  const op = operativas().filter(t => !t.apoyo), ap = operativas().filter(t => t.apoyo);
+  const sinPk = op.filter(t => !t.pk.length), vacias = op.filter(t => t.filas === 0), fkSinIdx = D.fks.filter(f => !f.indexada);
+  return `<h1>Calidad del modelo</h1>
+  <p class="lead">Indicadores estructurales calculados sobre las tablas operativas (sin las de apoyo), agrupados por dimensión de calidad de datos (ISO/IEC 25012).</p>
+  ${tabla([{t:"Id"},{t:"Indicador"},{t:"Dimensión"},{t:"Valor",r:1},{t:"Meta"},{t:"Detalle"}],
+    D.kpi.map(k => [k.id, `<a href="#${k.vista}">${esc(k.nombre)}</a>`, esc(k.dim), {h: k.meta.includes("%") ? String(k.valor).replace(".", ",") + " %" : fmt(k.valor), v: k.valor}, esc(k.meta), esc(k.detalle)]))}
+  <h2>Tablas operativas sin clave primaria (${sinPk.length})</h2>
+  ${tabla([{t:"Tabla"},{t:"Filas",r:1},{t:"Claves únicas"}], sinPk.map(t => [tlink(t.s + "." + t.t), fmt(t.filas), t.uq.map(u => `<span class="mono">${esc(u.cols.join(", "))}</span>`).join("; ") || '<span class="soft">ninguna</span>']))}
+  <h2>Tablas operativas sin filas en ${esc(D.entorno)} (${vacias.length})</h2>
+  <p class="muted">Pueden ser módulos aún sin uso en este entorno o estructuras por depurar; la decisión requiere validar con el equipo de desarrollo.</p>
+  ${tabla([{t:"Tabla"},{t:"Dominio"},{t:"Relaciones",r:1},{t:"Mencionada por funciones",r:1}], vacias.map(t => [tlink(t.s + "." + t.t), esc(dom(t.s)), t.fk_out.length + t.fk_in.length, t.prog.length]))}
+  <h2>Tablas de apoyo (${ap.length})</h2>
+  ${tabla([{t:"Tabla"},{t:"Filas",r:1},{t:"Tamaño",r:1}], ap.map(t => [tlink(t.s + "." + t.t), fmt(t.filas), {h: bytes(t.bytes), v: t.bytes}]))}
+  <h2>FK sin índice en la columna hija (${fkSinIdx.length})</h2>
+  ${tabla([{t:"Tabla hija"},{t:"Columnas"},{t:"Tabla padre"},{t:"Filas hija",r:1}], fkSinIdx.map(f => [tlink(f.c), `<span class="mono">${esc(f.cols.join(", "))}</span>`, tlink(f.p), fmt(f.filas)]))}`;
+};
+
+V.identidad = () => {
+  const grupos = ["email", "documento"].map(tp => [tp, D.identidad.filter(i => i.tipo === tp)]);
+  return `<h1>Identidad replicada</h1>
+  <p class="lead">Columnas de correo electrónico y de documento de identidad en todos los esquemas, comparadas con la fuente maestra de personas.
+  <b>Valores fuera de la maestra</b> son valores distintos que no existen en ella. Solo se muestran conteos: el portal no contiene valores de datos.</p>
+  ${grupos.map(([tp, xs]) => `<h2>${tp === "email" ? "Correo electrónico" : "Documento de identidad"} · fuente maestra <span class="mono">${esc((xs.find(x => x.maestro) || {}).maestro || "—")}</span></h2>` +
+    tabla([{t:"Tabla"},{t:"Columna"},{t:"Con valor",r:1},{t:"Distintos",r:1},{t:"En la maestra",r:1},{t:"Fuera de la maestra",r:1},{t:"% fuera",r:1},{t:""}],
+      xs.map(i => [tlink(i.tabla), `<span class="mono">${esc(i.col)}</span>`, fmt(i.nn), fmt(i.dist), fmt(i.en_maestro), fmt(i.fuera), {h: i.dist ? pct(i.fuera, i.dist) + " %" : "—", v: i.dist ? i.fuera / i.dist : -1},
+        (i.es_maestro ? '<span class="tag t-brand">fuente maestra</span>' : "") + (i.apoyo ? '<span class="tag">apoyo</span>' : "")]))).join("")}`;
+};
+
+V.personales = () => {
+  const xs = operativas().flatMap(t => t.cols.filter(c => c.pii).map(c => [t, c]));
+  const cats = [...new Set(xs.map(([t, c]) => c.pii.cat))];
+  setTimeout(() => $("#x3").onclick = () => csv("datos_personales.csv", ["esquema","tabla","columna","tipo","categoria","nivel","apoyo"], xs.map(([t, c]) => [t.s, t.t, c.n, c.ty, c.pii.cat, c.pii.nivel, t.apoyo ? "sí" : "no"])));
+  return `<h1>Datos personales</h1>
+  <p class="lead">Columnas que por su nombre contienen datos personales, según las categorías de la Ley 1581 de 2012 y la protección de credenciales.
+  Es una clasificación inicial para validar con el responsable del tratamiento; no se revisan valores.</p>
+  <div class="tools">${cats.map(c => `<span class="tag t-warn">${esc(c)}: ${xs.filter(([t, x]) => x.pii.cat === c).length}</span>`).join("")}<button id="x3">Descargar CSV</button></div>
+  ${tabla([{t:"Tabla"},{t:"Columna"},{t:"Tipo"},{t:"Categoría"},{t:"Nivel"}], xs.map(([t, c]) => [tlink(t.s + "." + t.t) + (t.apoyo ? ' <span class="tag">apoyo</span>' : ""), `<span class="mono">${esc(c.n)}</span>`, `<span class="mono muted">${esc(c.ty)}</span>`, esc(c.pii.cat), c.pii.nivel]))}`;
+};
+
+V.acerca = () => `<h1>Acerca de este portal</h1>
+  <div class="card"><p><b>Fuente.</b> Base <span class="mono">${esc(D.ctx.db)}</span> (${esc(D.entorno)}), ${esc(D.ctx.version)}; extracción de solo lectura del ${esc((D.ctx.fecha||"").replace("T"," "))} con el usuario <span class="mono">${esc(D.ctx.usuario)}</span>.</p>
+  <p><b>Qué contiene.</b> Estructura (esquemas, tablas, columnas, claves, índices, restricciones, funciones, triggers y vistas), estadísticas del planificador, conteos exactos de filas y conteos de validación de relaciones e identidad. <b>No contiene valores de datos.</b></p>
+  <p><b>Descripciones.</b> Las descripciones salen de los comentarios de la base (<span class="mono">COMMENT ON</span>). Las que llevan la marca <span class="tag t-info">propuesta</span> provienen del archivo de trabajo <span class="mono">config/descripciones.csv</span> y aún no están registradas en la base. Lo que no tiene descripción aparece como <span class="pend">Por documentar</span>.</p>
+  <p><b>Cómo se regenera.</b> <span class="mono">python herramientas/extraer.py</span> y luego <span class="mono">python herramientas/generar_portal.py --extraccion extracciones/&lt;fecha&gt;</span>.</p>
+  ${D.repo ? `<p><b>Repositorio con el detalle técnico.</b> <a href="${esc(D.repo)}">${esc(D.repo)}</a></p>` : ""}
+  <p><b>Referencias.</b> ISO/IEC 25012 (modelo de calidad de datos), ISO/IEC 11179 (metadatos), DAMA-DMBOK2, Ley 1581 de 2012 y Decreto 1377 de 2013 (protección de datos personales), Ley 1712 de 2014 (transparencia).</p></div>`;
+
+// ---------- Modelo ER (SVG con disposición por fuerzas, determinista)
+V.modelo = (p, s) => {
+  s = s || (D.esquemas[0] || {}).s; const foco = p.get("foco") || "", conApoyo = p.get("apoyo") === "1";
+  setTimeout(() => dibujarER(s, foco, conApoyo));
+  return `<h1>Modelo entidad-relación</h1>
+  <div class="tools"><select id="es">${D.esquemas.map(e => `<option value="${e.s}"${e.s === s ? " selected" : ""}>${esc(e.nombre)} · ${e.tablas} tablas</option>`).join("")}</select>
+    <label class="muted"><input type="checkbox" id="ap"${conApoyo ? " checked" : ""}> incluir tablas de apoyo</label>
+    <button id="ajus">Ajustar a la vista</button><button id="svgx">Descargar SVG</button></div>
+  <div class="legend"><span><svg width="34" height="8"><line x1="0" y1="4" x2="34" y2="4" stroke="currentColor" stroke-width="1.6"/></svg>FK declarada</span>
+    <span><svg width="34" height="8"><line x1="0" y1="4" x2="34" y2="4" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 4"/></svg>relación implícita</span>
+    <span><span class="tag">tabla de otro dominio</span></span><span class="mono">0..* → 1</span> multiplicidad hijo → padre</div>
+  <div class="er" id="er"><div class="hint">Rueda: acercar · arrastrar: mover · clic en una tabla: abrir su ficha</div></div>`;
+};
+function dibujarER(s, foco, conApoyo) {
+  const css = getComputedStyle(document.documentElement), C = k => css.getPropertyValue(k).trim();
+  $("#es").onchange = e => location.hash = "#modelo/" + e.target.value + (conApoyo ? "?apoyo=1" : "");
+  $("#ap").onchange = e => location.hash = "#modelo/" + s + (e.target.checked ? "?apoyo=1" : "");
+  const propias = Object.keys(T).filter(k => T[k].s === s && "rpf".includes(T[k].k) && !T[k].particion && (conApoyo || !T[k].apoyo));
+  const set = new Set(propias), aristas = [];
+  D.fks.forEach(f => { if (set.has(f.c) || set.has(f.p)) aristas.push({a: f.c, b: f.p, imp: false, lbl: f.mh + " → " + f.mp, cols: f.cols}); });
+  D.implicitas.forEach(i => { if ((set.has(i.c) || set.has(i.p)) && i.nn) aristas.push({a: i.c, b: i.p, imp: true, lbl: "", cols: [i.col]}); });
+  const ext = [...new Set(aristas.flatMap(e => [e.a, e.b]).filter(k => !set.has(k)))];
+  const nodos = [...propias, ...ext].map((k, i) => {
+    const t = T[k] || {t: k, cols: [], pk: []}, ajenas = !set.has(k);
+    const marcadas = ajenas ? [] : t.cols.filter(c => c.pk || c.fk || c.imp);
+    const filas = marcadas.slice(0, 9), w = Math.max(150, Math.min(260, 9 + 7.2 * Math.max((ajenas ? k : t.t).length, ...filas.map(c => c.n.length + 4))));
+    const h = 28 + filas.length * 17 + (marcadas.length > 9 ? 17 : 0) + (ajenas ? 0 : 17);
+    return {k, t, ajenas, filas, mas: marcadas.length - filas.length, w, h, x: Math.cos(i * 2.4) * 40 * Math.sqrt(i + 1), y: Math.sin(i * 2.4) * 40 * Math.sqrt(i + 1), vx: 0, vy: 0};
+  });
+  const idx = Object.fromEntries(nodos.map((n, i) => [n.k, i]));
+  const conectados = new Set(aristas.flatMap(e => [e.a, e.b]));
+  const libres = nodos.filter(n => !conectados.has(n.k)), red = nodos.filter(n => conectados.has(n.k));
+  for (let it = 0; it < 450; it++) {
+    const temp = 1 - it / 450;
+    for (let i = 0; i < red.length; i++) for (let j = i + 1; j < red.length; j++) {
+      const a = red[i], b = red[j]; let dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 1;
+      const min = (a.w + b.w) / 2 * .75 + (a.h + b.h) / 2 * .75 + 40, f = d < min ? (min - d) * .5 : 9000 / (d * d);
+      dx /= d; dy /= d; a.vx -= dx * f; a.vy -= dy * f; b.vx += dx * f; b.vy += dy * f;
+    }
+    aristas.forEach(e => { const a = nodos[idx[e.a]], b = nodos[idx[e.b]]; if (a === b) return; const dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 1, f = (d - 260) * .02;
+      a.vx += dx / d * f; a.vy += dy / d * f; b.vx -= dx / d * f; b.vy -= dy / d * f; });
+    red.forEach(n => { n.vx -= n.x * .004; n.vy -= n.y * .004; n.x += Math.max(-40, Math.min(40, n.vx)) * temp; n.y += Math.max(-40, Math.min(40, n.vy)) * temp; n.vx *= .5; n.vy *= .5; });
+  }
+  let minX = Math.min(0, ...red.map(n => n.x - n.w / 2)), maxY = Math.max(0, ...red.map(n => n.y + n.h / 2)), maxX = Math.max(600, ...red.map(n => n.x + n.w / 2));
+  const cols = Math.max(1, Math.floor((maxX - minX) / 240)); let fila = 0, alto = 0;
+  libres.forEach((n, i) => { if (i && i % cols === 0) { fila += alto + 30; alto = 0; } n.x = minX + (i % cols) * 240 + n.w / 2; n.y = maxY + 90 + fila + n.h / 2; alto = Math.max(alto, n.h); });
+  const borde = (n, x, y) => { const dx = x - n.x, dy = y - n.y, sx = (n.w / 2) / Math.abs(dx || 1e-9), sy = (n.h / 2) / Math.abs(dy || 1e-9), s2 = Math.min(sx, sy); return [n.x + dx * s2, n.y + dy * s2]; };
+  const NS = "http://www.w3.org/2000/svg";
+  let svg = `<svg xmlns="${NS}" id="ersvg" font-family="Segoe UI, system-ui, sans-serif"><g id="vp">`;
+  aristas.forEach(e => { const a = nodos[idx[e.a]], b = nodos[idx[e.b]];
+    if (a === b) { svg += `<path d="M${a.x + a.w / 2} ${a.y - 8} c40 -10 40 26 0 16" fill="none" stroke="${C("--soft")}" stroke-width="1.4"${e.imp ? ' stroke-dasharray="5 4"' : ""}/>`; return; }
+    const [x1, y1] = borde(a, b.x, b.y), [x2, y2] = borde(b, a.x, a.y);
+    svg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${e.imp ? C("--info") : C("--soft")}" stroke-width="1.4"${e.imp ? ' stroke-dasharray="5 4"' : ""}><title>${esc(e.a)} (${esc(e.cols.join(", "))}) → ${esc(e.b)}</title></line>`;
+    svg += `<circle cx="${x2}" cy="${y2}" r="3" fill="${e.imp ? C("--info") : C("--soft")}"/>`;
+    if (e.lbl) svg += `<text x="${(x1 + x2) / 2}" y="${(y1 + y2) / 2 - 4}" font-size="10" text-anchor="middle" fill="${C("--muted")}" stroke="${C("--panel")}" stroke-width="4" paint-order="stroke" font-family="Consolas, monospace">${esc(e.lbl)}</text>`; });
+  nodos.forEach(n => {
+    const x = n.x - n.w / 2, y = n.y - n.h / 2, f = n.k === foco;
+    svg += `<g class="nd" data-k="${esc(n.k)}" style="cursor:pointer"><rect x="${x}" y="${y}" width="${n.w}" height="${n.h}" rx="7" fill="${n.ajenas ? C("--panel2") : C("--panel")}" stroke="${f ? C("--brand2") : C("--line")}" stroke-width="${f ? 2.5 : 1.2}"${n.ajenas ? ' stroke-dasharray="4 3"' : ""}/>`;
+    svg += `<rect x="${x}" y="${y}" width="${n.w}" height="24" rx="7" fill="${n.ajenas ? C("--panel2") : C("--brandbg")}"/><text x="${x + 9}" y="${y + 16}" font-size="12" font-weight="600" fill="${n.ajenas ? C("--muted") : C("--brand")}">${esc(n.ajenas ? n.k : n.t.t)}</text>`;
+    n.filas.forEach((c, i) => { const yy = y + 40 + i * 17; svg += `<text x="${x + 9}" y="${yy}" font-size="11" fill="${C("--text")}" font-family="Consolas, monospace"><tspan fill="${c.pk ? C("--brand2") : c.fk ? C("--ok") : C("--info")}" font-weight="700">${c.pk ? "PK" : c.fk ? "FK" : "↝ "}</tspan> ${esc(c.n)}</text>`; });
+    if (n.mas > 0) svg += `<text x="${x + 9}" y="${y + 40 + n.filas.length * 17}" font-size="11" fill="${C("--soft")}">… ${n.mas} más</text>`;
+    if (!n.ajenas) svg += `<text x="${x + 9}" y="${y + n.h - 7}" font-size="10" fill="${C("--soft")}">${n.t.cols.length} col · ${n.t.filas == null ? "—" : fmt(n.t.filas)} filas</text>`;
+    svg += `</g>`; });
+  svg += `</g></svg>`;
+  const cont = $("#er"); cont.insertAdjacentHTML("afterbegin", svg);
+  const el = $("#ersvg"), vp = $("#vp"); let z = 1, tx = 0, ty = 0;
+  const aplicar = () => vp.setAttribute("transform", `translate(${tx},${ty}) scale(${z})`);
+  const ajustar = () => { const bb = vp.getBBox(), W = cont.clientWidth, H = cont.clientHeight; z = Math.min(1.4, Math.min(W / (bb.width + 60), H / (bb.height + 60)));
+    const fn = foco && nodos[idx[foco]]; if (fn && z < .7) { z = .9; tx = W / 2 - fn.x * z; ty = H / 2 - fn.y * z; } else { tx = (W - bb.width * z) / 2 - bb.x * z; ty = (H - bb.height * z) / 2 - bb.y * z; } aplicar(); };
+  ajustar(); $("#ajus").onclick = ajustar;
+  el.addEventListener("wheel", e => { e.preventDefault(); const r = el.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top, f = e.deltaY < 0 ? 1.15 : 1 / 1.15;
+    tx = mx - (mx - tx) * f; ty = my - (my - ty) * f; z *= f; aplicar(); }, {passive: false});
+  let arr = null, movido = false;
+  el.addEventListener("pointerdown", e => { arr = [e.clientX - tx, e.clientY - ty]; movido = false; });
+  el.addEventListener("pointermove", e => { if (arr) { tx = e.clientX - arr[0]; ty = e.clientY - arr[1]; movido = true; aplicar(); } });
+  el.addEventListener("pointerup", e => { const g = e.target.closest(".nd"); if (!movido && g && T[g.dataset.k]) location.hash = "#tabla/" + encodeURIComponent(g.dataset.k); arr = null; });
+  $("#svgx").onclick = () => { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([el.outerHTML], {type: "image/svg+xml"})); a.download = `modelo_er_${s}.svg`; a.click(); };
+}
+
+// ---------- enrutador
+function ruta(mantenerScroll) {
+  const h = decodeURIComponent(location.hash.slice(1)) || "inicio";
+  const [camino, qs] = h.split("?"), [vista, arg] = [camino.split("/")[0], camino.split("/").slice(1).join("/")];
+  const p = new URLSearchParams(qs || "");
+  document.querySelectorAll("#nav a").forEach(a => a.classList.toggle("on", a.dataset.v === (vista === "tabla" ? "catalogo" : vista)));
+  const foco = document.activeElement && document.activeElement.id, pos = foco === "q" ? document.activeElement.selectionStart : null;
+  app.innerHTML = (V[vista] || V.inicio)(p, arg);
+  if (foco === "q" && $("#q")) { $("#q").focus(); $("#q").setSelectionRange(pos, pos); }
+  if (!mantenerScroll) scrollTo(0, 0);
+}
+addEventListener("hashchange", () => ruta());
+ruta();
+</script>
+</body>
+</html>
