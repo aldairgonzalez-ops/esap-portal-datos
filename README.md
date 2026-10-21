@@ -18,7 +18,7 @@ Todo sale de una **extracción de solo lectura** que no exporta valores de datos
 ## 1. Configurar la conexión (una sola vez)
 1. Copia `config/pg_service.conf.example` a `%APPDATA%\postgresql\.pg_service.conf` en Windows, o a `~/.pg_service.conf` en Linux y macOS. Completa el host de Tailscale, la base y el usuario.
 2. Guarda la contraseña en `%APPDATA%\postgresql\pgpass.conf` con el formato `host:puerto:base:usuario:contraseña`. Si no lo haces, psql la pide en cada ejecución.
-3. Prueba la conexión: `psql "service=esap_qa" -c "select current_database(), inet_server_addr(), version()"`.
+3. Verifica la conexión: `psql "service=esap_qa" -X -f sql/01_verificar_conexion.sql`. Muestra el servidor (confirma que es QA), si la sesión es de solo lectura, si puedes leer todas las tablas, los esquemas y la fuente maestra `auth.personas`.
 
 > Lo recomendable es pedir al DBA un rol de solo lectura con `sql/00_rol_lector.sql`. Aun sin ese rol, la extracción corre en una transacción `READ ONLY` y el servicio fuerza `default_transaction_read_only`.
 
