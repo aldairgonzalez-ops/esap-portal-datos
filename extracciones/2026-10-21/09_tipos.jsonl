@@ -1,0 +1,19 @@
+{"s":"control_interno","n":"estado_tarea","vals":["Pendiente","En Progreso","Completada","Cancelada"],"d":null}
+{"s":"control_interno","n":"estado_validacion_evidencia","vals":["pendiente","aceptado","rechazado","con_observaciones"],"d":null}
+{"s":"control_interno","n":"fase_tarea","vals":["Planeación","Ejecución","Comunicación","Seguimiento"],"d":null}
+{"s":"control_interno","n":"prioridad_tarea","vals":["Baja","Media","Alta","Urgente"],"d":null}
+{"s":"control_interno","n":"rol_ocig","vals":["Jefe OCIG","Auditor Sénior","Auditor","Auditor Júnior","Apoyo Técnico"],"d":null}
+{"s":"control_interno","n":"tipo_documento_evidencia","vals":["evidencia_hallazgo","evidencia_accion","evidencia_plan","documento_plan","certificado","acta","informe","otro"],"d":null}
+{"s":"control_interno","n":"tipo_evento_timeline","vals":["CREACION","ACTUALIZACION","APROBACION","COMPLETADA","EVIDENCIA","COMENTARIO","PROGRESO","ESTADO","HALLAZGO_COMPLETADO"],"d":null}
+{"s":"internal_disciplinary_control","n":"disciplinary_news_estado_enum","vals":["RADICADA","EN_VALORACION","ASIGNADA","DEVUELTA","ARCHIVADA","REMITIDA","ASOCIADA"],"d":null}
+{"s":"internal_disciplinary_control","n":"disciplinary_news_origen_enum","vals":["ANONIMO","QUEJOSO","OFICIO","REMISION","POR_DETERMINAR"],"d":null}
+{"s":"internal_disciplinary_control","n":"disciplinary_processes_estado_enum","vals":["ACTIVO","SUSPENDIDO","ARCHIVADO","PRESCRITO","CERRADO"],"d":null}
+{"s":"internal_disciplinary_control","n":"disciplinary_processes_etapaactual_enum","vals":["EVALUACION","INDAGACION_PREVIA","INVESTIGACION","JUZGAMIENTO","RECEPCION","FALLO","INDAGACION","VALORACION","SEGUNDA_INSTANCIA"],"d":null}
+{"s":"internal_disciplinary_control","n":"estado_alerta_enum","vals":["enviada","pendiente","error"],"d":null}
+{"s":"internal_disciplinary_control","n":"estado_compartido","vals":["ACTIVO","EXPIRADO","INACTIVO"],"d":null}
+{"s":"internal_disciplinary_control","n":"termino_estado_enum","vals":["pendiente","proximo_vencer","vencido","cumplido"],"d":null}
+{"s":"internal_disciplinary_control","n":"tipo_alerta_enum","vals":["email","visual","sistema"],"d":null}
+{"s":"internal_disciplinary_control","n":"tipo_compartido","vals":["LINK","QR","EMAIL"],"d":null}
+{"s":"internal_disciplinary_control","n":"tipo_festivo_enum","vals":["nacional","regional","institucional"],"d":null}
+{"s":"legal_management","n":"estado_proceso_coactivo","vals":["PERSUASIVA","COACTIVA","MEDIDAS_CAUTELARES","EXCEPCIONES","LIQUIDACION"],"d":null}
+{"_fin" : 18}
