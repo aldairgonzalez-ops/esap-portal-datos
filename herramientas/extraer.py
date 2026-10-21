@@ -3,13 +3,13 @@ r"""
 Lanza la extracción del catálogo de la base ESAP (QA) con psql, en SOLO LECTURA.
 
 Crea extracciones/<AAAA-MM-DD> (o la carpeta que se indique) y deja allí un JSONL por consulta.
-La contraseña no pasa por aquí: psql la toma de pgpass.conf o la pide en pantalla.
+La contraseña no pasa por aquí ni se guarda: psql la pide en pantalla en cada ejecución.
 
 Uso (desde la raíz del repositorio; por defecto se conecta a QA 100.127.140.5 / esap_db / postgres):
   python herramientas/extraer.py --verificar-conexion    # evidencia CSV en evidencias/<fecha>/
   python herramientas/extraer.py                         # extracción completa en extracciones/<fecha>/
   python herramientas/extraer.py --servicio esap_qa      # con un servicio de pg_service.conf
-psql pide la contraseña en pantalla salvo que esté en pgpass.conf o en la variable PGPASSWORD.
+psql pide la contraseña en pantalla una vez por comando (no se guarda en pgpass.conf ni en PGPASSWORD).
 
 Busca psql en el PATH y, en Windows, también en las carpetas de pgAdmin 4 y de PostgreSQL.
 """

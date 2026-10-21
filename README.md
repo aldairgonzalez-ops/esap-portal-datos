@@ -17,7 +17,7 @@ Todo sale de una **extracción de solo lectura** que no exporta valores de datos
 
 ## 1. Configurar la conexión (una sola vez)
 1. Copia `config/pg_service.conf.example` a `%APPDATA%\postgresql\.pg_service.conf` en Windows, o a `~/.pg_service.conf` en Linux y macOS. Completa el host de Tailscale, la base y el usuario.
-2. Guarda la contraseña en `%APPDATA%\postgresql\pgpass.conf` con el formato `host:puerto:base:usuario:contraseña`. Si no lo haces, psql la pide en cada ejecución.
+2. La contraseña no se guarda: psql la pide en cada ejecución (política del proyecto).
 3. Verifica la conexión: `psql "service=esap_qa" -X -f sql/01_verificar_conexion_SOLO_PSQL.sql`. Muestra el servidor (confirma que es QA), si la sesión es de solo lectura, si puedes leer todas las tablas, los esquemas y la fuente maestra `auth.personas`.
 
 > Lo recomendable es pedir al DBA un rol de solo lectura con `sql/00_rol_lector.sql`. Aun sin ese rol, la extracción corre en una transacción `READ ONLY` y el servicio fuerza `default_transaction_read_only`.
@@ -25,7 +25,7 @@ Todo sale de una **extracción de solo lectura** que no exporta valores de datos
 > **¿Trabajas desde pgAdmin?** Verifica la conexión con el Query Tool (`sql/pgadmin/01_verificar_conexion_pgadmin.sql`) y extrae con la PSQL Tool de pgAdmin. Los pasos están en `sql/pgadmin/LEEME.md`; así no necesitas configurar `pg_service.conf`.
 
 ## 1b. Camino corto desde la terminal (Windows)
-`extraer.py` se conecta a QA por defecto (`100.127.140.5`, `esap_db`, usuario `postgres`) y usa el `psql` de pgAdmin. Pide la contraseña en pantalla.
+`extraer.py` se conecta a QA por defecto (`100.127.140.5`, `esap_db`, usuario `postgres`) y usa el `psql` de pgAdmin. La contraseña la pide `psql` en pantalla, una vez por comando, y no se guarda.
 ```powershell
 cd "G:\Mi unidad\SuperApp ESAP\Portal_Datos_BD"
 python herramientas/extraer.py --verificar-conexion     # deja evidencias/AAAA-MM-DD/verificacion_conexion.csv

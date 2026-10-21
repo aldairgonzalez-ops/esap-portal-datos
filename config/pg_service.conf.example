@@ -1,5 +1,5 @@
 # Copiar a %APPDATA%\postgresql\.pg_service.conf (Windows) o ~/.pg_service.conf (Linux/macOS).
-# La contraseña NO va aquí: va en %APPDATA%\postgresql\pgpass.conf  ->  host:puerto:base:usuario:contraseña
+# La contraseña no se guarda (política del proyecto): psql la pide en cada ejecución.
 [esap_qa]
 host=100.x.y.z
 port=5432
