@@ -1,0 +1,368 @@
+{
+ "db-json": {
+  "tables": {
+   "<clave>": {
+    "fullname": "str",
+    "schema": "str",
+    "name": "str",
+    "desc": "str",
+    "cols": [
+     [
+      [
+       "str",
+       {
+        "_n": 5
+       }
+      ],
+      {
+       "_n": 10
+      }
+     ],
+     [
+      [
+       "str",
+       {
+        "_n": 5
+       }
+      ],
+      {
+       "_n": 23
+      }
+     ],
+     [
+      [
+       "str",
+       {
+        "_n": 5
+       }
+      ],
+      {
+       "_n": 8
+      }
+     ]
+    ],
+    "fks": [],
+    "procs": [
+     [
+      "str",
+      {
+       "_n": 2
+      }
+     ],
+     [
+      "str",
+      {
+       "_n": 3
+      }
+     ],
+     [
+      "str",
+      {
+       "_n": 4
+      }
+     ]
+    ]
+   },
+   "_n": 647
+  },
+  "procedures": {
+   "<clave>": {
+    "fullname": "str",
+    "schema": "str",
+    "name": "str",
+    "type": "str",
+    "purpose": "str",
+    "tables": [
+     "str",
+     {
+      "_n": 1
+     }
+    ],
+    "params": [
+     [
+      [
+       "str",
+       {
+        "_n": 4
+       }
+      ],
+      {
+       "_n": 1
+      }
+     ],
+     [
+      [
+       "str",
+       {
+        "_n": 4
+       }
+      ],
+      {
+       "_n": 3
+      }
+     ]
+    ],
+    "verbo": "str",
+    "n_params": "num",
+    "n_salida": "num",
+    "n_tablas": "num"
+   },
+   "_n": 3877
+  }
+ },
+ "db-json:valores": {
+  "type": [
+   "Funcion Escalar",
+   "Funcion de Tabla",
+   "Stored Procedure",
+   "Trigger",
+   "Vista"
+  ],
+  "verbo": [
+   "Alta",
+   "Baja",
+   "Cambio",
+   "Carga",
+   "Consulta",
+   "Notificación",
+   "Otro",
+   "Validación"
+  ]
+ },
+ "rel-json": {
+  "generado": "str",
+  "fuente": "str",
+  "inferidas": [
+   {
+    "c": "str",
+    "col": "str",
+    "p": "str",
+    "pc": "str",
+    "amb": "bool",
+    "pct": "num",
+    "orf": "num",
+    "ver": "str",
+    "msg": "null",
+    "nat": "str",
+    "src": "str"
+   },
+   {
+    "_n": 281
+   }
+  ],
+  "cardinalidad": [
+   {
+    "fk": "str",
+    "c": "str",
+    "opt": "num",
+    "uni": "num"
+   },
+   {
+    "_n": 765
+   }
+  ]
+ },
+ "rel-json:valores": {
+  "ver": [
+   "CONFIRMADA",
+   "CONFIRMADA CON HUERFANOS",
+   "DESCARTADA",
+   "DUDOSA",
+   "SIN DATOS",
+   "SIN PADRE CANDIDATO"
+  ],
+  "nat": [
+   "Auditoría / histórico",
+   "Negocio"
+  ],
+  "src": [
+   "bd"
+  ]
+ },
+ "sm-json": {
+  "ctx": {
+   "db": "str",
+   "srv": "str",
+   "fecha": "str"
+  },
+  "domains": [
+   {
+    "name": "str",
+    "tables": [
+     [
+      "str",
+      {
+       "_n": 10
+      }
+     ],
+     [
+      "str",
+      {
+       "_n": 11
+      }
+     ],
+     [
+      "str",
+      {
+       "_n": 12
+      }
+     ],
+     [
+      "str",
+      {
+       "_n": 13
+      }
+     ]
+    ],
+    "main": "bool"
+   },
+   {
+    "_n": 38
+   }
+  ],
+  "tables": {
+   "<clave>": {
+    "rows": "num",
+    "ncol": "num",
+    "d": [
+     "null",
+     "str"
+    ],
+    "cols": [
+     [
+      {
+       "d": "str",
+       "id": "num",
+       "n": "str",
+       "nn": "bool",
+       "pk": "bool",
+       "t": "str"
+      },
+      {
+       "_n": 23
+      }
+     ],
+     [
+      {
+       "d": "str",
+       "n": "str",
+       "nn": "bool",
+       "pk": "bool",
+       "t": "str"
+      },
+      {
+       "_n": 10
+      }
+     ],
+     [
+      {
+       "d": "str",
+       "n": "str",
+       "nn": "bool",
+       "pk": "bool",
+       "t": "str"
+      },
+      {
+       "_n": 8
+      }
+     ]
+    ],
+    "sp": [
+     [
+      "str",
+      {
+       "_n": 2
+      }
+     ],
+     [
+      "str",
+      {
+       "_n": 3
+      }
+     ],
+     [
+      "str",
+      {
+       "_n": 4
+      }
+     ]
+    ]
+   },
+   "_n": 647
+  },
+  "fks": [
+   {
+    "fk": "str",
+    "c": "str",
+    "p": "str",
+    "cc": [
+     "str",
+     {
+      "_n": 1
+     }
+    ],
+    "pc": [
+     "str",
+     {
+      "_n": 1
+     }
+    ],
+    "dis": "bool",
+    "unt": "bool",
+    "one": "bool"
+   },
+   {
+    "_n": 765
+   }
+  ],
+  "smap": {
+   "Acceso": "str",
+   "Alertas": "str",
+   "AlimentosMenu": "str",
+   "API": "str",
+   "Aprobaciones": "str",
+   "Auditoria": "str",
+   "Config": "str",
+   "Configuracion": "str",
+   "Contenidos": "str",
+   "Contratos": "str",
+   "ContratosModificacionPolizas": "str",
+   "CostosETC": "str",
+   "dbo": "str",
+   "ETC": "str",
+   "GestionExcedentes": "str",
+   "GestionSocial": "str",
+   "Gobierno": "str",
+   "Infraestructura": "str",
+   "Minutas": "str",
+   "ModuloUApa": "str",
+   "Parametrizacion": "str",
+   "PlanAlimentario": "str",
+   "PlanAlistamiento": "str",
+   "PlanAlistamientoMenu": "str",
+   "PlanAlistamientoRutas": "str",
+   "Priorizacion": "str",
+   "PTN": "str",
+   "RegistroPagos": "str",
+   "SeguimientoFinanciero": "str",
+   "SeguimientoRaciones": "str",
+   "SeguimientoTecnico": "str",
+   "Seguridad": "str",
+   "SistemaEducativo": "str",
+   "Staging": "str",
+   "PlaneacionFinanciera": "str",
+   "Trayectos": "str",
+   "Vigencias": "str",
+   "CargaMasiva": "str"
+  },
+  "rotas": {
+   "<clave>": [
+    "str",
+    {
+     "_n": 1
+    }
+   ],
+   "_n": 133
+  }
+ }
+}

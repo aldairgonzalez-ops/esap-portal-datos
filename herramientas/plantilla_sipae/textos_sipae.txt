@@ -1,0 +1,10 @@
+6: <title>Portal Interactivo de Datos - SIPAE v2.3</title>
+8: <!-- v2.3 · Catálogo regenerado desde PREPRODUCCIÓN (sql-uapa-sipae-pprd-eus / sqldb-sipae-pprd, 2026-10-09 13:32) para el compromiso 6 del acta GDO-FR-07. Generado por Generar_Portal_v2_3.py
+211: <h1 class="text-sm font-bold tracking-tight text-slate-900 dark:text-white">SIPAE Data Portal</h1>
+272: Base de datos: <span class="text-indigo-600 dark:text-indigo-400 font-semibold">sqldb-sipae-pprd</span> <span class="ml-1 px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-500 text-[10px]">QA</span>
+294: Sistema de Información de Alimentación Escolar (SIPAE)
+354: <i data-lucide="git-branch" class="text-indigo-500 w-5 h-5"></i> Arquitectura Conceptual de Módulos (SIPAE)
+357: La base de datos se encuentra estructurada en múltiples módulos funcionales e integrados para dar soporte a la Unidad Administrativa Especial de Alimentación Escolar (UAPA):
+665: 'ModuloUApa': 'Módulo UAPA',
+970: corte.innerHTML = chip('Base de datos', (ctx.db || 'sqldb-sipae-pprd') + (ctx.srv ? ' · ' + ctx.srv : ''))
+1896: <!-- v2.0: datos del Modelo ER (catálogo sqldb-sipae-pprd, extraído 2026-09-25 14:03) -->
