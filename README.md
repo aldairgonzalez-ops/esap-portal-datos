@@ -2,9 +2,11 @@
 
 Documentación entregable de la base de datos de la SuperApp ESAP (entorno QA):
 
-- **Portal de Datos** (`portal/`): un HTML autónomo que se abre en cualquier navegador sin conexión. Incluye catálogo con buscador, ficha de cada tabla, modelo entidad-relación por dominio, relaciones con multiplicidad UML medida con datos, funciones y triggers, indicadores de calidad, identidad replicada y datos personales.
-- **Resumen ejecutivo** (`informe/`): documento Word para el cliente que cita el portal y este repositorio.
+- **Portal de Datos** (`portal/`): un HTML autónomo que se abre en cualquier navegador, sin conexión. Incluye dominios, un catálogo con buscador, la ficha de cada tabla, las relaciones con multiplicidad UML medida con datos, el modelo entidad-relación por dominio, los programables y los datos personales.
+- **Resumen ejecutivo** (`informe/`): documento Word para el cliente; cita el portal y este repositorio.
 - **Detalle técnico** (`docs/`): el mismo contenido en CSV y Markdown, más el informe de cada extracción.
+
+El entregable describe la base. Los hallazgos, los indicadores con meta y las oportunidades de mejora van en un **informe interno** para el personal del proyecto (`interno/`, fuera de Git; ver la sección 3).
 
 Todo sale de una **extracción de solo lectura** que no exporta valores de datos: solo estructura, estadísticas y conteos.
 
@@ -30,7 +32,15 @@ python herramientas/generar_resumen.py --extraccion extracciones/AAAA-MM-DD --ve
 - Para comparar con un corte anterior, agrega `--anterior extracciones/<fecha previa>` a `generar_portal.py`. El informe listará las tablas, columnas, FK y programables que cambiaron.
 - Para ver el portal, abre el HTML o sirve la carpeta con `python -m http.server 8765` y entra a `http://localhost:8765/portal/`.
 
-## 3. Documentar descripciones (opcional, con aprobación)
+## 3. Informe interno (no se entrega al cliente)
+```powershell
+python herramientas/generar_informe_interno.py --extraccion extracciones/AAAA-MM-DD --version v1.0
+```
+- Genera `interno/Informe_Interno_Hallazgos_BD_ESAP_v1.0.docx` con los indicadores K01–K10 (meta y estado), los hallazgos con su evidencia y las oportunidades de mejora priorizadas, con su responsable sugerido.
+- `generar_portal.py` también deja en `interno/` el portal interno (con las vistas Calidad e Identidad) y los CSV de diagnóstico.
+- `interno/` está en `.gitignore`. Guárdalo en la carpeta de Drive del equipo, no en el repositorio que se entrega.
+
+## 4. Documentar descripciones (opcional, con aprobación)
 1. Registra las descripciones en `config/descripciones.csv` (separador `;`) con el estado `propuesta` o `validada`. El portal las muestra con su marca.
 2. Genera el lote con `python herramientas/generar_comentarios.py --extraccion extracciones/AAAA-MM-DD --lote L001`.
 3. Simula con `psql "service=esap_qa" -X -v aplicar=0 -f sql/metadatos/L001_aplicar_comentarios.sql`.
@@ -48,7 +58,7 @@ python herramientas/generar_resumen.py --extraccion extracciones/AAAA-MM-DD --ve
 | `portal/` · `docs/` · `informe/` | Entregables generados |
 | `pruebas/` | Base sintética para probar el flujo sin tocar QA |
 
-## Indicadores del portal
+## Indicadores (informe y portal internos)
 | Id | Indicador | Dimensión (ISO/IEC 25012) |
 |---|---|---|
 | K01 / K02 | Tablas y columnas con descripción | Comprensibilidad |

@@ -14,3 +14,5 @@ __pycache__/
 *.tmp
 # extracciones de prueba
 extracciones/prueba/
+# uso interno: hallazgos y diagnóstico (no se entrega ni se versiona)
+interno/

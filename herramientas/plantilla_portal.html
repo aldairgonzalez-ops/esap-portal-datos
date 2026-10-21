@@ -94,6 +94,7 @@ footer{color:var(--soft);font-size:12px;text-align:center;padding:30px 10px}
 "use strict";
 const D = JSON.parse(document.getElementById("datos").textContent);
 const T = D.tablas, $ = s => document.querySelector(s), app = $("#app");
+const INT = D.edicion === "interna";
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const fmt = n => n == null ? "—" : Number(n).toLocaleString("es-CO");
 const pct = (a, b) => b ? (100 * a / b).toFixed(1).replace(".", ",") : "0";
@@ -109,7 +110,7 @@ const operativas = () => Object.values(T).filter(t => "rp".includes(t.k) && !t.p
   const c = D.ctx;
   $("#subt").textContent = `Diccionario y modelo de la base ${c.db} · entorno ${D.entorno}`;
   $("#chips").innerHTML = [["Base", c.db], ["Entorno", D.entorno], ["Extracción", (c.fecha || "").replace("T", " ").slice(0, 16)],
-    ["Motor", (c.version || "").split(" on ")[0].split(" (")[0]], ["Portal", D.version]]
+    ["Motor", (c.version || "").split(" on ")[0].split(" (")[0]], ["Portal", D.version + (INT ? " · uso interno" : "")]]
     .map(([k, v]) => `<span class="chip">${k} <b>${esc(v)}</b></span>`).join("");
   $("#pie").innerHTML = `Portal de Datos ESAP ${esc(D.version)} · generado el ${esc(D.generado)} desde la extracción de ${esc(c.db)} (${esc(D.entorno)}) del ${esc((c.fecha||"").slice(0,10))}.` +
     (D.repo ? ` Detalle técnico (consultas, CSV y Markdown): <a href="${esc(D.repo)}">${esc(D.repo)}</a>.` : "");
@@ -119,7 +120,8 @@ const operativas = () => Object.values(T).filter(t => "rp".includes(t.k) && !t.p
 })();
 
 const VISTAS = [["inicio","Inicio"],["dominios","Dominios"],["catalogo","Catálogo"],["relaciones","Relaciones"],["modelo","Modelo ER"],
-  ["programables","Programables"],["calidad","Calidad"],["identidad","Identidad"],["personales","Datos personales"],["acerca","Acerca de"]];
+  ["programables","Programables"],["calidad","Calidad"],["identidad","Identidad"],["personales","Datos personales"],["acerca","Acerca de"]]
+  .filter(([k]) => INT || !["calidad", "identidad"].includes(k));
 $("#nav").innerHTML = VISTAS.map(([k, v]) => `<a href="#${k}" data-v="${k}">${v}</a>`).join("");
 
 // ---------- utilidades de tablas HTML ordenables y exportables
@@ -162,7 +164,7 @@ V.inicio = () => {
   const vistas = Object.values(T).filter(t => "vm".includes(t.k)).length;
   return `<h1>Portal de Datos de la SuperApp ESAP</h1>
   <p class="lead">Documentación de la base de datos <b>${esc(D.ctx.db)}</b> en el entorno <b>${esc(D.entorno)}</b>: qué contiene cada dominio, cómo se relacionan sus tablas
-  y en qué estado está su documentación y su calidad estructural. Todo lo que aparece aquí sale de la base, en una extracción de solo lectura del ${esc((D.ctx.fecha||"").slice(0,10))}.</p>
+  y qué lógica reside en la base. Todo lo que aparece aquí sale de la base, en una extracción de solo lectura del ${esc((D.ctx.fecha||"").slice(0,10))}.</p>
   <div class="grid g4">
     <div class="card kpi"><div class="n">Dominios (esquemas)</div><div class="v">${D.esquemas.length}</div></div>
     <div class="card kpi"><div class="n">Tablas</div><div class="v">${fmt(op.length)}</div><div class="d">${fmt(op.filter(t => t.apoyo).length)} de apoyo · ${fmt(vistas)} vistas</div></div>
@@ -171,13 +173,13 @@ V.inicio = () => {
     <div class="card kpi"><div class="n">Funciones y procedimientos</div><div class="v">${fmt(D.programables.length)}</div><div class="d">${fmt(D.triggers.length)} triggers</div></div>
     <div class="card kpi"><div class="n">Filas (conteo exacto)</div><div class="v">${fmt(op.reduce((a, t) => a + (t.filas || 0), 0))}</div><div class="d">Tamaño total ${bytes(D.ctx.bytes)}</div></div>
   </div>
-  <h2>Indicadores de calidad del modelo</h2>
-  <div class="grid g4">${D.kpi.map(kpiCard).join("")}</div>
+  ${INT ? `<h2>Indicadores de calidad del modelo</h2><div class="grid g4">${D.kpi.map(kpiCard).join("")}</div>` : ""}
   <h2>Cómo leer este portal</h2>
   <div class="grid g3">
     <div class="card"><b>Dominios y Catálogo</b><br><span class="muted">Cada esquema de la base es un dominio funcional. La ficha de cada tabla muestra sus columnas, claves, relaciones, índices y quién la usa.</span></div>
     <div class="card"><b>Relaciones y Modelo ER</b><br><span class="muted">FK declaradas con su cardinalidad UML medida con datos, y relaciones implícitas (por nombre) con el porcentaje de valores que encuentran su registro padre.</span></div>
-    <div class="card"><b>Calidad, Identidad y Datos personales</b><br><span class="muted">Indicadores por dimensión de calidad (ISO/IEC 25012), réplicas de correo y documento frente a la fuente maestra, y columnas con datos personales (Ley 1581 de 2012).</span></div>
+    ${INT ? `<div class="card"><b>Calidad, Identidad y Datos personales</b><br><span class="muted">Indicadores por dimensión de calidad (ISO/IEC 25012), réplicas de correo y documento frente a la fuente maestra, y columnas con datos personales (Ley 1581 de 2012).</span></div>`
+          : `<div class="card"><b>Programables y Datos personales</b><br><span class="muted">Funciones, procedimientos, triggers y vistas con las tablas que usan, y columnas que contienen datos personales según la Ley 1581 de 2012.</span></div>`}
   </div>`;
 };
 V.dominios = () => `<h1>Dominios</h1><p class="lead">Cada esquema agrupa las tablas de un módulo de la SuperApp.</p>
@@ -208,7 +210,7 @@ V.catalogo = (p) => {
   ${tabla([{t:"Tabla"},{t:"Dominio"},{t:"Descripción"},{t:"Filas",r:1},{t:"Columnas",r:1},{t:"Relaciones",r:1},{t:""}],
     lista.map(([key, t]) => [tlink(key), esc(dom(t.s)), desc(t.d, t.de), {h: t.filas == null ? "—" : fmt(t.filas), v: t.filas ?? -1}, t.cols.length,
       t.fk_out.length + t.fk_in.length + t.imp_out.length + t.imp_in.length,
-      `${t.k !== "r" ? `<span class="tag">${t.tipo}</span>` : ""}${t.apoyo ? '<span class="tag">apoyo</span>' : ""}${!t.pk.length && "rp".includes(t.k) ? '<span class="tag">sin PK</span>' : ""}${t.filas === 0 ? '<span class="tag">sin filas</span>' : ""}`]))}
+      `${t.k !== "r" ? `<span class="tag">${t.tipo}</span>` : ""}${t.apoyo ? '<span class="tag">apoyo</span>' : ""}${INT && !t.pk.length && "rp".includes(t.k) ? '<span class="tag">sin PK</span>' : ""}${t.filas === 0 ? '<span class="tag">sin filas</span>' : ""}`]))}
   ${colHits.length ? `<h2>Columnas que coinciden (${fmt(colHits.length)})</h2>` + tabla([{t:"Tabla"},{t:"Columna"},{t:"Tipo"},{t:"Descripción"}],
     colHits.slice(0, 500).map(([key, c]) => [tlink(key), `<span class="mono">${esc(c.n)}</span>`, `<span class="mono muted">${esc(c.ty)}</span>`, desc(c.d, c.de)])) : ""}`;
 };
@@ -230,7 +232,7 @@ V.tabla = (p, key) => {
          c.pii ? `<span class="tag t-warn" title="Clasificación por nombre de columna (Ley 1581 de 2012)">${esc(c.pii.cat)}</span>` : ""].join("")])),
     relaciones: () => `<h3>Referencia a (${fkOut.length + impOut.length})</h3>` + tabla([{t:"Columna"},{t:"Tabla destino"},{t:"Tipo"},{t:"Multiplicidad"},{t:"Medición"}],
         [...fkOut.map(f => [`<span class="mono">${esc(f.cols.join(", "))}</span>`, tlink(f.p), `<span class="tag t-ok">FK</span> <span class="mono soft">${esc(f.n)}</span>`,
-          `<span class="mono">${esc(f.mh)} → ${esc(f.mp)}</span>`, f.filas != null ? `${fmt(f.nn)} con valor · ${fmt(f.dist)} padres distintos${f.huerf ? ` · <b>${fmt(f.huerf)} sin padre</b>` : ""}` : '<span class="soft">FK compuesta: sin medición</span>']),
+          `<span class="mono">${esc(f.mh)} → ${esc(f.mp)}</span>`, f.filas != null ? `${fmt(f.nn)} con valor · ${fmt(f.dist)} padres distintos${INT && f.huerf ? ` · <b>${fmt(f.huerf)} sin padre</b>` : ""}` : '<span class="soft">FK compuesta: sin medición</span>']),
          ...impOut.map(i => [`<span class="mono">${esc(i.col)}</span>`, tlink(i.p), `<span class="tag t-info">implícita</span> <span class="soft">${esc(i.regla)}</span>`, "—",
           `${fmt(i.ok)} de ${fmt(i.nn)} valores encuentran su padre (${String(i.cob).replace(".", ",")} %)`])])
       + `<h3>Es referenciada por (${fkIn.length + impIn.length})</h3>` + tabla([{t:"Tabla origen"},{t:"Columna"},{t:"Tipo"},{t:"Multiplicidad"}],
@@ -259,17 +261,17 @@ V.tabla = (p, key) => {
 V.relaciones = () => {
   setTimeout(() => {
     $("#x1").onclick = () => csv("relaciones_fk.csv", ["origen","columnas","destino","columnas_destino","fk","multiplicidad_hijo","multiplicidad_padre","filas_con_valor","padres_distintos","max_hijos_por_padre","sin_padre","indice_en_hija"],
-      D.fks.map(f => [f.c, f.cols.join(","), f.p, f.pcols.join(","), f.n, f.mh, f.mp, f.nn, f.dist, f.maxh, f.huerf, f.indexada ? "sí" : "no"]));
+      D.fks.map(f => [f.c, f.cols.join(","), f.p, f.pcols.join(","), f.n, f.mh, f.mp, f.nn, f.dist, f.maxh, INT ? f.huerf : "", INT ? (f.indexada ? "sí" : "no") : ""]));
     $("#x2").onclick = () => csv("relaciones_implicitas.csv", ["origen","columna","destino","columna_destino","regla","valores","con_padre","sin_padre","cobertura_pct","estado"],
       D.implicitas.map(i => [i.c, i.col, i.p, i.pcol, i.regla, i.nn, i.ok, i.sin_padre, i.cob, i.estado]));
   });
   return `<h1>Relaciones</h1>
   <p class="lead">Multiplicidad UML medida con los datos de ${esc(D.entorno)}: <span class="mono">hijo → padre</span>. Por ejemplo, <span class="mono">0..* → 1</span> indica que cada fila hija tiene siempre un padre y que un padre puede tener cero o muchos hijos.</p>
   <div class="tools"><b>FK declaradas (${D.fks.length})</b><button id="x1">Descargar CSV</button></div>
-  ${tabla([{t:"Tabla hija"},{t:"Columnas"},{t:"Tabla padre"},{t:"Multiplicidad"},{t:"Padres distintos",r:1},{t:"Máx. hijos",r:1},{t:"Sin padre",r:1},{t:"Índice"}],
-    D.fks.map(f => [tlink(f.c), `<span class="mono">${esc(f.cols.join(", "))}</span>`, tlink(f.p), `<span class="mono">${esc(f.mh)} → ${esc(f.mp)}</span>`, fmt(f.dist), fmt(f.maxh), fmt(f.huerf),
-      f.indexada ? '<span class="tag t-ok">sí</span>' : '<span class="tag">por revisar</span>']))}
-  <div class="tools" style="margin-top:22px"><b>Relaciones implícitas (${D.implicitas.length})</b><button id="x2">Descargar CSV</button></div>
+  ${tabla([{t:"Tabla hija"},{t:"Columnas"},{t:"Tabla padre"},{t:"Multiplicidad"},{t:"Padres distintos",r:1},{t:"Máx. hijos",r:1}, ...(INT ? [{t:"Sin padre",r:1},{t:"Índice"}] : [])],
+    D.fks.map(f => [tlink(f.c), `<span class="mono">${esc(f.cols.join(", "))}</span>`, tlink(f.p), `<span class="mono">${esc(f.mh)} → ${esc(f.mp)}</span>`, fmt(f.dist), fmt(f.maxh),
+      ...(INT ? [fmt(f.huerf), f.indexada ? '<span class="tag t-ok">sí</span>' : '<span class="tag">por revisar</span>'] : [])]))}
+  <div class="tools" style="margin-top:22px"><b>Relaciones lógicas sin FK declarada (${D.implicitas.length})</b><button id="x2">Descargar CSV</button></div>
   <p class="muted" style="margin-top:-6px">Columnas que por su nombre apuntan a la clave de otra tabla sin FK declarada: R1 = mismo nombre que la clave destino; R2 = id_X / X_id / cod_X hacia la tabla X.</p>
   ${tabla([{t:"Tabla"},{t:"Columna"},{t:"Apunta a"},{t:"Regla"},{t:"Valores",r:1},{t:"Con padre",r:1},{t:"Cobertura",r:1},{t:"Estado"}],
     D.implicitas.map(i => [tlink(i.c), `<span class="mono">${esc(i.col)}</span>`, tlink(i.p) + ` <span class="mono soft">.${esc(i.pcol)}</span>`, i.regla, fmt(i.nn), fmt(i.ok),
@@ -422,7 +424,9 @@ function dibujarER(s, foco, conApoyo) {
 // ---------- enrutador
 function ruta(mantenerScroll) {
   const h = decodeURIComponent(location.hash.slice(1)) || "inicio";
-  const [camino, qs] = h.split("?"), [vista, arg] = [camino.split("/")[0], camino.split("/").slice(1).join("/")];
+  const [camino, qs] = h.split("?"), arg = camino.split("/").slice(1).join("/");
+  let vista = camino.split("/")[0];
+  if (!INT && ["calidad", "identidad"].includes(vista)) vista = "inicio";
   const p = new URLSearchParams(qs || "");
   document.querySelectorAll("#nav a").forEach(a => a.classList.toggle("on", a.dataset.v === (vista === "tabla" ? "catalogo" : vista)));
   const foco = document.activeElement && document.activeElement.id, pos = foco === "q" ? document.activeElement.selectionStart : null;

@@ -3,10 +3,14 @@ r"""
 Genera el Portal de Datos ESAP y el detalle técnico del repositorio a partir de una extracción.
 
 Salidas (rutas relativas a la raíz del repositorio):
-  portal/Portal_de_Datos_ESAP_<version>.html   HTML autónomo, sin conexión ni CDN
-  docs/csv/*.csv                               catálogo, columnas, relaciones, indicadores… (separador ;, UTF-8 con BOM)
-  docs/catalogo/*.md                           un Markdown por esquema y un índice
-  docs/informe_extraccion_<version>.md         cifras de la extracción y, si se indica --anterior, cambios frente a ella
+  ENTREGABLE (cliente) · lenguaje descriptivo, sin hallazgos ni recomendaciones
+    portal/Portal_de_Datos_ESAP_<version>.html     HTML autónomo, sin conexión ni CDN
+    docs/csv/*.csv                                 catálogo, columnas, relaciones, programables… (separador ;, UTF-8 con BOM)
+    docs/catalogo/*.md                             un Markdown por esquema y un índice
+    docs/informe_extraccion_<version>.md           cifras de la extracción y, con --anterior, cambios frente a ella
+  USO INTERNO · hallazgos e indicadores con meta
+    interno/Portal_de_Datos_ESAP_<version>_interno.html   portal con las vistas Calidad e Identidad
+    interno/csv/*.csv                                      indicadores, identidad, FK con diagnóstico y listas de hallazgos
 
 Uso:
   python herramientas/generar_portal.py --extraccion extracciones/2026-10-21 --version v1.0
@@ -57,10 +61,9 @@ def generar_csv(m, carpeta):
                   for t in T.values() for i, c in enumerate(t["cols"])])
     escribir_csv(os.path.join(carpeta, "relaciones_fk.csv"),
                  ["tabla_hija", "columnas", "tabla_padre", "columnas_padre", "fk", "multiplicidad_hijo", "multiplicidad_padre", "obligatoria",
-                  "filas_hija", "con_valor", "padres_distintos", "max_hijos_por_padre", "filas_padre", "sin_padre", "indice_en_hija", "on_delete", "on_update", "validada"],
+                  "filas_hija", "con_valor", "padres_distintos", "max_hijos_por_padre", "filas_padre", "on_delete", "on_update"],
                  [[f["c"], ",".join(f["cols"]), f["p"], ",".join(f["pcols"]), f["n"], f["mh"], f["mp"], "sí" if f["oblig"] else "no",
-                   f.get("filas"), f.get("nn"), f.get("dist"), f.get("maxh"), f.get("padres"), f.get("huerf"), "sí" if f["indexada"] else "no",
-                   f["del"], f["upd"], "sí" if f["validada"] else "no"] for f in m["fks"]])
+                   f.get("filas"), f.get("nn"), f.get("dist"), f.get("maxh"), f.get("padres"), f["del"], f["upd"]] for f in m["fks"]])
     escribir_csv(os.path.join(carpeta, "relaciones_implicitas.csv"),
                  ["tabla", "columna", "tabla_destino", "columna_destino", "regla", "valores", "con_padre", "sin_padre", "cobertura_pct", "estado", "otros_destinos_posibles"],
                  [[i["c"], i["col"], i["p"], i["pcol"], i["regla"], i["nn"], i["ok"], i["sin_padre"], i["cob"], i["estado"], ", ".join(i["alternativas"])] for i in m["implicitas"]])
@@ -68,15 +71,31 @@ def generar_csv(m, carpeta):
                  ["esquema", "nombre", "tipo", "lenguaje", "parametros", "devuelve", "usa", "escribe_en", "descripcion", "security_definer"],
                  [[p["s"], p["n"], p["tipo"], p["lang"], p["args"], p["ret"], ", ".join(p["usa"]), ", ".join(p["escribe"]), p["d"], "sí" if p["secdef"] else "no"]
                   for p in m["programables"]])
+    escribir_csv(os.path.join(carpeta, "datos_personales.csv"), ["esquema", "tabla", "columna", "tipo", "categoria", "nivel", "tabla_apoyo"],
+                 [[t["s"], t["t"], c["n"], c["ty"], c["pii"]["cat"], c["pii"]["nivel"], "sí" if t["apoyo"] else "no"]
+                  for t in T.values() if t["k"] in "rp" for c in t["cols"] if c["pii"]])
     escribir_csv(os.path.join(carpeta, "triggers.csv"), ["tabla", "trigger", "funcion", "estado", "definicion"],
                  [[g["tabla"], g["n"], g["fn"], g["estado"], g["def"]] for g in m["triggers"]])
+
+
+def generar_csv_interno(m, carpeta):
+    """Diagnóstico para el equipo interno: indicadores con meta, identidad y listas de hallazgos."""
+    T = m["tablas"]
+    oper = [t for t in T.values() if t["k"] in "rp" and not t["particion"] and not t["apoyo"]]
+    escribir_csv(os.path.join(carpeta, "fk_diagnostico.csv"),
+                 ["tabla_hija", "columnas", "tabla_padre", "fk", "filas_hija", "sin_padre", "indice_en_hija", "validada"],
+                 [[f["c"], ",".join(f["cols"]), f["p"], f["n"], f.get("filas"), f.get("huerf"), "sí" if f["indexada"] else "no",
+                   "sí" if f["validada"] else "no"] for f in m["fks"]])
+    escribir_csv(os.path.join(carpeta, "tablas_sin_pk.csv"), ["esquema", "tabla", "filas", "claves_unicas"],
+                 [[t["s"], t["t"], t["filas"], " | ".join(",".join(u["cols"]) for u in t["uq"])] for t in oper if not t["pk"]])
+    escribir_csv(os.path.join(carpeta, "tablas_sin_filas.csv"), ["esquema", "tabla", "fk_salida", "fk_entrada", "mencionada_por_funciones"],
+                 [[t["s"], t["t"], len(t["fk_out"]), len(t["fk_in"]), len(t["prog"])] for t in oper if t["filas"] == 0])
+    escribir_csv(os.path.join(carpeta, "tablas_apoyo.csv"), ["esquema", "tabla", "filas", "bytes"],
+                 [[t["s"], t["t"], t["filas"], t["bytes"]] for t in T.values() if t["k"] in "rp" and t["apoyo"]])
     escribir_csv(os.path.join(carpeta, "identidad.csv"),
                  ["tipo", "tabla", "columna", "fuente_maestra", "es_maestra", "con_valor", "distintos", "en_maestra", "fuera_de_maestra", "tabla_apoyo"],
                  [[i["tipo"], i["tabla"], i["col"], i["maestro"], "sí" if i["es_maestro"] else "no", i["nn"], i["dist"], i["en_maestro"], i["fuera"],
                    "sí" if i["apoyo"] else "no"] for i in m["identidad"]])
-    escribir_csv(os.path.join(carpeta, "datos_personales.csv"), ["esquema", "tabla", "columna", "tipo", "categoria", "nivel", "tabla_apoyo"],
-                 [[t["s"], t["t"], c["n"], c["ty"], c["pii"]["cat"], c["pii"]["nivel"], "sí" if t["apoyo"] else "no"]
-                  for t in T.values() if t["k"] in "rp" for c in t["cols"] if c["pii"]])
     escribir_csv(os.path.join(carpeta, "indicadores.csv"), ["id", "indicador", "dimension", "valor", "meta", "detalle"],
                  [[k["id"], k["nombre"], k["dim"], k["valor"], k["meta"], k["detalle"]] for k in m["kpi"]])
 
@@ -157,9 +176,9 @@ def informe(m, version, nombre_portal, anterior):
          f"- Esquemas: {len(m['esquemas'])} · tablas: {len(op)} ({sum(1 for t in op if t['apoyo'])} de apoyo) · vistas: {sum(1 for t in m['tablas'].values() if t['k'] in 'vm')}",
          f"- Columnas: {sum(len(t['cols']) for t in op)} · FK: {len(m['fks'])} · relaciones implícitas: {len(m['implicitas'])}",
          f"- Funciones y procedimientos: {len(m['programables'])} · triggers: {len(m['triggers'])} · tipos enumerados: {len(m['tipos'])}",
-         f"- Filas totales: {sum(t['filas'] or 0 for t in op):,}".replace(",", "."), "",
-         "## Indicadores", "", "| Id | Indicador | Dimensión | Valor | Meta | Detalle |", "|---|---|---|--:|---|---|"]
-    L += [f"| {x['id']} | {x['nombre']} | {x['dim']} | {str(x['valor']).replace('.', ',')}{' %' if '%' in x['meta'] else ''} | {x['meta']} | {md_celda(x['detalle'])} |" for x in k]
+         f"- Filas totales: {sum(t['filas'] or 0 for t in op):,}".replace(",", "."),
+         f"- Tablas y columnas con descripción registrada: {sum(1 for t in op if t['d'])} de {len(op)} tablas · "
+         f"{sum(1 for t in op for c in t['cols'] if c['d'])} de {sum(len(t['cols']) for t in op)} columnas"]
     if anterior:
         L += comparar(m, anterior)
     return "\n".join(L) + "\n"
@@ -182,32 +201,39 @@ def main():
         sys.exit(f"No se generó el portal: {e}")
 
     nombre = f"Portal_de_Datos_ESAP_{a.version}.html"
-    datos = {k: m[k] for k in ("ctx", "esquemas", "tablas", "fks", "implicitas", "programables", "triggers", "vistas", "tipos", "identidad", "kpi")}
-    datos["vistas"] = [{"v": v["v"], "usa": v["usa"]} for v in m["vistas"]]
-    datos.update({"version": a.version, "entorno": a.entorno, "repo": a.repo, "generado": f"{datetime.datetime.now():%Y-%m-%d %H:%M}"})
+    nombre_int = f"Portal_de_Datos_ESAP_{a.version}_interno.html"
+    base = {k: m[k] for k in ("ctx", "esquemas", "tablas", "fks", "implicitas", "programables", "triggers", "tipos")}
+    base["vistas"] = [{"v": v["v"], "usa": v["usa"]} for v in m["vistas"]]
+    base.update({"version": a.version, "entorno": a.entorno, "repo": a.repo, "generado": f"{datetime.datetime.now():%Y-%m-%d %H:%M}"})
+    interna = dict(base, edicion="interna", identidad=m["identidad"], kpi=m["kpi"])
+    # La edición para el cliente no lleva diagnóstico: ni indicadores con meta, ni identidad, ni conteos de valores sin padre.
+    cliente = dict(base, edicion="cliente", identidad=[], kpi=[],
+                   fks=[{k: v for k, v in f.items() if k not in ("huerf", "indexada", "validada")} for f in m["fks"]])
     texto_inf = informe(m, a.version, nombre, os.path.abspath(a.anterior) if a.anterior else None)
     print(texto_inf[:3000])
     if a.simular:
         print("Simulación: no se escribió nada.")
         return
 
-    carga = json.dumps(datos, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
-    html = open(PLANTILLA, encoding="utf-8").read()
-    if html.count("/*__DATOS__*/") != 1:
+    plantilla = open(PLANTILLA, encoding="utf-8").read()
+    if plantilla.count("/*__DATOS__*/") != 1:
         sys.exit("La plantilla no tiene exactamente un marcador /*__DATOS__*/")
-    html = html.replace("/*__DATOS__*/", carga).replace("__VERSION__", a.version)
-    destino = os.path.join(RAIZ, "portal", nombre)
-    os.makedirs(os.path.dirname(destino), exist_ok=True)
-    if os.path.exists(destino):
-        print(f"Aviso: {nombre} ya existía y se reemplaza. Para conservar versiones anteriores usa otra --version.")
-    open(destino, "w", encoding="utf-8", newline="\n").write(html)
+    for datos, carpeta, archivo in ((cliente, "portal", nombre), (interna, "interno", nombre_int)):
+        carga = json.dumps(datos, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+        html = plantilla.replace("/*__DATOS__*/", carga).replace("__VERSION__", a.version)
+        destino = os.path.join(RAIZ, carpeta, archivo)
+        os.makedirs(os.path.dirname(destino), exist_ok=True)
+        if os.path.exists(destino):
+            print(f"Aviso: {archivo} ya existía y se reemplaza. Para conservar versiones anteriores usa otra --version.")
+        open(destino, "w", encoding="utf-8", newline="\n").write(html)
+        print(f"Portal {datos['edicion']}: {carpeta}/{archivo} ({len(html) / 1048576:.2f} MB)")
 
     generar_csv(m, os.path.join(RAIZ, "docs", "csv"))
+    generar_csv_interno(m, os.path.join(RAIZ, "interno", "csv"))
     generar_md(m, os.path.join(RAIZ, "docs", "catalogo"), nombre)
     ruta_inf = os.path.join(RAIZ, "docs", f"informe_extraccion_{a.version}.md")
     open(ruta_inf, "w", encoding="utf-8").write(texto_inf)
-    print(f"Portal:  portal/{nombre} ({len(html) / 1048576:.2f} MB)")
-    print("Detalle: docs/csv/, docs/catalogo/ y", os.path.relpath(ruta_inf, RAIZ))
+    print("Detalle: docs/csv/, docs/catalogo/ y", os.path.relpath(ruta_inf, RAIZ), "· uso interno: interno/csv/")
 
 
 if __name__ == "__main__":
