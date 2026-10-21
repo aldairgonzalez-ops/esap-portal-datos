@@ -1,0 +1,425 @@
+﻿tabla_hija;columnas;tabla_padre;columnas_padre;fk;multiplicidad_hijo;multiplicidad_padre;obligatoria;filas_hija;con_valor;padres_distintos;max_hijos_por_padre;filas_padre;on_delete;on_update
+academic-schedule.asignacion_docente;id_docente;auth.personas;id_person;asignacion_docente_id_docente_fkey;0..1;1;sí;0;0;0;0;409;restringir;sin acción
+academic-schedule.asignacion_docente;id_grupo;academic-schedule.grupo;id_grupo;asignacion_docente_id_grupo_fkey;0..1;1;sí;0;0;0;0;2;cascada;sin acción
+academic-schedule.concertacion_docencia;id_docente;auth.personas;id_person;concertacion_docencia_id_docente_fkey;0..1;1;sí;0;0;0;0;409;restringir;sin acción
+academic-schedule.concertacion_firma;id_concertacion;academic-schedule.concertacion_docencia;id_concertacion;concertacion_firma_id_concertacion_fkey;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+academic-schedule.concertacion_historial;id_concertacion;academic-schedule.concertacion_docencia;id_concertacion;concertacion_historial_id_concertacion_fkey;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+academic-schedule.concertacion_revision;id_concertacion;academic-schedule.concertacion_docencia;id_concertacion;concertacion_revision_id_concertacion_fkey;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+academic-schedule.equivalencia_periodo;codigo_programacion;academic-schedule.periodo_programacion;codigo;equivalencia_periodo_codigo_programacion_fkey;0..1;1;sí;5;5;5;1;5;restringir;sin acción
+academic-schedule.franja_horaria;id_asignatura;academic_work_plan.asignatura;id;fk_franja_asignatura;0..*;0..1;no;5;5;2;3;503;restringir;sin acción
+academic-schedule.franja_horaria;id_grupo;academic-schedule.grupo;id_grupo;fk_franja_grupo;1..*;0..1;no;5;5;2;3;2;cascada;sin acción
+academic-schedule.franja_horaria;id_programa;academic_work_plan.programa;id;fk_franja_programa;0..1;0..1;no;5;0;0;0;20;restringir;sin acción
+academic-schedule.franja_horaria;id_periodo;academic-schedule.periodo_programacion;id_periodo;franja_horaria_id_periodo_fkey;0..1;0..1;no;5;0;0;0;5;sin acción;sin acción
+academic-schedule.grupo;id_asignatura;academic_work_plan.asignatura;id;grupo_id_asignatura_fkey;0..1;1;sí;2;2;2;1;503;restringir;sin acción
+academic-schedule.grupo;id_oferta_cetap;academic_work_plan.oferta_cetap_programa;id;grupo_id_oferta_cetap_fkey;0..1;0..1;no;2;0;0;0;337;restringir;sin acción
+academic-schedule.grupo;id_periodo_academico;academic_work_plan.periodo_academico;id;grupo_id_periodo_academico_fkey;0..1;0..1;no;2;1;1;1;2;restringir;sin acción
+academic-schedule.grupo;id_periodo;academic-schedule.periodo_programacion;id_periodo;grupo_id_periodo_fkey;0..1;0..1;no;2;1;1;1;5;sin acción;sin acción
+academic-schedule.jefatura_territorial;id_direccion_territorial;academic_work_plan.direccion_territorial;id;jefatura_territorial_id_direccion_territorial_fkey;0..1;1;sí;0;0;0;0;18;restringir;sin acción
+academic-schedule.jefatura_territorial;id_user;auth.user;id_user;jefatura_territorial_id_user_fkey;0..1;1;sí;0;0;0;0;390;cascada;sin acción
+academic-schedule.programacion_periodo;id_periodo_academico;academic_work_plan.periodo_academico;id;programacion_periodo_id_periodo_academico_fkey;0..1;1;sí;0;0;0;0;2;restringir;sin acción
+academic_registration.certificate_template_config;signer_id;academic_registration.signers;id;certificate_template_config_signer_id_fkey;0..1;0..1;no;1;1;1;1;1;sin acción;sin acción
+academic_registration.certificate_validations;certificate_id;academic_registration.graduation_certificates;id;certificate_validations_certificate_id_fkey;0..*;1;sí;153;153;54;14;161;sin acción;sin acción
+academic_registration.graduate_files;graduate_id;academic_registration.graduates;id;graduate_files_graduate_id_fkey;0..*;1;sí;41;41;19;5;10429;cascada;sin acción
+academic_registration.graduation_certificates;graduate_id;academic_registration.graduates;id;graduation_certificates_graduate_id_fkey;0..*;0..1;no;161;161;72;19;10429;sin acción;sin acción
+academic_registration.graduation_certificates;request_id;academic_registration.graduation_certificate_requests;id;graduation_certificates_request_id_fkey;0..1;1;sí;161;161;161;1;392;sin acción;sin acción
+academic_registration.graduation_request_review_files;request_id;academic_registration.graduation_certificate_requests;id;fk_graduation_request_review_files_request;0..*;1;sí;30;30;21;4;392;cascada;sin acción
+academic_registration.template_config_changes;template_config_id;academic_registration.certificate_template_config;id;template_config_changes_template_config_id_fkey;1..*;1;sí;6;6;1;6;1;sin acción;sin acción
+academic_work_plan.AprobacionJefatura;ptaId;academic_work_plan.PlanTrabajoAcademico;id;AprobacionJefatura_ptaId_fkey;0..*;1;sí;8;8;4;2;8;cascada;sin acción
+academic_work_plan.CarpetaDigital;personaId;academic_work_plan.Persona;id;CarpetaDigital_personaId_fkey;0..1;1;sí;278;278;278;1;283;cascada;cascada
+academic_work_plan.Concertacion;ptaId;academic_work_plan.PlanTrabajoAcademico;id;Concertacion_ptaId_fkey;0..1;1;sí;0;0;0;0;8;cascada;cascada
+academic_work_plan.DetallesPta;ptaId;academic_work_plan.PlanTrabajoAcademico;id;DetallesPta_ptaId_fkey;0..1;1;sí;0;0;0;0;8;cascada;cascada
+academic_work_plan.Docente;personaId;auth.personas;id_person;Docente_personaId_auth_personas_fkey;0..*;1;sí;814;814;301;3;409;restringir;cascada
+academic_work_plan.Documento;personaId;academic_work_plan.Persona;id;Documento_personaId_fkey;0..*;1;sí;2;2;1;2;283;cascada;cascada
+academic_work_plan.DocumentoVersion;documentoId;academic_work_plan.Documento;id;DocumentoVersion_documentoId_fkey;0..1;1;sí;0;0;0;0;2;cascada;cascada
+academic_work_plan.HistorialEstadoPTA;ptaId;academic_work_plan.PlanTrabajoAcademico;id;HistorialEstadoPTA_ptaId_fkey;1..*;1;sí;51;51;8;18;8;cascada;cascada
+academic_work_plan.Persona;usuarioId;academic_work_plan.Usuario;id;Persona_usuarioId_fkey;0..1;1;sí;283;283;283;1;283;cascada;cascada
+academic_work_plan.PersonaPrograma;personaId;academic_work_plan.Persona;id;PersonaPrograma_personaId_fkey;0..1;1;sí;267;267;267;1;283;cascada;cascada
+academic_work_plan.PlanTrabajoAcademico;docenteId;academic_work_plan.Docente;id;PlanTrabajoAcademico_docenteId_fkey;0..1;1;sí;8;8;8;1;814;cascada;cascada
+academic_work_plan.PtaComponentApproval;pta_id;academic_work_plan.PlanTrabajoAcademico;id;PtaComponentApproval_pta_id_fkey;0..*;1;sí;99;99;7;17;8;cascada;sin acción
+academic_work_plan.PtaComponentReview;pta_id;academic_work_plan.PlanTrabajoAcademico;id;PtaComponentReview_pta_id_fkey;0..*;1;sí;23;23;3;10;8;cascada;sin acción
+academic_work_plan.PtaEvento;ptaId;academic_work_plan.PlanTrabajoAcademico;id;PtaEvento_ptaId_fkey;1..*;1;sí;83;83;8;26;8;cascada;sin acción
+academic_work_plan.PtaEvidencia;ptaId;academic_work_plan.PlanTrabajoAcademico;id;PtaEvidencia_ptaId_fkey;0..*;1;sí;2;2;1;2;8;cascada;sin acción
+academic_work_plan.PtaTerritorialApproval;pta_id;academic_work_plan.PlanTrabajoAcademico;id;PtaTerritorialApproval_pta_id_fkey;0..1;1;sí;3;3;3;1;8;cascada;sin acción
+academic_work_plan.PtaTerritorialReview;pta_id;academic_work_plan.PlanTrabajoAcademico;id;PtaTerritorialReview_pta_id_fkey;0..1;1;sí;3;3;3;1;8;cascada;sin acción
+academic_work_plan.RolPermiso;permisoId;academic_work_plan.Permiso;id;RolPermiso_permisoId_fkey;0..1;1;sí;55;55;55;1;58;cascada;cascada
+academic_work_plan.RolPermiso;rolId;academic_work_plan.Rol;id;RolPermiso_rolId_fkey;0..*;1;sí;55;55;2;46;12;cascada;cascada
+academic_work_plan.RundDocumentoPerfil;categoria_codigo;academic_work_plan.RundDocumentoCategoria;codigo;RundDocumentoPerfil_categoria_codigo_fkey;0..*;1;sí;11;11;2;9;10;sin acción;sin acción
+academic_work_plan.RundDocumentoPerfil;reemplaza_id;academic_work_plan.RundDocumentoPerfil;id;RundDocumentoPerfil_reemplaza_id_fkey;0..1;0..1;no;11;0;0;0;11;sin acción;sin acción
+academic_work_plan.RundExtraccionSugerencia;trabajo_id;academic_work_plan.RundExtraccionTrabajo;id;RundExtraccionSugerencia_trabajo_id_fkey;0..1;1;sí;0;0;0;0;0;sin acción;sin acción
+academic_work_plan.RundExtraccionTrabajo;documento_id;academic_work_plan.RundDocumentoPerfil;id;RundExtraccionTrabajo_documento_id_fkey;0..1;1;sí;0;0;0;0;11;sin acción;sin acción
+academic_work_plan.RundMacroDocenteConsultaLog;acceso_externo_id;academic_work_plan.RundAccesoExterno;id;RundMacroDocenteConsultaLog_acceso_externo_id_fkey;0..1;0..1;no;0;0;0;0;0;sin acción;sin acción
+academic_work_plan.Sede;territorialId;academic_work_plan.Territorial;id;Sede_territorialId_fkey;0..*;1;sí;280;280;17;74;21;cascada;cascada
+academic_work_plan.SolicitudPTA;docenteId;academic_work_plan.Docente;id;SolicitudPTA_docenteId_fkey;0..*;1;sí;13;13;9;3;814;cascada;sin acción
+academic_work_plan.UsuarioRol;rolId;academic_work_plan.Rol;id;UsuarioRol_rolId_fkey;0..*;1;sí;278;278;10;268;12;cascada;cascada
+academic_work_plan.UsuarioRol;usuarioId;academic_work_plan.Usuario;id;UsuarioRol_usuarioId_fkey;0..1;1;sí;278;278;278;1;283;cascada;cascada
+academic_work_plan.asignatura;id_facultad;academic_work_plan.facultad;id;asignatura_id_facultad_fkey;1..*;1;sí;503;503;4;344;4;sin acción;sin acción
+academic_work_plan.asignatura;id_nucleo_tematico;academic_work_plan.nucleo_tematico;id;asignatura_id_nucleo_tematico_fkey;0..*;1;sí;503;503;41;55;42;sin acción;sin acción
+academic_work_plan.asignatura;id_programa;academic_work_plan.programa;id;asignatura_id_programa_fkey;0..*;1;sí;503;503;17;88;20;sin acción;sin acción
+academic_work_plan.asignatura;id_ubicacion_semestral;academic_work_plan.ubicacion_semestral;id;asignatura_id_ubicacion_semestral_fkey;0..*;1;sí;503;503;14;66;16;sin acción;sin acción
+academic_work_plan.cetap;id_direccion_territorial;academic_work_plan.direccion_territorial;id;cetap_id_direccion_territorial_fkey;0..*;1;sí;290;290;17;34;18;sin acción;sin acción
+academic_work_plan.cetap_alias;id_cetap;academic_work_plan.cetap;id;cetap_alias_id_cetap_fkey;0..1;1;sí;0;0;0;0;290;sin acción;sin acción
+academic_work_plan.nucleo_tematico;id_programa;academic_work_plan.programa;id;nucleo_tematico_id_programa_fkey;0..1;0..1;no;42;1;1;1;20;sin acción;sin acción
+academic_work_plan.oferta_cetap_programa;id_cetap;academic_work_plan.cetap;id;oferta_cetap_programa_id_cetap_fkey;0..*;1;sí;337;337;273;17;290;sin acción;sin acción
+academic_work_plan.oferta_cetap_programa;id_periodo_academico;academic_work_plan.periodo_academico;id;oferta_cetap_programa_id_periodo_academico_fkey;1..*;1;sí;337;337;2;327;2;sin acción;sin acción
+academic_work_plan.oferta_cetap_programa;id_programa;academic_work_plan.programa;id;oferta_cetap_programa_id_programa_fkey;0..*;1;sí;337;337;17;273;20;sin acción;sin acción
+academic_work_plan.periodo_cetap;id_cetap;academic_work_plan.cetap;id;fk_periodo_cetap_cetap;1..*;1;sí;576;576;290;2;290;sin acción;sin acción
+academic_work_plan.periodo_cetap;id_periodo_academico;academic_work_plan.periodo_academico;id;fk_periodo_cetap_periodo_academico;1..*;1;sí;576;576;2;290;2;sin acción;sin acción
+academic_work_plan.programa;id_periodo_academico;academic_work_plan.periodo_academico;id;fk_programa_periodo_academico;0..*;0..1;no;20;6;1;6;2;poner nulo;sin acción
+academic_work_plan.programa;id_facultad;academic_work_plan.facultad;id;programa_id_facultad_fkey;1..*;1;sí;20;20;4;7;4;sin acción;sin acción
+academic_work_plan.validacion_documental;docente_id;academic_work_plan.Docente;id;validacion_documental_docente_id_fkey;0..*;1;sí;12000;12000;361;36;814;cascada;sin acción
+auth.acreditaciones_programa;programa_id;auth.programas_academicos;id;acreditaciones_programa_programa_id_fkey;0..1;1;sí;5;5;5;1;12;cascada;sin acción
+auth.carpeta_digital;persona_id;auth.personas;id_person;fk_carpeta_digital_persona;0..1;1;sí;409;409;409;1;409;cascada;sin acción
+auth.dependencias_cargos;id_cargo;auth.cargos;id_cargo;dependencias_cargos_id_cargo_fkey;0..*;1;sí;30;30;15;5;17;cascada;sin acción
+auth.dependencias_cargos;id_dependencia;auth.dependencias;id_dependencia;dependencias_cargos_id_dependencia_fkey;1..*;1;sí;30;30;7;5;7;cascada;sin acción
+auth.documento_carpeta_digital;carpeta_digital_id;auth.carpeta_digital;id_carpeta_digital;fk_documento_carpeta_digital;0..1;1;sí;0;0;0;0;409;cascada;sin acción
+auth.documento_carpeta_digital;tipo_documento_id;auth.tipo_documento;id_tipo_documento;fk_documento_tipo_documento;0..1;0..1;no;0;0;0;0;4;poner nulo;sin acción
+auth.geopolitica;id_padre;auth.geopolitica;id_geopolitica;fk_geopolitica_padre;0..*;0..1;no;1155;1122;33;125;1155;sin acción;sin acción
+auth.permission;id_module;auth.module;id_module;fk_permission_module;0..*;1;sí;704;704;22;118;23;sin acción;sin acción
+auth.personas;id_cargo;auth.cargos;id_cargo;fk_personas_cargo;0..1;0..1;no;409;2;2;1;17;poner nulo;sin acción
+auth.personas;id_dependencia;auth.dependencias;id_dependencia;fk_personas_dependencia;0..*;0..1;no;409;409;5;398;7;poner nulo;cascada
+auth.personas;id_seccional;auth.seccionales;id_seccional;fk_personas_seccional;0..*;0..1;no;409;354;26;74;38;sin acción;sin acción
+auth.personas;id_sede;auth.sedes;id_sede;fk_personas_sede;0..*;0..1;no;409;55;10;30;615;sin acción;sin acción
+auth.programas_academicos;sede_id;auth.sedes;id_sede;programas_academicos_sede_id_fkey;0..*;1;sí;12;12;1;12;615;restringir;sin acción
+auth.registros_calificados;programa_id;auth.programas_academicos;id;registros_calificados_programa_id_fkey;0..1;1;sí;12;12;12;1;12;cascada;sin acción
+auth.role_permissions;id_permission;auth.permission;id_permission;role_permissions_id_permission_fkey;0..*;1;sí;3112;3112;688;26;704;cascada;sin acción
+auth.role_permissions;id_rol;auth.role;id;role_permissions_id_rol_fkey;0..*;1;sí;3112;3112;123;597;132;cascada;sin acción
+auth.seccionales;id_ubi_seccional;auth.geopolitica;id_geopolitica;fk_seccional_geopolitica;0..*;0..1;no;38;19;17;3;1155;sin acción;sin acción
+auth.sede_cetap_mapping;id_cetap;academic_work_plan.cetap;id;fk_sede_cetap_mapping_cetap;0..1;1;sí;290;290;290;1;290;restringir;sin acción
+auth.sede_cetap_mapping;id_sede;auth.sedes;id_sede;fk_sede_cetap_mapping_sede;0..1;1;sí;290;290;290;1;615;cascada;sin acción
+auth.sedes;id_geopolitica;auth.geopolitica;id_geopolitica;fk_sedes_geopolitica;0..*;1;sí;615;615;17;599;1155;sin acción;sin acción
+auth.sedes;id_seccional;auth.seccionales;id_seccional;fk_sedes_seccional;0..*;0..1;no;615;615;37;36;38;sin acción;sin acción
+auth.tipo_documento;carpeta_digital_id;auth.carpeta_digital;id_carpeta_digital;fk_tipo_documento_carpeta_digital;0..*;0..1;no;4;3;2;2;409;cascada;sin acción
+auth.user;id_person;auth.personas;id_person;fk_user_personas_id_person;0..1;0..1;no;390;390;390;1;409;sin acción;sin acción
+auth.user_roles;id_rol;auth.role;id;user_roles_id_rol_fkey;0..*;1;sí;408;408;74;264;132;cascada;sin acción
+auth.user_roles;id_user;auth.user;id_user;user_roles_id_user_fkey;1..*;1;sí;408;408;390;3;390;cascada;sin acción
+certification.certificate_correction_requests;certificate_id;certification.certificates;id;certificate_correction_requests_certificate_id_fkey;0..1;1;sí;9;9;9;1;130;restringir;sin acción
+certification.certificate_template_config;signer_id;certification.template_signers;id;certificate_template_config_signer_id_fkey;1..*;0..1;no;3;3;1;3;1;poner nulo;sin acción
+certification.certificate_validations;certificate_id;certification.certificates;id;certificate_validations_certificate_id_fkey;0..*;1;sí;42;42;20;7;130;sin acción;sin acción
+certification.certificates;request_id;certification.certificate_requests;id;certificates_request_id_fkey;0..*;1;sí;130;130;19;72;15250;sin acción;sin acción
+certification.labor_functions;profile_id;certification.labor_function_profiles;id;labor_functions_profile_id_fkey;1..*;1;sí;190;190;19;13;19;cascada;sin acción
+certification.technical_bonus_assignments;request_id;certification.certificate_requests;id;fk_technical_bonus_request;0..*;0..1;no;53;53;52;2;15250;poner nulo;sin acción
+certification.template_config_changes;template_config_id;certification.certificate_template_config;id;template_config_changes_template_config_id_fkey;0..*;0..1;no;206;206;2;143;3;cascada;sin acción
+chatbot.mensaje;conversacion_id;chatbot.conversacion;id;mensaje_conversacion_id_fkey;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+control_interno.accion_correctiva;plan_id;control_interno.plan_mejoramiento;id;fk_accion_correctiva_plan;0..*;1;sí;29;29;10;8;14;cascada;sin acción
+control_interno.accion_mejora;plan_mejoramiento_id;control_interno.plan_mejoramiento;id;fk_accion_plan_mejoramiento;0..1;1;sí;0;0;0;0;14;cascada;sin acción
+control_interno.actividad_etapa_auditoria;etapa_id;control_interno.etapa_auditoria;id;fk_actividad_etapa;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+control_interno.actividad_plan_anual_5;rol_id;control_interno.rol_plan_anual_5;id;fk_actividad_rol_5;0..*;1;sí;1604;1604;396;18;405;cascada;sin acción
+control_interno.actividad_proceso_auditoria;auditoria_id;control_interno.auditoria;id;fk_actividad_auditoria;0..1;1;sí;0;0;0;0;70;cascada;sin acción
+control_interno.actividad_proceso_auditoria;completada_por_id;auth.personas;id_person;fk_actividad_completada_por;0..1;0..1;no;0;0;0;0;409;poner nulo;sin acción
+control_interno.actividad_rol;rol_id;control_interno.rol_decreto_648;id;fk_actividad_rol;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+control_interno.adjunto_actividad_plan_anual_5;actividad_id;control_interno.actividad_plan_anual_5;id;adjunto_actividad_plan_anual_5_actividad_id_fkey;0..*;1;sí;21;21;10;6;1604;cascada;sin acción
+control_interno.alerta_plan;accion_id;control_interno.accion_correctiva;id;alerta_plan_accion_id_fkey;0..1;0..1;no;21;21;21;1;29;poner nulo;sin acción
+control_interno.alerta_plan;plan_id;control_interno.plan_mejoramiento;id;alerta_plan_plan_id_fkey;0..*;1;sí;21;21;7;7;14;cascada;sin acción
+control_interno.ampliacion_plazo;auditoria_id;control_interno.auditoria;id;fk_ampliacion_auditoria;0..1;1;sí;0;0;0;0;70;cascada;sin acción
+control_interno.auditor_perfil;persona_id;auth.personas;id_person;fk_auditor_perfil_persona;0..1;1;sí;0;0;0;0;409;cascada;sin acción
+control_interno.auditoria;actividad_plan_anual_id;control_interno.actividad_plan_anual_5;id;auditoria_actividad_plan_anual_id_fkey;0..1;0..1;no;70;0;0;0;1604;poner nulo;sin acción
+control_interno.auditoria;auditor_asignado_id;auth.personas;id_person;auditoria_auditor_asignado_id_fkey;0..1;0..1;no;70;0;0;0;409;sin acción;sin acción
+control_interno.auditoria;auditor_lider_id;auth.personas;id_person;auditoria_auditor_lider_id_fkey;0..*;0..1;no;70;62;7;30;409;sin acción;sin acción
+control_interno.auditoria;supervisor_asignado_id;auth.personas;id_person;auditoria_supervisor_asignado_id_fkey;0..*;0..1;no;70;63;5;35;409;sin acción;sin acción
+control_interno.auditoria;auditor_asignado_id;auth.personas;id_person;fk_auditoria_auditor_asignado;0..1;0..1;no;70;0;0;0;409;poner nulo;sin acción
+control_interno.auditoria;auditor_lider_id;auth.personas;id_person;fk_auditoria_auditor_lider;0..*;0..1;no;70;62;7;30;409;poner nulo;sin acción
+control_interno.auditoria;plan_anual_id;control_interno.plan_anual_5_roles;id;fk_auditoria_plan_anual_id;0..*;0..1;no;70;70;15;10;63;poner nulo;sin acción
+control_interno.auditoria;supervisor_asignado_id;auth.personas;id_person;fk_auditoria_supervisor_asignado;0..*;0..1;no;70;63;5;35;409;poner nulo;sin acción
+control_interno.auditoria_especial_info;aprobado_por_id;auth.personas;id_person;fk_especial_aprobado_por;0..1;0..1;no;0;0;0;0;409;poner nulo;sin acción
+control_interno.auditoria_especial_info;auditoria_id;control_interno.auditoria;id;fk_especial_auditoria;0..1;1;sí;0;0;0;0;70;cascada;sin acción
+control_interno.auditoria_gestion;auditoria_programada_id;control_interno.auditoria_programada;id;fk_auditoria_gestion_programada;0..1;0..1;no;0;0;0;0;0;poner nulo;sin acción
+control_interno.auditoria_programada;proceso_id;control_interno.proceso_auditable;id;fk_auditoria_proceso;0..1;1;sí;0;0;0;0;36;restringir;sin acción
+control_interno.auditoria_programada;programa_anual_id;control_interno.plan_anual;id;fk_auditoria_programada_plan_anual;0..1;0..1;no;0;0;0;0;0;poner nulo;sin acción
+control_interno.auditoria_territorial_info;auditoria_id;control_interno.auditoria;id;fk_territorial_auditoria;0..1;1;sí;0;0;0;0;70;cascada;sin acción
+control_interno.cierre_plan;plan_id;control_interno.plan_mejoramiento;id;cierre_plan_plan_id_fkey;0..1;1;sí;2;2;2;1;14;cascada;sin acción
+control_interno.criterio_auditoria;auditoria_id;control_interno.auditoria;id;fk_criterio_auditoria;0..*;1;sí;27;27;26;2;70;cascada;sin acción
+control_interno.cronograma_auditoria;plan_id;control_interno.plan_anual;id;fk_cronograma_plan;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+control_interno.cronograma_fase_auditoria;auditoria_id;control_interno.auditoria;id;fk_cronograma_auditoria;0..1;1;sí;0;0;0;0;70;cascada;sin acción
+control_interno.datos_automaticos_informe;entrega_id;control_interno.entrega_informe_ley;id;fk_datos_entrega;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+control_interno.documento;auditoria_id;control_interno.auditoria;id;fk_documento_auditoria;0..*;0..1;no;77;60;19;11;70;poner nulo;sin acción
+control_interno.documento;documento_biblioteca_id;control_interno.documento;id;fk_documento_biblioteca;0..*;0..1;no;77;20;9;6;77;poner nulo;sin acción
+control_interno.documento;version_anterior_id;control_interno.documento;id;fk_documento_version;0..*;0..1;no;77;39;16;8;77;poner nulo;sin acción
+control_interno.documento_aprobacion;aprobacion_id;control_interno.aprobacion;id;fk_doc_aprobacion;0..1;1;sí;0;0;0;0;10;cascada;sin acción
+control_interno.documento_aprobacion;documento_id;control_interno.documento;id;fk_doc_aprobacion_doc;0..1;0..1;no;0;0;0;0;77;poner nulo;sin acción
+control_interno.documento_plan_mejoramiento;accion_id;control_interno.accion_correctiva;id;documento_plan_mejoramiento_accion_id_fkey;0..1;0..1;no;0;0;0;0;29;cascada;sin acción
+control_interno.documento_plan_mejoramiento;plan_mejoramiento_id;control_interno.plan_mejoramiento;id;documento_plan_mejoramiento_plan_mejoramiento_id_fkey;0..1;1;sí;0;0;0;0;14;cascada;sin acción
+control_interno.entrega_informe_ley;informe_id;control_interno.informe_ley;id;fk_entrega_informe;0..1;1;sí;0;0;0;0;16;cascada;sin acción
+control_interno.equipo_auditor;auditoria_id;control_interno.auditoria;id;fk_equipo_auditoria;0..*;1;sí;160;160;56;11;70;cascada;sin acción
+control_interno.equipo_auditor;persona_id;auth.personas;id_person;fk_equipo_persona;0..*;1;sí;160;160;24;17;409;restringir;sin acción
+control_interno.etapa_auditoria;auditoria_id;control_interno.auditoria_programada;id;fk_etapa_auditoria;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+control_interno.etapa_kanban;tablero_kanban_id;control_interno.tablero_kanban;id;etapa_kanban_tablero_kanban_id_fkey;1..*;1;sí;12;12;2;8;2;cascada;sin acción
+control_interno.evaluacion_proceso;proceso_id;control_interno.proceso_auditable;id;evaluacion_proceso_proceso_id_fkey;0..*;1;sí;54;54;20;9;36;cascada;sin acción
+control_interno.eventos_timeline;plan_mejoramiento_id;control_interno.plan_mejoramiento;id;fk_evento_plan_mejoramiento;1..*;1;sí;265;265;14;68;14;cascada;sin acción
+control_interno.evidencia_accion;accion_id;control_interno.accion_correctiva;id;evidencia_accion_accion_id_fkey;0..1;1;sí;0;0;0;0;29;cascada;sin acción
+control_interno.evidencia_documento;accion_correctiva_id;control_interno.accion_correctiva;id;fk_evidencia_accion;0..1;0..1;no;48;29;29;1;29;cascada;sin acción
+control_interno.evidencia_documento;auditoria_id;control_interno.auditoria;id;fk_evidencia_auditoria;0..*;0..1;no;48;19;13;6;70;poner nulo;sin acción
+control_interno.evidencia_documento;hallazgo_id;control_interno.hallazgo;id;fk_evidencia_hallazgo;0..*;0..1;no;48;19;16;4;34;cascada;sin acción
+control_interno.evidencia_documento;plan_mejoramiento_id;control_interno.plan_mejoramiento;id;fk_evidencia_plan;0..1;0..1;no;48;0;0;0;14;cascada;sin acción
+control_interno.evidencia_documento;version_anterior_id;control_interno.evidencia_documento;id;fk_evidencia_version;0..1;0..1;no;48;0;0;0;48;poner nulo;sin acción
+control_interno.hallazgo;auditoria_id;control_interno.auditoria;id;fk_hallazgo_auditoria;0..*;0..1;no;34;34;20;3;70;poner nulo;sin acción
+control_interno.historial_auditoria;auditoria_id;control_interno.auditoria;id;fk_historial_auditoria;1..*;1;sí;480;480;70;46;70;cascada;sin acción
+control_interno.historial_generacion_informe;entrega_id;control_interno.entrega_informe_ley;id;fk_historial_entrega;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+control_interno.historial_plan_anual;plan_id;control_interno.plan_anual_5_roles;id;fk_historial_plan_anual;1..*;1;sí;29731;29731;63;10881;63;cascada;sin acción
+control_interno.item_lista_chequeo;lista_chequeo_id;control_interno.lista_chequeo;id;item_lista_chequeo_lista_chequeo_id_fkey;0..*;1;sí;109;109;55;9;71;cascada;sin acción
+control_interno.lista_chequeo;tipo_auditoria_id;control_interno.tipo_auditoria;id;lista_chequeo_tipo_auditoria_id_fkey;0..*;0..1;no;71;8;2;7;5;poner nulo;sin acción
+control_interno.logs_auditoria_esap;usuario_id;control_interno.usuarios_esap;id;fk_log_usuario;0..1;0..1;no;0;0;0;0;0;poner nulo;sin acción
+control_interno.normatividad_aplicable;auditoria_id;control_interno.auditoria;id;fk_normatividad_auditoria;0..1;1;sí;0;0;0;0;70;cascada;sin acción
+control_interno.nota_auditoria;auditoria_id;control_interno.auditoria;id;fk_nota_auditoria;0..1;1;sí;0;0;0;0;70;cascada;sin acción
+control_interno.nota_auditoria;autor_id;auth.personas;id_person;fk_nota_autor;0..1;1;sí;0;0;0;0;409;restringir;sin acción
+control_interno.nota_auditoria;editor_id;auth.personas;id_person;fk_nota_editor;0..1;0..1;no;0;0;0;0;409;poner nulo;sin acción
+control_interno.objetivo_auditoria;auditoria_id;control_interno.auditoria;id;fk_objetivo_auditoria;0..*;1;sí;39;39;35;3;70;cascada;sin acción
+control_interno.paso_workflow_informe;workflow_id;control_interno.workflow_aprobacion_informe;id;fk_paso_workflow;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+control_interno.plan_individual;auditoria_id;control_interno.auditoria_programada;id;fk_plan_individual_auditoria;0..1;1;sí;0;0;0;0;0;restringir;sin acción
+control_interno.plan_mejoramiento;auditoria_id;control_interno.auditoria;id;fk_plan_mejoramiento_auditoria;0..1;0..1;no;14;14;14;1;70;poner nulo;sin acción
+control_interno.plan_mejoramiento;hallazgo_id;control_interno.hallazgo;id;fk_plan_mejoramiento_hallazgo;0..1;0..1;no;14;0;0;0;34;poner nulo;sin acción
+control_interno.proceso_auditable;tipo_proceso_id;control_interno.tipo_proceso;id;fk_proceso_auditable_tipo_proceso;1..*;0..1;no;36;36;7;12;7;poner nulo;sin acción
+control_interno.registro_seguimiento;accion_id;control_interno.accion_correctiva;id;fk_registro_seguimiento_accion;0..1;1;sí;0;0;0;0;29;cascada;sin acción
+control_interno.registro_seguimiento;seguimiento_id;control_interno.seguimiento_trimestral;id;fk_registro_seguimiento_seguimiento;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+control_interno.reunion_apertura;documento_biblioteca_id;control_interno.documento;id;fk_reunion_apertura_documento_biblioteca;0..1;0..1;no;15;0;0;0;77;poner nulo;sin acción
+control_interno.reunion_apertura;auditoria_id;control_interno.auditoria;id;fk_reunion_auditoria;0..1;1;sí;15;15;15;1;70;cascada;sin acción
+control_interno.reunion_cierre;auditoria_id;control_interno.auditoria;id;reunion_cierre_auditoria_id_fkey;0..1;1;sí;11;11;11;1;70;cascada;sin acción
+control_interno.reunion_cierre;documento_biblioteca_id;control_interno.documento;id;reunion_cierre_documento_biblioteca_id_fkey;0..1;0..1;no;11;0;0;0;77;poner nulo;sin acción
+control_interno.rol_plan_anual;plan_id;control_interno.plan_anual;id;fk_rol_plan;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+control_interno.seguimiento_plan;plan_id;control_interno.plan_mejoramiento;id;seguimiento_plan_plan_id_fkey;0..1;1;sí;7;7;7;1;14;cascada;sin acción
+control_interno.seguimiento_plan_mejoramiento;plan_id;control_interno.plan_mejoramiento;id;fk_seguimiento_plan;0..1;1;sí;0;0;0;0;14;cascada;sin acción
+control_interno.seguimiento_trimestral;plan_id;control_interno.plan_mejoramiento;id;fk_seguimiento_trimestral_plan;0..1;1;sí;0;0;0;0;14;cascada;sin acción
+control_interno.sesiones_esap;usuario_id;control_interno.usuarios_esap;id;fk_sesion_usuario;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+control_interno.tareas_auditoria;auditoria_id;control_interno.auditoria;id;fk_tarea_auditoria;0..1;1;sí;0;0;0;0;70;cascada;sin acción
+control_interno.workflow_aprobacion_informe;entrega_id;control_interno.entrega_informe_ley;id;fk_workflow_entrega;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+hiring.actas_inicio;acta_documento_id;hiring.documentos;id;actas_inicio_acta_documento_id_fkey;0..1;0..1;no;1;0;0;0;130;sin acción;sin acción
+hiring.actas_inicio;contrato_id;hiring.contratos;id;actas_inicio_contrato_id_fkey;0..1;1;sí;1;1;1;1;1;cascada;sin acción
+hiring.actas_liquidacion;acta_documento_id;hiring.documentos;id;actas_liquidacion_acta_documento_id_fkey;0..1;1;sí;0;0;0;0;130;sin acción;sin acción
+hiring.actas_liquidacion;contrato_id;hiring.contratos;id;actas_liquidacion_contrato_id_fkey;0..1;1;sí;0;0;0;0;1;cascada;sin acción
+hiring.actas_liquidacion;paz_y_salvo_documento_id;hiring.documentos;id;actas_liquidacion_paz_y_salvo_documento_id_fkey;0..1;0..1;no;0;0;0;0;130;sin acción;sin acción
+hiring.actividades_excluidas;modalidad;hiring.modalidades;codigo;actividades_excluidas_modalidad_fkey;1..*;1;sí;161;161;11;25;11;sin acción;sin acción
+hiring.actividades_excluidas;numeral;hiring.actividades;numeral;actividades_excluidas_numeral_fkey;0..*;1;sí;161;161;47;10;63;sin acción;sin acción
+hiring.actividades_salvedad;modalidad;hiring.modalidades;codigo;actividades_salvedad_modalidad_fkey;0..1;1;sí;0;0;0;0;11;sin acción;sin acción
+hiring.actividades_salvedad;numeral;hiring.actividades;numeral;actividades_salvedad_numeral_fkey;0..1;1;sí;0;0;0;0;63;sin acción;sin acción
+hiring.actos_adjudicacion;acto_documento_id;hiring.documentos;id;actos_adjudicacion_acto_documento_id_fkey;0..1;1;sí;1;1;1;1;130;sin acción;sin acción
+hiring.actos_adjudicacion;evidencia_documento_id;hiring.documentos;id;actos_adjudicacion_evidencia_documento_id_fkey;0..1;0..1;no;1;0;0;0;130;sin acción;sin acción
+hiring.actos_adjudicacion;informe_definitivo_id;hiring.informes_definitivos;id;actos_adjudicacion_informe_definitivo_id_fkey;0..1;1;sí;1;1;1;1;1;sin acción;sin acción
+hiring.actos_adjudicacion;oferente_id;hiring.oferentes;id;actos_adjudicacion_oferente_id_fkey;0..1;1;sí;1;1;1;1;4;sin acción;sin acción
+hiring.actos_adjudicacion;proceso_id;hiring.procesos;id;actos_adjudicacion_proceso_id_fkey;0..1;1;sí;1;1;1;1;10;cascada;sin acción
+hiring.adendas;documento_id;hiring.documentos;id;adendas_documento_id_fkey;0..1;1;sí;3;3;3;1;130;sin acción;sin acción
+hiring.adendas;evidencia_documento_id;hiring.documentos;id;adendas_evidencia_documento_id_fkey;0..1;0..1;no;3;3;3;1;130;sin acción;sin acción
+hiring.adendas;proceso_id;hiring.procesos;id;adendas_proceso_id_fkey;0..1;1;sí;3;3;3;1;10;cascada;sin acción
+hiring.afiliaciones_arl;contrato_id;hiring.contratos;id;afiliaciones_arl_contrato_id_fkey;0..1;1;sí;0;0;0;0;1;cascada;sin acción
+hiring.afiliaciones_arl;soporte_documento_id;hiring.documentos;id;afiliaciones_arl_soporte_documento_id_fkey;0..1;1;sí;0;0;0;0;130;sin acción;sin acción
+hiring.alcances_permiso;numeral;hiring.actividades;numeral;alcances_permiso_numeral_fkey;0..*;0..1;no;313;177;41;12;63;sin acción;sin acción
+hiring.alcances_permiso;rol_id;auth.role;id;alcances_permiso_rol_id_fkey;0..*;1;sí;313;313;14;60;132;cascada;sin acción
+hiring.amparos;garantia_id;hiring.garantias;id;amparos_garantia_id_fkey;0..1;1;sí;1;1;1;1;1;cascada;sin acción
+hiring.amparos;tipo;hiring.tipos_amparo;codigo;amparos_tipo_fkey;0..1;1;sí;1;1;1;1;7;sin acción;sin acción
+hiring.aperturas_proceso;pliego_documento_id;hiring.documentos;id;aperturas_proceso_pliego_documento_id_fkey;0..1;1;sí;3;3;3;1;130;sin acción;sin acción
+hiring.aperturas_proceso;proceso_id;hiring.procesos;id;aperturas_proceso_proceso_id_fkey;0..1;1;sí;3;3;3;1;10;cascada;sin acción
+hiring.aperturas_proceso;resolucion_documento_id;hiring.documentos;id;aperturas_proceso_resolucion_documento_id_fkey;0..1;1;sí;3;3;3;1;130;sin acción;sin acción
+hiring.aperturas_proceso;evidencia_documento_id;hiring.documentos;id;fk_apertura_evidencia;0..1;1;sí;3;3;3;1;130;sin acción;sin acción
+hiring.audiencia_riesgos_config;modalidad;hiring.modalidades;codigo;audiencia_riesgos_config_modalidad_fkey;0..1;1;sí;1;1;1;1;11;sin acción;sin acción
+hiring.audiencias_adjudicacion;acta_documento_id;hiring.documentos;id;audiencias_adjudicacion_acta_documento_id_fkey;0..1;1;sí;1;1;1;1;130;sin acción;sin acción
+hiring.audiencias_adjudicacion;proceso_id;hiring.procesos;id;audiencias_adjudicacion_proceso_id_fkey;0..1;1;sí;1;1;1;1;10;cascada;sin acción
+hiring.audiencias_riesgos;acta_documento_id;hiring.documentos;id;audiencias_riesgos_acta_documento_id_fkey;0..1;1;sí;3;3;3;1;130;sin acción;sin acción
+hiring.audiencias_riesgos;matriz_documento_id;hiring.documentos;id;audiencias_riesgos_matriz_documento_id_fkey;0..1;1;sí;3;3;3;1;130;sin acción;sin acción
+hiring.audiencias_riesgos;proceso_id;hiring.procesos;id;audiencias_riesgos_proceso_id_fkey;0..1;1;sí;3;3;3;1;10;cascada;sin acción
+hiring.audiencias_sancionatorias;acta_documento_id;hiring.documentos;id;audiencias_sancionatorias_acta_documento_id_fkey;0..1;0..1;no;0;0;0;0;130;sin acción;sin acción
+hiring.audiencias_sancionatorias;caso_id;hiring.casos_incumplimiento;id;audiencias_sancionatorias_caso_id_fkey;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+hiring.audiencias_sancionatorias;citacion_documento_id;hiring.documentos;id;audiencias_sancionatorias_citacion_documento_id_fkey;0..1;1;sí;0;0;0;0;130;sin acción;sin acción
+hiring.avisos;numeral;hiring.actividades;numeral;avisos_numeral_fkey;0..1;1;sí;0;0;0;0;63;cascada;sin acción
+hiring.avisos_habilitacion;numeral;hiring.actividades;numeral;avisos_habilitacion_numeral_fkey;0..*;1;sí;156;156;41;10;63;cascada;sin acción
+hiring.avisos_habilitacion;proceso_id;hiring.procesos;id;avisos_habilitacion_proceso_id_fkey;1..*;1;sí;156;156;10;37;10;cascada;sin acción
+hiring.casos_incumplimiento;contrato_id;hiring.contratos;id;casos_incumplimiento_contrato_id_fkey;0..1;1;sí;0;0;0;0;1;cascada;sin acción
+hiring.casos_incumplimiento;documento_id;hiring.documentos;id;casos_incumplimiento_documento_id_fkey;0..1;0..1;no;0;0;0;0;130;sin acción;sin acción
+hiring.casos_incumplimiento;supervision_id;hiring.supervisiones_contrato;id;casos_incumplimiento_supervision_id_fkey;0..1;0..1;no;0;0;0;0;1;sin acción;sin acción
+hiring.causales_contratacion;modalidad;hiring.modalidades;codigo;causales_contratacion_modalidad_fkey;0..*;1;sí;14;14;2;9;11;sin acción;sin acción
+hiring.cdp;documento_id;hiring.documentos;id;cdp_documento_id_fkey;0..1;0..1;no;4;4;4;1;130;sin acción;sin acción
+hiring.cdp;modificacion_id;hiring.modificaciones_contrato;id;cdp_modificacion_id_fkey;0..1;0..1;no;4;0;0;0;0;sin acción;sin acción
+hiring.cdp;proceso_id;hiring.procesos;id;cdp_proceso_id_fkey;0..1;1;sí;4;4;4;1;10;sin acción;sin acción
+hiring.cierres_contrato;contrato_id;hiring.contratos;id;cierres_contrato_contrato_id_fkey;0..1;1;sí;0;0;0;0;1;cascada;sin acción
+hiring.cierres_contrato;soporte_documento_id;hiring.documentos;id;cierres_contrato_soporte_documento_id_fkey;0..1;0..1;no;0;0;0;0;130;sin acción;sin acción
+hiring.cierres_financieros;contrato_id;hiring.contratos;id;cierres_financieros_contrato_id_fkey;0..1;1;sí;0;0;0;0;1;cascada;sin acción
+hiring.cierres_financieros;rp_id;hiring.registros_presupuestales;id;cierres_financieros_rp_id_fkey;0..1;1;sí;0;0;0;0;1;sin acción;sin acción
+hiring.cierres_financieros;soporte_documento_id;hiring.documentos;id;cierres_financieros_soporte_documento_id_fkey;0..1;0..1;no;0;0;0;0;130;sin acción;sin acción
+hiring.comites_evaluadores;memorando_documento_id;hiring.documentos;id;comites_evaluadores_memorando_documento_id_fkey;0..1;1;sí;3;3;3;1;130;sin acción;sin acción
+hiring.comites_evaluadores;proceso_id;hiring.procesos;id;comites_evaluadores_proceso_id_fkey;0..*;1;sí;3;3;2;2;10;cascada;sin acción
+hiring.contratos;contrato_firmado_documento_id;hiring.documentos;id;contratos_contrato_firmado_documento_id_fkey;0..1;0..1;no;1;1;1;1;130;sin acción;sin acción
+hiring.contratos;minuta_documento_id;hiring.documentos;id;contratos_minuta_documento_id_fkey;0..1;1;sí;1;1;1;1;130;sin acción;sin acción
+hiring.contratos;plantilla_id;hiring.plantillas;id;contratos_plantilla_id_fkey;0..1;0..1;no;1;0;0;0;10;sin acción;sin acción
+hiring.contratos;proceso_id;hiring.procesos;id;contratos_proceso_id_fkey;0..1;1;sí;1;1;1;1;10;cascada;sin acción
+hiring.contratos;tipologia;hiring.tipologias_contrato;codigo;contratos_tipologia_fkey;0..1;1;sí;1;1;1;1;12;sin acción;sin acción
+hiring.declaratorias_desiertas;acto_documento_id;hiring.documentos;id;declaratorias_desiertas_acto_documento_id_fkey;0..1;1;sí;0;0;0;0;130;sin acción;sin acción
+hiring.declaratorias_desiertas;evidencia_documento_id;hiring.documentos;id;declaratorias_desiertas_evidencia_documento_id_fkey;0..1;0..1;no;0;0;0;0;130;sin acción;sin acción
+hiring.declaratorias_desiertas;informe_comite_documento_id;hiring.documentos;id;declaratorias_desiertas_informe_comite_documento_id_fkey;0..1;0..1;no;0;0;0;0;130;sin acción;sin acción
+hiring.declaratorias_desiertas;proceso_id;hiring.procesos;id;declaratorias_desiertas_proceso_id_fkey;0..1;1;sí;0;0;0;0;10;cascada;sin acción
+hiring.declaratorias_desiertas;resultado_contradicho_id;hiring.resultados_evaluacion;id;declaratorias_desiertas_resultado_contradicho_id_fkey;0..1;0..1;no;0;0;0;0;2;sin acción;sin acción
+hiring.documentos;expediente_id;hiring.expedientes;id;documentos_expediente_id_fkey;0..*;1;sí;130;130;7;55;10;cascada;sin acción
+hiring.documentos;plantilla_id;hiring.plantillas;id;fk_documento_plantilla;0..*;0..1;no;130;18;6;8;10;poner nulo;sin acción
+hiring.documentos_proceso;documento_id;hiring.documentos;id;documentos_proceso_documento_id_fkey;0..1;1;sí;40;40;40;1;130;sin acción;sin acción
+hiring.documentos_proceso;proceso_id;hiring.procesos;id;documentos_proceso_proceso_id_fkey;0..*;1;sí;40;40;7;9;10;cascada;sin acción
+hiring.entregables_informe;documento_id;hiring.documentos;id;entregables_informe_documento_id_fkey;0..1;0..1;no;0;0;0;0;130;sin acción;sin acción
+hiring.entregables_informe;informe_id;hiring.informes_finales;id;entregables_informe_informe_id_fkey;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+hiring.evidencias_evaluacion;documento_id;hiring.documentos;id;evidencias_evaluacion_documento_id_fkey;0..1;1;sí;0;0;0;0;130;sin acción;sin acción
+hiring.evidencias_evaluacion;resultado_id;hiring.resultados_evaluacion;id;evidencias_evaluacion_resultado_id_fkey;0..1;1;sí;0;0;0;0;2;cascada;sin acción
+hiring.expedientes;proceso_id;hiring.procesos;id;expedientes_proceso_id_fkey;0..1;1;sí;10;10;10;1;10;cascada;sin acción
+hiring.firmas_contrato;contrato_id;hiring.contratos;id;firmas_contrato_contrato_id_fkey;1..*;1;sí;2;2;1;2;1;cascada;sin acción
+hiring.firmas_contrato;evidencia_documento_id;hiring.documentos;id;firmas_contrato_evidencia_documento_id_fkey;0..1;1;sí;2;2;2;1;130;sin acción;sin acción
+hiring.garantias;contrato_id;hiring.contratos;id;garantias_contrato_id_fkey;0..1;1;sí;1;1;1;1;1;cascada;sin acción
+hiring.garantias;documento_id;hiring.documentos;id;garantias_documento_id_fkey;0..1;1;sí;1;1;1;1;130;sin acción;sin acción
+hiring.informes_definitivos;evidencia_documento_id;hiring.documentos;id;informes_definitivos_evidencia_documento_id_fkey;0..1;0..1;no;1;1;1;1;130;sin acción;sin acción
+hiring.informes_definitivos;informe_documento_id;hiring.documentos;id;informes_definitivos_informe_documento_id_fkey;0..1;0..1;no;1;1;1;1;130;sin acción;sin acción
+hiring.informes_definitivos;informe_preliminar_id;hiring.informes_evaluacion;id;informes_definitivos_informe_preliminar_id_fkey;0..1;1;sí;1;1;1;1;2;sin acción;sin acción
+hiring.informes_definitivos;proceso_id;hiring.procesos;id;informes_definitivos_proceso_id_fkey;0..1;1;sí;1;1;1;1;10;cascada;sin acción
+hiring.informes_definitivos;resultado_id;hiring.resultados_evaluacion;id;informes_definitivos_resultado_id_fkey;0..1;1;sí;1;1;1;1;2;sin acción;sin acción
+hiring.informes_evaluacion;evidencia_documento_id;hiring.documentos;id;informes_evaluacion_evidencia_documento_id_fkey;0..1;0..1;no;2;1;1;1;130;sin acción;sin acción
+hiring.informes_evaluacion;informe_documento_id;hiring.documentos;id;informes_evaluacion_informe_documento_id_fkey;0..1;0..1;no;2;2;2;1;130;sin acción;sin acción
+hiring.informes_evaluacion;proceso_id;hiring.procesos;id;informes_evaluacion_proceso_id_fkey;0..1;1;sí;2;2;2;1;10;cascada;sin acción
+hiring.informes_evaluacion;resultado_id;hiring.resultados_evaluacion;id;informes_evaluacion_resultado_id_fkey;0..1;1;sí;2;2;2;1;2;sin acción;sin acción
+hiring.informes_finales;contrato_id;hiring.contratos;id;informes_finales_contrato_id_fkey;0..1;1;sí;0;0;0;0;1;cascada;sin acción
+hiring.informes_finales;informe_documento_id;hiring.documentos;id;informes_finales_informe_documento_id_fkey;0..1;1;sí;0;0;0;0;130;sin acción;sin acción
+hiring.limitaciones_mipyme;proceso_id;hiring.procesos;id;limitaciones_mipyme_proceso_id_fkey;0..1;1;sí;2;2;2;1;10;sin acción;sin acción
+hiring.manifestaciones_mipyme;proceso_id;hiring.procesos;id;manifestaciones_mipyme_proceso_id_fkey;0..1;1;sí;0;0;0;0;10;sin acción;sin acción
+hiring.miembros_comite;comite_id;hiring.comites_evaluadores;id;miembros_comite_comite_id_fkey;0..1;1;sí;3;3;3;1;3;cascada;sin acción
+hiring.modificaciones_contrato;cdp_id;hiring.cdp;id;modificaciones_contrato_cdp_id_fkey;0..1;0..1;no;0;0;0;0;4;sin acción;sin acción
+hiring.modificaciones_contrato;contrato_id;hiring.contratos;id;modificaciones_contrato_contrato_id_fkey;0..1;1;sí;0;0;0;0;1;cascada;sin acción
+hiring.modificaciones_contrato;documento_id;hiring.documentos;id;modificaciones_contrato_documento_id_fkey;0..1;0..1;no;0;0;0;0;130;sin acción;sin acción
+hiring.modificaciones_contrato;reanuda_modificacion_id;hiring.modificaciones_contrato;id;modificaciones_contrato_reanuda_modificacion_id_fkey;0..1;0..1;no;0;0;0;0;0;sin acción;sin acción
+hiring.modificaciones_contrato;rp_id;hiring.registros_presupuestales;id;modificaciones_contrato_rp_id_fkey;0..1;0..1;no;0;0;0;0;1;sin acción;sin acción
+hiring.observaciones_pliego;proceso_id;hiring.procesos;id;observaciones_pliego_proceso_id_fkey;0..*;1;sí;4;4;3;2;10;sin acción;sin acción
+hiring.observaciones_pliego;publicacion_id;hiring.publicaciones_pliego;id;observaciones_pliego_publicacion_id_fkey;1..*;1;sí;4;4;3;2;3;sin acción;sin acción
+hiring.oferentes;recepcion_id;hiring.recepciones_ofertas;id;oferentes_recepcion_id_fkey;1..*;1;sí;4;4;3;2;3;cascada;sin acción
+hiring.oferentes;soporte_documento_id;hiring.documentos;id;oferentes_soporte_documento_id_fkey;0..1;1;sí;4;4;4;1;130;sin acción;sin acción
+hiring.pagos_contrato;contrato_id;hiring.contratos;id;pagos_contrato_contrato_id_fkey;1..*;1;sí;2;2;1;2;1;cascada;sin acción
+hiring.pagos_contrato;factura_documento_id;hiring.documentos;id;pagos_contrato_factura_documento_id_fkey;0..1;1;sí;2;2;2;1;130;sin acción;sin acción
+hiring.pagos_contrato;informe_documento_id;hiring.documentos;id;pagos_contrato_informe_documento_id_fkey;0..1;1;sí;2;2;2;1;130;sin acción;sin acción
+hiring.participaciones_proceso;proceso_id;hiring.procesos;id;participaciones_proceso_proceso_id_fkey;0..*;1;sí;17;17;6;3;10;cascada;sin acción
+hiring.piezas_audiencia;audiencia_id;hiring.audiencias_adjudicacion;id;piezas_audiencia_audiencia_id_fkey;0..1;1;sí;0;0;0;0;1;cascada;sin acción
+hiring.piezas_audiencia;documento_id;hiring.documentos;id;piezas_audiencia_documento_id_fkey;0..1;1;sí;0;0;0;0;130;sin acción;sin acción
+hiring.plazos_ofertas;modalidad;hiring.modalidades;codigo;plazos_ofertas_modalidad_fkey;0..1;1;sí;7;7;7;1;11;sin acción;sin acción
+hiring.plazos_publicacion;modalidad;hiring.modalidades;codigo;plazos_publicacion_modalidad_fkey;0..1;1;sí;7;7;7;1;11;sin acción;sin acción
+hiring.plazos_traslado;modalidad;hiring.modalidades;codigo;plazos_traslado_modalidad_fkey;0..1;1;sí;7;7;7;1;11;sin acción;sin acción
+hiring.proceso_actividades;proceso_id;hiring.procesos;id;proceso_actividades_proceso_id_fkey;1..*;1;sí;590;590;10;62;10;cascada;sin acción
+hiring.procesos;causal;hiring.causales_contratacion;codigo;fk_procesos_causal;0..1;0..1;no;10;0;0;0;14;sin acción;sin acción
+hiring.procesos;modalidad;hiring.modalidades;codigo;fk_procesos_modalidad;0..*;0..1;no;10;10;3;7;11;sin acción;sin acción
+hiring.publicaciones_acta;acta_id;hiring.actas_liquidacion;id;publicaciones_acta_acta_id_fkey;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+hiring.publicaciones_acta;documento_id;hiring.documentos;id;publicaciones_acta_documento_id_fkey;0..1;1;sí;0;0;0;0;130;sin acción;sin acción
+hiring.publicaciones_contrato;contrato_id;hiring.contratos;id;publicaciones_contrato_contrato_id_fkey;0..1;1;sí;1;1;1;1;1;cascada;sin acción
+hiring.publicaciones_contrato;documento_id;hiring.documentos;id;publicaciones_contrato_documento_id_fkey;0..1;1;sí;1;1;1;1;130;sin acción;sin acción
+hiring.publicaciones_modificacion;documento_id;hiring.documentos;id;publicaciones_modificacion_documento_id_fkey;0..1;1;sí;0;0;0;0;130;sin acción;sin acción
+hiring.publicaciones_modificacion;modificacion_id;hiring.modificaciones_contrato;id;publicaciones_modificacion_modificacion_id_fkey;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+hiring.publicaciones_pliego;proceso_id;hiring.procesos;id;publicaciones_pliego_proceso_id_fkey;0..1;1;sí;3;3;3;1;10;sin acción;sin acción
+hiring.recepciones_ofertas;proceso_id;hiring.procesos;id;recepciones_ofertas_proceso_id_fkey;0..1;1;sí;3;3;3;1;10;cascada;sin acción
+hiring.registros_actividad;documento_id;hiring.documentos;id;registros_actividad_documento_id_fkey;0..1;0..1;no;2;2;2;1;130;sin acción;sin acción
+hiring.registros_actividad;numeral;hiring.actividades_con_soporte;numeral;registros_actividad_numeral_fkey;0..1;1;sí;2;2;2;1;14;sin acción;sin acción
+hiring.registros_actividad;proceso_id;hiring.procesos;id;registros_actividad_proceso_id_fkey;0..*;1;sí;2;2;1;2;10;cascada;sin acción
+hiring.registros_presupuestales;contrato_id;hiring.contratos;id;registros_presupuestales_contrato_id_fkey;0..1;1;sí;1;1;1;1;1;cascada;sin acción
+hiring.registros_presupuestales;documento_id;hiring.documentos;id;registros_presupuestales_documento_id_fkey;0..1;0..1;no;1;1;1;1;130;sin acción;sin acción
+hiring.registros_presupuestales;modificacion_id;hiring.modificaciones_contrato;id;registros_presupuestales_modificacion_id_fkey;0..1;0..1;no;1;0;0;0;0;sin acción;sin acción
+hiring.reglas_actividad;modalidad;hiring.modalidades;codigo;reglas_actividad_modalidad_fkey;0..1;0..1;no;13;2;2;1;11;sin acción;sin acción
+hiring.reglas_actividad;numeral;hiring.actividades;numeral;reglas_actividad_numeral_fkey;0..*;1;sí;13;13;2;12;63;cascada;sin acción
+hiring.resoluciones_sancionatorias;caso_id;hiring.casos_incumplimiento;id;resoluciones_sancionatorias_caso_id_fkey;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+hiring.resoluciones_sancionatorias;documento_id;hiring.documentos;id;resoluciones_sancionatorias_documento_id_fkey;0..1;1;sí;0;0;0;0;130;sin acción;sin acción
+hiring.resultados_evaluacion;informe_documento_id;hiring.documentos;id;resultados_evaluacion_informe_documento_id_fkey;0..1;1;sí;2;2;2;1;130;sin acción;sin acción
+hiring.resultados_evaluacion;oferente_id;hiring.oferentes;id;resultados_evaluacion_oferente_id_fkey;0..1;1;sí;2;2;2;1;4;sin acción;sin acción
+hiring.resultados_evaluacion;proceso_id;hiring.procesos;id;resultados_evaluacion_proceso_id_fkey;0..1;1;sí;2;2;2;1;10;cascada;sin acción
+hiring.revisiones;proceso_actividad_id;hiring.proceso_actividades;id;revisiones_proceso_actividad_id_fkey;0..*;1;sí;12;12;8;3;590;cascada;sin acción
+hiring.seguimientos_contrato;contrato_id;hiring.contratos;id;seguimientos_contrato_contrato_id_fkey;0..1;1;sí;1;1;1;1;1;cascada;sin acción
+hiring.seguimientos_contrato;documento_id;hiring.documentos;id;seguimientos_contrato_documento_id_fkey;0..1;1;sí;1;1;1;1;130;sin acción;sin acción
+hiring.seguimientos_contrato;supervision_id;hiring.supervisiones_contrato;id;seguimientos_contrato_supervision_id_fkey;0..1;0..1;no;1;1;1;1;1;sin acción;sin acción
+hiring.sesiones_comite_contratacion;acta_documento_id;hiring.documentos;id;sesiones_comite_contratacion_acta_documento_id_fkey;0..1;0..1;no;4;4;4;1;130;sin acción;sin acción
+hiring.sesiones_comite_contratacion;proceso_id;hiring.procesos;id;sesiones_comite_contratacion_proceso_id_fkey;0..1;1;sí;4;4;4;1;10;cascada;sin acción
+hiring.sobres_economicos;audiencia_id;hiring.audiencias_adjudicacion;id;sobres_economicos_audiencia_id_fkey;0..1;1;sí;1;1;1;1;1;cascada;sin acción
+hiring.sobres_economicos;evidencia_documento_id;hiring.documentos;id;sobres_economicos_evidencia_documento_id_fkey;0..1;0..1;no;1;0;0;0;130;sin acción;sin acción
+hiring.sobres_economicos;oferente_id;hiring.oferentes;id;sobres_economicos_oferente_id_fkey;0..1;1;sí;1;1;1;1;4;cascada;sin acción
+hiring.soportes_pago;documento_id;hiring.documentos;id;soportes_pago_documento_id_fkey;0..1;1;sí;4;4;4;1;130;sin acción;sin acción
+hiring.soportes_pago;pago_id;hiring.pagos_contrato;id;soportes_pago_pago_id_fkey;1..*;1;sí;4;4;2;3;2;cascada;sin acción
+hiring.subsanaciones;informe_id;hiring.informes_evaluacion;id;subsanaciones_informe_id_fkey;0..1;1;sí;1;1;1;1;2;cascada;sin acción
+hiring.subsanaciones;oferente_id;hiring.oferentes;id;subsanaciones_oferente_id_fkey;0..1;1;sí;1;1;1;1;4;cascada;sin acción
+hiring.subsanaciones;respuesta_documento_id;hiring.documentos;id;subsanaciones_respuesta_documento_id_fkey;0..1;0..1;no;1;1;1;1;130;sin acción;sin acción
+hiring.subsanaciones;soporte_documento_id;hiring.documentos;id;subsanaciones_soporte_documento_id_fkey;0..1;1;sí;1;1;1;1;130;sin acción;sin acción
+hiring.supervisiones_contrato;acto_documento_id;hiring.documentos;id;supervisiones_contrato_acto_documento_id_fkey;0..1;1;sí;1;1;1;1;130;sin acción;sin acción
+hiring.supervisiones_contrato;contrato_id;hiring.contratos;id;supervisiones_contrato_contrato_id_fkey;0..1;1;sí;1;1;1;1;1;cascada;sin acción
+hiring.suscripciones_acta_inicio;acta_documento_id;hiring.documentos;id;suscripciones_acta_inicio_acta_documento_id_fkey;0..1;1;sí;1;1;1;1;130;sin acción;sin acción
+hiring.suscripciones_acta_inicio;contrato_id;hiring.contratos;id;suscripciones_acta_inicio_contrato_id_fkey;0..1;1;sí;1;1;1;1;1;cascada;sin acción
+hiring.trazabilidad;proceso_id;hiring.procesos;id;trazabilidad_proceso_id_fkey;1..*;0..1;no;236;234;10;81;10;cascada;sin acción
+hiring.umbrales_comite_contratacion;modalidad;hiring.modalidades;codigo;umbrales_comite_contratacion_modalidad_fkey;0..1;1;sí;1;1;1;1;11;sin acción;sin acción
+hiring.umbrales_modalidad;modalidad;hiring.modalidades;codigo;umbrales_modalidad_modalidad_fkey;0..1;1;sí;3;3;3;1;11;sin acción;sin acción
+infrastructure-management.bloque_edificio;id_sede;infrastructure-management.sede;id_sede;bloque_edificio_id_sede_fkey;1..*;1;sí;23;23;7;5;7;cascada;sin acción
+infrastructure-management.espacio_fisico;id_bloque;infrastructure-management.bloque_edificio;id_bloque;espacio_fisico_id_bloque_fkey;1..*;1;sí;81;81;23;6;23;cascada;sin acción
+infrastructure-management.solicitud_evidencia;id_solicitud;infrastructure-management.solicitud_mantenimiento;id_solicitud;fk_solicitud_evidencia_solicitud;0..1;0..1;no;6;0;0;0;0;cascada;sin acción
+infrastructure-management.solicitud_mantenimiento;id_espacio;infrastructure-management.espacio_fisico;id_espacio;solicitud_mantenimiento_id_espacio_fkey;0..1;0..1;no;0;0;0;0;81;poner nulo;sin acción
+infrastructure-management.solicitud_mantenimiento;id_sede;infrastructure-management.sede;id_sede;solicitud_mantenimiento_id_sede_fkey;0..1;1;sí;0;0;0;0;7;cascada;sin acción
+infrastructure-management.solicitud_valoracion;id_solicitud_mantenimiento;infrastructure-management.solicitud_mantenimiento;id_solicitud;solicitud_valoracion_id_solicitud_mantenimiento_fkey;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+infrastructure-management.solicitud_valoracion_insumo;id_valoracion;infrastructure-management.solicitud_valoracion;id_valoracion;solicitud_valoracion_insumo_id_valoracion_fkey;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+internal_disciplinary_control.alertas_enviadas;auto_id;internal_disciplinary_control.legal_autos;id;FK_alertas_auto;0..1;0..1;no;117;0;0;0;218;poner nulo;sin acción
+internal_disciplinary_control.alertas_enviadas;regla_alerta_id;internal_disciplinary_control.reglas_alerta;id;FK_alertas_regla;0..1;0..1;no;117;0;0;0;7;sin acción;sin acción
+internal_disciplinary_control.alertas_enviadas;termino_id;internal_disciplinary_control.terminos_procesales;id;FK_alertas_termino;0..1;0..1;no;117;0;0;0;23;sin acción;sin acción
+internal_disciplinary_control.disciplinary_news_processes;process_id;internal_disciplinary_control.disciplinary_processes;id;fk_process_id;0..*;1;sí;9;9;4;5;26;cascada;sin acción
+internal_disciplinary_control.disciplinary_process_actuaciones;newsId;internal_disciplinary_control.disciplinary_news;id;fk_disciplinary_process_actuaciones_news;0..*;0..1;no;148;4;2;3;35;cascada;sin acción
+internal_disciplinary_control.disciplinary_process_actuaciones;processId;internal_disciplinary_control.disciplinary_processes;id;fk_disciplinary_process_actuaciones_process;1..*;0..1;no;148;144;53;8;26;cascada;sin acción
+internal_disciplinary_control.disciplinary_process_notes;processId;internal_disciplinary_control.disciplinary_processes;id;disciplinary_process_notes_processId_fkey;0..*;1;sí;14;14;13;2;26;cascada;sin acción
+internal_disciplinary_control.disciplinary_process_reassignment_requests;current_professional_id;internal_disciplinary_control.disciplinary_professional;id;fk_current_professional_id;0..*;0..1;no;24;23;5;6;9;cascada;sin acción
+internal_disciplinary_control.disciplinary_process_reassignment_requests;new_professional_id;internal_disciplinary_control.disciplinary_professional;id;fk_new_professional_id;0..*;1;sí;24;24;6;6;9;cascada;sin acción
+internal_disciplinary_control.disciplinary_process_reassignment_requests;process_id;internal_disciplinary_control.disciplinary_processes;id;fk_process_id;0..*;1;sí;24;24;20;2;26;cascada;sin acción
+internal_disciplinary_control.disciplinary_process_tasks;processId;internal_disciplinary_control.disciplinary_processes;id;fk_disciplinary_process_tasks_process;0..*;1;sí;15;15;12;3;26;cascada;sin acción
+internal_disciplinary_control.disciplinary_processes;abogado_asignado_id;internal_disciplinary_control.disciplinary_professional;id;fk_process_professional;0..*;0..1;no;26;26;3;14;9;poner nulo;sin acción
+internal_disciplinary_control.evidence;processId;internal_disciplinary_control.disciplinary_processes;id;fk_evidence_process;1..*;1;sí;70;70;28;9;26;cascada;sin acción
+internal_disciplinary_control.legal_autos;processId;internal_disciplinary_control.disciplinary_processes;id;fk_auto_process;1..*;1;sí;218;218;77;13;26;cascada;sin acción
+legal_management.actas;expediente_id;legal_management.expedientes;id;actas_expediente_id_fkey;0..1;1;sí;0;0;0;0;91;cascada;sin acción
+legal_management.actors;expediente_id;legal_management.expedientes;id;fk_actor_expediente;0..*;1;sí;168;168;79;4;91;cascada;sin acción
+legal_management.adjuntos_correo;correo_id;legal_management.correos_juridicos;id;adjuntos_correo_correo_id_fkey;0..*;1;sí;2552;2552;1119;35;14036;cascada;sin acción
+legal_management.audiencias;expediente_id;legal_management.expedientes;id;audiencias_expediente_id_fkey;0..*;1;sí;18;18;12;3;91;sin acción;sin acción
+legal_management.autos;expediente_id;legal_management.expedientes;id;fk_autos_expediente;0..*;1;sí;4;4;2;3;91;cascada;sin acción
+legal_management.coactivos_historial;proceso_id;legal_management.procesos_coactivos;id;coactivos_historial_proceso_id_fkey;1..*;1;sí;48;48;7;19;7;cascada;sin acción
+legal_management.comentarios;expediente_id;legal_management.expedientes;id;comentarios_expediente_id_fkey;0..*;1;sí;9;9;3;5;91;cascada;sin acción
+legal_management.comentarios_consulta;consulta_id;legal_management.consultas_juridicas;id;comentarios_consulta_consulta_id_fkey;0..1;1;sí;2;2;2;1;31;cascada;sin acción
+legal_management.comentarios_correo;correo_id;legal_management.correos_juridicos;id;comentarios_correo_correo_id_fkey;0..1;1;sí;2;2;2;1;14036;cascada;sin acción
+legal_management.comentarios_oc;requerimiento_id;legal_management.requerimientos_oc;id;comentarios_oc_requerimiento_id_fkey;0..*;1;sí;28;28;9;10;14;cascada;sin acción
+legal_management.conceptos_juridicos;consulta_id;legal_management.consultas_juridicas;id;conceptos_juridicos_consulta_id_fkey;0..1;1;sí;0;0;0;0;31;cascada;sin acción
+legal_management.consulta_juridica_historial;consulta_id;legal_management.consultas_juridicas;id;FK_consulta_juridica_historial_consulta;1..*;1;sí;132;132;31;9;31;cascada;sin acción
+legal_management.correo_juridico_historial;correo_juridico_id;legal_management.correos_juridicos;id;fk_correo_historial_correo;0..*;1;sí;14552;14552;13833;6;14036;cascada;sin acción
+legal_management.correo_tracking_tokens;adjunto_id;legal_management.adjuntos_correo;id;fk_tracking_adjunto;0..1;0..1;no;100;48;48;1;2552;poner nulo;sin acción
+legal_management.correo_tracking_tokens;correo_id;legal_management.correos_juridicos;id;fk_tracking_correo;0..*;1;sí;100;100;52;5;14036;cascada;sin acción
+legal_management.correos_juridicos;parent_email_id;legal_management.correos_juridicos;id;correos_juridicos_parent_email_id_fkey;0..*;0..1;no;14036;15;11;2;14036;poner nulo;sin acción
+legal_management.decisiones_disciplinarias;expediente_id;legal_management.expedientes;id;fk_decisiones_expediente;0..*;1;sí;6;6;4;2;91;cascada;sin acción
+legal_management.documentos;expediente_id;legal_management.expedientes;id;documentos_expediente_id_fkey;0..*;1;sí;157;157;58;9;91;cascada;sin acción
+legal_management.documentos_consulta;consulta_id;legal_management.consultas_juridicas;id;documentos_consulta_consulta_id_fkey;0..*;1;sí;25;25;19;3;31;cascada;sin acción
+legal_management.documentos_oc;requerimiento_id;legal_management.requerimientos_oc;id;documentos_oc_requerimiento_id_fkey;0..*;1;sí;21;21;9;5;14;cascada;sin acción
+legal_management.evidencias;expediente_id;legal_management.expedientes;id;evidencias_expediente_id_fkey;0..*;1;sí;16;16;4;6;91;cascada;sin acción
+legal_management.excepciones_procesales;expediente_id;legal_management.expedientes;id;fk_excepcion_expediente;0..1;1;sí;2;2;2;1;91;cascada;sin acción
+legal_management.expedientes;proceso_principal_id;legal_management.expedientes;id;fk_expedientes_proceso_principal;0..*;0..1;no;91;8;7;2;91;poner nulo;sin acción
+legal_management.hallazgos;requerimiento_id;legal_management.requerimientos_oc;id;hallazgos_requerimiento_id_fkey;0..1;0..1;no;0;0;0;0;14;poner nulo;sin acción
+legal_management.historial_consultas;consulta_id;legal_management.consultas_juridicas;id;historial_consultas_consulta_id_fkey;0..1;1;sí;0;0;0;0;31;cascada;sin acción
+legal_management.notas_expediente;expediente_id;legal_management.expedientes;id;notas_expediente_expediente_id_fkey;0..1;1;sí;3;3;3;1;91;cascada;sin acción
+legal_management.pagos_coactivos;proceso_id;legal_management.procesos_coactivos;id;pagos_coactivos_proceso_id_fkey;0..*;1;sí;10;10;6;2;7;cascada;sin acción
+legal_management.pei_registros_avance;indicador_id;legal_management.pei_indicadores;id;pei_registros_avance_indicador_id_fkey;0..*;0..1;no;24;24;11;5;24;cascada;sin acción
+legal_management.planes_comentarios;plan_id;legal_management.planes_mejoramiento;id;planes_comentarios_plan_id_fkey;0..1;0..1;no;0;0;0;0;22;cascada;sin acción
+legal_management.planes_evidencias;plan_id;legal_management.planes_mejoramiento;id;planes_evidencias_plan_id_fkey;0..*;0..1;no;14;14;7;7;22;cascada;sin acción
+legal_management.planes_hallazgos;plan_id;legal_management.planes_mejoramiento;id;planes_hallazgos_plan_fk;0..*;1;sí;4;4;3;2;22;cascada;sin acción
+legal_management.planes_seguimientos;plan_id;legal_management.planes_mejoramiento;id;planes_seguimientos_plan_id_fkey;0..*;0..1;no;22;22;12;7;22;cascada;sin acción
+legal_management.procesos_coactivos_adjuntos;proceso_id;legal_management.procesos_coactivos;id;FK_procesos_coactivos_adjuntos_proceso;0..*;1;sí;13;13;6;4;7;cascada;sin acción
+legal_management.respuesta_borrador_oc;requerimiento_id;legal_management.requerimientos_oc;id;fk_borrador_requerimiento;0..1;1;sí;2;2;2;1;14;cascada;sin acción
+legal_management.riesgo_historial;riesgo_id;legal_management.riesgos;id;riesgo_historial_riesgo_id_fkey;1..*;1;sí;8;8;6;3;6;cascada;sin acción
+legal_management.solicitudes_insumos;requerimiento_id;legal_management.requerimientos_oc;id;solicitudes_insumos_requerimiento_id_fkey;0..1;1;sí;0;0;0;0;14;cascada;sin acción
+legal_management.tareas_expediente;expediente_id;legal_management.expedientes;id;tareas_expediente_expediente_id_fkey;0..*;1;sí;35;35;24;3;91;cascada;sin acción
+legal_management.terminos_alertas_enviadas;regla_id;legal_management.terminos_reglas_alerta;id;terminos_alertas_enviadas_regla_id_fkey;1..*;0..1;no;109;106;2;53;2;cascada;sin acción
+legal_management.terminos_alertas_enviadas;termino_id;legal_management.terminos_procesales;id;terminos_alertas_enviadas_termino_id_fkey;0..*;1;sí;109;109;56;2;233;cascada;sin acción
+requerimientos_oc.avances_hallazgo;hallazgo_id;requerimientos_oc.hallazgos;id;avances_hallazgo_hallazgo_id_fkey;0..1;1;sí;0;0;0;0;2;cascada;sin acción
+requerimientos_oc.hallazgos;requerimiento_id;requerimientos_oc.requerimientos;id;hallazgos_requerimiento_id_fkey;0..1;0..1;no;2;0;0;0;5;cascada;sin acción
+requerimientos_oc.historial_requerimientos;requerimiento_id;requerimientos_oc.requerimientos;id;historial_requerimientos_requerimiento_id_fkey;0..1;1;sí;0;0;0;0;5;cascada;sin acción
+requerimientos_oc.requerimientos;entidad_id;requerimientos_oc.cat_organismos_control;id;requerimientos_entidad_id_fkey;0..1;1;sí;5;5;5;1;25;sin acción;sin acción
+requerimientos_oc.solicitudes_insumos;requerimiento_id;requerimientos_oc.requerimientos;id;solicitudes_insumos_requerimiento_id_fkey;0..1;1;sí;0;0;0;0;5;cascada;sin acción
+travel_expenses.analistas_viaticos;usuario_id;auth.user;id_user;fk_analista_usuario;0..1;1;sí;0;0;0;0;390;restringir;sin acción
+travel_expenses.config_legalizacion_documentos;config_tipo_comisionado_id;travel_expenses.config_tipo_comisionado;id;config_legalizacion_documentos_config_tipo_comisionado_id_fkey;1..*;1;sí;42;42;7;6;7;cascada;sin acción
+travel_expenses.config_legalizacion_documentos;tipo_documento_soporte_id;travel_expenses.tipos_documento_soporte;id;config_legalizacion_documentos_tipo_documento_soporte_id_fkey;0..*;1;sí;42;42;6;7;15;restringir;sin acción
+travel_expenses.config_tipo_comisionado_documentos;config_tipo_comisionado_id;travel_expenses.config_tipo_comisionado;id;config_tipo_comisionado_documen_config_tipo_comisionado_id_fkey;1..*;1;sí;24;24;7;5;7;cascada;sin acción
+travel_expenses.config_tipo_comisionado_documentos;tipo_documento_soporte_id;travel_expenses.tipos_documento_soporte;id;config_tipo_comisionado_document_tipo_documento_soporte_id_fkey;0..*;1;sí;24;24;8;6;15;cascada;sin acción
+travel_expenses.documentos_soporte;solicitud_id;travel_expenses.solicitudes_comision;id;documentos_soporte_solicitud_id_fkey;0..1;1;sí;0;0;0;0;3;cascada;sin acción
+travel_expenses.legalizacion_reversiones;legalizacion_id;travel_expenses.legalizaciones_comision;id;legalizacion_reversiones_legalizacion_id_fkey;0..1;1;sí;0;0;0;0;0;restringir;sin acción
+travel_expenses.legalizacion_revisiones;legalizacion_id;travel_expenses.legalizaciones_comision;id;legalizacion_revisiones_legalizacion_id_fkey;0..1;1;sí;0;0;0;0;0;restringir;sin acción
+travel_expenses.legalizacion_soportes;legalizacion_id;travel_expenses.legalizaciones_comision;id;legalizacion_soportes_legalizacion_id_fkey;0..1;1;sí;0;0;0;0;0;cascada;sin acción
+travel_expenses.legalizacion_soportes;tipo_documento_soporte_id;travel_expenses.tipos_documento_soporte;id;legalizacion_soportes_tipo_documento_soporte_id_fkey;0..1;1;sí;0;0;0;0;15;restringir;sin acción
+travel_expenses.legalizaciones_comision;solicitud_id;travel_expenses.solicitudes_comision;id;legalizaciones_comision_solicitud_id_fkey;0..1;1;sí;0;0;0;0;3;restringir;sin acción
+travel_expenses.paz_y_salvo_eventos;paz_y_salvo_id;travel_expenses.paz_y_salvos;id;paz_y_salvo_eventos_paz_y_salvo_id_fkey;0..1;1;sí;0;0;0;0;0;sin acción;sin acción
+travel_expenses.paz_y_salvos;comisionado_id;travel_expenses.comisionados;id;paz_y_salvos_comisionado_id_fkey;0..1;1;sí;0;0;0;0;4;sin acción;sin acción
+travel_expenses.reintegros_comision;solicitud_id;travel_expenses.solicitudes_comision;id;reintegros_comision_solicitud_id_fkey;0..1;1;sí;0;0;0;0;3;cascada;sin acción
+travel_expenses.solicitudes_comision;autorizador_id;auth.user;id_user;fk_solicitudes_comision_autorizador;0..1;0..1;no;3;0;0;0;390;poner nulo;sin acción
+travel_expenses.solicitudes_comision;cancelado_por_usuario_id;auth.user;id_user;fk_solicitudes_comision_cancelado_por;0..1;0..1;no;3;0;0;0;390;poner nulo;sin acción
+travel_expenses.solicitudes_comision;revisor_control_id;auth.user;id_user;fk_solicitudes_comision_revisor_control;0..1;0..1;no;3;0;0;0;390;poner nulo;sin acción
+travel_expenses.solicitudes_comision;enviado_presupuesto_por_id;auth.user;id_user;fk_solicitudes_enviado_presupuesto_por;0..1;0..1;no;3;0;0;0;390;poner nulo;sin acción
+travel_expenses.solicitudes_comision;expedido_rp_por_id;auth.user;id_user;fk_solicitudes_expedido_rp_por;0..1;0..1;no;3;0;0;0;390;poner nulo;sin acción
+travel_expenses.solicitudes_comision;obligado_por_id;auth.user;id_user;fk_solicitudes_obligado_por_auth_user;0..1;0..1;no;3;0;0;0;390;poner nulo;sin acción
+travel_expenses.solicitudes_comision;pagado_por_id;auth.user;id_user;fk_solicitudes_pagado_por_auth_user;0..1;0..1;no;3;0;0;0;390;poner nulo;sin acción
+travel_expenses.solicitudes_comision;comisionado_id;travel_expenses.comisionados;id;solicitudes_comision_comisionado_id_fkey;0..1;1;sí;3;3;3;1;4;sin acción;sin acción
+travel_expenses.solicitudes_historial_estados;solicitud_id;travel_expenses.solicitudes_comision;id;solicitudes_historial_estados_solicitud_id_fkey;0..1;1;sí;0;0;0;0;3;cascada;sin acción

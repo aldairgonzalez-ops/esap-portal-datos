@@ -53,7 +53,8 @@ def construir_doc(m, version, url_portal, repo, entorno):
         ["Motor", ctx["version"].split(" on ")[0].split(" (")[0]],
         ["Tamaño de la base", n(ctx["bytes"] / 1048576) + " MB"],
         ["Dominios (esquemas)", n(len(m["esquemas"]))],
-        ["Tablas", n(len(op)) + (f", de las cuales {n(len(apoyo))} son de apoyo (respaldos, copias o migraciones)" if apoyo else "")],
+        ["Tablas", n(len(op)) + ((", de las cuales 1 es de apoyo (respaldo, copia o migración)" if len(apoyo) == 1 else
+                                  f", de las cuales {n(len(apoyo))} son de apoyo (respaldos, copias o migraciones)") if apoyo else "")],
         ["Vistas", n(vistas)],
         ["Columnas", n(len(cols))],
         ["Filas (conteo exacto)", n(sum(t["filas"] or 0 for t in op))],
@@ -70,7 +71,7 @@ def construir_doc(m, version, url_portal, repo, entorno):
     con_desc_c = sum(1 for c in cols if c["d"])
     tabla(doc, ["Componente", "Cantidad", "Dónde se consulta"], [
         ["Relaciones declaradas (llaves foráneas)", n(len(m["fks"])), "Portal › Relaciones y Modelo ER"],
-        ["Relaciones lógicas identificadas por nombre de columna", n(len(m["implicitas"])), "Portal › Relaciones"],
+        ["Relaciones lógicas sin FK, confirmadas con los datos", n(len(m["implicitas"])), "Portal › Relaciones"],
         ["Funciones y procedimientos", n(len(m["programables"])), "Portal › Programables"],
         ["Triggers", n(len(m["triggers"])), "Portal › Programables"],
         ["Vistas", n(vistas), "Portal › Programables y Catálogo"],
@@ -141,7 +142,7 @@ def main():
     ap.add_argument("--salida")
     a = ap.parse_args()
     try:
-        m = M.construir(os.path.abspath(a.extraccion))
+        m = M.vista_cliente(M.construir(os.path.abspath(a.extraccion)))
     except M.ErrorExtraccion as e:
         sys.exit(f"No se generó el resumen: {e}")
     doc = construir_doc(m, a.version, a.url_portal, a.repo, a.entorno)

@@ -1,0 +1,436 @@
+﻿esquema;tabla;tipo;descripcion;estado_descripcion;filas;columnas;clave_primaria;fk_salida;fk_entrada;implicitas_salida;implicitas_entrada;indices;triggers;apoyo;bytes
+academic-schedule;asignacion_docente;Tabla;Docente asignado a un grupo. La llave es auth.personas.id_person (identidad estable), no Docente.id, que cambia por periodo de carga.;base;0;11;id_asignacion;2;0;0;0;4;1;no;40960
+academic-schedule;aula;Tabla;"Catálogo de aulas. Desde el Lote 1 son las 28 reales de Sede Central (provisional=FALSE); capacidad pendiente del CRUD de NUEVA-6.";base;28;10;codigo;0;0;0;0;1;0;no;24576
+academic-schedule;cetap_sin_catalogo;Tabla;CETAPs declarados en el detalle territorial que no tienen contraparte en el catálogo oficial. Pendientes de código. No inventar: resolver con Gestión Profesoral.;base;46;4;id;0;0;0;0;2;0;no;40960
+academic-schedule;concertacion_docencia;Tabla;;;0;14;id_concertacion;1;3;0;0;3;0;no;32768
+academic-schedule;concertacion_firma;Tabla;;;0;8;id_firma;1;0;0;0;2;0;no;16384
+academic-schedule;concertacion_historial;Tabla;;;0;8;id;1;0;0;0;1;0;no;16384
+academic-schedule;concertacion_revision;Tabla;;;0;4;id_concertacion,tipo;1;0;0;0;1;0;no;8192
+academic-schedule;equivalencia_periodo;Tabla;;;5;4;codigo_programacion;1;0;0;0;1;0;no;32768
+academic-schedule;franja_horaria;Tabla;;;5;19;id_franja;4;0;0;0;6;1;no;114688
+academic-schedule;grupo;Tabla;Instancia independiente de programación de una asignatura (RN-11). El horario y las fechas cuelgan del GRUPO, no de la asignatura.;base;2;16;id_grupo;4;2;0;0;8;0;no;147456
+academic-schedule;jefatura_territorial;Tabla;Qué territorial(es) gobierna cada usuario con el rol JEFATURA_TERRITORIAL. Referencia la territorial por id: un nombre puede divergir, un id no.;base;0;3;id_user,id_direccion_territorial;2;0;0;0;2;0;no;16384
+academic-schedule;periodo_programacion;Tabla;;;5;9;id_periodo;0;3;0;0;2;0;no;40960
+academic-schedule;programacion_historica;Tabla;Programación 2026-1 y 2026-V1 tal como llegó. Sin FK: cod_asigna es PROGRAMA_PENSUM, no código de materia. No pasa por el guard de publicación.;base;575;31;id;0;0;0;0;4;0;no;557056
+academic-schedule;programacion_periodo;Tabla;;;0;6;id_periodo_academico;1;0;0;0;1;0;no;8192
+academic_registration;certificate_template_config;Tabla;Certificate template configuration;base;1;19;id;1;1;0;0;3;1;no;147456
+academic_registration;certificate_validations;Tabla;Public certificate validation history;base;153;8;id;1;0;0;0;3;0;no;122880
+academic_registration;graduate_files;Tabla;;;41;8;id;1;0;0;0;2;0;no;81920
+academic_registration;graduate_program_catalog;Tabla;Catálogo central de programas usado por la gestión y revisión de graduados.;base;1;5;id;0;0;0;0;2;0;no;49152
+academic_registration;graduates;Tabla;Graduates from the supported academic program types;base;10429;31;id;0;2;0;0;9;2;no;7364608
+academic_registration;graduation_certificate_requests;Tabla;Graduation certificate requests across workflow states;base;392;59;id;0;2;0;0;11;1;no;729088
+academic_registration;graduation_certificates;Tabla;Issued graduation certificates with valid QR codes;base;161;27;id;2;1;0;0;8;1;no;720896
+academic_registration;graduation_request_review_files;Tabla;;;30;8;id;1;0;0;0;2;0;no;49152
+academic_registration;signers;Tabla;Authorized certificate signers;base;1;9;id;0;1;0;0;3;1;no;65536
+academic_registration;template_config_changes;Tabla;Certificate template change history;base;6;9;id;1;0;0;0;3;0;no;147456
+academic_work_plan;AprobacionJefatura;Tabla;;;8;13;id;1;0;0;0;6;0;no;131072
+academic_work_plan;AuditLog;Tabla;;;2;12;id;0;0;0;0;4;0;no;81920
+academic_work_plan;BancoDocentesInvitaciones;Tabla;Invitaciones de autogestión RUND (Canal 3): link público + OTP por correo. Estados: Enviada, Abierta, OTP validado, En proceso, Gestionada, Vencida.;base;3;13;id;0;0;0;0;5;0;no;90112
+academic_work_plan;CarpetaDigital;Tabla;;;278;8;id;1;0;0;0;2;0;no;147456
+academic_work_plan;Certificado;Tabla;;;0;8;id;0;0;0;0;4;0;no;40960
+academic_work_plan;Concertacion;Tabla;;;0;6;id;1;0;0;0;2;0;no;24576
+academic_work_plan;ConfiguracionSistema;Tabla;;;3;4;clave;0;0;0;0;1;0;no;548864
+academic_work_plan;DetallesPta;Tabla;;;0;13;id;1;0;0;0;1;0;no;16384
+academic_work_plan;Docente;Tabla;;;814;51;id;1;3;0;0;8;0;no;819200
+academic_work_plan;Documento;Tabla;;;2;15;id;1;1;0;0;1;0;no;32768
+academic_work_plan;DocumentoVersion;Tabla;;;0;9;id;1;0;0;0;1;0;no;16384
+academic_work_plan;HistorialEstadoPTA;Tabla;;;51;13;id;1;0;0;0;2;0;no;434176
+academic_work_plan;PTAUserData;Tabla;;;55;8;id;0;0;0;0;2;0;no;49152
+academic_work_plan;Permiso;Tabla;;;58;5;id;0;1;0;0;2;0;no;49152
+academic_work_plan;Persona;Tabla;;;283;27;id;1;3;0;0;3;0;no;196608
+academic_work_plan;PersonaPrograma;Tabla;;;267;7;id;1;0;0;0;2;0;no;147456
+academic_work_plan;PlanTrabajoAcademico;Tabla;;;8;21;id;1;10;0;0;3;0;no;376832
+academic_work_plan;PtaComponentApproval;Tabla;;;99;14;id;1;0;0;0;3;0;no;172032
+academic_work_plan;PtaComponentReview;Tabla;;;23;15;id;1;0;0;0;3;0;no;98304
+academic_work_plan;PtaEvento;Tabla;;;83;15;id;1;0;0;0;5;0;no;180224
+academic_work_plan;PtaEvidencia;Tabla;;;2;20;id;1;0;0;0;3;0;no;65536
+academic_work_plan;PtaTerritorialApproval;Tabla;;;3;16;id;1;0;0;0;4;0;no;81920
+academic_work_plan;PtaTerritorialReview;Tabla;;;3;14;id;1;0;0;0;4;0;no;81920
+academic_work_plan;Rol;Tabla;;;12;7;id;0;2;0;0;2;0;no;49152
+academic_work_plan;RolPermiso;Tabla;;;55;4;id;2;0;0;0;2;0;no;49152
+academic_work_plan;RundAccesoDatosLog;Tabla;;;9141;10;id;0;0;0;0;4;2;no;5799936
+academic_work_plan;RundAccesoExterno;Tabla;;;0;13;id;0;1;0;0;4;0;no;40960
+academic_work_plan;RundAprobacionLog;Tabla;Log de auditoría inmutable del RUND (BR-056). Sólo INSERT: registra crear/aprobar/devolver/editar/vincular soporte.;base;6760;14;id;0;0;0;0;2;1;no;3923968
+academic_work_plan;RundCampoEstado;Tabla;;;6594;13;id;0;0;0;0;2;0;no;1449984
+academic_work_plan;RundCargaMasiva;Tabla;Soporte documental inmutable de cada importación masiva de perfiles RUND.;base;0;13;id;0;0;0;0;2;1;no;24576
+academic_work_plan;RundDocumentoCategoria;Tabla;;;10;9;codigo;0;1;0;0;1;0;no;32768
+academic_work_plan;RundDocumentoPerfil;Tabla;REQ-RUND-F010: documentos PDF versionados del perfil docente, almacenados en OpenKM o proveedor local de desarrollo.;base;11;22;id;2;2;0;0;5;0;no;98304
+academic_work_plan;RundExtraccionInicio;Tabla;;;0;2;id;0;0;0;0;1;0;no;8192
+academic_work_plan;RundExtraccionSugerencia;Tabla;;;0;14;id;1;0;0;0;2;0;no;24576
+academic_work_plan;RundExtraccionTrabajo;Tabla;;;0;20;id;1;1;0;0;5;0;no;49152
+academic_work_plan;RundInvitacionDocente;Tabla;;;0;16;id;0;0;0;0;4;0;no;40960
+academic_work_plan;RundMacroDocenteConsultaLog;Tabla;;;0;11;id;1;0;0;0;4;0;no;40960
+academic_work_plan;RundSoporteCampo;Tabla;;;12;13;id;0;0;0;0;3;0;no;65536
+academic_work_plan;Sede;Tabla;;;280;7;id;1;0;0;0;2;0;no;131072
+academic_work_plan;SistemaAlerta;Tabla;;;1;9;id;0;0;0;0;1;0;no;32768
+academic_work_plan;SolicitudPTA;Tabla;;;13;25;id;1;0;0;0;7;0;no;180224
+academic_work_plan;Territorial;Tabla;;;21;5;id;0;1;0;0;3;0;no;65536
+academic_work_plan;Usuario;Tabla;;;283;7;id;0;2;0;0;2;0;no;163840
+academic_work_plan;UsuarioRol;Tabla;;;278;4;id;2;0;0;0;2;0;no;163840
+academic_work_plan;asignatura;Tabla;;;503;26;id;4;2;0;0;9;0;no;434176
+academic_work_plan;cetap;Tabla;;;290;15;id;1;4;0;0;5;0;no;172032
+academic_work_plan;cetap_alias;Tabla;;;0;7;id;1;0;0;0;3;0;no;24576
+academic_work_plan;direccion_territorial;Tabla;;;18;12;id;0;2;0;0;4;0;no;73728
+academic_work_plan;docencia_concertada;Tabla;;;0;15;id_concertacion;0;0;0;0;2;0;no;24576
+academic_work_plan;facultad;Tabla;;;4;10;id;0;2;0;0;3;0;no;57344
+academic_work_plan;nucleo_tematico;Tabla;;;42;12;id;1;1;0;0;4;0;no;81920
+academic_work_plan;oferta_cetap_programa;Tabla;;;337;13;id;3;1;0;0;6;0;no;180224
+academic_work_plan;periodo_academico;Tabla;;;2;11;id;0;5;0;0;3;0;no;57344
+academic_work_plan;periodo_cetap;Tabla;;;576;6;id;2;0;0;0;2;0;no;147456
+academic_work_plan;programa;Tabla;;;20;22;id;2;4;0;0;5;0;no;98304
+academic_work_plan;ubicacion_semestral;Tabla;;;16;5;id;0;1;0;0;3;0;no;57344
+academic_work_plan;validacion_documental;Tabla;;;12000;12;id;1;0;0;0;3;0;no;3366912
+audit;request_logs;Tabla particionada;Registro de todas las peticiones HTTP del sistema para auditoría. Tabla particionada por mes.;base;74668;34;id,timestamp;0;0;0;0;19;0;no;0
+audit;request_logs_2026_06;Partición;;;;34;id,timestamp;0;0;0;0;19;0;no;261652480
+audit;request_logs_2026_07;Partición;;;;34;id,timestamp;0;0;0;0;19;0;no;68198400
+audit;request_logs_2026_08;Partición;;;;34;id,timestamp;0;0;0;0;19;0;no;31014912
+audit;request_logs_2026_09;Partición;;;;34;id,timestamp;0;0;0;0;19;0;no;49709056
+audit;request_logs_2026_10;Partición;;;;34;id,timestamp;0;0;0;0;19;0;no;9994240
+audit;request_logs_current;Partición;;;;34;id,timestamp;0;0;0;0;19;0;no;2531328
+audit;request_logs_next_month;Partición;;;;34;id,timestamp;0;0;0;0;19;0;no;761856
+audit;request_logs_prev_month;Partición;;;;34;id,timestamp;0;0;0;0;19;0;no;188416
+audit;request_logs_stats;Vista;;;;10;;0;0;0;0;0;0;no;0
+auth;acreditaciones_programa;Tabla;;;5;6;id;1;0;0;0;2;1;no;49152
+auth;cargos;Tabla;;;17;8;id_cargo;0;2;0;0;5;0;no;98304
+auth;carpeta_digital;Tabla;;;409;7;id_carpeta_digital;1;2;0;0;4;1;no;196608
+auth;dependencias;Tabla;Catálogo transversal de dependencias ESAP. Referenciada por travel_expenses.saldos_tiquetes y otros microservicios.;base;7;18;id_dependencia;0;2;1;0;4;0;no;81920
+auth;dependencias_cargos;Tabla;;;30;6;id_dependencia_cargo;2;0;0;0;5;0;no;90112
+auth;documento_carpeta_digital;Tabla;Documentos físicos subidos por la persona en su Carpeta Digital. Une las 3 vistas (portal docente, backoffice carpeta digital, backoffice RUND).;base;0;17;id_documento;2;0;0;0;5;1;no;49152
+auth;festivos_colombia;Tabla;;;18;7;id;0;0;0;0;3;0;no;57344
+auth;geopolitica;Tabla;;;1155;27;id_geopolitica;1;3;0;0;1;0;no;212992
+auth;migrations_db_log;Tabla;;;1221;2;filename;0;0;0;0;1;0;sí;270336
+auth;module;Tabla;;;23;11;id_module;0;1;0;0;2;0;no;49152
+auth;permission;Tabla;;;704;8;id_permission;1;1;0;0;2;0;no;344064
+auth;personas;Tabla;;;409;21;;4;17;0;0;6;2;no;335872
+auth;programas_academicos;Tabla;;;12;22;id;1;2;0;0;4;1;no;81920
+auth;registros_calificados;Tabla;;;12;7;id;1;0;0;0;2;1;no;49152
+auth;role;Tabla;;;132;16;id;0;3;0;0;3;0;no;122880
+auth;role_permissions;Tabla;;;3112;5;id_rol,id_permission;2;0;0;0;1;0;no;524288
+auth;seccionales;Tabla;;;38;19;id_seccional;1;2;0;0;1;0;no;24576
+auth;sede_cetap_mapping;Tabla;Relaciona una sede histórica con el CETAP académico usado para activación por periodo.;base;290;5;id_sede;2;0;0;0;2;0;no;81920
+auth;sedes;Tabla;;;615;23;id_sede;2;3;0;1;1;0;no;229376
+auth;system_settings;Tabla;;;1;3;key;0;0;0;0;1;0;no;32768
+auth;tipo_documento;Tabla;;;4;19;id_tipo_documento;1;1;0;0;4;1;no;81920
+auth;user;Tabla;;;390;13;id_user;1;10;0;1;3;1;no;245760
+auth;user_roles;Tabla;;;408;5;id_user,id_rol;2;0;0;0;1;0;no;106496
+certification;certificate_correction_requests;Tabla;Employee correction requests and coordinator resolutions for labor certificates;base;9;21;id;1;0;0;0;6;0;no;237568
+certification;certificate_requests;Tabla;Labor certificate requests submitted by employees;base;15250;31;id;0;2;0;0;7;0;no;16039936
+certification;certificate_template_config;Tabla;Labor-certificate template configuration;base;3;20;id;1;1;0;0;3;0;no;131072
+certification;certificate_templates;Tabla;HTML templates used to generate certificates;base;1;9;id;0;0;0;0;1;0;no;32768
+certification;certificate_validations;Tabla;Labor-certificate validation history;base;42;14;id;1;0;0;0;5;0;no;131072
+certification;certificates;Tabla;Labor certificates generated with a QR verification code;base;130;40;id;1;2;0;0;8;0;no;737280
+certification;labor_function_profiles;Tabla;Position profiles imported from Matriz Funciones ESAP and used to associate employees by normalized codes and organizational context;base;19;19;id;0;1;0;0;5;0;no;319488
+certification;labor_functions;Tabla;Normalized, ordered labor functions belonging to a position profile;base;190;6;id;1;0;0;0;3;0;no;1212416
+certification;signers;Tabla;Authorized signers captured on issued certificates;base;1;9;id;0;0;0;0;1;0;no;32768
+certification;technical_bonus_assignments;Tabla;Technical-bonus percentage assignments by employee and category;base;53;10;id;1;0;0;0;6;0;no;147456
+certification;technical_bonus_templates;Tabla;Paragraph templates for technical-bonus sections in labor certificates;base;3;11;id;0;0;0;0;2;0;no;49152
+certification;template_config_changes;Tabla;Certificate-template configuration change history;base;206;9;id;1;0;0;0;4;0;no;491520
+certification;template_signers;Tabla;Signers available for labor-certificate templates;base;1;9;id;0;1;0;0;2;0;no;49152
+chatbot;conversacion;Tabla;;;0;10;id;0;1;0;0;3;0;no;32768
+chatbot;mensaje;Tabla;;;0;7;id;1;0;0;0;3;0;no;32768
+chatbot;prompt_template;Tabla;;;0;8;id;0;0;0;0;2;0;no;24576
+control_interno;accion_correctiva;Tabla;;;29;33;id;1;5;1;0;5;2;no;172032
+control_interno;accion_mejora;Tabla;Acciones de mejora dentro de un plan;base;0;14;id;1;0;0;0;3;0;no;32768
+control_interno;actividad_etapa_auditoria;Tabla;Actividades dentro de cada etapa de auditoría;base;0;12;id;1;0;0;0;2;0;no;24576
+control_interno;actividad_plan_anual_5;Tabla;Actividades por rol del plan anual;base;1604;33;id;1;2;0;0;5;0;no;4210688
+control_interno;actividad_proceso_auditoria;Tabla;Actividades del proceso de auditoría. Cada fase tiene hasta 3 actividades requeridas para avanzar.;base;0;13;id;2;0;0;0;5;1;no;49152
+control_interno;actividad_rol;Tabla;Actividades por rol configurable (RF020);base;0;8;id;1;0;0;0;2;0;no;24576
+control_interno;adjunto_actividad_plan_anual_5;Tabla;Archivos adjuntos (evidencias) para actividades del Plan Anual de Auditoría según Decreto 648/2017;base;21;13;id;1;0;0;0;3;0;no;98304
+control_interno;alerta_plan;Tabla;;;21;9;id;2;0;0;0;2;0;no;49152
+control_interno;ampliacion_plazo;Tabla;Solicitudes de ampliación de plazo de auditorías;base;0;15;id;1;0;0;0;4;1;no;40960
+control_interno;aprobacion;Tabla;Sistema de aprobaciones centralizado;base;10;22;id;0;1;0;0;6;0;no;114688
+control_interno;auditor_perfil;Tabla;Perfil profesional de auditores. Almacena información específica como especialidades y disponibilidad.;base;0;11;id;1;0;0;0;6;0;no;57344
+control_interno;auditoria;Tabla;Auditorías del sistema con gestión Kanban, Lista y Calendario;base;70;82;id;8;18;0;0;29;3;no;598016
+control_interno;auditoria_especial_info;Tabla;Información específica de auditorías especiales (motivo, solicitante, justificación).;base;0;11;id;2;0;0;0;6;0;no;57344
+control_interno;auditoria_gestion;Tabla;Gestión de auditorías con fases y seguimiento;base;0;16;id;1;0;0;0;5;0;no;49152
+control_interno;auditoria_programada;Tabla;Auditorías programadas en el plan anual;base;0;29;id;2;3;0;0;6;0;no;57344
+control_interno;auditoria_territorial_info;Tabla;Información específica de auditorías territoriales (ciudad, departamento, contacto).;base;0;12;id;1;0;0;0;6;0;no;57344
+control_interno;cache_esap;Tabla;Cache del sistema ESAP;base;0;6;id;0;0;0;0;4;0;no;40960
+control_interno;cierre_plan;Tabla;;;2;12;id;1;0;0;0;2;0;no;49152
+control_interno;condicion_disparo_notificacion;Tabla;;;12;6;id;0;0;0;0;2;0;no;49152
+control_interno;configuracion_esap;Tabla;Configuraciones específicas del sistema ESAP;base;7;9;id;0;0;0;0;5;0;no;98304
+control_interno;configuracion_profesionales_ocig;Tabla;Configuración de profesionales asignados al equipo OCIG (Oficina de Control Interno de Gestión);base;31;14;id;0;0;0;0;6;1;no;147456
+control_interno;criterio_auditoria;Tabla;Criterios de auditoría (normas, políticas, estándares aplicables);base;27;7;id;1;0;0;0;4;0;no;81920
+control_interno;cronograma_auditoria;Tabla;Cronograma de auditorías del plan anual;base;0;19;id;1;0;0;0;4;0;no;40960
+control_interno;cronograma_fase_auditoria;Tabla;Cronograma estimado por fase de la auditoría (duración de cada fase);base;0;9;id;1;0;0;0;4;0;no;40960
+control_interno;datos_automaticos_informe;Tabla;Datos automáticos poblados desde el sistema (US-022);base;0;9;id;1;0;0;0;3;0;no;32768
+control_interno;documento;Tabla;Gestión documental centralizada (RF013);base;77;29;id;3;5;2;0;8;1;no;204800
+control_interno;documento_aprobacion;Tabla;;;0;8;id;2;0;0;0;2;0;no;24576
+control_interno;documento_plan_mejoramiento;Tabla;;;0;20;id;2;0;0;0;3;0;no;32768
+control_interno;entrega_informe_ley;Tabla;Entregas de informes de ley por periodo;base;0;28;id;1;3;0;0;6;0;no;57344
+control_interno;equipo_auditor;Tabla;Equipo de auditores asignados a una auditoría. Relación N-N entre auditorías y personas.;base;160;10;id;2;0;0;0;5;0;no;139264
+control_interno;especialidades_ocig;Tabla;;;13;7;id;0;0;0;0;2;0;no;49152
+control_interno;etapa_auditoria;Tabla;Etapas de ejecución de auditorías;base;0;11;id;1;1;0;0;3;0;no;32768
+control_interno;etapa_kanban;Tabla;Etapas configuradas para cada tablero Kanban;base;12;16;id;1;0;0;2;3;0;no;65536
+control_interno;evaluacion_proceso;Tabla;Evaluaciones DAFP de procesos auditables. Cada proceso puede tener múltiples evaluaciones con diferentes vigencias/fechas de corte.;base;54;39;id;1;0;0;0;6;0;no;163840
+control_interno;eventos_timeline;Tabla;Registro histórico de todos los eventos importantes relacionados con planes de mejoramiento;base;265;9;id;1;0;0;0;6;0;no;286720
+control_interno;evidencia_accion;Tabla;;;0;16;id;1;0;0;0;2;0;no;24576
+control_interno;evidencia_documento;Tabla;Sistema independiente de gestión de evidencias y documentos vinculados a Hallazgos, Acciones, Planes y Auditorías;base;48;29;id;5;1;0;0;11;1;no;245760
+control_interno;hallazgo;Tabla;Hallazgos identificados en las auditorías;base;34;34;id;1;2;0;2;6;0;no;188416
+control_interno;historial_auditoria;Tabla;"Historial completo de cambios y eventos de una auditoría. Trazabilidad completa de todas las acciones. El campo cambios almacena un array JSONB con formato: [{""campo"": ""Progreso"", ""valorAnterior"": ""10%"", ""valorNuevo"": ""15%""}]";base;480;18;id;1;0;0;0;5;0;no;335872
+control_interno;historial_generacion_informe;Tabla;Auditoría completa de generación y aprobación de informes;base;0;11;id;1;0;0;0;3;0;no;32768
+control_interno;historial_plan_anual;Tabla;Historial de cambios y auditoría del Plan Anual 5 Roles. Registra todas las operaciones CRUD para trazabilidad y compliance.;base;29731;15;id;1;0;0;0;6;0;no;31391744
+control_interno;informe_ley;Tabla;Informes normativos requeridos por ley (RF012);base;16;31;id;0;1;0;0;6;0;no;114688
+control_interno;integraciones_esap;Tabla;Configuración de integraciones externas;base;0;8;id;0;0;0;0;3;0;no;32768
+control_interno;item_lista_chequeo;Tabla;Items individuales de una lista de chequeo;base;109;14;id;1;0;0;0;3;1;no;106496
+control_interno;lista_aplicada;Tabla;Aplicaciones de listas de chequeo en auditorías;base;0;11;id;0;0;0;0;3;0;no;32768
+control_interno;lista_chequeo;Tabla;Listas de chequeo configurables para auditorías;base;71;44;id;1;1;1;0;10;1;no;221184
+control_interno;logs_auditoria_esap;Tabla;Logs de auditoría de acciones del sistema;base;0;9;id;1;0;0;0;5;0;no;49152
+control_interno;normatividad_aplicable;Tabla;Normatividad aplicable a la auditoría (decretos, leyes, manuales, políticas);base;0;7;id;1;0;0;0;3;0;no;32768
+control_interno;nota_auditoria;Tabla;Notas y observaciones de las auditorías. Similar a un sistema de comentarios con categorización. Las notas marcadas como importantes (importante=true) aparecen destacadas en amarillo.;base;0;14;id;3;0;0;0;7;0;no;65536
+control_interno;notificacion;Tabla;Sistema de notificaciones (RF014);base;945;16;id;0;0;0;0;5;0;no;835584
+control_interno;objetivo_auditoria;Tabla;Objetivos específicos de cada auditoría. Cada auditoría puede tener múltiples objetivos.;base;39;7;id;1;0;0;0;3;0;no;65536
+control_interno;parametro_sistema;Tabla;Parámetros de configuración del sistema (RF020);base;1;9;id;0;0;0;0;4;0;no;81920
+control_interno;paso_workflow_informe;Tabla;Pasos individuales del workflow de aprobación;base;0;17;id;1;0;0;0;3;0;no;32768
+control_interno;plan_anual;Tabla;Planes anuales de auditoría;base;0;14;id;0;3;0;0;3;0;no;32768
+control_interno;plan_anual_5_roles;Tabla;;;63;17;id;0;2;0;0;5;1;no;180224
+control_interno;plan_anual_wizard_borrador;Tabla;;;2;5;id;0;0;0;0;3;0;no;212992
+control_interno;plan_individual;Tabla;Planes individuales de auditoría;base;0;19;id;1;0;0;0;4;0;no;40960
+control_interno;plan_mejoramiento;Tabla;Planes de mejoramiento derivados de hallazgos;base;14;31;id;2;10;0;0;5;2;no;98304
+control_interno;plantilla_email;Tabla;Plantillas de correo electrónico (RF020);base;0;9;id;0;0;0;0;4;0;no;40960
+control_interno;plantilla_informe_ley;Tabla;Plantillas para generación automática de informes de ley;base;16;14;id;0;0;0;0;2;0;no;81920
+control_interno;plantilla_reporte;Tabla;Plantillas para generación de reportes;base;0;11;id;0;0;0;0;3;0;no;32768
+control_interno;plantillas_documentos_esap;Tabla;Plantillas de documentos personalizadas;base;0;11;id;0;0;0;0;5;0;no;49152
+control_interno;preferencia_notificacion;Tabla;Preferencias de notificación por usuario (RF014);base;1;9;id;0;0;0;0;3;0;no;65536
+control_interno;proceso_auditable;Tabla;Procesos auditables del universo de auditorías;base;36;22;id;1;2;0;0;8;0;no;212992
+control_interno;programa_anual_ajuste;Tabla;"Ajustes del Programa Anual (EFDS-1919): borrador de la siguiente versión; la versión que se genera lo cierra.";base;3;7;id;0;0;0;0;2;0;no;40960
+control_interno;registro_seguimiento;Tabla;;;0;14;id;2;0;0;0;3;0;no;32768
+control_interno;reunion_apertura;Tabla;Información de la reunión de apertura de la auditoría;base;15;16;id;2;0;0;0;4;0;no;81920
+control_interno;reunion_cierre;Tabla;Información de la reunión de cierre de la auditoría;base;11;16;id;2;0;0;0;3;0;no;65536
+control_interno;rol_decreto_648;Tabla;Roles del Decreto 648 configurable (RF020);base;0;9;id;0;1;0;0;3;0;no;32768
+control_interno;rol_decreto_648_template;Tabla;;;5;8;id;0;0;0;0;3;0;no;65536
+control_interno;rol_plan_anual;Tabla;Roles y disponibilidad de auditores en el plan anual;base;0;11;id;1;0;0;0;3;0;no;32768
+control_interno;rol_plan_anual_5;Tabla;Roles del plan anual (5 roles);base;405;14;id;0;1;0;0;5;0;no;409600
+control_interno;seccion_lista_chequeo;Tabla;Secciones organizadas de listas de chequeo;base;0;7;id;0;0;0;0;2;0;no;24576
+control_interno;seguimiento_plan;Tabla;;;7;16;id;1;0;0;0;3;0;no;65536
+control_interno;seguimiento_plan_mejoramiento;Tabla;Seguimientos trimestrales de planes de mejoramiento;base;0;12;id;1;0;0;0;3;0;no;32768
+control_interno;seguimiento_trimestral;Tabla;;;0;15;id;1;1;0;0;3;0;no;32768
+control_interno;sesiones_esap;Tabla;Sesiones activas de usuarios;base;0;9;id;1;0;0;0;6;0;no;57344
+control_interno;tablero_kanban;Tabla;Configuración de tableros Kanban para auditorías y planes de mejoramiento;base;2;9;id;0;1;0;0;4;0;no;81920
+control_interno;tareas_auditoria;Tabla;Tareas personalizadas asignadas a auditorías;base;0;15;id;1;0;0;0;6;0;no;57344
+control_interno;tipo_auditoria;Tabla;Tipos de auditoría configurables del sistema (Regular, Territorial, Especial);base;5;13;id;0;1;0;0;5;1;no;98304
+control_interno;tipo_proceso;Tabla;Catálogo parametrizable de tipos de procesos auditables;base;7;8;id;0;1;0;0;4;0;no;73728
+control_interno;usuarios_esap;Tabla;Usuarios del sistema ESAP;base;0;11;id;0;2;0;0;6;0;no;57344
+control_interno;v_auditor_disponibilidad;Vista;Vista que muestra auditores con sus especialidades, disponibilidad y conteo de auditorías en curso;base;;17;;0;0;0;0;0;0;no;0
+control_interno;v_auditorias_finalizadas;Vista;Vista de auditorías finalizadas con información del documento de cierre;base;;16;;0;0;0;0;0;0;no;0
+control_interno;v_auditorias_kanban_completo;Vista;Vista completa de auditorías con toda la información necesaria para el módulo Kanban;base;;53;;0;0;0;0;0;0;no;0
+control_interno;v_auditorias_por_estado;Vista;Vista de contadores de auditorías por estado para el dashboard del Kanban;base;;7;;0;0;0;0;0;0;no;0
+control_interno;v_estado_vinculacion_auditorias;Vista;"Vista para verificar el estado de la vinculación de auditorías al Rol 4. 
+Muestra qué planes tienen actividad configurada y cuántas auditorías están vinculadas.";base;;10;;0;0;0;0;0;0;no;0
+control_interno;v_resumen_auditorias_por_año;Vista;;;;7;;0;0;0;0;0;0;no;0
+control_interno;version_lista_chequeo;Tabla;Historial de versiones de listas de chequeo;base;0;8;id;0;0;0;0;2;0;no;24576
+control_interno;version_programa_anual;Tabla;Versiones del Programa Anual de Auditoría por vigencia (EFDS-1919). Se generan al exportar si cambió lo que el documento imprime.;base;25;10;id;0;0;0;0;3;0;no;131072
+control_interno;workflow_aprobacion_informe;Tabla;Workflow de aprobación para informes de ley (US-033);base;0;9;id;1;1;0;0;3;0;no;24576
+hiring;actas_inicio;Tabla;Reunión de inicio y su acta, cuando el contrato la pactó (EFDS-1167, actividad 9.1).;base;1;9;id;2;0;0;0;3;0;no;65536
+hiring;actas_liquidacion;Tabla;Acta de liquidación bilateral o unilateral, con balance financiero y paz y salvo (EFDS-1172).;base;0;19;id;3;1;0;0;4;0;no;40960
+hiring;actividades;Tabla;Catálogo de actividades de la matriz de flujo, por etapa y numeral.;base;63;10;numeral;0;6;0;0;1;0;no;73728
+hiring;actividades_con_soporte;Tabla;Las actividades de la matriz que se cumplen registrando lo que pasó afuera, y si exigen soporte.;base;14;5;numeral;0;1;0;0;1;0;no;32768
+hiring;actividades_excluidas;Tabla;Celdas marcadas NO en la matriz de flujo: la actividad no aplica a esa modalidad.;base;161;3;numeral,modalidad;2;0;0;0;1;0;no;65536
+hiring;actividades_salvedad;Tabla;Celdas de la matriz donde la actividad aplica pero con una condición o una variante propia de la modalidad.;base;0;4;numeral,modalidad;2;0;0;0;1;0;no;16384
+hiring;actos_adjudicacion;Tabla;Acto administrativo de adjudicación del Ordenador del Gasto, con su notificación y publicación (EFDS-1159).;base;1;20;id;5;0;0;0;2;0;no;49152
+hiring;adendas;Tabla;Adendas de fondo y de cronograma del proceso, con su emisión y su publicación (EFDS-1154).;base;3;17;id;3;0;0;0;3;0;no;65536
+hiring;afiliaciones_arl;Tabla;Afiliación a riesgos laborales, exigida a los contratistas persona natural (EFDS-1164).;base;0;9;id;2;0;0;0;2;0;no;24576
+hiring;alcances_permiso;Tabla;;;313;11;id;2;0;0;0;3;0;no;180224
+hiring;amparos;Tabla;Coberturas de cada garantía con su vigencia, para controlar vencimientos (EFDS-1164).;base;1;7;id;2;0;0;0;4;0;no;73728
+hiring;aperturas_proceso;Tabla;Resolución de apertura y pliego definitivo de cada proceso (EFDS-1152).;base;3;10;id;4;0;0;0;2;0;no;49152
+hiring;audiencia_riesgos_config;Tabla;En qué modalidades la audiencia de riesgos es obligatoria (EFDS-1153, RF-PUB-04).;base;1;6;modalidad;1;0;0;0;1;0;no;32768
+hiring;audiencias_adjudicacion;Tabla;Audiencia de adjudicación del proceso, con su acta y lo que en ella se resolvió (EFDS-1159).;base;1;13;id;2;2;0;0;2;0;no;49152
+hiring;audiencias_riesgos;Tabla;Audiencias de asignación de riesgos celebradas, con su acta y su matriz consolidada.;base;3;11;id;3;0;0;0;2;0;no;49152
+hiring;audiencias_sancionatorias;Tabla;"Audiencias del trámite sancionatorio (EFDS-1181, RF-INC-02). La citación mira al futuro; el acta, al hecho ya ocurrido.";base;0;13;id;3;0;0;0;2;0;no;24576
+hiring;avisos;Tabla;Lo que cambió la Dirección sobre los avisos de cada actividad. Sin fila, la actividad avisa con lo sugerido.;base;0;13;numeral,evento;1;0;0;0;1;0;no;16384
+hiring;avisos_habilitacion;Tabla;Actividades de cada proceso de las que ya salió el aviso de «te toca». Evita repetirlo.;base;156;3;proceso_id,numeral;2;0;0;0;1;0;no;57344
+hiring;campos_formulario;Tabla;;;13;15;id;0;0;0;0;3;0;no;65536
+hiring;casos_incumplimiento;Tabla;Reportes de presunto incumplimiento del contrato (EFDS-1180, RF-INC-01).;base;0;9;id;3;2;0;0;2;0;no;24576
+hiring;causales_contratacion;Tabla;Actividad 3.6 (3.5.1 de la matriz): causales que habilitan contratar por una modalidad. La matriz la describe como «filtro según la modalidad» y solo la marca aplicable en selección abreviada de menor cuantía y en contratación directa.;base;14;8;codigo;1;1;0;0;2;0;no;49152
+hiring;cdp;Tabla;Certificado de Disponibilidad Presupuestal del proceso. Requisito previo a la apertura (EFDS-1148).;base;4;16;id;3;1;0;0;6;0;no;106496
+hiring;cierres_contrato;Tabla;Cierre definitivo del contrato tras vencer los amparos de estabilidad y calidad (EFDS-1175).;base;0;13;id;2;0;0;0;3;0;no;32768
+hiring;cierres_financieros;Tabla;Pago final y liberación del saldo no comprometido del RP (EFDS-1173).;base;0;16;id;3;0;0;0;4;0;no;40960
+hiring;comites_evaluadores;Tabla;Comités evaluadores designados por memorando, vigentes y revocados (EFDS-1156).;base;3;10;id;2;1;0;0;2;0;no;49152
+hiring;contratos;Tabla;Contratos generados a partir del formato de su tipología, con la aceptación del proponente (EFDS-1161).;base;1;27;id;5;16;0;0;4;1;no;81920
+hiring;declaratorias_desiertas;Tabla;Declaratoria desierta del proceso: causal, motivación, acto firmado, notificación y publicación (EFDS-1160, RF-ADJ-02).;base;0;21;id;5;0;0;0;3;0;no;32768
+hiring;dias_no_habiles;Tabla;Días no laborables propios de la ESAP, adicionales a los festivos nacionales que el servicio calcula (EFDS-1150).;base;0;3;fecha;0;0;0;0;1;0;no;8192
+hiring;documentos;Tabla;;;130;15;id;2;56;0;2;3;0;no;139264
+hiring;documentos_proceso;Tabla;;;40;9;id;2;0;0;0;3;0;no;65536
+hiring;documentos_requeridos;Tabla;Catálogo de documentos que exige cada actividad, filtrado por modalidad (EFDS-1149).;base;23;16;id;0;0;0;0;3;0;no;65536
+hiring;entregables_informe;Tabla;Consolidado de entregables del informe final (EFDS-1171).;base;0;7;id;2;0;0;0;2;0;no;24576
+hiring;evidencias_evaluacion;Tabla;Documentos con que el comité sustenta su evaluación: verificaciones, cuadro comparativo, actas (EFDS-1157).;base;0;6;id;2;0;0;0;2;0;no;24576
+hiring;expedientes;Tabla;;;10;13;id;1;1;0;0;4;0;no;81920
+hiring;firmas_contrato;Tabla;Firmas del ordenador del gasto y del contratista, con su evidencia (EFDS-1162).;base;2;10;id;2;0;0;0;3;0;no;65536
+hiring;garantias;Tabla;Pólizas constituidas por el contratista, con su revisión y aprobación (EFDS-1164).;base;1;11;id;2;1;0;0;3;0;no;65536
+hiring;informes_definitivos;Tabla;Informe de evaluación definitivo, con el resultado congelado y lo que cambió desde el preliminar (EFDS-1159).;base;1;18;id;5;1;0;0;2;0;no;49152
+hiring;informes_evaluacion;Tabla;Informe de evaluación del proceso, con el resultado del comité congelado al momento de trasladarlo (EFDS-1158).;base;2;23;id;4;2;0;0;3;0;no;65536
+hiring;informes_finales;Tabla;Informe final del supervisor con el balance congelado de la ejecución (EFDS-1171).;base;0;12;id;2;1;0;0;3;0;no;32768
+hiring;limitaciones_mipyme;Tabla;Decisión de limitar o no la convocatoria a MIPYME, con las condiciones que se evaluaron (EFDS-1151).;base;2;16;id;1;0;0;0;2;0;no;49152
+hiring;manifestaciones_mipyme;Tabla;"Manifestaciones de interés de MIPYME en participar; su número decide la limitación (EFDS-1151).";base;0;8;id;1;0;0;0;2;0;no;16384
+hiring;miembros_comite;Tabla;Integrantes del comité evaluador con su dimensión de evaluación (EFDS-1156).;base;3;6;id;1;0;0;0;4;0;no;73728
+hiring;modalidades;Tabla;;;11;6;codigo;0;11;0;0;1;0;no;24576
+hiring;modificaciones_contrato;Tabla;"Modificaciones contractuales de la actividad 9.5; hoy solo la adición tiene trámite (EFDS-1176).";base;0;38;id;5;4;0;0;6;0;no;57344
+hiring;observaciones_pliego;Tabla;Observaciones de interesados al proyecto de pliego publicado, con su respuesta (EFDS-1151).;base;4;17;id;2;0;1;0;3;0;no;65536
+hiring;oferentes;Tabla;Ofertas recibidas dentro del plazo, con su soporte. Al cerrar la recepción componen la lista publicada (EFDS-1155).;base;4;10;id;2;4;0;0;4;0;no;73728
+hiring;pagos_contrato;Tabla;Cuentas de cobro del contrato, su aval y su trámite (EFDS-1170).;base;2;24;id;3;1;0;0;4;0;no;81920
+hiring;parametros_alerta;Tabla;Plazos que gobiernan las alertas de contratación: anticipación por vencimiento, tolerancia sin abogado y hora del aviso diario.;base;6;7;clave;0;0;0;0;1;0;no;32768
+hiring;parametros_mipyme;Tabla;Condiciones que habilitan la limitación a MIPYME. Parametrizables (EFDS-1393).;base;2;8;clave;0;0;0;0;1;0;no;32768
+hiring;participaciones_proceso;Tabla;Quién está en cada proceso y con qué papel, vigentes y relevados, con el motivo del cambio (EFDS-1183).;base;17;16;id;1;0;0;0;5;0;no;98304
+hiring;piezas_audiencia;Tabla;Acta, grabaciones, observaciones y anexos que documentan la audiencia de adjudicación (EFDS-1159).;base;0;7;id;2;0;0;0;2;0;no;24576
+hiring;plantillas;Tabla;;;10;10;id;0;2;0;0;3;0;no;65536
+hiring;plazo_publicacion_acta;Tabla;Plazo para publicar el acta de liquidación, parametrizable y marcado si está sin confirmar (EFDS-1174).;base;1;5;id;0;0;0;0;1;0;no;32768
+hiring;plazo_publicacion_contrato;Tabla;Plazo para publicar el contrato, parametrizable y marcado si está sin confirmar (EFDS-1166).;base;1;5;id;0;0;0;0;1;0;no;32768
+hiring;plazos_ofertas;Tabla;Días hábiles de recepción de ofertas por modalidad, contados desde la apertura (EFDS-1155).;base;7;6;modalidad;1;0;0;0;1;0;no;32768
+hiring;plazos_publicacion;Tabla;Días hábiles de publicidad del proyecto de pliego, por modalidad. Parametrizables (EFDS-1150).;base;7;6;modalidad;1;0;0;0;1;0;no;32768
+hiring;plazos_traslado;Tabla;Días hábiles de traslado del informe de evaluación por modalidad, contados desde su publicación (EFDS-1158).;base;7;6;modalidad;1;0;0;0;1;0;no;32768
+hiring;proceso_actividades;Tabla;;;590;14;id;1;1;0;0;3;0;no;237568
+hiring;procesos;Tabla;;;10;14;id;2;25;0;0;3;0;no;65536
+hiring;publicaciones_acta;Tabla;Publicaciones del acta de liquidación con su destino, evidencia y control de plazo (EFDS-1174).;base;0;11;id;2;0;0;0;3;0;no;32768
+hiring;publicaciones_contrato;Tabla;Publicaciones del contrato con su destino, evidencia y control de plazo (EFDS-1166).;base;1;11;id;2;0;0;0;3;0;no;65536
+hiring;publicaciones_modificacion;Tabla;Publicación de la modificación en SECOP II, con su evidencia (EFDS-1176, RF-MOD-05).;base;0;8;id;2;0;0;0;3;0;no;32768
+hiring;publicaciones_pliego;Tabla;Registro de la publicación del proyecto de pliego en SECOP II y su plazo de publicidad (EFDS-1150).;base;3;14;id;1;1;1;0;4;0;no;81920
+hiring;recepciones_ofertas;Tabla;Plazo de recepción de ofertas de cada proceso y su cierre (EFDS-1155).;base;3;8;id;1;1;0;0;2;0;no;40960
+hiring;registros_actividad;Tabla;Constancia de que una actividad sin historia propia ocurrió, con su fecha, su nota y su soporte.;base;2;13;id;3;0;0;0;3;0;no;65536
+hiring;registros_presupuestales;Tabla;Registros presupuestales que comprometen los recursos del contrato (EFDS-1163).;base;1;16;id;3;2;0;0;4;0;no;73728
+hiring;reglas_actividad;Tabla;;;13;14;id;2;0;0;0;3;0;no;65536
+hiring;resoluciones_sancionatorias;Tabla;Actos administrativos del trámite sancionatorio (EFDS-1181, RF-INC-02): el que lo abre y el que lo decide, incluida la caducidad.;base;0;16;id;2;0;0;0;3;0;no;32768
+hiring;resultados_evaluacion;Tabla;Resultado de la evaluación hecha por el comité fuera de la plataforma: oferta ganadora, su valoración y el informe que la sustenta (EFDS-1157).;base;2;16;id;3;4;0;0;2;0;no;49152
+hiring;revisiones;Tabla;;;12;9;id;1;0;0;0;2;0;no;49152
+hiring;roles_del_modulo;Vista;Roles que trabajan en contratación: los que tienen al menos un permiso del módulo. Alimenta el selector de aprobadores.;base;;3;;0;0;0;0;0;0;no;0
+hiring;seguimientos_contrato;Tabla;Informes, actas y soportes de la ejecución del contrato (EFDS-1168, actividad 9.2).;base;1;11;id;3;0;0;0;2;0;no;49152
+hiring;sesiones_comite_contratacion;Tabla;Sesiones del comité de contratación sobre un proceso (actividad 3.7). Una por sesión: observar devuelve el proceso al comité, y las dos quedan.;base;4;10;id;2;0;0;0;2;0;no;49152
+hiring;smmlv;Tabla;Salario mínimo mensual legal vigente por año. Base de los umbrales expresados en SMMLV (EFDS-1147).;base;2;5;anio;0;0;0;0;1;0;no;24576
+hiring;sobres_economicos;Tabla;Apertura del sobre económico en la audiencia de adjudicación, donde la modalidad lo exige (EFDS-1159).;base;1;9;id;3;0;0;0;2;0;no;49152
+hiring;soportes_pago;Tabla;Documentos que acompañan la cuenta de cobro. Se cargan a mano mientras no exista la integración con Click (EFDS-1170).;base;4;7;id;2;0;0;0;2;0;no;49152
+hiring;subsanaciones;Tabla;Subsanaciones y observaciones que presentan los oferentes durante el traslado del informe (EFDS-1158).;base;1;19;id;4;0;0;0;2;0;no;49152
+hiring;supervisiones_contrato;Tabla;Supervisores designados por acto administrativo, vigentes y relevados (EFDS-1165).;base;1;15;id;2;2;0;0;4;0;no;81920
+hiring;suscripciones_acta_inicio;Tabla;Acta de inicio suscrita por la entidad y el contratista (actividad 8.7). La reunión (9.1) va en actas_inicio.;base;1;6;id;2;0;0;0;2;0;no;40960
+hiring;tipologias_contrato;Tabla;Tipologías de contrato y el formato del SIG que sirve de minuta (EFDS-1161).;base;12;7;codigo;0;1;0;0;1;0;no;32768
+hiring;tipos_amparo;Tabla;Coberturas que puede incluir una garantía, para controlar sus vencimientos (EFDS-1164).;base;7;5;codigo;0;1;0;0;1;0;no;32768
+hiring;tope_adicion;Tabla;Tope legal de la adición como porcentaje del valor inicial del contrato (EFDS-1176).;base;1;5;id;0;0;0;0;1;0;no;32768
+hiring;trazabilidad;Tabla;;;236;9;id;1;0;0;0;2;0;no;155648
+hiring;umbrales_comite_contratacion;Tabla;Condición de cuantía para pasar por el comité de contratación (actividad 3.7). La modalidad sin fila va a comité siempre que la matriz la marque.;base;1;7;modalidad;1;0;0;0;1;0;no;32768
+hiring;umbrales_modalidad;Tabla;Rangos de cuantía que sugieren cada modalidad. Parametrizables por administrador (EFDS-1147).;base;3;11;id;1;0;0;0;3;0;no;57344
+infrastructure-management;bloque_edificio;Tabla;;;23;9;id_bloque;1;1;0;0;2;0;no;49152
+infrastructure-management;catalogo_item;Tabla;Catálogo genérico para listas parametrizables de infraestructura (tipos, prioridades, estados);base;45;8;id_catalogo;0;0;0;0;3;0;no;98304
+infrastructure-management;espacio_fisico;Tabla;;;81;15;id_espacio;1;1;0;0;2;0;no;73728
+infrastructure-management;sede;Tabla;;;7;13;id_sede;0;2;0;0;3;0;no;65536
+infrastructure-management;solicitud_evidencia;Tabla;Evidencias/adjuntos subidos por el usuario al radicar o gestionar una solicitud de mantenimiento (fotos, PDFs, planos). Almacenado en MinIO, referenciado por URL;base;6;16;id_evidencia;1;0;0;0;5;0;no;98304
+infrastructure-management;solicitud_mantenimiento;Tabla;;;0;52;id_solicitud;2;2;0;0;13;0;no;114688
+infrastructure-management;solicitud_valoracion;Tabla;EFDS-1735 RF-INF-006. Cada fila es una visita técnica de inspección previa. 1-N con solicitud (se permiten revalorizaciones o segundas visitas).;base;0;18;id_valoracion;1;1;0;0;3;0;no;32768
+infrastructure-management;solicitud_valoracion_insumo;Tabla;EFDS-1735. Detalle fila-a-fila de materiales y repuestos requeridos para la ejecución de una visita de valoración. Restricción a nivel fila chk_tiempo_adquisicion_si_no_disponible: si disponibilidad=NO_DISPONIBLE_A_SOLICITAR, es obligatorio tiempo_adquisicion_dias para extender el SLA.;base;0;12;id_insumo;1;0;0;0;2;0;no;16384
+internal_disciplinary_control;actas_configuration;Tabla;Tabla de configuración paramétrica de actas para el módulo disciplinario;base;8;15;id;0;0;0;0;5;0;no;98304
+internal_disciplinary_control;alertas_enviadas;Tabla;;;117;14;id;3;0;0;0;10;0;no;229376
+internal_disciplinary_control;auto_versions;Tabla;;;244;9;id;0;0;0;0;4;0;no;245760
+internal_disciplinary_control;autos_configuration;Tabla;;;38;13;;0;0;0;0;3;1;no;98304
+internal_disciplinary_control;dias_festivos;Tabla;;;19;9;id;0;0;0;0;5;0;no;90112
+internal_disciplinary_control;disciplinary_behaviors;Tabla;Catálogo parametrizable de conductas indisciplinarias;base;17;8;id;0;0;0;0;5;1;no;98304
+internal_disciplinary_control;disciplinary_news;Tabla;Noticias disciplinarias recibidas;base;35;33;id;0;1;0;0;12;1;no;319488
+internal_disciplinary_control;disciplinary_news_processes;Tabla;Tabla puente para asociar noticias disciplinarias con procesos disciplinarios;base;9;7;id;1;0;0;0;5;0;no;98304
+internal_disciplinary_control;disciplinary_process_actuaciones;Tabla;;;148;11;id;2;0;0;0;4;0;no;172032
+internal_disciplinary_control;disciplinary_process_notes;Tabla;;;14;6;id;1;0;0;0;3;0;no;65536
+internal_disciplinary_control;disciplinary_process_reassignment_requests;Tabla;Tabla para solicitudes de reasignación de procesos disciplinarios;base;24;15;id;3;0;0;0;7;0;no;131072
+internal_disciplinary_control;disciplinary_process_tasks;Tabla;;;15;13;id;1;0;0;0;4;0;no;131072
+internal_disciplinary_control;disciplinary_processes;Tabla;Procesos disciplinarios activos;base;26;41;id;1;7;0;0;13;1;no;262144
+internal_disciplinary_control;disciplinary_professional;Tabla;Profesionales (abogados) asignados a procesos disciplinarios;base;9;14;id;0;3;1;0;6;0;no;114688
+internal_disciplinary_control;entidades_remision;Tabla;Tabla para gestionar las entidades de remisión en procesos disciplinarios;base;9;6;id;0;0;0;0;3;0;no;65536
+internal_disciplinary_control;evidence;Tabla;Evidencias y documentos adjuntos a los procesos;base;70;19;id;1;0;0;0;4;0;no;139264
+internal_disciplinary_control;expediente_compartido;Tabla;Tabla para gestionar los enlaces compartidos de expedientes disciplinarios;base;95;19;id;0;0;0;0;6;0;no;155648
+internal_disciplinary_control;legal_autos;Tabla;Autos legales generados en los procesos;base;218;30;id;1;1;0;0;8;1;no;360448
+internal_disciplinary_control;oficios_configuration;Tabla;;;14;15;id;0;0;0;0;5;1;no;98304
+internal_disciplinary_control;plantilla_auto;Tabla;;;1;7;id;0;0;0;0;3;1;no;65536
+internal_disciplinary_control;reglas_alerta;Tabla;;;7;10;id;0;1;0;0;4;0;no;81920
+internal_disciplinary_control;sequences;Tabla;Tabla para gestionar secuencias de radicados;base;7;3;name;0;0;0;0;1;1;no;57344
+internal_disciplinary_control;stage_configuration;Tabla;Configuración de días hábiles por etapa procesal;base;7;9;id;0;0;0;0;1;1;no;32768
+internal_disciplinary_control;system_configuration;Tabla;Configuración global del sistema disciplinario;base;1;6;id;0;0;0;0;1;0;no;49152
+internal_disciplinary_control;terminos_procesales;Tabla;;;23;18;id;0;1;0;0;11;0;no;229376
+internal_disciplinary_control;tipos_remision;Tabla;Tabla para gestionar los tipos de remisión en procesos disciplinarios;base;6;8;id;0;0;0;0;5;0;no;98304
+legal_management;actas;Tabla;;;0;18;id;1;0;0;0;2;0;no;24576
+legal_management;actors;Tabla;;;168;14;id;1;0;0;0;3;0;no;114688
+legal_management;actuaciones;Tabla;;;427;13;id;0;0;0;0;3;0;no;237568
+legal_management;adjuntos_correo;Tabla;Adjuntos de correos electrónicos sincronizados desde Microsoft Graph;base;2552;10;id;1;1;0;0;3;0;no;1941504
+legal_management;audiencias;Tabla;;;18;15;id;1;0;0;0;1;0;no;32768
+legal_management;autos;Tabla;;;4;13;id;1;0;0;0;2;0;no;49152
+legal_management;borradores_correos;Tabla;Borradores privados de correos nuevos del Centro de Comunicaciones (Redactar Correo). Se autoguardan y se eliminan al enviarse.;base;2;13;id;0;0;0;0;2;0;no;958464
+legal_management;cat_tipos_requerimiento;Tabla;;;9;7;id;0;0;0;0;3;0;no;65536
+legal_management;coactivos_historial;Tabla;;;48;9;id;1;0;0;0;2;0;no;81920
+legal_management;comentarios;Tabla;;;9;7;id;1;0;0;0;2;0;no;49152
+legal_management;comentarios_consulta;Tabla;;;2;6;id;1;0;0;0;2;0;no;49152
+legal_management;comentarios_correo;Tabla;"Comentarios del tab ""Comentarios"" en el Detalle de Comunicación (Centro de Comunicaciones).";base;2;6;id;1;0;0;0;2;0;no;49152
+legal_management;comentarios_oc;Tabla;;;28;8;id;1;0;0;0;3;1;no;65536
+legal_management;conceptos_juridicos;Tabla;;;0;26;id;1;0;0;0;5;0;no;49152
+legal_management;consulta_juridica_historial;Tabla;;;132;7;id;1;0;0;0;1;0;no;73728
+legal_management;consultas_juridicas;Tabla;Registro de consultas y asesorías jurídicas internas de ESAP;base;31;54;id;0;5;0;0;10;0;no;237568
+legal_management;correo_juridico_historial;Tabla;;;14552;7;id;1;0;0;0;7;0;no;5251072
+legal_management;correo_tracking_tokens;Tabla;;;100;11;id;2;0;0;0;4;0;no;122880
+legal_management;correos_juridicos;Tabla;;;14036;36;id;1;5;0;0;13;0;no;67944448
+legal_management;decisiones_disciplinarias;Tabla;Tabla para almacenar decisiones de procesos disciplinarios en el módulo de juzgamiento;base;6;11;id;1;0;0;0;4;0;no;81920
+legal_management;documentos;Tabla;Documentos asociados a expedientes judiciales;base;157;17;id;1;0;0;0;4;1;no;786432
+legal_management;documentos_consulta;Tabla;Documentos adjuntos a consultas jurídicas;base;25;14;id;1;0;0;0;4;1;no;81920
+legal_management;documentos_oc;Tabla;;;21;12;id;1;0;0;0;3;1;no;65536
+legal_management;evidencias;Tabla;;;16;14;id;1;0;0;0;2;0;no;49152
+legal_management;excepciones_procesales;Tabla;Excepciones procesales del módulo de Juzgamiento Disciplinario;base;2;12;id;1;0;0;0;4;0;no;81920
+legal_management;expedientes;Tabla;;;91;70;id;1;12;0;0;7;0;no;7782400
+legal_management;hallazgos;Tabla;;;0;24;id;1;0;0;0;5;0;no;49152
+legal_management;historial_consultas;Tabla;;;0;8;id;1;0;0;0;1;0;no;16384
+legal_management;notas_expediente;Tabla;Notas internas de los abogados sobre el expediente;base;3;8;id;1;0;0;0;4;1;no;81920
+legal_management;oficios_enviados;Tabla;Oficios judiciales enviados desde el sistema, con soporte para plantillas institucionales ESAP;base;4;17;id;0;0;0;0;4;0;no;98304
+legal_management;organismos_control;Tabla;;;9;8;id;0;0;0;0;2;1;no;49152
+legal_management;pagos_coactivos;Tabla;;;10;12;id;1;0;0;0;2;0;no;49152
+legal_management;pei_indicadores;Tabla;;;24;19;id;0;1;0;0;4;0;no;81920
+legal_management;pei_registros_avance;Tabla;;;24;8;id;1;0;0;0;1;0;no;32768
+legal_management;planes_comentarios;Tabla;;;0;5;id;1;0;0;0;1;0;no;16384
+legal_management;planes_evidencias;Tabla;;;14;7;id;1;0;0;0;2;0;no;49152
+legal_management;planes_hallazgos;Tabla;;;4;11;id;1;0;0;0;2;0;no;49152
+legal_management;planes_mejoramiento;Tabla;;;22;24;id;0;4;0;0;5;0;no;98304
+legal_management;planes_seguimientos;Tabla;;;22;6;id;1;0;0;0;1;0;no;32768
+legal_management;plantillas_documentos;Tabla;;;5;10;id;0;0;0;0;2;1;no;524288
+legal_management;procesos_coactivos;Tabla;Tabla de procesos de cobro coactivo - Módulo Gestión Legal;base;7;21;id;0;3;0;0;6;0;no;114688
+legal_management;procesos_coactivos_adjuntos;Tabla;;;13;10;id;1;0;0;0;2;0;no;49152
+legal_management;requerimientos_oc;Tabla;;;14;28;id;0;5;0;0;6;0;no;114688
+legal_management;respuesta_borrador_oc;Tabla;Almacena borradores de respuestas a requerimientos de órganos de control;base;2;10;id;1;0;0;0;2;0;no;49152
+legal_management;riesgo_historial;Tabla;Historial de cambios y eventos de riesgos para trazabilidad;base;8;9;id;1;0;0;0;3;0;no;65536
+legal_management;riesgos;Tabla;;;6;31;id;0;1;0;0;11;1;no;196608
+legal_management;sequences;Tabla;;;1;3;name;0;0;0;0;1;0;no;57344
+legal_management;solicitudes_insumos;Tabla;;;0;17;id;1;0;0;0;5;0;no;49152
+legal_management;system_configurations;Tabla;;;8;6;key;0;0;0;0;1;0;no;180224
+legal_management;tareas_expediente;Tabla;Tareas asociadas a expedientes judiciales para control de actividades;base;35;14;id;1;0;0;0;5;1;no;131072
+legal_management;tasas_referencia;Tabla;;;0;7;id;0;0;0;0;1;0;no;8192
+legal_management;terminos_alertas_enviadas;Tabla;;;109;4;id;2;0;0;0;4;0;no;106496
+legal_management;terminos_procesales;Tabla;Torre de control transversal para vencimientos de términos procesales de todos los módulos;base;233;26;id;0;1;0;0;7;0;no;294912
+legal_management;terminos_reglas_alerta;Tabla;;;2;8;id;0;1;0;0;3;0;no;57344
+notifications;notificacion;Tabla;;;6324;26;id_notificacion;0;0;0;0;3;0;no;4235264
+public;config_entes_control;Tabla;;;4;9;id;0;0;0;0;2;1;no;49152
+public;stage_configuration;Tabla;;;7;7;id;0;0;0;0;1;0;no;32768
+public;system_configuration;Tabla;;;1;5;id;0;0;0;0;1;0;no;32768
+requerimientos_oc;avances_hallazgo;Tabla;;;0;10;id;1;0;0;0;3;0;no;32768
+requerimientos_oc;cat_organismos_control;Tabla;Catálogo maestro de organismos de control que pueden generar requerimientos a la ESAP;base;25;8;id;0;1;0;0;2;0;no;40960
+requerimientos_oc;hallazgos;Tabla;;;2;25;id;1;1;0;0;5;1;no;98304
+requerimientos_oc;historial_requerimientos;Tabla;;;0;9;id;1;0;0;0;3;0;no;32768
+requerimientos_oc;requerimientos;Tabla;Gestión de requerimientos de órganos de control con radicado automático y cálculo de vencimiento;base;5;25;id;1;3;0;0;7;1;no;131072
+requerimientos_oc;solicitudes_insumos;Tabla;;;0;17;id;1;0;0;0;4;0;no;40960
+travel_expenses;analistas_viaticos;Tabla;Catalogo de analistas del Grupo de Viaticos para asignacion de comisiones y calculo de carga laboral;base;0;13;id;1;0;0;0;7;1;no;65536
+travel_expenses;comisionados;Tabla;;;4;21;id;0;2;0;0;4;1;no;81920
+travel_expenses;config_campos_formulario;Tabla;;;19;12;id;0;0;0;0;4;0;no;81920
+travel_expenses;config_jornada_laboral;Tabla;;;1;13;id;0;0;0;0;4;0;no;81920
+travel_expenses;config_legalizacion;Tabla;EFDS-1309 — Disparador, plazo (días hábiles) y aviso de la legalización por modalidad de pago.;base;2;9;modalidad_pago;0;0;0;0;1;1;no;24576
+travel_expenses;config_legalizacion_documentos;Tabla;EFDS-1309 — Soportes exigidos para legalizar, por tipo de comisionado. Configuración, no código (D-2).;base;42;9;id;2;0;0;0;2;1;no;73728
+travel_expenses;config_tipo_comisionado;Tabla;;;7;9;id;0;2;0;0;4;0;no;81920
+travel_expenses;config_tipo_comisionado_documentos;Tabla;;;24;6;id;2;0;0;0;4;0;no;73728
+travel_expenses;configuraciones_globales;Tabla;;;6;5;clave;0;0;0;0;1;0;no;32768
+travel_expenses;documentos_soporte;Tabla;;;0;8;id;1;0;0;0;2;0;no;24576
+travel_expenses;escalas_viaticos;Tabla;;;11;8;id;0;0;0;0;4;0;no;73728
+travel_expenses;excepciones_autorizadas_tiquetes;Tabla;;;0;8;id;0;0;0;0;3;0;no;32768
+travel_expenses;legalizacion_reversiones;Tabla;"EFDS-1310 — Solicitudes de reversión de una revisión de legalización aprobada. La solicita el analista y la resuelve otra persona; solo antes del registro en SIIF.";base;0;9;id;1;0;0;0;3;1;no;32768
+travel_expenses;legalizacion_revisiones;Tabla;EFDS-1310 — Trazabilidad de la revisión de la legalización (quién, qué, cuándo). Solo inserción.;base;0;8;id;1;0;0;0;2;1;no;24576
+travel_expenses;legalizacion_soportes;Tabla;EFDS-1309 — PDF de soporte de la legalización, validados por contenido (%PDF-), no por extensión.;base;0;13;id;2;0;0;0;2;1;no;24576
+travel_expenses;legalizaciones_comision;Tabla;EFDS-1309 — Legalización de una comisión: plazo en días hábiles y envío a revisión.;base;0;41;id;1;3;0;0;4;2;no;40960
+travel_expenses;liquidation_params;Tabla;;;5;7;id;0;0;0;0;3;0;no;65536
+travel_expenses;parametros_globales;Tabla;Parametros globales configurables del modulo de viaticos y comisiones;base;1;7;clave;0;0;0;0;1;0;no;32768
+travel_expenses;paz_y_salvo_eventos;Tabla;;;0;6;id;1;0;0;0;2;0;no;24576
+travel_expenses;paz_y_salvos;Tabla;;;0;9;id;1;1;0;0;2;0;no;24576
+travel_expenses;reintegros_comision;Tabla;Reintegros de comisiones pagadas por avance no realizadas o ejecutadas por menos días (RF-PAG-004).;base;0;16;id;1;0;0;0;4;0;no;40960
+travel_expenses;rutas_restringidas;Tabla;;;4;6;id;0;0;0;0;3;0;no;57344
+travel_expenses;saldos_tiquetes;Tabla;;;0;10;id;0;0;0;0;3;0;no;24576
+travel_expenses;solicitudes_comision;Tabla;;;3;98;id;8;4;0;0;29;1;no;507904
+travel_expenses;solicitudes_historial_estados;Tabla;Auditoría append-only de transiciones de estado del expediente de comisión (RF-SIS-001 / RF-LIQ-004).;base;0;7;id;1;0;0;0;3;0;no;24576
+travel_expenses;tarifas_investigadores;Tabla;;;3;5;id;0;0;0;0;4;0;no;73728
+travel_expenses;tarifas_referencia_tiquetes;Tabla;;;42;14;id;0;0;0;0;5;0;no;98304
+travel_expenses;tarifas_regionales_excepcion;Tabla;;;8;7;id;0;0;0;0;3;0;no;57344
+travel_expenses;tarifas_transporte_terminal;Tabla;;;11;9;id;0;0;0;0;3;0;no;57344
+travel_expenses;tipos_documento_soporte;Tabla;;;15;9;id;0;3;0;0;3;0;no;65536

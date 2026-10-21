@@ -73,7 +73,7 @@ def generar_csv(m, carpeta):
                   for p in m["programables"]])
     escribir_csv(os.path.join(carpeta, "datos_personales.csv"), ["esquema", "tabla", "columna", "tipo", "categoria", "nivel", "tabla_apoyo"],
                  [[t["s"], t["t"], c["n"], c["ty"], c["pii"]["cat"], c["pii"]["nivel"], "sí" if t["apoyo"] else "no"]
-                  for t in T.values() if t["k"] in "rp" for c in t["cols"] if c["pii"]])
+                  for t in T.values() if t["k"] in "rp" and not t["particion"] for c in t["cols"] if c["pii"]])
     escribir_csv(os.path.join(carpeta, "triggers.csv"), ["tabla", "trigger", "funcion", "estado", "definicion"],
                  [[g["tabla"], g["n"], g["fn"], g["estado"], g["def"]] for g in m["triggers"]])
 
@@ -92,6 +92,9 @@ def generar_csv_interno(m, carpeta):
                  [[t["s"], t["t"], len(t["fk_out"]), len(t["fk_in"]), len(t["prog"])] for t in oper if t["filas"] == 0])
     escribir_csv(os.path.join(carpeta, "tablas_apoyo.csv"), ["esquema", "tabla", "filas", "bytes"],
                  [[t["s"], t["t"], t["filas"], t["bytes"]] for t in T.values() if t["k"] in "rp" and t["apoyo"]])
+    escribir_csv(os.path.join(carpeta, "relaciones_implicitas_todas.csv"),
+                 ["tabla", "columna", "tabla_destino", "columna_destino", "regla", "valores", "con_padre", "sin_padre", "cobertura_pct", "estado", "otros_destinos_posibles"],
+                 [[i["c"], i["col"], i["p"], i["pcol"], i["regla"], i["nn"], i["ok"], i["sin_padre"], i["cob"], i["estado"], ", ".join(i["alternativas"])] for i in m["implicitas"]])
     escribir_csv(os.path.join(carpeta, "identidad.csv"),
                  ["tipo", "tabla", "columna", "fuente_maestra", "es_maestra", "con_valor", "distintos", "en_maestra", "fuera_de_maestra", "tabla_apoyo"],
                  [[i["tipo"], i["tabla"], i["col"], i["maestro"], "sí" if i["es_maestro"] else "no", i["nn"], i["dist"], i["en_maestro"], i["fuera"],
@@ -206,10 +209,12 @@ def main():
     base["vistas"] = [{"v": v["v"], "usa": v["usa"]} for v in m["vistas"]]
     base.update({"version": a.version, "entorno": a.entorno, "repo": a.repo, "generado": f"{datetime.datetime.now():%Y-%m-%d %H:%M}"})
     interna = dict(base, edicion="interna", identidad=m["identidad"], kpi=m["kpi"])
+    mc = M.vista_cliente(m)
+    base = dict(base, tablas=mc["tablas"], implicitas=mc["implicitas"])
     # La edición para el cliente no lleva diagnóstico: ni indicadores con meta, ni identidad, ni conteos de valores sin padre.
     cliente = dict(base, edicion="cliente", identidad=[], kpi=[],
                    fks=[{k: v for k, v in f.items() if k not in ("huerf", "indexada", "validada")} for f in m["fks"]])
-    texto_inf = informe(m, a.version, nombre, os.path.abspath(a.anterior) if a.anterior else None)
+    texto_inf = informe(M.vista_cliente(m), a.version, nombre, os.path.abspath(a.anterior) if a.anterior else None)
     print(texto_inf[:3000])
     if a.simular:
         print("Simulación: no se escribió nada.")
@@ -228,9 +233,9 @@ def main():
         open(destino, "w", encoding="utf-8", newline="\n").write(html)
         print(f"Portal {datos['edicion']}: {carpeta}/{archivo} ({len(html) / 1048576:.2f} MB)")
 
-    generar_csv(m, os.path.join(RAIZ, "docs", "csv"))
+    generar_csv(mc, os.path.join(RAIZ, "docs", "csv"))
     generar_csv_interno(m, os.path.join(RAIZ, "interno", "csv"))
-    generar_md(m, os.path.join(RAIZ, "docs", "catalogo"), nombre)
+    generar_md(mc, os.path.join(RAIZ, "docs", "catalogo"), nombre)
     ruta_inf = os.path.join(RAIZ, "docs", f"informe_extraccion_{a.version}.md")
     open(ruta_inf, "w", encoding="utf-8").write(texto_inf)
     print("Detalle: docs/csv/, docs/catalogo/ y", os.path.relpath(ruta_inf, RAIZ), "· uso interno: interno/csv/")

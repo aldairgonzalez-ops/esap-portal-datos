@@ -26,21 +26,46 @@ APOYO = re.compile(r"(bkp|backup|respaldo|_old$|^old_|_tmp$|^tmp_|^temp_|_temp$|
 
 # Datos personales por nombre de columna (Ley 1581 de 2012). Orden: la primera categoría que coincide.
 CATEGORIAS_PII = [
-    ("Credencial de acceso", "alta", r"(password|passwd|contrasena|clave_acceso|pass_hash|secret|(^|_)token)"),
-    ("Dato sensible", "alta", r"(salud|enfermedad|diagnost|discapacidad|etnia|etnic|raza|religion|orientacion_sexual|"
-                              r"biometr|huella|rostro|(^|_)foto|fotografia|sindical|politic)"),
-    ("Identificación", "alta", r"(num_identificacion|identificacion|document_number|num_documento|nro_documento|"
-                                r"numero_documento|(^|_)documento$|cedula|(^|_)dni|pasaporte|passport)"),
+    ("Credencial de acceso", "alta", r"(password|passwd|contrasena|clave_acceso|pass_hash|secret|(^|_)token($|_)|token_acceso|token_hash|"
+                                     r"sesion_token|token_invitacion|token_microsoft)"),
+    ("Dato sensible", "alta", r"(salud|enfermedad|diagnostico_(medico|salud)|discapacidad|etnia|etnic|(^|_)raza|religion|orientacion_sexual|"
+                              r"biometr|huella_dactilar|dactilar|rostro|(^|_)foto($|_)|fotografia|sindical|afiliacion_politica|partido_politico)"),
+    ("Identificación", "alta", None),          # ver es_documento_identidad()
+    ("Identificador en línea (IP)", "media", r"(ip_address|direccion_ip|(^|_)ip($|_))"),
     ("Contacto", "media", r"(e_?mail|correo|(^|_)tel(_|$)|telefono|phone|celular|movil|mobile|whatsapp|"
-                          r"direccion|dir_residencia|address)"),
+                          r"(^|_)direccion$|dir_residencia|direccion_residencia|(^|_)address$)"),
     ("Nombre de persona", "media", r"(first_name|last_name|full_name|middle_name|(^|_)nombres$|nombre_completo|nombre_persona|"
                                    r"apellido|nom_tercero|nom_largo|primer_nombre|segundo_nombre)"),
     ("Dato personal", "media", r"(nacimiento|birth|(^|_)edad|genero|gender|(^|_)sexo|estado_civil|gen_tercero)"),
 ]
-# Columnas de contacto institucional (sede, seccional, empresa): no se tratan como dato personal.
-INSTITUCIONAL = re.compile(r"(sede|seccional|empresa|institucion|entidad|dependencia|oficina|soporte|"
-                           r"remitente|sender|smtp|from_)", re.I)
+# Documento de identidad de una persona (no el nombre, la URL, el tipo o el estado de un documento/archivo).
+DOC_IDENTIDAD = re.compile(r"(num_identificacion|(^|_)identificacion$|^identificacion|numero_documento|num_documento|nro_documento|"
+                           r"document_number|cedula|(^|_)dni($|_)|pasaporte|passport|[a-z]+_documento$|^documento_(docente|persona|"
+                           r"contratista|identidad)$|^documento$)", re.I)
+NO_DOC_IDENTIDAD = re.compile(r"(nombre|name|url|tipo|type|estado|status|hash|pdf|archivo|file|origen|biblioteca|adjunto|"
+                              r"solicitad|entregad|carpeta|version|fecha|requiere|soporte|(^|_)id_|_id$|^id|id$)", re.I)
+# Columnas de contacto institucional (sede, seccional, empresa…): no se tratan como dato personal.
+INSTITUCIONAL = re.compile(r"(sede|seccional|empresa|institucion|entidad|dependencia|oficina|soporte|organismo|"
+                           r"geopolitica|divipola|remitente|sender|smtp|from_)", re.I)
+# «dirección» también nombra dependencias de la ESAP (Dirección Territorial, alta dirección).
+NO_DIRECCION = re.compile(r"(territorial|alta_direccion|decision|justificacion|autoriza|delegad)", re.I)
 TIPO_DOC = re.compile(r"^(tip|tipo|type)_", re.I)
+# Bitácoras: guardan el dato como estaba en el momento del evento; no se cuentan como réplica de identidad.
+BITACORA = re.compile(r"(^log_|_logs?$|^logs?$|auditlog|^audit_|_audit$|historial|bitacora)", re.I)
+
+
+def es_bitacora(esquema, tabla):
+    return esquema.lower() == "audit" or bool(BITACORA.search(tabla))
+
+
+def pl(n, singular, plural):
+    """'1 tabla' / '3 tablas' con el número formateado."""
+    return f"{n:,}".replace(",", ".") + " " + (singular if n == 1 else plural)
+TEXTO = re.compile(r"^(character|text|citext|jsonb?|bytea|name)", re.I)
+
+def es_documento_identidad(col):
+    return bool(DOC_IDENTIDAD.search(col)) and not NO_DOC_IDENTIDAD.search(col) and not TIPO_DOC.search(col)
+
 
 KIND_TABLA = {"r": "Tabla", "p": "Tabla particionada", "v": "Vista", "m": "Vista materializada", "f": "Tabla foránea"}
 KIND_PROG = {"f": "Función", "p": "Procedimiento", "a": "Agregada", "w": "Ventana"}
@@ -77,14 +102,22 @@ def pct(a, b):
     return round(100.0 * a / b, 1) if b else 0.0
 
 
-def clasificar_pii(col, tabla):
+def clasificar_pii(col, tabla, tipo=""):
+    """Categoría de dato personal según el nombre de la columna (y su tipo: banderas, fechas e ids no guardan el dato)."""
     if TIPO_DOC.search(col):
         return None
+    if tipo and not TEXTO.search(tipo):
+        return None
     for nombre, nivel, patron in CATEGORIAS_PII:
-        if re.search(patron, col, re.I):
-            if nombre == "Contacto" and (INSTITUCIONAL.search(col) or INSTITUCIONAL.search(tabla)):
+        coincide = es_documento_identidad(col) if patron is None else re.search(patron, col, re.I)
+        if not coincide:
+            continue
+        if nombre == "Contacto":
+            if INSTITUCIONAL.search(col) or INSTITUCIONAL.search(tabla) or NO_DIRECCION.search(col):
                 return None
-            return {"cat": nombre, "nivel": nivel}
+            if col.lower() == "direccion" and re.search(r"(correo|mensaje|email|mail)", tabla, re.I):
+                return None          # sentido del correo (entrante/saliente), no domicilio
+        return {"cat": nombre, "nivel": nivel}
     return None
 
 
@@ -126,7 +159,7 @@ def construir(carpeta):
         else:
             desc, estado = "", ""
         tablas[k] = {
-            "s": r["s"], "t": r["t"], "k": r["k"], "tipo": KIND_TABLA.get(r["k"], r["k"]),
+            "s": r["s"], "t": r["t"], "k": r["k"], "tipo": "Partición" if r.get("particion") else KIND_TABLA.get(r["k"], r["k"]),
             "d": desc, "de": estado,
             "filas": filas.get((r["s"], r["t"])), "est": r.get("est"), "bytes": r.get("bytes") or 0,
             "pk": [], "cols": [], "fk_out": [], "fk_in": [], "imp_out": [], "imp_in": [],
@@ -146,7 +179,7 @@ def construir(carpeta):
             desc, estado = extra["d"], extra["estado"]
         else:
             desc, estado = "", ""
-        pii = clasificar_pii(r["c"], r["t"])
+        pii = clasificar_pii(r["c"], r["t"], r["ty"])
         tablas[k]["cols"].append({
             "n": r["c"], "ty": r["ty"], "nul": r["nul"], "def": r.get("def"), "d": desc, "de": estado,
             "ident": r.get("ident"), "gen": r.get("gen"),
@@ -209,9 +242,16 @@ def construir(carpeta):
             nombres[fk["cols"][0]]["fk"] = fk["p"] + "." + fk["pcols"][0]
 
     # relaciones implícitas: por columna se queda el candidato con mayor cobertura (mismo esquema primero)
+    # R1 (mismo nombre) solo cuenta si la columna destino es la clave primaria: una columna UNIQUE con el mismo
+    # nombre suele ser otra referencia (p. ej. usuario_id único en otra tabla), no el registro padre.
     por_col = collections.defaultdict(list)
     for r in ex["12_relaciones_implicitas"]:
-        por_col[(f'{r["s"]}.{r["t"]}', r["col"])].append(r)
+        c, p = f'{r["s"]}.{r["t"]}', f'{r["rs"]}.{r["rt"]}'
+        if c not in tablas or p not in tablas or tablas[c]["particion"] or tablas[p]["particion"]:
+            continue
+        if r["regla"] == "R1" and tablas[p]["pk"] != [r["rcol"]]:
+            continue
+        por_col[(c, r["col"])].append(r)
     implicitas = []
     for (k, col), cands in por_col.items():
         cands.sort(key=lambda r: (-(r["ok"] / r["nn"] if r["nn"] else 0), not r["mismo_esquema"], r["regla"]))
@@ -280,11 +320,15 @@ def construir(carpeta):
     # ---- identidad replicada
     identidad = []
     for r in ex["13_identidad"]:
-        if INSTITUCIONAL.search(r["col"]) or INSTITUCIONAL.search(r["t"]):
+        k = f'{r["s"]}.{r["t"]}'
+        if INSTITUCIONAL.search(r["col"]) or INSTITUCIONAL.search(r["t"]) or (k in tablas and tablas[k]["particion"]):
+            continue
+        if r["tipo"] == "documento" and not es_documento_identidad(r["col"]):
             continue
         identidad.append({"tipo": r["tipo"], "tabla": f'{r["s"]}.{r["t"]}', "col": r["col"], "maestro": r["maestro"],
                           "es_maestro": r["es_maestro"], "nn": r["nn"], "dist": r["dist"], "en_maestro": r["en_maestro"],
-                          "fuera": r["dist"] - r["en_maestro"], "apoyo": bool(APOYO.search(r["t"]))})
+                          "fuera": r["dist"] - r["en_maestro"], "apoyo": bool(APOYO.search(r["t"])),
+                          "bitacora": es_bitacora(r["s"], r["t"])})
 
     # ---- esquemas / dominios
     esquemas = []
@@ -297,11 +341,11 @@ def construir(carpeta):
             "d": (r.get("d") or "").strip() or (cfg.get("descripcion") or "").strip(),
             "de": "base" if (r.get("d") or "").strip() else ("propuesta" if (cfg.get("descripcion") or "").strip() else ""),
             "orden": int(cfg.get("orden") or 999), "owner": r.get("owner"),
-            "tablas": sum(1 for t in ts if t["k"] in "rpf"), "vistas": sum(1 for t in ts if t["k"] in "vm"),
-            "columnas": sum(len(t["cols"]) for t in ts if t["k"] in "rpf"),
-            "filas": sum(t["filas"] or 0 for t in ts if t["k"] in "rpf"),
-            "vacias": sum(1 for t in ts if t["k"] in "rp" and t["filas"] == 0),
-            "apoyo": sum(1 for t in ts if t["k"] in "rp" and t["apoyo"]),
+            "tablas": sum(1 for t in ts if t["k"] in "rpf" and not t["particion"]), "vistas": sum(1 for t in ts if t["k"] in "vm"),
+            "columnas": sum(len(t["cols"]) for t in ts if t["k"] in "rpf" and not t["particion"]),
+            "filas": sum(t["filas"] or 0 for t in ts if t["k"] in "rpf" and not t["particion"]),
+            "vacias": sum(1 for t in ts if t["k"] in "rp" and not t["particion"] and t["filas"] == 0),
+            "apoyo": sum(1 for t in ts if t["k"] in "rp" and not t["particion"] and t["apoyo"]),
             "bytes": sum(t["bytes"] for t in ts),
             "prog": sum(1 for p in programables if p["s"] == s),
         })
@@ -323,7 +367,7 @@ def indicadores(m):
     fks, imp = m["fks"], m["implicitas"]
     imp_conf = [i for i in imp if i["estado"] in ("confirmada por datos", "parcial")]
     fk1 = [f for f in fks if len(f["cols"]) == 1]
-    ident = [i for i in m["identidad"] if not i["es_maestro"] and not i["apoyo"] and i["nn"]]
+    ident = [i for i in m["identidad"] if not i["es_maestro"] and not i["apoyo"] and not i["bitacora"] and i["fuera"]]
     pii = [c for t in oper for c in t["cols"] if c["pii"]]
     huerf = sum(f.get("huerf") or 0 for f in fks)
 
@@ -338,25 +382,43 @@ def indicadores(m):
     decl = len(fk1) + len(imp_conf)
     return [
         k("K01", "Tablas con descripción", "Comprensibilidad", pct(con_desc_t, len(oper)), "≥ 95 %",
-          f"{con_desc_t} de {len(oper)} tablas operativas tienen descripción registrada", pct(con_desc_t, len(oper)) >= 95, "catalogo"),
+          f"{con_desc_t} de {pl(len(oper), 'tabla operativa', 'tablas operativas')} con descripción registrada", pct(con_desc_t, len(oper)) >= 95, "catalogo"),
         k("K02", "Columnas con descripción", "Comprensibilidad", pct(con_desc_c, len(cols)), "≥ 95 %",
-          f"{con_desc_c} de {len(cols)} columnas de tablas operativas tienen descripción", pct(con_desc_c, len(cols)) >= 95, "catalogo"),
+          f"{con_desc_c} de {pl(len(cols), 'columna', 'columnas')} de tablas operativas con descripción", pct(con_desc_c, len(cols)) >= 95, "catalogo"),
         k("K03", "Tablas con clave primaria", "Unicidad", pct(con_pk, len(oper)), "100 %",
-          f"{con_pk} de {len(oper)} tablas operativas declaran clave primaria", con_pk == len(oper), "calidad"),
+          f"{con_pk} de {pl(len(oper), 'tabla operativa', 'tablas operativas')} con clave primaria declarada", con_pk == len(oper), "calidad"),
         k("K04", "Relaciones declaradas como FK", "Integridad referencial", pct(len(fk1), decl), "≥ 95 %",
-          f"{len(fk1)} FK declaradas y {len(imp_conf)} relaciones implícitas que los datos confirman total o parcialmente",
+          f"{pl(len(fk1), 'FK declarada', 'FK declaradas')} y {pl(len(imp_conf), 'relación implícita', 'relaciones implícitas')} que los datos confirman total o parcialmente",
           pct(len(fk1), decl) >= 95, "relaciones"),
         k("K05", "FK con índice en la columna hija", "Eficiencia", pct(idx_fk, len(fks)), "100 %",
-          f"{idx_fk} de {len(fks)} FK tienen un índice que empieza por sus columnas", idx_fk == len(fks), "relaciones"),
+          f"{idx_fk} de {len(fks)} FK con un índice que empieza por sus columnas", idx_fk == len(fks), "relaciones"),
         k("K06", "Valores sin registro padre en FK", "Consistencia", huerf, "0",
-          f"{huerf} valores en columnas FK sin fila correspondiente en la tabla padre", huerf == 0, "relaciones"),
+          f"{pl(huerf, 'valor', 'valores')} en columnas FK sin fila correspondiente en la tabla padre", huerf == 0, "relaciones"),
         k("K07", "Tablas operativas con datos", "Actualidad", pct(con_datos, len(oper)), "referencia",
-          f"{con_datos} de {len(oper)} tablas operativas tienen filas en QA; {len(oper) - con_datos} sin filas", None, "calidad"),
+          f"{con_datos} de {pl(len(oper), 'tabla operativa', 'tablas operativas')} con filas en QA; {len(oper) - con_datos} sin filas", None, "calidad"),
         k("K08", "Tablas de apoyo", "Mantenibilidad", len(ts) - len(oper), "referencia",
-          f"{len(ts) - len(oper)} tablas de respaldo, copia, migración o temporales identificadas por su nombre", None, "calidad"),
+          f"{pl(len(ts) - len(oper), 'tabla', 'tablas')} de respaldo, copia, migración o temporal identificadas por su nombre", None, "calidad"),
         k("K09", "Copias de datos de identidad fuera de la fuente maestra", "Consistencia", len(ident), "referencia",
-          f"{len(ident)} columnas de correo o documento con datos fuera de la fuente maestra", None, "identidad"),
+          f"{pl(len(ident), 'columna', 'columnas')} de correo o documento en tablas operativas con valores fuera de la fuente maestra (sin contar bitácoras)", None, "identidad"),
         k("K10", "Columnas con datos personales identificadas", "Confidencialidad", len(pii), "referencia",
-          f"{len(pii)} columnas clasificadas por su nombre (Ley 1581 de 2012); "
+          f"{pl(len(pii), 'columna clasificada', 'columnas clasificadas')} por su nombre (Ley 1581 de 2012); "
           f"{sum(1 for c in pii if c['pii']['nivel'] == 'alta')} de nivel alto", None, "personales"),
     ]
+
+
+def vista_cliente(m):
+    """Copia del modelo para el entregable: de las relaciones implícitas solo quedan las confirmadas por datos.
+    Las parciales y las no confirmadas son diagnóstico y van al informe y al portal internos."""
+    import copy
+    c = copy.deepcopy(m)
+    conservar = [i for i, x in enumerate(m["implicitas"]) if x["estado"] == "confirmada por datos"]
+    nuevo = {viejo: n for n, viejo in enumerate(conservar)}
+    c["implicitas"] = [c["implicitas"][i] for i in conservar]
+    for t in c["tablas"].values():
+        t["imp_out"] = [nuevo[i] for i in t["imp_out"] if i in nuevo]
+        t["imp_in"] = [nuevo[i] for i in t["imp_in"] if i in nuevo]
+        destinos = {(c["implicitas"][i]["col"]) for i in t["imp_out"]}
+        for col in t["cols"]:
+            if col["imp"] and col["n"] not in destinos:
+                col["imp"] = None
+    return c

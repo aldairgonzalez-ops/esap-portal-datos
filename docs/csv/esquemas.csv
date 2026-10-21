@@ -1,0 +1,17 @@
+﻿esquema;dominio;descripcion;tablas;vistas;columnas;filas;tablas_sin_filas;tablas_apoyo;programables;bytes
+auth;Identidad y acceso;Personas, usuarios, roles, permisos, sedes, seccionales y división geopolítica. Contiene la fuente maestra de personas (auth.personas).;23;0;275;9012;1;1;4;3416064
+academic_registration;Registro académico;Inscripción, admisión y matrícula de estudiantes en los programas académicos.;10;0;183;11215;0;0;2;9478144
+academic_work_plan;Plan de trabajo académico;Planes de trabajo y asignación académica de docentes.;57;0;731;39324;13;0;6;21094400
+certification;Certificaciones;Solicitud y expedición de certificados.;13;0;208;15908;0;0;0;19611648
+legal_management;Gestión jurídica;Procesos, actuaciones y abogados de la gestión jurídica.;54;0;791;33017;7;0;7;89030656
+control_interno;Control interno;Schema unificado para el Sistema de Control Interno Institucional;85;6;1310;34506;42;0;24;43794432
+internal_disciplinary_control;Control disciplinario interno;Procesos de control disciplinario interno.;26;0;358;1181;0;0;4;3588096
+requerimientos_oc;Requerimientos;Requerimientos y solicitudes registrados en la plataforma.;6;0;94;32;3;0;2;376832
+notifications;Notificaciones;Mensajes y notificaciones enviados por la plataforma.;1;0;26;6324;0;0;0;4235264
+audit;Auditoría y trazabilidad;Schema para almacenar logs de auditoría de todas las peticiones HTTP del sistema;1;1;34;74668;0;0;3;424050688
+public;Esquema público;standard public schema;3;0;21;12;0;0;3;114688
+academic-schedule;Programación académica;Esquema para la gestión de franjas horarias, aulas, jornadas y programación académica institucional ESAP;14;0;147;666;7;0;3;1097728
+hiring;Contratación;;84;1;952;1961;19;0;1;4628480
+travel_expenses;Viáticos y gastos de viaje;;30;0;402;208;12;0;7;2007040
+infrastructure-management;Gestión de infraestructura;Esquema para la gestión de infraestructura física, sedes territoriales, bloques, aulas, espacios y solicitudes de mantenimiento ESAP;8;0;143;162;3;0;0;548864
+chatbot;Asistente virtual (chatbot);Esquema para el módulo Asistente Virtual y ChatBot institucional ESAP;3;0;25;0;3;0;0;90112

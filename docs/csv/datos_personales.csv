@@ -1,0 +1,128 @@
+﻿esquema;tabla;columna;tipo;categoria;nivel;tabla_apoyo
+academic-schedule;programacion_historica;cedula_docente;character varying(20);Identificación;alta;no
+academic_registration;certificate_validations;ip_address;character varying(50);Identificador en línea (IP);media;no
+academic_registration;graduates;full_name;character varying(255);Nombre de persona;media;no
+academic_registration;graduates;email;character varying(255);Contacto;media;no
+academic_registration;graduates;phone;character varying(50);Contacto;media;no
+academic_registration;graduates;first_name;character varying(255);Nombre de persona;media;no
+academic_registration;graduates;last_name;character varying(255);Nombre de persona;media;no
+academic_registration;graduation_certificate_requests;full_name;character varying(255);Nombre de persona;media;no
+academic_registration;graduation_certificate_requests;requester_email;character varying(255);Contacto;media;no
+academic_registration;graduation_certificate_requests;requester_phone;character varying(50);Contacto;media;no
+academic_registration;graduation_certificate_requests;graduate_last_name;character varying(255);Nombre de persona;media;no
+academic_registration;graduation_certificate_requests;graduate_email;character varying(255);Contacto;media;no
+academic_registration;graduation_certificate_requests;graduate_phone;character varying(50);Contacto;media;no
+academic_registration;graduation_certificates;full_name;character varying(255);Nombre de persona;media;no
+academic_registration;signers;full_name;character varying(255);Nombre de persona;media;no
+academic_work_plan;AuditLog;usuario_email;text;Contacto;media;no
+academic_work_plan;AuditLog;ip_address;text;Identificador en línea (IP);media;no
+academic_work_plan;BancoDocentesInvitaciones;token_acceso;text;Credencial de acceso;alta;no
+academic_work_plan;BancoDocentesInvitaciones;sesion_token_hash;text;Credencial de acceso;alta;no
+academic_work_plan;Docente;correoAlternativo;text;Contacto;media;no
+academic_work_plan;Docente;ip_creacion;character varying(50);Identificador en línea (IP);media;no
+academic_work_plan;Docente;sexoBiologico;text;Dato personal;media;no
+academic_work_plan;Persona;telefono;text;Contacto;media;no
+academic_work_plan;Persona;direccion;text;Contacto;media;no
+academic_work_plan;Persona;primer_nombre;text;Nombre de persona;media;no
+academic_work_plan;Persona;segundo_nombre;text;Nombre de persona;media;no
+academic_work_plan;Persona;primer_apellido;text;Nombre de persona;media;no
+academic_work_plan;Persona;segundo_apellido;text;Nombre de persona;media;no
+academic_work_plan;Persona;genero;text;Dato personal;media;no
+academic_work_plan;Persona;correo_alternativo;text;Contacto;media;no
+academic_work_plan;RundAccesoDatosLog;ip;text;Identificador en línea (IP);media;no
+academic_work_plan;RundAccesoExterno;token;text;Credencial de acceso;alta;no
+academic_work_plan;RundAprobacionLog;ip;text;Identificador en línea (IP);media;no
+academic_work_plan;RundCargaMasiva;ip;text;Identificador en línea (IP);media;no
+academic_work_plan;RundInvitacionDocente;documento_identidad;character varying(100);Identificación;alta;no
+academic_work_plan;RundInvitacionDocente;token_invitacion;character varying(255);Credencial de acceso;alta;no
+academic_work_plan;RundMacroDocenteConsultaLog;ip;text;Identificador en línea (IP);media;no
+academic_work_plan;SolicitudPTA;docenteEmail;text;Contacto;media;no
+academic_work_plan;Usuario;email;text;Contacto;media;no
+academic_work_plan;Usuario;password;text;Credencial de acceso;alta;no
+academic_work_plan;docencia_concertada;documento_docente;character varying(40);Identificación;alta;no
+audit;request_logs;ip_address;character varying(45);Identificador en línea (IP);media;no
+audit;request_logs;user_email;character varying(255);Contacto;media;no
+auth;personas;num_identificacion;character varying(30);Identificación;alta;no
+auth;personas;nom_largo;character varying(1000);Nombre de persona;media;no
+auth;personas;nom_tercero;character varying(250);Nombre de persona;media;no
+auth;personas;pri_apellido;character varying(250);Nombre de persona;media;no
+auth;personas;seg_apellido;character varying(250);Nombre de persona;media;no
+auth;personas;gen_tercero;character varying(6);Dato personal;media;no
+auth;personas;dir_residencia;character varying(250);Contacto;media;no
+auth;personas;dir_email;character varying(100);Contacto;media;no
+auth;personas;tel_celular;character varying(255);Contacto;media;no
+auth;user;password_hash;character varying(255);Credencial de acceso;alta;no
+auth;user;token_microsoft;character varying(255);Credencial de acceso;alta;no
+certification;certificate_correction_requests;requester_email;character varying(255);Contacto;media;no
+certification;certificate_correction_requests;reviewed_by_email;character varying(255);Contacto;media;no
+certification;certificate_requests;full_name;character varying(255);Nombre de persona;media;no
+certification;certificate_requests;email;character varying(100);Contacto;media;no
+certification;certificate_requests;phone;character varying(20);Contacto;media;no
+certification;certificate_validations;ip_address;character varying(50);Identificador en línea (IP);media;no
+certification;certificates;full_name;character varying(255);Nombre de persona;media;no
+certification;signers;full_name;character varying(255);Nombre de persona;media;no
+certification;technical_bonus_assignments;full_name;character varying(255);Nombre de persona;media;no
+certification;template_signers;full_name;character varying(255);Nombre de persona;media;no
+chatbot;conversacion;usuario_email;character varying(255);Contacto;media;no
+control_interno;auditoria;responsable_area_email;character varying(255);Contacto;media;no
+control_interno;auditoria_territorial_info;direccion;text;Contacto;media;no
+control_interno;auditoria_territorial_info;contacto_email;character varying(255);Contacto;media;no
+control_interno;auditoria_territorial_info;contacto_telefono;character varying(20);Contacto;media;no
+control_interno;historial_auditoria;ip_address;character varying(45);Identificador en línea (IP);media;no
+control_interno;historial_auditoria;user_email;character varying(255);Contacto;media;no
+control_interno;historial_generacion_informe;ip_origen;character varying(50);Identificador en línea (IP);media;no
+control_interno;historial_plan_anual;ip_address;character varying(45);Identificador en línea (IP);media;no
+control_interno;logs_auditoria_esap;ip_address;character varying(45);Identificador en línea (IP);media;no
+control_interno;rol_plan_anual;email;character varying(255);Contacto;media;no
+control_interno;sesiones_esap;token;character varying(500);Credencial de acceso;alta;no
+control_interno;sesiones_esap;ip_address;character varying(45);Identificador en línea (IP);media;no
+control_interno;usuarios_esap;nombre_completo;character varying(255);Nombre de persona;media;no
+control_interno;usuarios_esap;email;character varying(255);Contacto;media;no
+hiring;actos_adjudicacion;correo_contratista;character varying(200);Contacto;media;no
+hiring;avisos;correos_externos;jsonb;Contacto;media;no
+hiring;contratos;contratista_documento;character varying(40);Identificación;alta;no
+hiring;firmas_contrato;firmante_documento;character varying(40);Identificación;alta;no
+hiring;modificaciones_contrato;cedente_documento;character varying(40);Identificación;alta;no
+hiring;modificaciones_contrato;cesionario_documento;character varying(40);Identificación;alta;no
+hiring;participaciones_proceso;email;character varying(200);Contacto;media;no
+hiring;supervisiones_contrato;email;character varying(200);Contacto;media;no
+infrastructure-management;solicitud_evidencia;usuario_que_subio_email;character varying(180);Contacto;media;no
+infrastructure-management;solicitud_mantenimiento;solicitante_email;character varying(150);Contacto;media;no
+infrastructure-management;solicitud_mantenimiento;usuario_solicitante_email;character varying(150);Contacto;media;no
+internal_disciplinary_control;disciplinary_professional;nombre_completo;character varying(255);Nombre de persona;media;no
+internal_disciplinary_control;disciplinary_professional;email;character varying(255);Contacto;media;no
+internal_disciplinary_control;disciplinary_professional;telefono;character varying(50);Contacto;media;no
+internal_disciplinary_control;expediente_compartido;token_acceso;character varying(255);Credencial de acceso;alta;no
+internal_disciplinary_control;expediente_compartido;email_destinatario;character varying(255);Contacto;media;no
+internal_disciplinary_control;expediente_compartido;ip_ultimo_acceso;character varying(45);Identificador en línea (IP);media;no
+internal_disciplinary_control;terminos_procesales;email_responsable;character varying(100);Contacto;media;no
+legal_management;actors;email;character varying(255);Contacto;media;no
+legal_management;actors;telefono;character varying(50);Contacto;media;no
+legal_management;actors;direccion;character varying(255);Contacto;media;no
+legal_management;audiencias;abogado_email;character varying(255);Contacto;media;no
+legal_management;consultas_juridicas;email_solicitante;character varying(150);Contacto;media;no
+legal_management;consultas_juridicas;telefono_solicitante;character varying(20);Contacto;media;no
+legal_management;correo_tracking_tokens;token;character varying(100);Credencial de acceso;alta;no
+legal_management;correo_tracking_tokens;ip_apertura;character varying(50);Identificador en línea (IP);media;no
+legal_management;correo_tracking_tokens;destinatario_email;character varying(255);Contacto;media;no
+legal_management;expedientes;demandante_direccion;character varying(500);Contacto;media;no
+legal_management;expedientes;demandante_telefono;character varying(50);Contacto;media;no
+legal_management;expedientes;demandante_email;character varying(255);Contacto;media;no
+legal_management;expedientes;demandado_direccion;character varying(500);Contacto;media;no
+legal_management;expedientes;demandado_telefono;character varying(50);Contacto;media;no
+legal_management;expedientes;demandado_email;character varying(255);Contacto;media;no
+legal_management;oficios_enviados;destinatario_email;character varying(200);Contacto;media;no
+legal_management;respuesta_borrador_oc;destinatario_email;character varying(200);Contacto;media;no
+legal_management;solicitudes_insumos;email_destino;character varying(150);Contacto;media;no
+requerimientos_oc;solicitudes_insumos;email_destino;character varying(150);Contacto;media;no
+travel_expenses;analistas_viaticos;nombre_completo;character varying(255);Nombre de persona;media;no
+travel_expenses;analistas_viaticos;email;character varying(255);Contacto;media;no
+travel_expenses;analistas_viaticos;telefono;character varying(50);Contacto;media;no
+travel_expenses;comisionados;numero_documento;character varying(20);Identificación;alta;no
+travel_expenses;comisionados;primer_nombre;character varying(100);Nombre de persona;media;no
+travel_expenses;comisionados;segundo_nombre;character varying(100);Nombre de persona;media;no
+travel_expenses;comisionados;primer_apellido;character varying(100);Nombre de persona;media;no
+travel_expenses;comisionados;segundo_apellido;character varying(100);Nombre de persona;media;no
+travel_expenses;comisionados;email;character varying(150);Contacto;media;no
+travel_expenses;comisionados;telefono_contacto;character varying(150);Contacto;media;no
+travel_expenses;comisionados;ip_registro_habeas_data;character varying(45);Identificador en línea (IP);media;no

@@ -1,0 +1,69 @@
+﻿esquema;nombre;tipo;lenguaje;parametros;devuelve;usa;escribe_en;descripcion;security_definer
+academic-schedule;fn_franja_sincroniza_asignatura;Función;plpgsql;;trigger;;;;no
+academic-schedule;fn_propagar_docente_a_franjas;Función;plpgsql;;trigger;;;;no
+academic-schedule;reapuntar_grupos_por_equivalencia;Función;plpgsql;;integer;academic_work_plan.periodo_academico;;;no
+academic_registration;update_updated_at_column;Función;plpgsql;;trigger;;;;no
+academic_registration;validate_graduate_management_update;Función;plpgsql;;trigger;;;Applies registry length 1-20 and folio/book length 1-10 to graduate management updates;no
+academic_work_plan;fn_normalizar_texto;Función;sql;v text;text;;;;no
+academic_work_plan;prevent_rund_access_log_mutation;Función;plpgsql;;trigger;;;;no
+academic_work_plan;prevent_rund_audit_mutation;Función;plpgsql;;trigger;;;;no
+academic_work_plan;prevent_rund_bulk_support_mutation;Función;plpgsql;;trigger;;;;no
+academic_work_plan;prevent_rund_document_change;Función;plpgsql;;trigger;academic_work_plan.Docente, academic_work_plan.RundDocumentoPerfil, academic_work_plan.RundExtraccionSugerencia, academic_work_plan.RundExtraccionTrabajo;;REQ-RUND-F001: bloquea cambios de cédula salvo una sugerencia OCR pendiente, vigente y vinculada a la misma persona.;no
+academic_work_plan;update_programas_updated_at;Función;plpgsql;;trigger;;;;no
+audit;cleanup_old_logs;Función;plpgsql;months_to_keep integer;integer;;;;no
+audit;create_monthly_partition;Función;plpgsql;;void;;;;no
+audit;request_logs_partition_trigger;Función;plpgsql;;trigger;;;;no
+auth;set_carpeta_digital_updated_at;Función;plpgsql;;trigger;;;;no
+auth;set_updated_at;Función;plpgsql;;trigger;;;;no
+auth;trg_set_personas_fechas;Función;plpgsql;;trigger;;;;no
+auth;trg_set_user_timestamps;Función;plpgsql;;trigger;;;;no
+control_interno;actualizar_actividades_auditoria;Función;plpgsql;;trigger;control_interno.actividad_proceso_auditoria, control_interno.auditoria;control_interno.auditoria;Actualiza actividades_completas y actividades_pendientes cuando cambia el estado de una actividad;no
+control_interno;actualizar_contadores_documentos_informes;Función;plpgsql;;trigger;control_interno.auditoria, control_interno.documento;control_interno.auditoria;Actualiza automáticamente total_documentos y total_informes en la tabla auditoria cuando se crean, actualizan o eliminan documentos;no
+control_interno;calcular_anos_frecuencia;Función;plpgsql;frecuencia text;integer;;;Calcula el número de años según la frecuencia de auditoría;no
+control_interno;calcular_metricas_auditoria;Función;plpgsql;;trigger;;;Calcula automáticamente días_restantes y porcentaje_tiempo basado en fechas de inicio y fin;no
+control_interno;fn_actualizar_cumplimiento_auditorias_vigencia;Función;plpgsql;"""p_año"" integer";void;control_interno.actividad_plan_anual_5, control_interno.plan_anual_5_roles, control_interno.rol_plan_anual_5;control_interno.actividad_plan_anual_5;;no
+control_interno;fn_auditoria_en_programa_anual;Función;sql;"p_plan_anual_vigencia integer, p_fecha_inicio date, ""p_año"" integer";boolean;;;Pertenencia de una auditoría al Programa Anual de un año: su vigencia de programa o, sin ella, el año de inicio (EFDS-2133);no
+control_interno;fn_calcular_cumplimiento_auditorias;Función;plpgsql;"p_actividad_id uuid, ""p_año"" integer";TABLE(total_programadas integer, total_finalizadas integer, porcentaje_cumplimiento integer, desglose_por_tipo jsonb);control_interno.auditoria;;Calcula el cumplimiento del programa de auditorías: (finalizadas/programadas)*100;no
+control_interno;fn_configurar_actividad_auditorias_plan;Función;plpgsql;"p_plan_id uuid, ""p_año"" integer";uuid;control_interno.actividad_plan_anual_5, control_interno.rol_plan_anual_5;control_interno.actividad_plan_anual_5;;no
+control_interno;fn_configurar_todos_planes_auditorias;Función;plpgsql;;"TABLE(plan_id uuid, ""año"" integer, actividad_configurada uuid, auditorias_vinculadas integer)";control_interno.auditoria, control_interno.plan_anual_5_roles;;;no
+control_interno;fn_registrar_cambio_estado_auditoria;Función;plpgsql;;trigger;auth.personas, control_interno.historial_auditoria;control_interno.historial_auditoria;"Trigger que registra cambios de estado_kanban en historial_auditoria. 
+Fix 165: usuario_id ahora es UUID (busca id_person) o NULL si no encuentra.";no
+control_interno;fn_registrar_cambio_estado_plan_anual;Función;plpgsql;;trigger;auth.personas, control_interno.historial_plan_anual;control_interno.historial_plan_anual;"Trigger que registra cambios de estado en historial_plan_anual.
+Fix 176: usuario_id ahora es UUID (busca id_person del sistema) o NULL si no encuentra.";no
+control_interno;fn_trigger_actualizar_cumplimiento_auditorias;Función;plpgsql;;trigger;;;;no
+control_interno;fn_trigger_configurar_plan_nuevo;Función;plpgsql;;trigger;;;;no
+control_interno;fn_vincular_auditorias_actividad;Función;plpgsql;"p_actividad_id uuid, ""p_año"" integer";integer;control_interno.auditoria;control_interno.auditoria;Vincula todas las auditorías de un año a una actividad del plan anual;no
+control_interno;generar_codigo_evidencia;Función;plpgsql;;trigger;control_interno.evidencia_documento;;;no
+control_interno;registrar_evento_timeline;Función;plpgsql;p_plan_id uuid, p_tipo control_interno.tipo_evento_timeline, p_descripcion text, p_usuario_id uuid, p_usuario_nombre character varying, p_metadata jsonb;uuid;control_interno.eventos_timeline;control_interno.eventos_timeline;Función auxiliar para registrar eventos en el timeline de forma consistente;no
+control_interno;trigger_evento_actualizacion_accion;Función;plpgsql;;trigger;;;;no
+control_interno;trigger_evento_actualizacion_plan;Función;plpgsql;;trigger;;;;no
+control_interno;trigger_evento_creacion_accion;Función;plpgsql;;trigger;;;;no
+control_interno;trigger_evento_creacion_plan;Función;plpgsql;;trigger;;;;no
+control_interno;update_ampliacion_plazo_timestamp;Función;plpgsql;;trigger;;;;no
+control_interno;update_config_prof_ocig_updated_at;Función;plpgsql;;trigger;;;;no
+control_interno;update_lista_chequeo_updated_at;Función;plpgsql;;trigger;;;;no
+control_interno;update_tipo_auditoria_updated_at;Función;plpgsql;;trigger;;;;no
+hiring;fn_objeto_contrato_inmutable;Función;plpgsql;;trigger;;;;no
+internal_disciplinary_control;update_autos_config_updated_at_column;Función;plpgsql;;trigger;;;;no
+internal_disciplinary_control;update_disciplinary_behaviors_updated_at;Función;plpgsql;;trigger;;;;no
+internal_disciplinary_control;update_oficios_config_updated_at_column;Función;plpgsql;;trigger;;;;no
+internal_disciplinary_control;update_updated_at_column;Función;plpgsql;;trigger;;;;no
+legal_management;set_updated_at;Función;plpgsql;;trigger;;;;no
+legal_management;update_documentos_consulta_updated_at;Función;plpgsql;;trigger;;;;no
+legal_management;update_documentos_updated_at;Función;plpgsql;;trigger;;;;no
+legal_management;update_oc_comentarios_timestamp;Función;plpgsql;;trigger;;;;no
+legal_management;update_plantillas_documentos_updated_at;Función;plpgsql;;trigger;;;;no
+legal_management;update_riesgos_timestamp;Función;plpgsql;;trigger;;;;no
+legal_management;update_tareas_notas_timestamp;Función;plpgsql;;trigger;;;;no
+public;update_process_documents_count;Función;plpgsql;;trigger;internal_disciplinary_control.disciplinary_processes, internal_disciplinary_control.evidence;internal_disciplinary_control.disciplinary_processes;;no
+public;update_process_statistics;Función;plpgsql;;trigger;internal_disciplinary_control.disciplinary_processes, internal_disciplinary_control.legal_autos;internal_disciplinary_control.disciplinary_processes;;no
+public;update_timestamp;Función;plpgsql;;trigger;;;;no
+requerimientos_oc;generar_numero_hallazgo;Función;plpgsql;;trigger;;;;no
+requerimientos_oc;registrar_historial_requerimiento;Función;plpgsql;;trigger;requerimientos_oc.historial_requerimientos;requerimientos_oc.historial_requerimientos;;no
+travel_expenses;fn_legalizacion_cerrada_inmutable;Función;plpgsql;;trigger;;;;no
+travel_expenses;fn_purga_pruebas_activa;Función;sql;;boolean;;;EFDS-1310 — Solo la purga de pruebas automatizadas, con el rol travel_expenses_pruebas (inexistente fuera de entornos locales) y la variable de sesión explícita, salta la inmutabilidad de legalizaciones cerradas.;no
+travel_expenses;fn_reversion_resuelta_inmutable;Función;plpgsql;;trigger;;;;no
+travel_expenses;fn_revision_solo_insercion;Función;plpgsql;;trigger;;;;no
+travel_expenses;fn_soporte_legalizacion_cerrada_inmutable;Función;plpgsql;;trigger;travel_expenses.legalizaciones_comision;;;no
+travel_expenses;update_actualizado_en;Función;plpgsql;;trigger;;;;no
+travel_expenses;update_analistas_viaticos_updated_at;Función;plpgsql;;trigger;;;;no

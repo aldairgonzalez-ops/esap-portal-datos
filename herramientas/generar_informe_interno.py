@@ -19,6 +19,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import modelo as M  # noqa: E402
 from docx_util import campo, documento, fecha_larga, n, pie, portada, tabla, vineta  # noqa: E402
+from modelo import pl  # noqa: E402
 
 TOPE = 25  # filas por lista en los anexos; la lista completa queda en interno/csv/
 
@@ -30,65 +31,86 @@ def hallazgos(m, entorno):
     clave = lambda t: f"{t['s']}.{t['t']}"
     H = []
 
-    ident = sorted([i for i in m["identidad"] if not i["es_maestro"] and not i["apoyo"] and i["nn"]], key=lambda i: -i["fuera"])
+    todas = [i for i in m["identidad"] if not i["es_maestro"] and not i["apoyo"] and i["fuera"]]
+    ident = sorted([i for i in todas if not i["bitacora"]], key=lambda i: -i["fuera"])
+    bitac = [i for i in todas if i["bitacora"]]
     if ident:
         esq = sorted({i["tabla"].split(".")[0] for i in ident})
         maestros = sorted({i["maestro"] for i in m["identidad"]})
         fuera = sum(i["fuera"] for i in ident)
+        nota_bit = (f" Aparte, {pl(len(bitac), 'bitácora guarda', 'bitácoras guardan')} el correo del usuario en el momento del evento "
+                    f"({', '.join(sorted({i['tabla'] for i in bitac}))}); eso es esperado y no se cuenta como réplica.") if bitac else ""
         H.append({"id": "H01", "tema": "Identidad", "prioridad": "Alta",
                   "titulo": "Datos de identidad replicados fuera de la fuente maestra",
-                  "observado": f"{n(len(ident))} columnas de correo o documento en {n(len(esq))} esquemas ({', '.join(esq)}) almacenan el dato "
-                               f"en lugar de referenciar a la persona en {', '.join(maestros)}. En conjunto suman {n(fuera)} valores distintos "
-                               "que no existen en la fuente maestra.",
+                  "observado": f"{pl(len(ident), 'columna', 'columnas')} de correo o documento en {pl(len(esq), 'esquema', 'esquemas')} "
+                               f"({', '.join(esq)}) guardan el dato en lugar de referenciar a la persona en {' y '.join(maestros)}. "
+                               f"Suman {pl(fuera, 'valor distinto', 'valores distintos')} que no existen en la fuente maestra.{nota_bit}",
                   "importa": "Una misma persona puede tener datos distintos en cada módulo. Una actualización en un módulo no llega a los demás, "
                              "y los reportes por persona requieren cruces por correo o documento.",
-                  "evidencia": [f"{i['tabla']}.{i['col']}: {n(i['fuera'])} de {n(i['dist'])} valores fuera de la maestra" for i in ident[:6]],
+                  "evidencia": [f"{i['tabla']}.{i['col']}: {n(i['fuera'])} de {n(i['dist'])} valores fuera de la maestra" for i in ident[:8]],
                   "donde": "Portal interno › Identidad · interno/csv/identidad.csv"})
 
     imp = [i for i in m["implicitas"] if i["nn"]]
     if imp:
-        sin_padre = sum(i["sin_padre"] for i in imp)
-        conf = sum(1 for i in imp if i["estado"] == "confirmada por datos")
-        parc = sum(1 for i in imp if i["estado"] == "parcial")
-        H.append({"id": "H02", "tema": "Integridad referencial", "prioridad": "Alta" if sin_padre else "Media",
+        conf = [i for i in imp if i["estado"] == "confirmada por datos"]
+        parc = sorted([i for i in imp if i["estado"] == "parcial"], key=lambda i: -i["sin_padre"])
+        nocf = sorted([i for i in imp if i["estado"] == "no se confirma"], key=lambda i: -i["nn"])
+        sin_padre = sum(i["sin_padre"] for i in conf + parc)
+        H.append({"id": "H02", "tema": "Integridad referencial", "prioridad": "Alta" if conf or parc else "Media",
                   "titulo": "Relaciones lógicas sin llave foránea declarada",
-                  "observado": f"{n(len(imp))} columnas con datos apuntan por su nombre a la clave de otra tabla sin una FK. "
-                               f"{n(conf)} se confirman con el 95 % o más de los valores, {n(parc)} de forma parcial, y {n(sin_padre)} valores "
-                               "no encuentran su registro padre.",
-                  "importa": "Sin la FK, la base acepta valores que apuntan a registros inexistentes. Los valores sin padre ya presentes "
-                             "deben depurarse antes de declarar la restricción.",
-                  "evidencia": [f"{i['c']}.{i['col']} → {i['p']}.{i['pcol']}: {n(i['ok'])} de {n(i['nn'])} con padre ({n(i['cob'])} %)"
-                                for i in sorted(imp, key=lambda i: -i["sin_padre"])[:6]],
-                  "donde": "Portal interno › Relaciones · docs/csv/relaciones_implicitas.csv"})
+                  "observado": f"{pl(len(imp), 'columna con datos apunta', 'columnas con datos apuntan')}, por su nombre, a la clave de otra tabla sin una FK. "
+                               f"{pl(len(conf), 'se confirma', 'se confirman')} con el 95 % o más de los valores y {pl(len(parc), 'se confirma', 'se confirman')} "
+                               f"de forma parcial, con {pl(sin_padre, 'valor', 'valores')} sin registro padre. "
+                               f"En {pl(len(nocf), 'caso', 'casos')} ningún valor coincide: la relación inferida por el nombre no corresponde, "
+                               "o las tablas usan sistemas de códigos distintos.",
+                  "importa": "Sin la FK, la base acepta valores que apuntan a registros inexistentes. Las confirmadas pueden declararse como FK; "
+                             "las parciales requieren depurar sus valores sin padre, y las no confirmadas, aclarar con desarrollo a qué tabla corresponden.",
+                  "evidencia": [f"Confirmada · {i['c']}.{i['col']} → {i['p']}.{i['pcol']}: {n(i['ok'])} de {n(i['nn'])}" for i in conf[:4]]
+                               + [f"Parcial · {i['c']}.{i['col']} → {i['p']}.{i['pcol']}: {n(i['ok'])} de {n(i['nn'])} ({n(i['cob'])} %)" for i in parc[:3]]
+                               + [f"No se confirma · {i['c']}.{i['col']} → {i['p']}.{i['pcol']}: 0 de {n(i['nn'])}" for i in nocf[:3]],
+                  "donde": "Portal interno › Relaciones · interno/csv/relaciones_implicitas_todas.csv"})
 
-    huerf = [f for f in m["fks"] if f.get("huerf")]
+    huerf = sorted([f for f in m["fks"] if f.get("huerf")], key=lambda f: -f["huerf"])
     if huerf:
+        esq_h = sorted({f["c"].split(".")[0] for f in huerf})
+        total_h = sum(f["huerf"] for f in huerf)
         H.append({"id": "H03", "tema": "Integridad referencial", "prioridad": "Alta",
                   "titulo": "Valores sin registro padre en llaves foráneas declaradas",
-                  "observado": f"{n(len(huerf))} FK tienen en total {n(sum(f['huerf'] for f in huerf))} valores sin fila correspondiente en la tabla padre.",
-                  "importa": "Indica FK creadas sin validar (NOT VALID) o datos cargados con las restricciones desactivadas. "
+                  "observado": f"{pl(len(huerf), 'FK tiene', 'FK tienen')} en total {pl(total_h, 'valor', 'valores')} sin fila correspondiente en la tabla padre, "
+                               f"{'todas en el esquema ' + esq_h[0] if len(esq_h) == 1 else 'en los esquemas ' + ', '.join(esq_h)}. Por tabla padre: "
+                               + "; ".join(f"{p} {pl(c, 'FK', 'FK')} y {pl(v, 'valor', 'valores')}" for p, c, v in sorted(
+                                   ((p, sum(1 for f in huerf if f['p'] == p), sum(f['huerf'] for f in huerf if f['p'] == p)) for p in {f['p'] for f in huerf}),
+                                   key=lambda x: -x[2])) + ".",
+                  "importa": "Con una FK validada esto no ocurre: indica datos cargados con las restricciones desactivadas "
+                             "(por ejemplo con session_replication_role = replica) o registros padre borrados por fuera de la aplicación. "
                              "Las consultas que unen esas tablas omiten esos registros.",
-                  "evidencia": [f"{f['c']} ({', '.join(f['cols'])}) → {f['p']}: {n(f['huerf'])}" for f in huerf[:6]],
+                  "evidencia": [f"{f['c']} ({', '.join(f['cols'])}) → {f['p']}: {n(f['huerf'])} de {n(f.get('nn'))}" for f in huerf[:8]],
                   "donde": "interno/csv/fk_diagnostico.csv"})
 
     novalid = [f for f in m["fks"] if not f["validada"]]
     if novalid:
         H.append({"id": "H04", "tema": "Integridad referencial", "prioridad": "Media",
                   "titulo": "Llaves foráneas sin validar",
-                  "observado": f"{n(len(novalid))} FK están declaradas como NOT VALID: aplican a los registros nuevos, no a los existentes.",
+                  "observado": f"{pl(len(novalid), 'FK está declarada', 'FK están declaradas')} como NOT VALID: se aplican a los registros nuevos, no a los existentes.",
                   "importa": "Los datos anteriores a la restricción no están verificados.",
-                  "evidencia": [f"{f['n']} ({f['c']})" for f in novalid[:6]], "donde": "interno/csv/fk_diagnostico.csv"})
+                  "evidencia": [f"{f['n']} ({f['c']} → {f['p']})" for f in novalid[:6]], "donde": "interno/csv/fk_diagnostico.csv"})
 
     sin_pk = [t for t in oper if not t["pk"]]
     if sin_pk:
         con_uq = sum(1 for t in sin_pk if t["uq"])
-        nota_uq = f"; {n(con_uq)} tienen al menos una restricción UNIQUE" if con_uq else ""
-        H.append({"id": "H05", "tema": "Unicidad", "prioridad": "Media",
+        maestra = [t for t in sin_pk if any(clave(t) == i["maestro"].rsplit(".", 1)[0] for i in m["identidad"] if i["maestro"])]
+        H.append({"id": "H05", "tema": "Unicidad", "prioridad": "Alta" if maestra else "Media",
                   "titulo": "Tablas operativas sin clave primaria",
-                  "observado": f"{n(len(sin_pk))} de {n(len(oper))} tablas operativas no declaran clave primaria{nota_uq}.",
-                  "importa": "No hay garantía de que cada fila sea única. La replicación lógica, varios ORM y las herramientas de "
-                             "sincronización requieren una clave primaria.",
-                  "evidencia": [f"{clave(t)} ({n(t['filas'])} filas)" for t in sin_pk[:8]], "donde": "Portal interno › Calidad · interno/csv/tablas_sin_pk.csv"})
+                  "observado": f"{n(len(sin_pk))} de {pl(len(oper), 'tabla operativa no declara', 'tablas operativas no declaran')} clave primaria"
+                               + (f"; {pl(con_uq, 'tiene', 'tienen')} al menos una restricción UNIQUE" if con_uq else "")
+                               + (f". Entre ellas está {', '.join(clave(t) for t in maestra)}, la fuente maestra de identidad" if maestra else "")
+                               + "".join(f"; en {i['tabla']}, {pl(i['nn'], 'fila tiene', 'filas tienen')} {i['col']} y solo "
+                                         f"{pl(i['dist'], 'valor es distinto', 'valores son distintos')}"
+                                         for i in m["identidad"] if i["es_maestro"] and i["nn"] > i["dist"]) + ".",
+                  "importa": "No hay garantía de que cada fila sea única. En la fuente maestra, eso permite personas duplicadas que luego se replican "
+                             "en los módulos. La replicación lógica, varios ORM y las herramientas de sincronización requieren una clave primaria.",
+                  "evidencia": [f"{clave(t)} ({n(t['filas'])} filas; únicas: {', '.join('(' + ', '.join(u['cols']) + ')' for u in t['uq']) or 'ninguna'})" for t in sin_pk[:8]],
+                  "donde": "Portal interno › Calidad · interno/csv/tablas_sin_pk.csv"})
 
     sin_idx = [f for f in m["fks"] if not f["indexada"]]
     if sin_idx:
@@ -106,25 +128,27 @@ def hallazgos(m, entorno):
                   "observado": f"{k['K01']['detalle']}; {k['K02']['detalle']}. Meta de referencia: 95 %.",
                   "importa": "El significado de tablas y columnas depende de conocimiento que no está registrado en la base. "
                              "En el portal de entrega estos elementos aparecen como «por documentar».",
-                  "evidencia": [f"{e['nombre']}: {n(sum(1 for t in oper if t['s'] == e['s'] and t['d']))} de "
-                                f"{n(sum(1 for t in oper if t['s'] == e['s']))} tablas con descripción" for e in m["esquemas"]][:8],
+                  "evidencia": [f"{e['nombre']} ({e['s']}): {n(sum(1 for t in oper if t['s'] == e['s'] and t['d']))} de "
+                                f"{pl(sum(1 for t in oper if t['s'] == e['s']), 'tabla', 'tablas')} con descripción"
+                                for e in sorted(m["esquemas"], key=lambda e: -sum(1 for t in oper if t['s'] == e['s'] and not t['d']))
+                                if sum(1 for t in oper if t['s'] == e['s'] and not t['d'])],
                   "donde": "Portal interno › Catálogo · docs/csv/tablas.csv y columnas.csv"})
 
     cred = [(t, c) for t in op for c in t["cols"] if c["pii"] and c["pii"]["cat"] == "Credencial de acceso"]
     if cred:
         H.append({"id": "H08", "tema": "Confidencialidad", "prioridad": "Alta",
                   "titulo": "Columnas con credenciales o tokens de acceso",
-                  "observado": f"{n(len(cred))} columnas guardan, por su nombre, contraseñas, hashes o tokens.",
+                  "observado": f"{pl(len(cred), 'columna guarda', 'columnas guardan')}, por su nombre, contraseñas, hashes o tokens.",
                   "importa": "Deben almacenar solo hashes con algoritmo adaptativo (bcrypt, Argon2) o tokens cifrados, con acceso restringido "
                              "y sin copias en entornos de prueba. La extracción no revisa valores: el formato debe verificarse con desarrollo.",
-                  "evidencia": [f"{clave(t)}.{c['n']} ({c['ty']})" for t, c in cred[:8]], "donde": "Portal › Datos personales · docs/csv/datos_personales.csv"})
+                  "evidencia": [f"{clave(t)}.{c['n']} ({c['ty']})" for t, c in cred], "donde": "Portal › Datos personales · docs/csv/datos_personales.csv"})
 
     vacias = [t for t in oper if t["filas"] == 0]
     if vacias:
         por_esq = collections.Counter(t["s"] for t in vacias)
         H.append({"id": "H09", "tema": "Actualidad", "prioridad": "Baja",
                   "titulo": f"Tablas operativas sin filas en {entorno}",
-                  "observado": f"{n(len(vacias))} de {n(len(oper))} tablas operativas no tienen filas. Por esquema: "
+                  "observado": f"{n(len(vacias))} de {pl(len(oper), 'tabla operativa no tiene', 'tablas operativas no tienen')} filas. Por esquema: "
                                + ", ".join(f"{s} {n(c)}" for s, c in por_esq.most_common()) + ".",
                   "importa": "Pueden ser módulos aún sin uso en este entorno o estructuras sin uso. Amplían el modelo que se entrega y se mantiene, "
                              "y su estado debe confirmarse con desarrollo.",
@@ -136,7 +160,7 @@ def hallazgos(m, entorno):
         con_pii = [t for t in apoyo if any(c["pii"] for c in t["cols"]) and t["filas"]]
         H.append({"id": "H10", "tema": "Mantenibilidad", "prioridad": "Media" if con_pii else "Baja",
                   "titulo": "Tablas de apoyo dentro de los esquemas operativos",
-                  "observado": f"{n(len(apoyo))} tablas de respaldo, copia, migración o temporales ({n(sum(t['bytes'] for t in apoyo) / 1048576)} MB)"
+                  "observado": f"{pl(len(apoyo), 'tabla', 'tablas')} de respaldo, copia, migración o temporal ({n(sum(t['bytes'] for t in apoyo) / 1048576)} MB)"
                                + (f"; {n(len(con_pii))} contienen columnas con datos personales y tienen filas." if con_pii else "."),
                   "importa": "Aparecen en el diccionario junto a las tablas operativas, ocupan espacio y, si copian datos personales, "
                              "amplían el alcance del tratamiento.",
