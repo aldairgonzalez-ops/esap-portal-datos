@@ -16,3 +16,6 @@ __pycache__/
 extracciones/prueba/
 # uso interno: hallazgos y diagnóstico (no se entrega ni se versiona)
 interno/
+*_interno.html
+Informe_Interno_*.docx
+pruebas/muestra/*.zip
