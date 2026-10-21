@@ -1,8 +1,9 @@
+-- NO ABRIR EN EL QUERY TOOL DE pgADMIN: usa comandos psql (\set, \echo). Para pgAdmin: sql/pgadmin/01_verificar_conexion_pgadmin.sql
 /* Verificación previa a la extracción · SOLO LECTURA · ~segundos
    Confirma: a qué servidor y base estoy conectado, que la sesión es de solo lectura, que puedo leer
    todas las tablas, qué esquemas hay (para comparar con el diagnóstico de mayo: 162 tablas / 11 esquemas)
    y que existe la fuente maestra de identidad.
-   Uso:  psql "service=esap_qa" -X -f sql/01_verificar_conexion.sql */
+   Uso:  psql "service=esap_qa" -X -f sql/01_verificar_conexion_SOLO_PSQL.sql */
 \set QUIET on
 \pset pager off
 \pset footer off

@@ -1,6 +1,6 @@
 /* Verificación previa a la extracción · versión para el QUERY TOOL de pgAdmin · SOLO LECTURA
    Es una sola consulta: pegar completa y ejecutar con F5. Devuelve una tabla "verificación / resultado".
-   (La versión con comandos psql está en sql/01_verificar_conexion.sql.) */
+   (La versión con comandos psql está en sql/01_verificar_conexion_SOLO_PSQL.sql.) */
 with esquemas as (
   select n.nspname as esquema,
          count(c.oid) filter (where c.relkind in ('r','p') and not c.relispartition) as tablas,
