@@ -98,7 +98,7 @@ def main():
     ap.add_argument("--bd", default="esap_db", help="base que debe estar conectada (por defecto esap_db)")
     ap.add_argument("--servicio", help="usar un servicio de pg_service.conf en lugar de --host/--puerto/--usuario")
     ap.add_argument("--servidor-esperado", default=QA_HOST,
-                    help="IP que debe reportar el servidor; la extracción se detiene si es otra ('' para no comprobar)")
+                    help="host al que debe conectarse psql; la extracción se detiene si es otro ('' para no comprobar)")
     ap.add_argument("--salida", help="carpeta relativa a la raíz; por defecto extracciones/<fecha> (o evidencias/<fecha>)")
     ap.add_argument("--maestro-email", default="auth.personas.dir_email")
     ap.add_argument("--maestro-doc", default="auth.personas.num_identificacion")

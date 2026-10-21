@@ -22,12 +22,14 @@
 
 ## 2. Base de datos
 - **Motor:** PostgreSQL 16 (`esap_db`). Hay dos entornos, **DEV y QA**, accesibles por **Tailscale**; el usuario los usa desde pgAdmin.
-- **Se trabaja con QA: servidor `100.127.140.5` (Tailscale), puerto 5432, base `esap_db`**, confirmado por el usuario el 2026-10-21. DEV usa la misma base `esap_db` en otro servidor. `extraer.py` toma QA por defecto y se detiene si el servidor reporta otra IP (`--servidor-esperado`).
+- **Se trabaja con QA: servidor `100.127.140.5` (Tailscale), puerto 5432, base `esap_db`**, confirmado por el usuario el 2026-10-21. DEV usa la misma base `esap_db` en otro servidor. `extraer.py` toma QA por defecto y se detiene si psql se conecta a otro host (`--servidor-esperado`). La guarda compara el host de conexión, no `inet_server_addr()`, que dentro de Docker devuelve `172.18.0.25`.
 - **Usuario actual: `postgres` (superusuario).** Toda consulta de este proyecto corre en `BEGIN TRANSACTION READ ONLY`. Sigue pendiente pedir un rol lector (`sql/00_rol_lector.sql`).
 - **Evidencias:** cada consulta que corre el usuario deja un CSV o JSONL en el repositorio (`evidencias/<fecha>/`, `extracciones/<fecha>/`). El usuario hace push y Claude lo lee con `git pull`. Los resultados no se copian a mano.
 - **Contraseña:** la escribe el usuario cada vez que `psql` o pgAdmin la piden (una vez por comando). **No se guarda en ningún lado:** ni en `pgpass.conf`, ni en `PGPASSWORD`, ni en archivos del repositorio, ni en mensajes. Claude no la pide ni propone guardarla. `config/pg_service.conf.example` queda como alternativa sin contraseña.
 - **Solo lectura:** la extracción corre en `BEGIN TRANSACTION READ ONLY` y el servicio fija `default_transaction_read_only=on`. Lo ideal es un rol lector dedicado (`sql/00_rol_lector.sql`, lo ejecuta el DBA).
-- **Esquemas conocidos (QA, 2026):** `auth`, `academic_registration`, `academic_work_plan`, `audit`, `certification`, `control_interno`, `internal_disciplinary_control`, `legal_management`, `notifications`, `public`, `requerimientos_oc` (por confirmar). Diagnóstico previo (mayo 2026): 162 tablas en 11 esquemas, 61 sin filas, correo replicado en 6 esquemas.
+- **Inventario QA (verificación del 2026-10-21, `evidencias/2026-10-21/`):** PostgreSQL 16.14 (Debian, en Docker: el servidor reporta la IP interna `172.18.0.25`), 618 MB, **16 esquemas, 418 tablas, 8 vistas**. 415 de 426 tablas nunca fueron analizadas, así que las estimaciones de filas no sirven; la extracción usa conteo exacto.
+  - Esquemas: `academic-schedule` (14), `academic_registration` (10), `academic_work_plan` (57), `audit` (1), `auth` (23), `certification` (13), `chatbot` (3), `control_interno` (85), `hiring` (84), `infrastructure-management` (8), `internal_disciplinary_control` (26), `legal_management` (54), `notifications` (1), `public` (3), `requerimientos_oc` (6), `travel_expenses` (30). Dos llevan guion en el nombre: siempre citarlos (`%I`).
+  - Diagnóstico previo (mayo 2026): 162 tablas en 11 esquemas, 61 sin filas, correo replicado en 6 esquemas.
 - **Fuente maestra de identidad:** `auth.personas` (`dir_email`, `num_identificacion`, `id_person`). `auth."user"` enlaza con `id_person`.
 - **Convenciones de nombres:** mezcla de español e inglés; claves con prefijo (`id_sede`, `id_person`) y con sufijo (`programa_id`, `sede_id`).
 

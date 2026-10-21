@@ -169,7 +169,7 @@ def informe(m, version, nombre_portal, anterior):
     ctx, k = m["ctx"], m["kpi"]
     op = [t for t in m["tablas"].values() if t["k"] in "rp" and not t["particion"]]
     L = [f"# Informe de la extracción · Portal de Datos ESAP {version}", "",
-         "| | |", "|---|---|", f"| Base | `{ctx['db']}` |", f"| Servidor | `{ctx['srv']}:{ctx['puerto']}` |", f"| Motor | {ctx['version']} |",
+         "| | |", "|---|---|", f"| Base | `{ctx['db']}` |", f"| Servidor | `{ctx.get('host_conexion') or ctx['srv']}:{ctx['puerto']}` (IP interna del servidor: `{ctx['srv']}`) |", f"| Motor | {ctx['version']} |",
          f"| Usuario de extracción | `{ctx['usuario']}` |", f"| Fecha de extracción | {ctx['fecha'].replace('T', ' ')} |",
          f"| Portal generado | `portal/{nombre_portal}` · {datetime.datetime.now():%Y-%m-%d %H:%M} |", "",
          "## Cifras", "",

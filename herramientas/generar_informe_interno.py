@@ -203,7 +203,7 @@ def construir_doc(m, version, entorno):
         "Este informe reúne los hallazgos sobre la estructura y la consistencia de la base de datos, y las oportunidades de mejora "
         "que se derivan de ellos. Complementa el Portal de Datos y el resumen ejecutivo que se entregan al cliente, que son descriptivos.")
     doc.add_paragraph(
-        f"Fuente: extracción de solo lectura de {ctx['db']} ({entorno}) del {fecha_larga(ctx['fecha'])}, servidor {ctx['srv']}. "
+        f"Fuente: extracción de solo lectura de {ctx['db']} ({entorno}) del {fecha_larga(ctx['fecha'])}, servidor {ctx.get('host_conexion') or ctx['srv']} (IP interna {ctx['srv']}). "
         "Cada cifra sale de la extracción; no se revisaron valores de registros.")
 
     doc.add_heading("2. Resumen", level=1)

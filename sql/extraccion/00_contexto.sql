@@ -2,6 +2,7 @@
 with d as (
   select current_database()                       as db,
          coalesce(host(inet_server_addr()), 'socket') as srv,
+         :'HOST'                                   as host_conexion,
          inet_server_port()                        as puerto,
          current_user                              as usuario,
          split_part(version(), ',', 1)             as version,

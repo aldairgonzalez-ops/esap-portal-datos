@@ -8,7 +8,7 @@
      bd_esperada    nombre de la base que debe estar conectada (guarda contra conectarse a DEV)
      maestro_email  fuente maestra del correo      (esquema.tabla.columna)
      maestro_doc    fuente maestra del documento   (esquema.tabla.columna)
-     srv_esperado   (opcional) IP que debe reportar el servidor; '' para no comprobar
+     srv_esperado   (opcional) host al que debe conectarse psql (QA: 100.127.140.5); '' para no comprobar
    ===================================================================================== */
 \set ON_ERROR_STOP on
 \set QUIET on
@@ -26,11 +26,12 @@ select current_database() = :'bd_esperada' as es_la_base_esperada \gset
   select coalesce(host(inet_server_addr()), 'socket local') as srv, coalesce(inet_server_port()::text, '-') as puerto,
          split_part(version(), ' ', 2) as motor, current_user as usr \gset
   \echo 'OK: conectado a' :'bd_esperada' 'en' :'srv' 'puerto' :'puerto' '· PostgreSQL' :'motor' '· usuario' :'usr'
+  \echo '    Host de conexión:' :'HOST' '(el servidor reporta su IP interna, p. ej. la del contenedor Docker)'
   \if :{?srv_esperado}
-    select :'srv_esperado' = '' or :'srv_esperado' = :'srv' as es_el_servidor_esperado \gset
+    select :'srv_esperado' = '' or :'srv_esperado' = :'HOST' as es_el_servidor_esperado \gset
     \if :es_el_servidor_esperado
     \else
-      \echo 'ALTO: el servidor es' :'srv' 'y se esperaba' :'srv_esperado' '(QA). No se extrae nada.'
+      \echo 'ALTO: el host de conexión es' :'HOST' 'y se esperaba' :'srv_esperado' '(QA). No se extrae nada.'
       do $$ begin raise exception 'Servidor distinto del esperado: extracción detenida'; end $$;
     \endif
   \else

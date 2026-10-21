@@ -5,7 +5,8 @@ with esquemas as (
   select n.nspname as esquema,
          count(c.oid) filter (where c.relkind in ('r','p') and not c.relispartition) as tablas,
          count(c.oid) filter (where c.relkind in ('v','m')) as vistas,
-         count(c.oid) filter (where c.relkind in ('r','p') and not c.relispartition and c.reltuples <= 0) as sin_filas_est
+         count(c.oid) filter (where c.relkind in ('r','p') and not c.relispartition and c.reltuples = 0) as sin_filas_est,
+         count(c.oid) filter (where c.relkind in ('r','p') and not c.relispartition and c.reltuples < 0) as sin_estadisticas
   from pg_namespace n
   left join pg_class c on c.relnamespace = n.oid
   where n.nspname not in ('pg_catalog','information_schema','pg_toast')
@@ -29,8 +30,8 @@ with esquemas as (
   union all select 6, '1. Sesión de solo lectura (default_transaction_read_only)', current_setting('default_transaction_read_only')
   union all select 7, '2. Total esquemas / tablas / vistas',
         (select count(*) from esquemas)::text || ' esquemas · ' || (select sum(tablas) from esquemas)::text || ' tablas · '
-        || (select sum(vistas) from esquemas)::text || ' vistas   (mayo 2026: 162 tablas en 11 esquemas)'
-  union all select 8, '2. Esquema: ' || esquema, tablas || ' tablas · ' || vistas || ' vistas · ' || sin_filas_est || ' sin filas (estimado)' from esquemas
+        || (select sum(vistas) from esquemas)::text || ' vistas   (mayo 2026: 162 tablas en 11 esquemas; 2026-10-21: 418 tablas en 16 esquemas)'
+  union all select 8, '2. Esquema: ' || esquema, tablas || ' tablas · ' || vistas || ' vistas · ' || sin_filas_est || ' vacías según estadísticas · ' || sin_estadisticas || ' sin estadísticas' from esquemas
   union all select 100, '3. Tablas y vistas sin permiso SELECT (debe ser 0)', sin_select || ' de ' || total from permisos
   union all select 101, '4. Fuente maestra auth.personas', coalesce((select cols from maestra), 'NO ENCONTRADA')
   union all select 102, '5. Tablas nunca analizadas (estadísticas)',
