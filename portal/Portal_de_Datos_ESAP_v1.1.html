@@ -1992,6 +1992,7 @@ function handleRouting() {
         for (const k of [f.c,f.p]) if(!nodes.has(k)) nodes.set(k, tableNode(k, schemaOf(k)!==dom));
         edges.push({p:f.p, c:f.c, f});
       });
+    if(!nodes.size){ const d=D.domains.find(x=>x.name===dom); (d?d.tables:[]).forEach(t=>{ const k=dom+'.'+t; if(T[k]) nodes.set(k, tableNode(k,false)); }); }
     return {nodes, edges};
   }
   function focusGraph(k){
@@ -2291,7 +2292,7 @@ function handleRouting() {
       <div><svg width="34" height="10"><path d="M0 5h34" stroke="var(--line)" stroke-width="1.8" stroke-dasharray="3 4"/></svg>Verificación programada</div>
       ${LOG.length?`<div><svg width="34" height="10"><path d="M0 5h34" stroke="var(--r-log)" stroke-width="1.8" stroke-dasharray="2 4"/></svg>Relación lógica confirmada</div>
       <div><svg width="34" height="10"><path d="M0 5h34" stroke="var(--r-log)" stroke-width="1.8" stroke-dasharray="2 4" opacity=".5"/></svg>Relación lógica por validar</div>`:''}
-      <div class="muted" style="display:block;margin-top:8px;font-size:11.5px">Cardinalidad (v2.1): lado padre <b>1</b> = FK obligatoria (NOT NULL) · <b>0..1</b> = FK opcional (admite NULL); lado hija <b>0..*</b> = uno a muchos · <b>0..1</b> = uno a uno. La flecha va de la tabla padre a la hija. Las relaciones lógicas (punteadas) documentan referencias del modelo sin FK física, validadas con datos.<br>
+      <div class="muted" style="display:block;margin-top:8px;font-size:11.5px">Cardinalidad: lado padre <b>1</b> = FK obligatoria (NOT NULL) · <b>0..1</b> = FK opcional (admite NULL); lado hija <b>0..*</b> = uno a muchos · <b>0..1</b> = uno a uno. La flecha va de la tabla padre a la hija. Las relaciones lógicas (punteadas) documentan referencias del modelo sin FK física, validadas con datos.<br>
       Clic: resaltar relaciones · doble clic: vista enfocada · arrastrar: mover tarjeta · rueda: zoom.</div></div></div>`;
   }
   function tableList(d){

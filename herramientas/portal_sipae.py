@@ -261,6 +261,12 @@ def construir_html(m, version, entorno):
          "creado_(en|por)|actualizado_(en|por)|fec_(creacion|modificacion|ult_act)|usu_(creacion|modificacion|actualizacion)|fecha_(creacion|actualizacion))$/i;"),
         ("if (/^(Sub)?Tipos?|^Estados?|^TipoEstado/i.test(n) || (!outDeg[k] && (t.ncol||0) <= 6)) return 'cat';",
          "if (/^(Sub)?Tipos?|^Estados?|^TipoEstado|^tipos?_|^estados?_|^cat_|^catalogo|_tipos?$|_estados?$/i.test(n) || (!outDeg[k] && (t.ncol||0) <= 6)) return 'cat';"),
+        ("Cardinalidad (v2.1): lado padre", "Cardinalidad: lado padre"),
+        # Modelo ER: un dominio sin relaciones dibuja sus tablas como tarjetas independientes en lugar de quedar vacío
+        ("        edges.push({p:f.p, c:f.c, f});\n      });\n    return {nodes, edges};\n  }\n  function focusGraph(k){",
+         "        edges.push({p:f.p, c:f.c, f});\n      });\n"
+         "    if(!nodes.size){ const d=D.domains.find(x=>x.name===dom); (d?d.tables:[]).forEach(t=>{ const k=dom+'.'+t; if(T[k]) nodes.set(k, tableNode(k,false)); }); }\n"
+         "    return {nodes, edges};\n  }\n  function focusGraph(k){"),
         # inventario: «Frente» y «Captura» eran del contrato SIPAE (frentes de trabajo y repositorio de despliegue)
         ("        { k: '_esc',         t: 'Escribe',    num: true },\n        { k: '_frente',      t: 'Frente',     num: false },\n"
          "        { k: '_capt',        t: 'Captura',    num: false }\n",
