@@ -1,0 +1,27 @@
+verificacion,resultado
+1. Base,esap_db
+1. Servidor y puerto,172.18.0.25:5432
+1. Usuario,postgres
+1. Motor,PostgreSQL 16.14 (Debian 16.14-1.pgdg13+1)
+1. Tamaño de la base,618 MB
+1. Sesión de solo lectura (default_transaction_read_only),off
+2. Total esquemas / tablas / vistas,16 esquemas · 418 tablas · 8 vistas   (mayo 2026: 162 tablas en 11 esquemas)
+2. Esquema: academic-schedule,14 tablas · 0 vistas · 11 sin filas (estimado)
+2. Esquema: academic_registration,10 tablas · 0 vistas · 1 sin filas (estimado)
+2. Esquema: academic_work_plan,57 tablas · 0 vistas · 16 sin filas (estimado)
+2. Esquema: audit,1 tablas · 1 vistas · 1 sin filas (estimado)
+2. Esquema: auth,23 tablas · 0 vistas · 5 sin filas (estimado)
+2. Esquema: certification,13 tablas · 0 vistas · 1 sin filas (estimado)
+2. Esquema: chatbot,3 tablas · 0 vistas · 3 sin filas (estimado)
+2. Esquema: control_interno,85 tablas · 6 vistas · 46 sin filas (estimado)
+2. Esquema: hiring,84 tablas · 1 vistas · 72 sin filas (estimado)
+2. Esquema: infrastructure-management,8 tablas · 0 vistas · 6 sin filas (estimado)
+2. Esquema: internal_disciplinary_control,26 tablas · 0 vistas · 0 sin filas (estimado)
+2. Esquema: legal_management,54 tablas · 0 vistas · 8 sin filas (estimado)
+2. Esquema: notifications,1 tablas · 0 vistas · 0 sin filas (estimado)
+2. Esquema: public,3 tablas · 0 vistas · 0 sin filas (estimado)
+2. Esquema: requerimientos_oc,6 tablas · 0 vistas · 3 sin filas (estimado)
+2. Esquema: travel_expenses,30 tablas · 0 vistas · 27 sin filas (estimado)
+3. Tablas y vistas sin permiso SELECT (debe ser 0),0 de 434
+4. Fuente maestra auth.personas,"dir_email character varying(100), id_person uuid, num_identificacion character varying(30)"
+5. Tablas nunca analizadas (estadísticas),415 de 426
