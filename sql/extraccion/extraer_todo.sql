@@ -8,6 +8,7 @@
      bd_esperada    nombre de la base que debe estar conectada (guarda contra conectarse a DEV)
      maestro_email  fuente maestra del correo      (esquema.tabla.columna)
      maestro_doc    fuente maestra del documento   (esquema.tabla.columna)
+     srv_esperado   (opcional) IP que debe reportar el servidor; '' para no comprobar
    ===================================================================================== */
 \set ON_ERROR_STOP on
 \set QUIET on
@@ -25,11 +26,19 @@ select current_database() = :'bd_esperada' as es_la_base_esperada \gset
   select coalesce(host(inet_server_addr()), 'socket local') as srv, coalesce(inet_server_port()::text, '-') as puerto,
          split_part(version(), ' ', 2) as motor, current_user as usr \gset
   \echo 'OK: conectado a' :'bd_esperada' 'en' :'srv' 'puerto' :'puerto' '· PostgreSQL' :'motor' '· usuario' :'usr'
-  \echo '    Confirma que ese servidor es el de QA (no DEV) antes de usar la extracción.'
+  \if :{?srv_esperado}
+    select :'srv_esperado' = '' or :'srv_esperado' = :'srv' as es_el_servidor_esperado \gset
+    \if :es_el_servidor_esperado
+    \else
+      \echo 'ALTO: el servidor es' :'srv' 'y se esperaba' :'srv_esperado' '(QA). No se extrae nada.'
+      do $$ begin raise exception 'Servidor distinto del esperado: extracción detenida'; end $$;
+    \endif
+  \else
+    \echo '    Confirma que ese servidor es el de QA (no DEV) antes de usar la extracción.'
+  \endif
 \else
   \echo 'ALTO: la base conectada no es' :'bd_esperada' '. No se extrae nada.'
-  rollback;
-  \quit
+  do $$ begin raise exception 'Base distinta de la esperada: extracción detenida'; end $$;
 \endif
 
 \set f :salida/00_contexto.jsonl

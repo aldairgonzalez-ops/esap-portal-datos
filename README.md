@@ -24,6 +24,16 @@ Todo sale de una **extracción de solo lectura** que no exporta valores de datos
 
 > **¿Trabajas desde pgAdmin?** Verifica la conexión con el Query Tool (`sql/pgadmin/01_verificar_conexion_pgadmin.sql`) y extrae con la PSQL Tool de pgAdmin. Los pasos están en `sql/pgadmin/LEEME.md`; así no necesitas configurar `pg_service.conf`.
 
+## 1b. Camino corto desde la terminal (Windows)
+`extraer.py` se conecta a QA por defecto (`100.127.140.5`, `esap_db`, usuario `postgres`) y usa el `psql` de pgAdmin. Pide la contraseña en pantalla.
+```powershell
+cd "G:\Mi unidad\SuperApp ESAP\Portal_Datos_BD"
+python herramientas/extraer.py --verificar-conexion     # deja evidencias/AAAA-MM-DD/verificacion_conexion.csv
+git add evidencias; git commit -m "Verificación de conexión QA"; git push
+python herramientas/extraer.py                          # extracción completa en extracciones/AAAA-MM-DD/
+git add extracciones; git commit -m "Extracción QA"; git push
+```
+
 ## 2. Generar los entregables
 ```powershell
 python herramientas/extraer.py                                  # crea extracciones/AAAA-MM-DD

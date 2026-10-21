@@ -20,11 +20,12 @@ El Query Tool no entiende los comandos que empiezan con `\`. Por eso la extracci
 \cd 'G:/Mi unidad/SuperApp ESAP/Portal_Datos_BD'
 \set salida extracciones/2026-10-22
 \set bd_esperada esap_db
+\set srv_esperado 100.127.140.5
 \set maestro_email auth.personas.dir_email
 \set maestro_doc auth.personas.num_identificacion
 \i sql/extraccion/extraer_todo.sql
 ```
-4. Debe terminar con `OK: extracción completa en 'extracciones/2026-10-22'`. Si aparece `ALTO`, la base conectada no es la indicada en `bd_esperada`.
+4. Debe terminar con `OK: extracción completa en 'extracciones/2026-10-22'`. Si aparece `ALTO`, la base o el servidor conectados no son los de QA.
 5. Verifica los 14 archivos desde una terminal en la raíz del repositorio:
 ```
 python herramientas/extraer.py --solo-verificar extracciones/2026-10-22

@@ -22,7 +22,9 @@
 
 ## 2. Base de datos
 - **Motor:** PostgreSQL 16 (`esap_db`). Hay dos entornos, **DEV y QA**, accesibles por **Tailscale**; el usuario los usa desde pgAdmin.
-- **Se trabaja con QA.** DEV y QA pueden tener la misma base `esap_db`: verificar siempre el servidor que imprime la extracción.
+- **Se trabaja con QA: servidor `100.127.140.5` (Tailscale), puerto 5432, base `esap_db`**, confirmado por el usuario el 2026-10-21. DEV usa la misma base `esap_db` en otro servidor. `extraer.py` toma QA por defecto y se detiene si el servidor reporta otra IP (`--servidor-esperado`).
+- **Usuario actual: `postgres` (superusuario).** Toda consulta de este proyecto corre en `BEGIN TRANSACTION READ ONLY`. Sigue pendiente pedir un rol lector (`sql/00_rol_lector.sql`).
+- **Evidencias:** cada consulta que corre el usuario deja un CSV o JSONL en el repositorio (`evidencias/<fecha>/`, `extracciones/<fecha>/`). El usuario hace push y Claude lo lee con `git pull`. Los resultados no se copian a mano.
 - **Conexión:** servicio `esap_qa` de `pg_service.conf` (plantilla en `config/pg_service.conf.example`) y contraseña en `pgpass.conf`. Nunca guardar credenciales en el repositorio.
 - **Solo lectura:** la extracción corre en `BEGIN TRANSACTION READ ONLY` y el servicio fija `default_transaction_read_only=on`. Lo ideal es un rol lector dedicado (`sql/00_rol_lector.sql`, lo ejecuta el DBA).
 - **Esquemas conocidos (QA, 2026):** `auth`, `academic_registration`, `academic_work_plan`, `audit`, `certification`, `control_interno`, `internal_disciplinary_control`, `legal_management`, `notifications`, `public`, `requerimientos_oc` (por confirmar). Diagnóstico previo (mayo 2026): 162 tablas en 11 esquemas, 61 sin filas, correo replicado en 6 esquemas.
@@ -31,6 +33,7 @@
 
 ## 3. Cómo se trabaja (flujo)
 ```
+python herramientas/extraer.py --verificar-conexion    # 0. evidencia CSV -> evidencias/<fecha>/verificacion_conexion.csv
 python herramientas/extraer.py                         # 1. extracción de solo lectura -> extracciones/<fecha>/
 python herramientas/generar_portal.py --extraccion extracciones/<fecha> --version vX.Y [--anterior extracciones/<fecha previa>] --repo <url>
 python herramientas/generar_resumen.py --extraccion extracciones/<fecha> --version vX.Y --url-portal <url> --repo <url>
@@ -58,6 +61,7 @@ python herramientas/generar_informe_interno.py --extraccion extracciones/<fecha>
 | `herramientas/` | `extraer.py`, `modelo.py`, `generar_portal.py`, `plantilla_portal.html`, `generar_resumen.py`, `generar_informe_interno.py`, `generar_comentarios.py`, `docx_util.py` |
 | `config/` | `dominios.csv` (nombre funcional de cada esquema), `descripciones.csv` (propuestas de descripción), plantilla de conexión |
 | `extracciones/<fecha>/` | JSONL de cada corte (solo metadatos y conteos) |
+| `evidencias/<fecha>/` | CSV de las verificaciones que corre el usuario (por ejemplo, la verificación de conexión) |
 | `portal/`, `docs/`, `informe/` | Entregables generados (cliente) |
 | `interno/` | Informe interno, portal interno y CSV de diagnóstico (no se versiona ni se entrega) |
 | `pruebas/` | Esquema sintético para probar el flujo sin tocar QA |

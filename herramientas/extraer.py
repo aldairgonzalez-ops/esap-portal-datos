@@ -5,10 +5,11 @@ Lanza la extracción del catálogo de la base ESAP (QA) con psql, en SOLO LECTUR
 Crea extracciones/<AAAA-MM-DD> (o la carpeta que se indique) y deja allí un JSONL por consulta.
 La contraseña no pasa por aquí: psql la toma de pgpass.conf o la pide en pantalla.
 
-Uso (desde la raíz del repositorio):
-  python herramientas/extraer.py                         # usa el servicio "esap_qa" de pg_service.conf
-  python herramientas/extraer.py --servicio esap_qa --bd esap_db
-  python herramientas/extraer.py --host 100.x.y.z --puerto 5432 --usuario lector --bd esap_db
+Uso (desde la raíz del repositorio; por defecto se conecta a QA 100.127.140.5 / esap_db / postgres):
+  python herramientas/extraer.py --verificar-conexion    # evidencia CSV en evidencias/<fecha>/
+  python herramientas/extraer.py                         # extracción completa en extracciones/<fecha>/
+  python herramientas/extraer.py --servicio esap_qa      # con un servicio de pg_service.conf
+psql pide la contraseña en pantalla salvo que esté en pgpass.conf o en la variable PGPASSWORD.
 
 Busca psql en el PATH y, en Windows, también en las carpetas de pgAdmin 4 y de PostgreSQL.
 """
@@ -65,20 +66,47 @@ def verificar(salida):
     return problemas
 
 
+QA_HOST = "100.127.140.5"   # servidor de QA en Tailscale (confirmado el 2026-10-21)
+
+
+def comando_psql(a, script, variables):
+    psql = buscar_psql(a.psql)
+    if a.servicio:
+        cmd = [psql, "-X", "-q", "-d", f"service={a.servicio} dbname={a.bd}"]
+    else:
+        cmd = [psql, "-X", "-q", "-h", a.host, "-p", a.puerto, "-U", a.usuario, "-d", a.bd]
+    for k, v in variables.items():
+        cmd += ["-v", f"{k}={v}"]
+    return cmd + ["-f", script]
+
+
+def ejecutar(cmd):
+    entorno = dict(os.environ, PGCLIENTENCODING="UTF8", PGAPPNAME="portal_datos_esap_extraccion")
+    print("Ejecutando:", " ".join(f'"{c}"' if " " in c else c for c in cmd))
+    r = subprocess.run(cmd, cwd=RAIZ, env=entorno)
+    if r.returncode != 0:
+        sys.exit(f"psql terminó con código {r.returncode}. Revisa el mensaje anterior.")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--servicio", default="esap_qa", help="servicio de pg_service.conf (por defecto esap_qa)")
-    ap.add_argument("--host")
-    ap.add_argument("--puerto")
-    ap.add_argument("--usuario")
+    ap.add_argument("--verificar-conexion", action="store_true",
+                    help="no extrae: corre la verificación previa y deja evidencias/<fecha>/verificacion_conexion.csv")
+    ap.add_argument("--host", default=QA_HOST, help=f"servidor (por defecto QA: {QA_HOST})")
+    ap.add_argument("--puerto", default="5432")
+    ap.add_argument("--usuario", default="postgres")
     ap.add_argument("--bd", default="esap_db", help="base que debe estar conectada (por defecto esap_db)")
-    ap.add_argument("--salida", help="carpeta relativa a la raíz; por defecto extracciones/<fecha>")
+    ap.add_argument("--servicio", help="usar un servicio de pg_service.conf en lugar de --host/--puerto/--usuario")
+    ap.add_argument("--servidor-esperado", default=QA_HOST,
+                    help="IP que debe reportar el servidor; la extracción se detiene si es otra ('' para no comprobar)")
+    ap.add_argument("--salida", help="carpeta relativa a la raíz; por defecto extracciones/<fecha> (o evidencias/<fecha>)")
     ap.add_argument("--maestro-email", default="auth.personas.dir_email")
     ap.add_argument("--maestro-doc", default="auth.personas.num_identificacion")
     ap.add_argument("--psql")
     ap.add_argument("--solo-verificar", metavar="CARPETA",
                     help="no extrae: solo revisa una extracción ya hecha (por ejemplo desde la PSQL Tool de pgAdmin)")
     a = ap.parse_args()
+    hoy = datetime.date.today().isoformat()
 
     if a.solo_verificar:
         print(f"Verificación de {a.solo_verificar}:")
@@ -88,29 +116,29 @@ def main():
         print(f"\nOK. Siguiente paso:\n  python herramientas/generar_portal.py --extraccion {a.solo_verificar.replace(os.sep, '/')}")
         return
 
-    salida = (a.salida or f"extracciones/{datetime.date.today().isoformat()}").replace("\\", "/")
+    if a.verificar_conexion:
+        salida = (a.salida or f"evidencias/{hoy}").replace("\\", "/")
+        os.makedirs(os.path.join(RAIZ, salida), exist_ok=True)
+        ejecutar(comando_psql(a, os.path.join("sql", "verificar_conexion_csv.sql"), {"salida": salida}))
+        ruta = os.path.join(RAIZ, salida, "verificacion_conexion.csv")
+        print("\n" + open(ruta, encoding="utf-8").read())
+        print(f"Evidencia: {salida}/verificacion_conexion.csv\n"
+              f"Para compartirla:  git add {salida} && git commit -m \"Verificación de conexión QA {hoy}\" && git push")
+        return
+
+    salida = (a.salida or f"extracciones/{hoy}").replace("\\", "/")
     if " " in salida:
         sys.exit("La carpeta de salida no puede tener espacios (psql la recibe como variable).")
     os.makedirs(os.path.join(RAIZ, salida), exist_ok=True)
-
-    psql = buscar_psql(a.psql)
-    cmd = [psql, "-X", "-q", "-d", a.bd if a.host else f"service={a.servicio} dbname={a.bd}"]
-    if a.host:
-        cmd += ["-h", a.host] + (["-p", a.puerto] if a.puerto else []) + (["-U", a.usuario] if a.usuario else [])
-    cmd += ["-v", f"salida={salida}", "-v", f"bd_esperada={a.bd}",
-            "-v", f"maestro_email={a.maestro_email}", "-v", f"maestro_doc={a.maestro_doc}",
-            "-f", SCRIPT]
-    entorno = dict(os.environ, PGCLIENTENCODING="UTF8", PGAPPNAME="portal_datos_esap_extraccion")
-    print("Ejecutando:", " ".join(f'"{c}"' if " " in c else c for c in cmd))
-    r = subprocess.run(cmd, cwd=RAIZ, env=entorno)
-    if r.returncode != 0:
-        sys.exit(f"psql terminó con código {r.returncode}. Revisa el mensaje anterior.")
+    ejecutar(comando_psql(a, SCRIPT, {"salida": salida, "bd_esperada": a.bd, "srv_esperado": a.servidor_esperado,
+                                      "maestro_email": a.maestro_email, "maestro_doc": a.maestro_doc}))
 
     print(f"\nVerificación de {salida}:")
     problemas = verificar(os.path.join(RAIZ, salida))
     if problemas:
         sys.exit("Extracción incompleta: " + "; ".join(problemas))
-    print(f"\nOK. Siguiente paso:\n  python herramientas/generar_portal.py --extraccion {salida}")
+    print(f"\nOK. Para compartirla:\n  git add {salida} && git commit -m \"Extracción QA {hoy}\" && git push"
+          f"\nSiguiente paso:\n  python herramientas/generar_portal.py --extraccion {salida}")
 
 
 if __name__ == "__main__":
