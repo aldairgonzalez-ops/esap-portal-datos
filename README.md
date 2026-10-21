@@ -22,6 +22,8 @@ Todo sale de una **extracción de solo lectura** que no exporta valores de datos
 
 > Lo recomendable es pedir al DBA un rol de solo lectura con `sql/00_rol_lector.sql`. Aun sin ese rol, la extracción corre en una transacción `READ ONLY` y el servicio fuerza `default_transaction_read_only`.
 
+> **¿Trabajas desde pgAdmin?** Verifica la conexión con el Query Tool (`sql/pgadmin/01_verificar_conexion_pgadmin.sql`) y extrae con la PSQL Tool de pgAdmin. Los pasos están en `sql/pgadmin/LEEME.md`; así no necesitas configurar `pg_service.conf`.
+
 ## 2. Generar los entregables
 ```powershell
 python herramientas/extraer.py                                  # crea extracciones/AAAA-MM-DD

@@ -76,7 +76,17 @@ def main():
     ap.add_argument("--maestro-email", default="auth.personas.dir_email")
     ap.add_argument("--maestro-doc", default="auth.personas.num_identificacion")
     ap.add_argument("--psql")
+    ap.add_argument("--solo-verificar", metavar="CARPETA",
+                    help="no extrae: solo revisa una extracción ya hecha (por ejemplo desde la PSQL Tool de pgAdmin)")
     a = ap.parse_args()
+
+    if a.solo_verificar:
+        print(f"Verificación de {a.solo_verificar}:")
+        problemas = verificar(os.path.join(RAIZ, a.solo_verificar))
+        if problemas:
+            sys.exit("Extracción incompleta: " + "; ".join(problemas))
+        print(f"\nOK. Siguiente paso:\n  python herramientas/generar_portal.py --extraccion {a.solo_verificar.replace(os.sep, '/')}")
+        return
 
     salida = (a.salida or f"extracciones/{datetime.date.today().isoformat()}").replace("\\", "/")
     if " " in salida:
