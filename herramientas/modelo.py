@@ -390,8 +390,9 @@ def indicadores(m):
     def k(id_, nombre, dim, v, meta, detalle, ok, vista):
         return {"id": id_, "nombre": nombre, "dim": dim, "valor": v, "meta": meta, "detalle": detalle, "ok": ok, "vista": vista}
 
-    con_desc_t = sum(1 for t in oper if t["d"])
-    con_desc_c = sum(1 for c in cols if c["d"])
+    con_desc_t = sum(1 for t in oper if t["d"] and t["de"] in ("base", "validada"))
+    con_desc_c = sum(1 for c in cols if c["d"] and c["de"] in ("base", "validada"))
+    prop_c = sum(1 for c in cols if c["d"] and c["de"] == "propuesta")
     con_pk = sum(1 for t in oper if t["pk"])
     con_datos = sum(1 for t in oper if t["filas"])
     idx_fk = sum(1 for f in fks if f["indexada"])
@@ -400,7 +401,8 @@ def indicadores(m):
         k("K01", "Tablas con descripción", "Comprensibilidad", pct(con_desc_t, len(oper)), "≥ 95 %",
           f"{con_desc_t} de {pl(len(oper), 'tabla operativa', 'tablas operativas')} con descripción registrada", pct(con_desc_t, len(oper)) >= 95, "catalogo"),
         k("K02", "Columnas con descripción", "Comprensibilidad", pct(con_desc_c, len(cols)), "≥ 95 %",
-          f"{con_desc_c} de {pl(len(cols), 'columna', 'columnas')} de tablas operativas con descripción", pct(con_desc_c, len(cols)) >= 95, "catalogo"),
+          f"{con_desc_c} de {pl(len(cols), 'columna', 'columnas')} de tablas operativas con descripción registrada o validada"
+          + (f" · {prop_c} propuestas por validar" if prop_c else ""), pct(con_desc_c, len(cols)) >= 95, "catalogo"),
         k("K03", "Tablas con clave primaria", "Unicidad", pct(con_pk, len(oper)), "100 %",
           f"{con_pk} de {pl(len(oper), 'tabla operativa', 'tablas operativas')} con clave primaria declarada", con_pk == len(oper), "calidad"),
         k("K04", "Relaciones declaradas como FK", "Integridad referencial", pct(len(fk1), decl), "≥ 95 %",

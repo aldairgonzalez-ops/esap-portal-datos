@@ -140,7 +140,7 @@ def bloques(m, version, entorno):
             if c["gen"]:
                 partes.append("Calculada")
             partes.append("Null" if c["nul"] else "Not Null")
-            estado = "propuesta" if c["de"] in ("propuesta", "validada") else ""
+            estado = c["de"] if c["de"] in ("propuesta", "validada") else ""
             lista.append([c["n"], c["ty"], ", ".join(partes), c["d"], estado])
             sc = {"n": c["n"], "t": c["ty"], "nn": not c["nul"], "pk": c["pk"]}
             if c["ident"]:
@@ -271,7 +271,7 @@ def construir_html(m, version, entorno):
          "«Escribe» se detecta en el código fuente almacenado en la\n          base, con cobertura parcial."),
         ("Definición propuesta en Glosario v2.1 (ISO/IEC 11179-4); pendiente de aplicar como MS_Description en BD",
          "Definición propuesta (ISO/IEC 11179-4); pendiente de registrar como COMMENT en la base"),
-        ("Definición validada y registrada en preproducción", "Definición registrada en la base"),
+        ("Definición validada y registrada en preproducción", "Definición validada por el equipo funcional; pendiente de registrar como COMMENT en la base"),
         ("const AUD = /^(auditoria|usuario(creacion|modificacion)?|fecha(creacion|modificacion|registro))$/i;",
          "const AUD = /^(auditoria|usuario(creacion|modificacion)?|fecha(creacion|modificacion|registro)|created_(at|by)|updated_(at|by)|deleted_at|"
          "creado_(en|por)|actualizado_(en|por)|fec_(creacion|modificacion|ult_act)|usu_(creacion|modificacion|actualizacion)|fecha_(creacion|actualizacion))$/i;"),
@@ -283,6 +283,11 @@ def construir_html(m, version, entorno):
          "          const enCatalogo = !!DB_DATA.tables[fk[1]];\n"
          "          const card = document.createElement(enCatalogo ? 'a' : 'div');\n"
          "          if (enCatalogo) card.href = `#${encodeURIComponent(fk[1])}`; else card.title = 'Tabla de otro dominio, fuera del alcance de esta versión';"),
+        # Columnas con definición: el valor cuenta solo las registradas en la base y las validadas; las propuestas se informan aparte
+        ("v: pct(def, cols) + ' %', meta: '≥ 95 %', ok: def / cols >= 0.95 ? true : null,",
+         "v: pct(nVal, cols) + ' %', meta: '≥ 95 %', ok: nVal / cols >= 0.95 ? true : null,"),
+        ("`${nVal.toLocaleString()} validadas (${pct(nVal, cols)} %) · ${nProp.toLocaleString()} propuestas (${pct(nProp, cols)} %)`",
+         "`${nVal.toLocaleString()} de ${cols.toLocaleString()} con definición registrada o validada · ${nProp.toLocaleString()} propuestas por validar`"),
         # Modelo ER: un dominio sin relaciones dibuja sus tablas como tarjetas independientes en lugar de quedar vacío
         ("        edges.push({p:f.p, c:f.c, f});\n      });\n    return {nodes, edges};\n  }\n  function focusGraph(k){",
          "        edges.push({p:f.p, c:f.c, f});\n      });\n"
