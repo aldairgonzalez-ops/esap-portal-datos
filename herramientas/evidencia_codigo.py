@@ -116,9 +116,15 @@ def entidades(raiz):
                 if mj:
                     comentario = limpiar_jsdoc(mj.group(0))
                 else:
-                    ml = re.search(r"((?:[ \t]*//[^\n]*\n)+)\s*$", antes)
+                    # solo líneas completas de comentario: un «// …» al final de la línea anterior es de esa propiedad
+                    ml = re.search(r"(?m)((?:^[ \t]*//[^\n]*\n)+)\s*$", antes)
                     if ml:
                         comentario = " ".join(l.strip()[2:].strip() for l in ml.group(1).splitlines() if l.strip())
+                # comentario al final de la línea de la propiedad: «contenido: string; // HTML»
+                fin_prop = resto[mp.end():].split("\n", 1)[0]
+                if "//" in fin_prop:
+                    final = fin_prop.split("//", 1)[1].strip()
+                    comentario = f"{comentario} {final}".strip() if comentario else final
                 opc_coment = re.search(r"comment\s*:\s*['\"`]([^'\"`]+)", arg)
                 enum = re.search(r"enum\s*:\s*\[([^\]]*)\]", arg)
                 linea = s[:cuerpo_ini + mc.start()].count("\n") + 1
