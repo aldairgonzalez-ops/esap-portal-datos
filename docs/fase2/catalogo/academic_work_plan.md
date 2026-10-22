@@ -6,25 +6,25 @@ Tablas del módulo RUND (prefijo Rund) del esquema academic_work_plan y las tabl
 
 | Tabla | Tipo | Filas | Descripción |
 |---|---|--:|---|
-| [`Docente`](#docente) | Tabla | 814 | _Por documentar_ |
+| [`Docente`](#docente) | Tabla | 814 | Registro de docentes del RUND. Un registro por docente y periodo de carga, con su vinculación, dedicación, sede, territorial, formación, situación administrativa, bolsa de horas del PTA y estado de aprobación (PENDIENTE_APROBACION, ACTIVO_RUND o DEVUELTO); se relaciona con auth.personas. Se diligencia por carga masiva, registro individual o autogestión del docente. |
 | [`Documento`](#documento) | Tabla | 2 | _Por documentar_ |
-| [`RundAccesoDatosLog`](#rundaccesodatoslog) | Tabla | 9141 | _Por documentar_ |
-| [`RundAccesoExterno`](#rundaccesoexterno) | Tabla | 0 | _Por documentar_ |
+| [`RundAccesoDatosLog`](#rundaccesodatoslog) | Tabla | 9141 | Bitácora de accesos a los datos de docentes del RUND. Un registro por consulta, con el usuario y sus roles, el servicio consultado, el recurso, los docentes y campos consultados, el resultado del control de acceso (completo, enmascarado o denegado) y la IP de origen. |
+| [`RundAccesoExterno`](#rundaccesoexterno) | Tabla | 0 | Accesos temporales de entidades externas al Macro Docente (REQ-RUND-F022). Un registro por acceso otorgado, con la entidad, su contacto, el token, el docente que puede consultar, el motivo, la vigencia y quién lo otorgó o revocó; el acceso lo otorga GGP o la Dirección y las consultas hechas con él se registran en RundMacroDocenteConsultaLog. |
 | [`RundAprobacionLog`](#rundaprobacionlog) | Tabla | 6760 | Log de auditoría inmutable del RUND (BR-056). Sólo INSERT: registra crear/aprobar/devolver/editar/vincular soporte. |
-| [`RundCampoEstado`](#rundcampoestado) | Tabla | 6594 | _Por documentar_ |
+| [`RundCampoEstado`](#rundcampoestado) | Tabla | 6594 | Estado de aprobación de los bloques de campos del perfil RUND (BR-044). Un registro por docente y bloque (IDENTIDAD, FORMACION, VINCULACION, CONTACTO), con quién lo cargó y revisó, la observación, la versión, el canal de origen y los soportes vinculados. Ciclo: Pendiente, En revisión, Aprobado, Devuelto o Soporte faltante. |
 | [`RundCargaMasiva`](#rundcargamasiva) | Tabla | 0 | Soporte documental inmutable de cada importación masiva de perfiles RUND. |
-| [`RundDocumentoCategoria`](#runddocumentocategoria) | Tabla | 10 | _Por documentar_ |
+| [`RundDocumentoCategoria`](#runddocumentocategoria) | Tabla | 10 | Catálogo de categorías de documento del RUND. Un registro por categoría, con su código, nombre, descripción, tipos MIME permitidos, tamaño máximo de archivo, orden y si está activa; lo referencian los documentos del perfil (RundDocumentoPerfil). |
 | [`RundDocumentoPerfil`](#runddocumentoperfil) | Tabla | 11 | REQ-RUND-F010: documentos PDF versionados del perfil docente, almacenados en OpenKM o proveedor local de desarrollo. |
 | [`RundExtraccionInicio`](#rundextraccioninicio) | Tabla | 0 | _Por documentar_ |
-| [`RundExtraccionSugerencia`](#rundextraccionsugerencia) | Tabla | 0 | _Por documentar_ |
-| [`RundExtraccionTrabajo`](#rundextracciontrabajo) | Tabla | 0 | _Por documentar_ |
+| [`RundExtraccionSugerencia`](#rundextraccionsugerencia) | Tabla | 0 | Sugerencias de valores extraídos de documentos del perfil RUND (REQ-RUND-F014). Un registro por campo sugerido en un trabajo de extracción, con el valor sugerido, el valor previo, la página y el fragmento de evidencia, la confianza y la decisión del revisor; se relaciona con RundExtraccionTrabajo. Ciclo: pendiente, aprobada, corregida o descartada. |
+| [`RundExtraccionTrabajo`](#rundextracciontrabajo) | Tabla | 0 | Trabajos de extracción de datos de los documentos del perfil RUND. Un registro por documento procesado de un docente, con el estado, los intentos, la reserva del proceso que lo toma, el perfil base, el motor de procesamiento, el error y el aviso de fin; se relaciona con RundDocumentoPerfil y sus sugerencias están en RundExtraccionSugerencia. Ciclo: pendiente, procesando, completado, error u obsoleto. |
 | [`RundInvitacionDocente`](#rundinvitaciondocente) | Tabla | 0 | _Por documentar_ |
-| [`RundMacroDocenteConsultaLog`](#rundmacrodocenteconsultalog) | Tabla | 0 | _Por documentar_ |
-| [`RundSoporteCampo`](#rundsoportecampo) | Tabla | 12 | _Por documentar_ |
+| [`RundMacroDocenteConsultaLog`](#rundmacrodocenteconsultalog) | Tabla | 0 | Bitácora de consultas al Macro Docente (REQ-RUND-F020/F022). Un registro por consulta, con su tipo (macro docente, consulta puntual o externa), quién la hizo y con qué roles, los filtros, el docente y periodo consultados, el número de resultados y la IP; se relaciona con RundAccesoExterno cuando la consulta se hace con un acceso externo. Solo admite inserciones. |
+| [`RundSoporteCampo`](#rundsoportecampo) | Tabla | 12 | Soportes de los bloques de campos del perfil RUND (BR-038, BR-039, BR-041). Un registro por soporte de un docente y bloque, con el tipo de soporte, la referencia al documento en la Carpeta Digital o en RundDocumentoPerfil, el estado (Pendiente, Aprobado o Rechazado), la observación del revisor, la fecha de vencimiento y la revisión de cada campo. |
 
 ## Docente
 
-_Por documentar._
+Registro de docentes del RUND. Un registro por docente y periodo de carga, con su vinculación, dedicación, sede, territorial, formación, situación administrativa, bolsa de horas del PTA y estado de aprobación (PENDIENTE_APROBACION, ACTIVO_RUND o DEVUELTO); se relaciona con auth.personas. Se diligencia por carga masiva, registro individual o autogestión del docente.
 
 - Clave primaria: `id`
 - Filas: 814
@@ -112,7 +112,7 @@ _Por documentar._
 
 ## RundAccesoDatosLog
 
-_Por documentar._
+Bitácora de accesos a los datos de docentes del RUND. Un registro por consulta, con el usuario y sus roles, el servicio consultado, el recurso, los docentes y campos consultados, el resultado del control de acceso (completo, enmascarado o denegado) y la IP de origen.
 
 - Clave primaria: `id`
 - Filas: 9141
@@ -132,7 +132,7 @@ _Por documentar._
 
 ## RundAccesoExterno
 
-_Por documentar._
+Accesos temporales de entidades externas al Macro Docente (REQ-RUND-F022). Un registro por acceso otorgado, con la entidad, su contacto, el token, el docente que puede consultar, el motivo, la vigencia y quién lo otorgó o revocó; el acceso lo otorga GGP o la Dirección y las consultas hechas con él se registran en RundMacroDocenteConsultaLog.
 
 - Clave primaria: `id`
 - Filas: 0
@@ -179,7 +179,7 @@ Log de auditoría inmutable del RUND (BR-056). Sólo INSERT: registra crear/apro
 
 ## RundCampoEstado
 
-_Por documentar._
+Estado de aprobación de los bloques de campos del perfil RUND (BR-044). Un registro por docente y bloque (IDENTIDAD, FORMACION, VINCULACION, CONTACTO), con quién lo cargó y revisó, la observación, la versión, el canal de origen y los soportes vinculados. Ciclo: Pendiente, En revisión, Aprobado, Devuelto o Soporte faltante.
 
 - Clave primaria: `id`
 - Filas: 6594
@@ -225,7 +225,7 @@ Soporte documental inmutable de cada importación masiva de perfiles RUND.
 
 ## RundDocumentoCategoria
 
-_Por documentar._
+Catálogo de categorías de documento del RUND. Un registro por categoría, con su código, nombre, descripción, tipos MIME permitidos, tamaño máximo de archivo, orden y si está activa; lo referencian los documentos del perfil (RundDocumentoPerfil).
 
 - Clave primaria: `codigo`
 - Filas: 10
@@ -289,7 +289,7 @@ _Por documentar._
 
 ## RundExtraccionSugerencia
 
-_Por documentar._
+Sugerencias de valores extraídos de documentos del perfil RUND (REQ-RUND-F014). Un registro por campo sugerido en un trabajo de extracción, con el valor sugerido, el valor previo, la página y el fragmento de evidencia, la confianza y la decisión del revisor; se relaciona con RundExtraccionTrabajo. Ciclo: pendiente, aprobada, corregida o descartada.
 
 - Clave primaria: `id`
 - Filas: 0
@@ -314,7 +314,7 @@ _Por documentar._
 
 ## RundExtraccionTrabajo
 
-_Por documentar._
+Trabajos de extracción de datos de los documentos del perfil RUND. Un registro por documento procesado de un docente, con el estado, los intentos, la reserva del proceso que lo toma, el perfil base, el motor de procesamiento, el error y el aviso de fin; se relaciona con RundDocumentoPerfil y sus sugerencias están en RundExtraccionSugerencia. Ciclo: pendiente, procesando, completado, error u obsoleto.
 
 - Clave primaria: `id`
 - Filas: 0
@@ -371,7 +371,7 @@ _Por documentar._
 
 ## RundMacroDocenteConsultaLog
 
-_Por documentar._
+Bitácora de consultas al Macro Docente (REQ-RUND-F020/F022). Un registro por consulta, con su tipo (macro docente, consulta puntual o externa), quién la hizo y con qué roles, los filtros, el docente y periodo consultados, el número de resultados y la IP; se relaciona con RundAccesoExterno cuando la consulta se hace con un acceso externo. Solo admite inserciones.
 
 - Clave primaria: `id`
 - Filas: 0
@@ -393,7 +393,7 @@ _Por documentar._
 
 ## RundSoporteCampo
 
-_Por documentar._
+Soportes de los bloques de campos del perfil RUND (BR-038, BR-039, BR-041). Un registro por soporte de un docente y bloque, con el tipo de soporte, la referencia al documento en la Carpeta Digital o en RundDocumentoPerfil, el estado (Pendiente, Aprobado o Rechazado), la observación del revisor, la fecha de vencimiento y la revisión de cada campo.
 
 - Clave primaria: `id`
 - Filas: 12

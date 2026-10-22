@@ -9,17 +9,17 @@ Esquema para la gestión de franjas horarias, aulas, jornadas y programación ac
 | [`asignacion_docente`](#asignacion_docente) | Tabla | 0 | Docente asignado a un grupo. La llave es auth.personas.id_person (identidad estable), no Docente.id, que cambia por periodo de carga. |
 | [`aula`](#aula) | Tabla | 28 | Catálogo de aulas. Desde el Lote 1 son las 28 reales de Sede Central (provisional=FALSE); capacidad pendiente del CRUD de NUEVA-6. |
 | [`cetap_sin_catalogo`](#cetap_sin_catalogo) | Tabla | 46 | CETAPs declarados en el detalle territorial que no tienen contraparte en el catálogo oficial. Pendientes de código. No inventar: resolver con Gestión Profesoral. |
-| [`concertacion_docencia`](#concertacion_docencia) | Tabla | 0 | _Por documentar_ |
-| [`concertacion_firma`](#concertacion_firma) | Tabla | 0 | _Por documentar_ |
-| [`concertacion_historial`](#concertacion_historial) | Tabla | 0 | _Por documentar_ |
+| [`concertacion_docencia`](#concertacion_docencia) | Tabla | 0 | Concertaciones de la docencia del periodo (EFDS-2315). Un registro por docente, periodo y nivel (pregrado o posgrado), con la foto de las franjas enviadas, el total de horas y la huella que se firma; se relaciona con auth.personas (docente) y con sus firmas, revisiones e historial. Ciclo: enviada, revisada, aprobada o devuelta; la concertación aprobada se entrega al PTA (Plan de Trabajo Académico), que devuelve su estado de aplicación. |
+| [`concertacion_firma`](#concertacion_firma) | Tabla | 0 | Firmas de las concertaciones de docencia. Un registro por firma de un usuario sobre una concertación, con el rol con que firma (docente, revisor o aprobador), el modo de verificación OTP, la fecha y la huella firmada; se relaciona con concertacion_docencia. |
+| [`concertacion_historial`](#concertacion_historial) | Tabla | 0 | Historial de acciones sobre las concertaciones de docencia. Un registro por acción (enviar, revisar, devolver o aprobar), con el estado anterior y el nuevo, el usuario que la realizó, el comentario y la fecha; se relaciona con concertacion_docencia. |
 | [`concertacion_revision`](#concertacion_revision) | Tabla | 0 | _Por documentar_ |
-| [`equivalencia_periodo`](#equivalencia_periodo) | Tabla | 5 | _Por documentar_ |
-| [`franja_horaria`](#franja_horaria) | Tabla | 5 | _Por documentar_ |
+| [`equivalencia_periodo`](#equivalencia_periodo) | Tabla | 5 | Equivalencias entre los códigos de periodo de programación y los códigos de periodo académico de la plataforma (academic_work_plan.periodo_academico). Un registro por código de programación, con el periodo académico equivalente, el tipo de oferta que se asigna a sus grupos y la justificación; se relaciona con periodo_programacion. |
+| [`franja_horaria`](#franja_horaria) | Tabla | 5 | Franjas horarias de la programación académica. Un registro por franja de un grupo, con el periodo, el día, las horas de inicio y fin, la jornada, el aula, el tipo de sesión y el docente asignado; se relaciona con grupo, periodo_programacion, academic_work_plan.programa y academic_work_plan.asignatura. Ciclo: programado, tomada, aprobada, devuelta o publicada. |
 | [`grupo`](#grupo) | Tabla | 2 | Instancia independiente de programación de una asignatura (RN-11). El horario y las fechas cuelgan del GRUPO, no de la asignatura. |
 | [`jefatura_territorial`](#jefatura_territorial) | Tabla | 0 | Qué territorial(es) gobierna cada usuario con el rol JEFATURA_TERRITORIAL. Referencia la territorial por id: un nombre puede divergir, un id no. |
-| [`periodo_programacion`](#periodo_programacion) | Tabla | 5 | _Por documentar_ |
+| [`periodo_programacion`](#periodo_programacion) | Tabla | 5 | Periodos de programación académica. Un registro por periodo, con su código, nombre, fechas de inicio y fin y tipo de oferta (periodo regular, interperiodo o créditos virtual); lo referencian los grupos, las franjas horarias y las equivalencias de periodo. Ciclo: planeación, activo o cerrado. |
 | [`programacion_historica`](#programacion_historica) | Tabla | 575 | Programación 2026-1 y 2026-V1 tal como llegó. Sin FK: cod_asigna es PROGRAMA_PENSUM, no código de materia. No pasa por el guard de publicación. |
-| [`programacion_periodo`](#programacion_periodo) | Tabla | 0 | _Por documentar_ |
+| [`programacion_periodo`](#programacion_periodo) | Tabla | 0 | Estado de la programación de cada periodo académico de la plataforma. Un registro por periodo académico (relación uno a uno con academic_work_plan.periodo_academico), con el estado abierta o cerrada, la fecha de cierre y el usuario que la cerró. |
 
 ## asignacion_docente
 
@@ -79,7 +79,7 @@ CETAPs declarados en el detalle territorial que no tienen contraparte en el cat�
 
 ## concertacion_docencia
 
-_Por documentar._
+Concertaciones de la docencia del periodo (EFDS-2315). Un registro por docente, periodo y nivel (pregrado o posgrado), con la foto de las franjas enviadas, el total de horas y la huella que se firma; se relaciona con auth.personas (docente) y con sus firmas, revisiones e historial. Ciclo: enviada, revisada, aprobada o devuelta; la concertación aprobada se entrega al PTA (Plan de Trabajo Académico), que devuelve su estado de aplicación.
 
 - Clave primaria: `id_concertacion`
 - Filas: 0
@@ -104,7 +104,7 @@ _Por documentar._
 
 ## concertacion_firma
 
-_Por documentar._
+Firmas de las concertaciones de docencia. Un registro por firma de un usuario sobre una concertación, con el rol con que firma (docente, revisor o aprobador), el modo de verificación OTP, la fecha y la huella firmada; se relaciona con concertacion_docencia.
 
 - Clave primaria: `id_firma`
 - Filas: 0
@@ -123,7 +123,7 @@ _Por documentar._
 
 ## concertacion_historial
 
-_Por documentar._
+Historial de acciones sobre las concertaciones de docencia. Un registro por acción (enviar, revisar, devolver o aprobar), con el estado anterior y el nuevo, el usuario que la realizó, el comentario y la fecha; se relaciona con concertacion_docencia.
 
 - Clave primaria: `id`
 - Filas: 0
@@ -157,7 +157,7 @@ _Por documentar._
 
 ## equivalencia_periodo
 
-_Por documentar._
+Equivalencias entre los códigos de periodo de programación y los códigos de periodo académico de la plataforma (academic_work_plan.periodo_academico). Un registro por código de programación, con el periodo académico equivalente, el tipo de oferta que se asigna a sus grupos y la justificación; se relaciona con periodo_programacion.
 
 - Clave primaria: `codigo_programacion`
 - Filas: 5
@@ -172,7 +172,7 @@ _Por documentar._
 
 ## franja_horaria
 
-_Por documentar._
+Franjas horarias de la programación académica. Un registro por franja de un grupo, con el periodo, el día, las horas de inicio y fin, la jornada, el aula, el tipo de sesión y el docente asignado; se relaciona con grupo, periodo_programacion, academic_work_plan.programa y academic_work_plan.asignatura. Ciclo: programado, tomada, aprobada, devuelta o publicada.
 
 - Clave primaria: `id_franja`
 - Filas: 5
@@ -243,7 +243,7 @@ Qué territorial(es) gobierna cada usuario con el rol JEFATURA_TERRITORIAL. Refe
 
 ## periodo_programacion
 
-_Por documentar._
+Periodos de programación académica. Un registro por periodo, con su código, nombre, fechas de inicio y fin y tipo de oferta (periodo regular, interperiodo o créditos virtual); lo referencian los grupos, las franjas horarias y las equivalencias de periodo. Ciclo: planeación, activo o cerrado.
 
 - Clave primaria: `id_periodo`
 - Filas: 5
@@ -303,7 +303,7 @@ Programación 2026-1 y 2026-V1 tal como llegó. Sin FK: cod_asigna es PROGRAMA_P
 
 ## programacion_periodo
 
-_Por documentar._
+Estado de la programación de cada periodo académico de la plataforma. Un registro por periodo académico (relación uno a uno con academic_work_plan.periodo_academico), con el estado abierta o cerrada, la fecha de cierre y el usuario que la cerró.
 
 - Clave primaria: `id_periodo_academico`
 - Filas: 0

@@ -6,18 +6,18 @@ Esquema para la gestión de infraestructura física, sedes territoriales, bloque
 
 | Tabla | Tipo | Filas | Descripción |
 |---|---|--:|---|
-| [`bloque_edificio`](#bloque_edificio) | Tabla | 23 | _Por documentar_ |
+| [`bloque_edificio`](#bloque_edificio) | Tabla | 23 | Bloques o edificios de las sedes de la ESAP. Un registro por bloque, con su código, nombre, número de pisos, descripción y estado activo. Pertenece a una sede (infrastructure-management.sede) y agrupa los espacios físicos. |
 | [`catalogo_item`](#catalogo_item) | Tabla | 45 | Catálogo genérico para listas parametrizables de infraestructura (tipos, prioridades, estados) |
-| [`espacio_fisico`](#espacio_fisico) | Tabla | 81 | _Por documentar_ |
-| [`sede`](#sede) | Tabla | 7 | _Por documentar_ |
+| [`espacio_fisico`](#espacio_fisico) | Tabla | 81 | Espacios físicos de los bloques o edificios, como aulas, auditorios, laboratorios, oficinas, bibliotecas y salas de consejo. Un registro por espacio, con su tipo, capacidad, piso, área, dotación (aire acondicionado, videobeam, computadores) y estado (disponible, mantenimiento, inactivo o reservado). Pertenece a un bloque o edificio y es referenciado por las solicitudes de mantenimiento. |
+| [`sede`](#sede) | Tabla | 7 | Sedes de la ESAP: sede central, territoriales y CETAP. Un registro por sede, con su código, nombre, tipo, ubicación (departamento, municipio y dirección), datos de contacto y si pertenece al alcance directo de la UMI. Agrupa los bloques o edificios y se asocia a las solicitudes de mantenimiento. |
 | [`solicitud_evidencia`](#solicitud_evidencia) | Tabla | 6 | Evidencias/adjuntos subidos por el usuario al radicar o gestionar una solicitud de mantenimiento (fotos, PDFs, planos). Almacenado en MinIO, referenciado por URL |
-| [`solicitud_mantenimiento`](#solicitud_mantenimiento) | Tabla | 0 | _Por documentar_ |
+| [`solicitud_mantenimiento`](#solicitud_mantenimiento) | Tabla | 0 | Solicitudes y órdenes de mantenimiento de la infraestructura física y tecnológica de las sedes. Un registro por solicitud, con su consecutivo, sede, espacio y ubicación, tipo de mantenimiento, prioridad, solicitante, clasificación, técnico asignado, valoración técnica, cierre técnico y costos. Su ciclo se registra en el estado (EFDS-1728), con valores como RECIBIDA, EN_ANALISIS, EN_VALORACION, COMPLETADA o RECHAZADA; se relaciona con sede, espacio_fisico, solicitud_evidencia y solicitud_valoracion. |
 | [`solicitud_valoracion`](#solicitud_valoracion) | Tabla | 0 | EFDS-1735 RF-INF-006. Cada fila es una visita técnica de inspección previa. 1-N con solicitud (se permiten revalorizaciones o segundas visitas). |
 | [`solicitud_valoracion_insumo`](#solicitud_valoracion_insumo) | Tabla | 0 | EFDS-1735. Detalle fila-a-fila de materiales y repuestos requeridos para la ejecución de una visita de valoración. Restricción a nivel fila chk_tiempo_adquisicion_si_no_disponible: si disponibilidad=NO_DISPONIBLE_A_SOLICITAR, es obligatorio tiempo_adquisicion_dias para extender el SLA. |
 
 ## bloque_edificio
 
-_Por documentar._
+Bloques o edificios de las sedes de la ESAP. Un registro por bloque, con su código, nombre, número de pisos, descripción y estado activo. Pertenece a una sede (infrastructure-management.sede) y agrupa los espacios físicos.
 
 - Clave primaria: `id_bloque`
 - Filas: 23
@@ -55,7 +55,7 @@ Catálogo genérico para listas parametrizables de infraestructura (tipos, prior
 
 ## espacio_fisico
 
-_Por documentar._
+Espacios físicos de los bloques o edificios, como aulas, auditorios, laboratorios, oficinas, bibliotecas y salas de consejo. Un registro por espacio, con su tipo, capacidad, piso, área, dotación (aire acondicionado, videobeam, computadores) y estado (disponible, mantenimiento, inactivo o reservado). Pertenece a un bloque o edificio y es referenciado por las solicitudes de mantenimiento.
 
 - Clave primaria: `id_espacio`
 - Filas: 81
@@ -81,7 +81,7 @@ _Por documentar._
 
 ## sede
 
-_Por documentar._
+Sedes de la ESAP: sede central, territoriales y CETAP. Un registro por sede, con su código, nombre, tipo, ubicación (departamento, municipio y dirección), datos de contacto y si pertenece al alcance directo de la UMI. Agrupa los bloques o edificios y se asocia a las solicitudes de mantenimiento.
 
 - Clave primaria: `id_sede`
 - Filas: 7
@@ -131,7 +131,7 @@ Evidencias/adjuntos subidos por el usuario al radicar o gestionar una solicitud 
 
 ## solicitud_mantenimiento
 
-_Por documentar._
+Solicitudes y órdenes de mantenimiento de la infraestructura física y tecnológica de las sedes. Un registro por solicitud, con su consecutivo, sede, espacio y ubicación, tipo de mantenimiento, prioridad, solicitante, clasificación, técnico asignado, valoración técnica, cierre técnico y costos. Su ciclo se registra en el estado (EFDS-1728), con valores como RECIBIDA, EN_ANALISIS, EN_VALORACION, COMPLETADA o RECHAZADA; se relaciona con sede, espacio_fisico, solicitud_evidencia y solicitud_valoracion.
 
 - Clave primaria: `id_solicitud`
 - Filas: 0

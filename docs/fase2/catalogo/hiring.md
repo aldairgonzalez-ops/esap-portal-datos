@@ -15,7 +15,7 @@ _Descripción del dominio por documentar._
 | [`actos_adjudicacion`](#actos_adjudicacion) | Tabla | 1 | Acto administrativo de adjudicación del Ordenador del Gasto, con su notificación y publicación (EFDS-1159). |
 | [`adendas`](#adendas) | Tabla | 3 | Adendas de fondo y de cronograma del proceso, con su emisión y su publicación (EFDS-1154). |
 | [`afiliaciones_arl`](#afiliaciones_arl) | Tabla | 0 | Afiliación a riesgos laborales, exigida a los contratistas persona natural (EFDS-1164). |
-| [`alcances_permiso`](#alcances_permiso) | Tabla | 313 | _Por documentar_ |
+| [`alcances_permiso`](#alcances_permiso) | Tabla | 313 | Alcances de los permisos de los roles en el proceso contractual. Un registro por permiso de un rol para una acción (ver, editar, aprobar o decidir) en un ámbito: todo el módulo, una etapa, un numeral de la matriz de flujo o un trámite de incumplimiento (INC.1 o INC.2); se relaciona con auth.role y hiring.actividades. |
 | [`amparos`](#amparos) | Tabla | 1 | Coberturas de cada garantía con su vigencia, para controlar vencimientos (EFDS-1164). |
 | [`aperturas_proceso`](#aperturas_proceso) | Tabla | 3 | Resolución de apertura y pliego definitivo de cada proceso (EFDS-1152). |
 | [`audiencia_riesgos_config`](#audiencia_riesgos_config) | Tabla | 1 | En qué modalidades la audiencia de riesgos es obligatoria (EFDS-1153, RF-PUB-04). |
@@ -24,7 +24,7 @@ _Descripción del dominio por documentar._
 | [`audiencias_sancionatorias`](#audiencias_sancionatorias) | Tabla | 0 | Audiencias del trámite sancionatorio (EFDS-1181, RF-INC-02). La citación mira al futuro; el acta, al hecho ya ocurrido. |
 | [`avisos`](#avisos) | Tabla | 0 | Lo que cambió la Dirección sobre los avisos de cada actividad. Sin fila, la actividad avisa con lo sugerido. |
 | [`avisos_habilitacion`](#avisos_habilitacion) | Tabla | 156 | Actividades de cada proceso de las que ya salió el aviso de «te toca». Evita repetirlo. |
-| [`campos_formulario`](#campos_formulario) | Tabla | 13 | _Por documentar_ |
+| [`campos_formulario`](#campos_formulario) | Tabla | 13 | Definición de los campos del formulario de cada actividad de la matriz de flujo contractual. Un registro por campo, con el numeral de la actividad, el código, la etiqueta, la ayuda, el tipo, el grupo, el orden, las opciones y si es obligatorio, de solo lectura o está activo. |
 | [`casos_incumplimiento`](#casos_incumplimiento) | Tabla | 0 | Reportes de presunto incumplimiento del contrato (EFDS-1180, RF-INC-01). |
 | [`causales_contratacion`](#causales_contratacion) | Tabla | 14 | Actividad 3.6 (3.5.1 de la matriz): causales que habilitan contratar por una modalidad. La matriz la describe como «filtro según la modalidad» y solo la marca aplicable en selección abreviada de menor cuantía y en contratación directa. |
 | [`cdp`](#cdp) | Tabla | 4 | Certificado de Disponibilidad Presupuestal del proceso. Requisito previo a la apertura (EFDS-1148). |
@@ -34,12 +34,12 @@ _Descripción del dominio por documentar._
 | [`contratos`](#contratos) | Tabla | 1 | Contratos generados a partir del formato de su tipología, con la aceptación del proponente (EFDS-1161). |
 | [`declaratorias_desiertas`](#declaratorias_desiertas) | Tabla | 0 | Declaratoria desierta del proceso: causal, motivación, acto firmado, notificación y publicación (EFDS-1160, RF-ADJ-02). |
 | [`dias_no_habiles`](#dias_no_habiles) | Tabla | 0 | Días no laborables propios de la ESAP, adicionales a los festivos nacionales que el servicio calcula (EFDS-1150). |
-| [`documentos`](#documentos) | Tabla | 130 | _Por documentar_ |
-| [`documentos_proceso`](#documentos_proceso) | Tabla | 40 | _Por documentar_ |
+| [`documentos`](#documentos) | Tabla | 130 | Documentos de los expedientes contractuales. Un registro por documento o versión, sea un archivo adjunto o una copia del formulario al momento de enviarlo, con el numeral de la actividad, los datos del archivo, el hash SHA-256 y quién lo cargó; se relaciona con hiring.expedientes y hiring.plantillas, y lo referencian los registros de las etapas del proceso (actas, contratos, garantías, pagos, informes, entre otros). |
+| [`documentos_proceso`](#documentos_proceso) | Tabla | 40 | Documentos cargados por cada proceso contractual para cubrir sus requisitos. Un registro por documento que satisface un requisito, con el numeral de la actividad, el código del requisito, quién lo cargó y, si fue sustituido, la anulación; el archivo está en hiring.documentos y se relaciona con hiring.procesos. |
 | [`documentos_requeridos`](#documentos_requeridos) | Tabla | 23 | Catálogo de documentos que exige cada actividad, filtrado por modalidad (EFDS-1149). |
 | [`entregables_informe`](#entregables_informe) | Tabla | 0 | Consolidado de entregables del informe final (EFDS-1171). |
 | [`evidencias_evaluacion`](#evidencias_evaluacion) | Tabla | 0 | Documentos con que el comité sustenta su evaluación: verificaciones, cuadro comparativo, actas (EFDS-1157). |
-| [`expedientes`](#expedientes) | Tabla | 10 | _Por documentar_ |
+| [`expedientes`](#expedientes) | Tabla | 10 | Expedientes electrónicos de los procesos contractuales (RF-SIS-04). Un registro por proceso, con el número de expediente, la apertura, el archivo con su índice documental y radicado de Active Document, y la reapertura; se relaciona con hiring.procesos y sus documentos están en hiring.documentos. Ciclo: abierto o archivado. |
 | [`firmas_contrato`](#firmas_contrato) | Tabla | 2 | Firmas del ordenador del gasto y del contratista, con su evidencia (EFDS-1162). |
 | [`garantias`](#garantias) | Tabla | 1 | Pólizas constituidas por el contratista, con su revisión y aprobación (EFDS-1164). |
 | [`informes_definitivos`](#informes_definitivos) | Tabla | 1 | Informe de evaluación definitivo, con el resultado congelado y lo que cambió desde el preliminar (EFDS-1159). |
@@ -48,7 +48,7 @@ _Descripción del dominio por documentar._
 | [`limitaciones_mipyme`](#limitaciones_mipyme) | Tabla | 2 | Decisión de limitar o no la convocatoria a MIPYME, con las condiciones que se evaluaron (EFDS-1151). |
 | [`manifestaciones_mipyme`](#manifestaciones_mipyme) | Tabla | 0 | Manifestaciones de interés de MIPYME en participar; su número decide la limitación (EFDS-1151). |
 | [`miembros_comite`](#miembros_comite) | Tabla | 3 | Integrantes del comité evaluador con su dimensión de evaluación (EFDS-1156). |
-| [`modalidades`](#modalidades) | Tabla | 11 | _Por documentar_ |
+| [`modalidades`](#modalidades) | Tabla | 11 | Catálogo de modalidades de selección del contratista. Un registro por modalidad, con su código, nombre, orden como columna de la matriz de flujo, si está activa y si se determina por cuantía; determina qué actividades de la matriz aplican al proceso y la referencian los procesos, plazos, umbrales y reglas de actividad. |
 | [`modificaciones_contrato`](#modificaciones_contrato) | Tabla | 0 | Modificaciones contractuales de la actividad 9.5; hoy solo la adición tiene trámite (EFDS-1176). |
 | [`observaciones_pliego`](#observaciones_pliego) | Tabla | 4 | Observaciones de interesados al proyecto de pliego publicado, con su respuesta (EFDS-1151). |
 | [`oferentes`](#oferentes) | Tabla | 4 | Ofertas recibidas dentro del plazo, con su soporte. Al cerrar la recepción componen la lista publicada (EFDS-1155). |
@@ -57,14 +57,14 @@ _Descripción del dominio por documentar._
 | [`parametros_mipyme`](#parametros_mipyme) | Tabla | 2 | Condiciones que habilitan la limitación a MIPYME. Parametrizables (EFDS-1393). |
 | [`participaciones_proceso`](#participaciones_proceso) | Tabla | 17 | Quién está en cada proceso y con qué papel, vigentes y relevados, con el motivo del cambio (EFDS-1183). |
 | [`piezas_audiencia`](#piezas_audiencia) | Tabla | 0 | Acta, grabaciones, observaciones y anexos que documentan la audiencia de adjudicación (EFDS-1159). |
-| [`plantillas`](#plantillas) | Tabla | 10 | _Por documentar_ |
+| [`plantillas`](#plantillas) | Tabla | 10 | Catálogo de formatos institucionales del Sistema Integrado de Gestión (Isolución) que se diligencian y firman fuera del sistema durante el proceso de contratación. Un registro por formato, con su código, versión, fecha de aprobación, numeral de la actividad de la matriz de flujo y las modalidades de contratación a las que aplica. Se relaciona con hiring.contratos y hiring.documentos. |
 | [`plazo_publicacion_acta`](#plazo_publicacion_acta) | Tabla | 1 | Plazo para publicar el acta de liquidación, parametrizable y marcado si está sin confirmar (EFDS-1174). |
 | [`plazo_publicacion_contrato`](#plazo_publicacion_contrato) | Tabla | 1 | Plazo para publicar el contrato, parametrizable y marcado si está sin confirmar (EFDS-1166). |
 | [`plazos_ofertas`](#plazos_ofertas) | Tabla | 7 | Días hábiles de recepción de ofertas por modalidad, contados desde la apertura (EFDS-1155). |
 | [`plazos_publicacion`](#plazos_publicacion) | Tabla | 7 | Días hábiles de publicidad del proyecto de pliego, por modalidad. Parametrizables (EFDS-1150). |
 | [`plazos_traslado`](#plazos_traslado) | Tabla | 7 | Días hábiles de traslado del informe de evaluación por modalidad, contados desde su publicación (EFDS-1158). |
-| [`proceso_actividades`](#proceso_actividades) | Tabla | 590 | _Por documentar_ |
-| [`procesos`](#procesos) | Tabla | 10 | _Por documentar_ |
+| [`proceso_actividades`](#proceso_actividades) | Tabla | 590 | Actividades ejecutadas dentro de cada proceso de contratación, según el numeral del procedimiento. Un registro por proceso y numeral, con los datos del formulario diligenciado, el envío a revisión, la revisión y su estado (borrador, en revisión, aprobado, devuelto, negado o no aplica). Se relaciona con hiring.procesos, y las decisiones de revisión quedan en hiring.revisiones. |
+| [`procesos`](#procesos) | Tabla | 10 | Procesos de contratación radicados ante la Dirección de Contratación. Un registro por proceso, con su radicado, objeto, modalidad, causal, valor estimado, etapa en la matriz de flujo y desenlace (en curso, adjudicado, desierto o negado). Es la tabla central del esquema: de ella dependen las actividades, documentos, evaluaciones, contratos y la trazabilidad del proceso. |
 | [`publicaciones_acta`](#publicaciones_acta) | Tabla | 0 | Publicaciones del acta de liquidación con su destino, evidencia y control de plazo (EFDS-1174). |
 | [`publicaciones_contrato`](#publicaciones_contrato) | Tabla | 1 | Publicaciones del contrato con su destino, evidencia y control de plazo (EFDS-1166). |
 | [`publicaciones_modificacion`](#publicaciones_modificacion) | Tabla | 0 | Publicación de la modificación en SECOP II, con su evidencia (EFDS-1176, RF-MOD-05). |
@@ -72,10 +72,10 @@ _Descripción del dominio por documentar._
 | [`recepciones_ofertas`](#recepciones_ofertas) | Tabla | 3 | Plazo de recepción de ofertas de cada proceso y su cierre (EFDS-1155). |
 | [`registros_actividad`](#registros_actividad) | Tabla | 2 | Constancia de que una actividad sin historia propia ocurrió, con su fecha, su nota y su soporte. |
 | [`registros_presupuestales`](#registros_presupuestales) | Tabla | 1 | Registros presupuestales que comprometen los recursos del contrato (EFDS-1163). |
-| [`reglas_actividad`](#reglas_actividad) | Tabla | 13 | _Por documentar_ |
+| [`reglas_actividad`](#reglas_actividad) | Tabla | 13 | Reglas que debe cumplir una actividad de la matriz de flujo para darse por terminada, según la modalidad de contratación (por ejemplo, campo obligatorio, documento requerido, rango de valor o plazo mínimo). Un registro por regla, con sus condiciones, acciones, mensaje para el gestor, orden de evaluación y periodo de vigencia. Se relaciona con hiring.actividades y hiring.modalidades. |
 | [`resoluciones_sancionatorias`](#resoluciones_sancionatorias) | Tabla | 0 | Actos administrativos del trámite sancionatorio (EFDS-1181, RF-INC-02): el que lo abre y el que lo decide, incluida la caducidad. |
 | [`resultados_evaluacion`](#resultados_evaluacion) | Tabla | 2 | Resultado de la evaluación hecha por el comité fuera de la plataforma: oferta ganadora, su valoración y el informe que la sustenta (EFDS-1157). |
-| [`revisiones`](#revisiones) | Tabla | 12 | _Por documentar_ |
+| [`revisiones`](#revisiones) | Tabla | 12 | Historial de revisiones de las actividades de un proceso de contratación (numeral 3.4 de la matriz). Un registro por decisión del revisor (aprobado, devuelto o negado), con las observaciones, la versión revisada, el revisor y los soportes de la devolución. Se relaciona con hiring.proceso_actividades. |
 | [`roles_del_modulo`](#roles_del_modulo) | Vista |  | Roles que trabajan en contratación: los que tienen al menos un permiso del módulo. Alimenta el selector de aprobadores. |
 | [`seguimientos_contrato`](#seguimientos_contrato) | Tabla | 1 | Informes, actas y soportes de la ejecución del contrato (EFDS-1168, actividad 9.2). |
 | [`sesiones_comite_contratacion`](#sesiones_comite_contratacion) | Tabla | 4 | Sesiones del comité de contratación sobre un proceso (actividad 3.7). Una por sesión: observar devuelve el proceso al comité, y las dos quedan. |
@@ -88,7 +88,7 @@ _Descripción del dominio por documentar._
 | [`tipologias_contrato`](#tipologias_contrato) | Tabla | 12 | Tipologías de contrato y el formato del SIG que sirve de minuta (EFDS-1161). |
 | [`tipos_amparo`](#tipos_amparo) | Tabla | 7 | Coberturas que puede incluir una garantía, para controlar sus vencimientos (EFDS-1164). |
 | [`tope_adicion`](#tope_adicion) | Tabla | 1 | Tope legal de la adición como porcentaje del valor inicial del contrato (EFDS-1176). |
-| [`trazabilidad`](#trazabilidad) | Tabla | 236 | _Por documentar_ |
+| [`trazabilidad`](#trazabilidad) | Tabla | 236 | Bitácora de las acciones realizadas sobre los procesos de contratación y sus objetos relacionados. Un registro por acción (crear, guardar, enviar, adjuntar, aprobar, devolver, entre otras), con el objeto afectado, el detalle y el usuario que la hizo. Se relaciona con hiring.procesos. |
 | [`umbrales_comite_contratacion`](#umbrales_comite_contratacion) | Tabla | 1 | Condición de cuantía para pasar por el comité de contratación (actividad 3.7). La modalidad sin fila va a comité siempre que la matriz la marque. |
 | [`umbrales_modalidad`](#umbrales_modalidad) | Tabla | 3 | Rangos de cuantía que sugieren cada modalidad. Parametrizables por administrador (EFDS-1147). |
 
@@ -287,7 +287,7 @@ Afiliación a riesgos laborales, exigida a los contratistas persona natural (EFD
 
 ## alcances_permiso
 
-_Por documentar._
+Alcances de los permisos de los roles en el proceso contractual. Un registro por permiso de un rol para una acción (ver, editar, aprobar o decidir) en un ámbito: todo el módulo, una etapa, un numeral de la matriz de flujo o un trámite de incumplimiento (INC.1 o INC.2); se relaciona con auth.role y hiring.actividades.
 
 - Clave primaria: `id`
 - Filas: 313
@@ -473,7 +473,7 @@ Actividades de cada proceso de las que ya salió el aviso de «te toca». Evita 
 
 ## campos_formulario
 
-_Por documentar._
+Definición de los campos del formulario de cada actividad de la matriz de flujo contractual. Un registro por campo, con el numeral de la actividad, el código, la etiqueta, la ayuda, el tipo, el grupo, el orden, las opciones y si es obligatorio, de solo lectura o está activo.
 
 - Clave primaria: `id`
 - Filas: 13
@@ -719,7 +719,7 @@ Días no laborables propios de la ESAP, adicionales a los festivos nacionales qu
 
 ## documentos
 
-_Por documentar._
+Documentos de los expedientes contractuales. Un registro por documento o versión, sea un archivo adjunto o una copia del formulario al momento de enviarlo, con el numeral de la actividad, los datos del archivo, el hash SHA-256 y quién lo cargó; se relaciona con hiring.expedientes y hiring.plantillas, y lo referencian los registros de las etapas del proceso (actas, contratos, garantías, pagos, informes, entre otros).
 
 - Clave primaria: `id`
 - Filas: 130
@@ -745,7 +745,7 @@ _Por documentar._
 
 ## documentos_proceso
 
-_Por documentar._
+Documentos cargados por cada proceso contractual para cubrir sus requisitos. Un registro por documento que satisface un requisito, con el numeral de la actividad, el código del requisito, quién lo cargó y, si fue sustituido, la anulación; el archivo está en hiring.documentos y se relaciona con hiring.procesos.
 
 - Clave primaria: `id`
 - Filas: 40
@@ -826,7 +826,7 @@ Documentos con que el comité sustenta su evaluación: verificaciones, cuadro co
 
 ## expedientes
 
-_Por documentar._
+Expedientes electrónicos de los procesos contractuales (RF-SIS-04). Un registro por proceso, con el número de expediente, la apertura, el archivo con su índice documental y radicado de Active Document, y la reapertura; se relaciona con hiring.procesos y sus documentos están en hiring.documentos. Ciclo: abierto o archivado.
 
 - Clave primaria: `id`
 - Filas: 10
@@ -1042,7 +1042,7 @@ Integrantes del comité evaluador con su dimensión de evaluación (EFDS-1156).
 
 ## modalidades
 
-_Por documentar._
+Catálogo de modalidades de selección del contratista. Un registro por modalidad, con su código, nombre, orden como columna de la matriz de flujo, si está activa y si se determina por cuantía; determina qué actividades de la matriz aplican al proceso y la referencian los procesos, plazos, umbrales y reglas de actividad.
 
 - Clave primaria: `codigo`
 - Filas: 11
@@ -1272,7 +1272,7 @@ Acta, grabaciones, observaciones y anexos que documentan la audiencia de adjudic
 
 ## plantillas
 
-_Por documentar._
+Catálogo de formatos institucionales del Sistema Integrado de Gestión (Isolución) que se diligencian y firman fuera del sistema durante el proceso de contratación. Un registro por formato, con su código, versión, fecha de aprobación, numeral de la actividad de la matriz de flujo y las modalidades de contratación a las que aplica. Se relaciona con hiring.contratos y hiring.documentos.
 
 - Clave primaria: `id`
 - Filas: 10
@@ -1373,7 +1373,7 @@ Días hábiles de traslado del informe de evaluación por modalidad, contados de
 
 ## proceso_actividades
 
-_Por documentar._
+Actividades ejecutadas dentro de cada proceso de contratación, según el numeral del procedimiento. Un registro por proceso y numeral, con los datos del formulario diligenciado, el envío a revisión, la revisión y su estado (borrador, en revisión, aprobado, devuelto, negado o no aplica). Se relaciona con hiring.procesos, y las decisiones de revisión quedan en hiring.revisiones.
 
 - Clave primaria: `id`
 - Filas: 590
@@ -1398,7 +1398,7 @@ _Por documentar._
 
 ## procesos
 
-_Por documentar._
+Procesos de contratación radicados ante la Dirección de Contratación. Un registro por proceso, con su radicado, objeto, modalidad, causal, valor estimado, etapa en la matriz de flujo y desenlace (en curso, adjudicado, desierto o negado). Es la tabla central del esquema: de ella dependen las actividades, documentos, evaluaciones, contratos y la trazabilidad del proceso.
 
 - Clave primaria: `id`
 - Filas: 10
@@ -1582,7 +1582,7 @@ Registros presupuestales que comprometen los recursos del contrato (EFDS-1163).
 
 ## reglas_actividad
 
-_Por documentar._
+Reglas que debe cumplir una actividad de la matriz de flujo para darse por terminada, según la modalidad de contratación (por ejemplo, campo obligatorio, documento requerido, rango de valor o plazo mínimo). Un registro por regla, con sus condiciones, acciones, mensaje para el gestor, orden de evaluación y periodo de vigencia. Se relaciona con hiring.actividades y hiring.modalidades.
 
 - Clave primaria: `id`
 - Filas: 13
@@ -1661,7 +1661,7 @@ Resultado de la evaluación hecha por el comité fuera de la plataforma: oferta 
 
 ## revisiones
 
-_Por documentar._
+Historial de revisiones de las actividades de un proceso de contratación (numeral 3.4 de la matriz). Un registro por decisión del revisor (aprobado, devuelto o negado), con las observaciones, la versión revisada, el revisor y los soportes de la devolución. Se relaciona con hiring.proceso_actividades.
 
 - Clave primaria: `id`
 - Filas: 12
@@ -1911,7 +1911,7 @@ Tope legal de la adición como porcentaje del valor inicial del contrato (EFDS-1
 
 ## trazabilidad
 
-_Por documentar._
+Bitácora de las acciones realizadas sobre los procesos de contratación y sus objetos relacionados. Un registro por acción (crear, guardar, enviar, adjuntar, aprobar, devolver, entre otras), con el objeto afectado, el detalle y el usuario que la hizo. Se relaciona con hiring.procesos.
 
 - Clave primaria: `id`
 - Filas: 236

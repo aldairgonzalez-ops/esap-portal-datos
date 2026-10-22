@@ -7,35 +7,35 @@ _Descripción del dominio por documentar._
 | Tabla | Tipo | Filas | Descripción |
 |---|---|--:|---|
 | [`analistas_viaticos`](#analistas_viaticos) | Tabla | 0 | Catalogo de analistas del Grupo de Viaticos para asignacion de comisiones y calculo de carga laboral |
-| [`comisionados`](#comisionados) | Tabla | 4 | _Por documentar_ |
-| [`config_campos_formulario`](#config_campos_formulario) | Tabla | 19 | _Por documentar_ |
+| [`comisionados`](#comisionados) | Tabla | 4 | Personas que pueden recibir una comisión de servicio de la ESAP: contratistas, docentes, estudiantes, funcionarios e investigadores. Un registro por persona, identificada por su número de documento, con nombres, contacto, tipo de vinculación, origen de los datos, autorización de tratamiento de datos personales, vigencia del contrato, cuentas bancarias y cargos. Es referenciada por las solicitudes de comisión y los paz y salvos. |
+| [`config_campos_formulario`](#config_campos_formulario) | Tabla | 19 | Catálogo de los campos configurables del formulario de solicitud de comisión. Un registro por campo, con su clave, etiqueta, tipo de control, opciones, sección (comisionado, comisión, valores o soportes), orden y límite de caracteres. Sus claves se usan en config_tipo_comisionado y en los campos adicionales de solicitudes_comision. |
 | [`config_jornada_laboral`](#config_jornada_laboral) | Tabla | 1 | _Por documentar_ |
 | [`config_legalizacion`](#config_legalizacion) | Tabla | 2 | EFDS-1309 — Disparador, plazo (días hábiles) y aviso de la legalización por modalidad de pago. |
 | [`config_legalizacion_documentos`](#config_legalizacion_documentos) | Tabla | 42 | EFDS-1309 — Soportes exigidos para legalizar, por tipo de comisionado. Configuración, no código (D-2). |
-| [`config_tipo_comisionado`](#config_tipo_comisionado) | Tabla | 7 | _Por documentar_ |
-| [`config_tipo_comisionado_documentos`](#config_tipo_comisionado_documentos) | Tabla | 24 | _Por documentar_ |
-| [`configuraciones_globales`](#configuraciones_globales) | Tabla | 6 | _Por documentar_ |
-| [`documentos_soporte`](#documentos_soporte) | Tabla | 0 | _Por documentar_ |
-| [`escalas_viaticos`](#escalas_viaticos) | Tabla | 11 | _Por documentar_ |
-| [`excepciones_autorizadas_tiquetes`](#excepciones_autorizadas_tiquetes) | Tabla | 0 | _Por documentar_ |
+| [`config_tipo_comisionado`](#config_tipo_comisionado) | Tabla | 7 | Configuración del formulario de solicitud de comisión por tipo de comisionado. Un registro por tipo, con el código del formulario y las listas de campos obligatorios, opcionales y ocultos (claves de config_campos_formulario). Se relaciona con los documentos de soporte exigidos (config_tipo_comisionado_documentos) y con config_legalizacion_documentos. |
+| [`config_tipo_comisionado_documentos`](#config_tipo_comisionado_documentos) | Tabla | 24 | Documentos de soporte exigidos por tipo de comisionado. Un registro por combinación de tipo de comisionado y tipo de documento de soporte, que indica si el documento es obligatorio u opcional. Relaciona config_tipo_comisionado con tipos_documento_soporte. |
+| [`configuraciones_globales`](#configuraciones_globales) | Tabla | 6 | Parámetros globales del módulo de viáticos. Un registro por parámetro, identificado por su clave, con su valor guardado como texto (correos, horas, números o listas JSON) y su descripción. |
+| [`documentos_soporte`](#documentos_soporte) | Tabla | 0 | Archivos de soporte adjuntos a las solicitudes de comisión, como CDP, certificación bancaria, contrato SECOP, RUT o seguridad social. Un registro por archivo, con su tipo de documento, nombre original, nombre de almacenamiento, ruta y tipo MIME. Se relaciona con travel_expenses.solicitudes_comision. |
+| [`escalas_viaticos`](#escalas_viaticos) | Tabla | 11 | Escalas de viáticos por rango salarial fijadas por decreto. Un registro por rango de asignación básica y año de vigencia, con la tarifa diaria base que se aplica en la liquidación de las comisiones. |
+| [`excepciones_autorizadas_tiquetes`](#excepciones_autorizadas_tiquetes) | Tabla | 0 | Excepciones autorizadas por la Dirección Nacional o el Sindicato para omitir la restricción de ruta corta o de presupuesto agotado en la compra de tiquetes (RF-LIQ-003, RF-LIQ-004). Un registro por excepción, con la solicitud de comisión a la que aplica, el tipo de excepción, la instancia que la autoriza y el documento de soporte. |
 | [`legalizacion_reversiones`](#legalizacion_reversiones) | Tabla | 0 | EFDS-1310 — Solicitudes de reversión de una revisión de legalización aprobada. La solicita el analista y la resuelve otra persona; solo antes del registro en SIIF. |
 | [`legalizacion_revisiones`](#legalizacion_revisiones) | Tabla | 0 | EFDS-1310 — Trazabilidad de la revisión de la legalización (quién, qué, cuándo). Solo inserción. |
 | [`legalizacion_soportes`](#legalizacion_soportes) | Tabla | 0 | EFDS-1309 — PDF de soporte de la legalización, validados por contenido (%PDF-), no por extensión. |
 | [`legalizaciones_comision`](#legalizaciones_comision) | Tabla | 0 | EFDS-1309 — Legalización de una comisión: plazo en días hábiles y envío a revisión. |
-| [`liquidation_params`](#liquidation_params) | Tabla | 5 | _Por documentar_ |
+| [`liquidation_params`](#liquidation_params) | Tabla | 5 | Parámetros configurables de la autoliquidación de viáticos, como los factores por tipo de comisionado y por pernocta. Un registro por parámetro, con su clave, valor guardado como texto, tipo de dato (NUMBER o STRING) y descripción. |
 | [`parametros_globales`](#parametros_globales) | Tabla | 1 | Parametros globales configurables del modulo de viaticos y comisiones |
-| [`paz_y_salvo_eventos`](#paz_y_salvo_eventos) | Tabla | 0 | _Por documentar_ |
+| [`paz_y_salvo_eventos`](#paz_y_salvo_eventos) | Tabla | 0 | Historial de eventos sobre los paz y salvos de los comisionados. Un registro por acción (solicitado, OTP solicitado, firma verificada, consultado o descargado), con el usuario que la realizó, la fecha y el detalle. Se relaciona con travel_expenses.paz_y_salvos. |
 | [`paz_y_salvos`](#paz_y_salvos) | Tabla | 0 | _Por documentar_ |
 | [`reintegros_comision`](#reintegros_comision) | Tabla | 0 | Reintegros de comisiones pagadas por avance no realizadas o ejecutadas por menos días (RF-PAG-004). |
-| [`rutas_restringidas`](#rutas_restringidas) | Tabla | 4 | _Por documentar_ |
-| [`saldos_tiquetes`](#saldos_tiquetes) | Tabla | 0 | _Por documentar_ |
-| [`solicitudes_comision`](#solicitudes_comision) | Tabla | 3 | _Por documentar_ |
+| [`rutas_restringidas`](#rutas_restringidas) | Tabla | 4 | Catálogo de rutas entre ciudades cuya conexión aérea está restringida (RF-LIQ-003), como las rutas cortas que requieren autorización del Director Nacional o del Sindicato. Un registro por ruta de origen y destino, con la descripción de la restricción y su estado activo. Se consulta al validar los tiquetes de una solicitud de comisión. |
+| [`saldos_tiquetes`](#saldos_tiquetes) | Tabla | 0 | Cupo presupuestal de cada dependencia para la compra de tiquetes aéreos. Un registro por dependencia, con el presupuesto inicial, reservado y disponible, y el porcentaje de holgura que se suma al reservar para cubrir la variación del precio del tiquete entre la radicación y la emisión (RF-LIQ-004). |
+| [`solicitudes_comision`](#solicitudes_comision) | Tabla | 3 | Solicitudes de comisión de servicio de los comisionados de la ESAP. Un registro por solicitud, con destino, fechas, objeto, itinerario, liquidación de viáticos y gastos de viaje, y los datos de cada etapa del trámite: revisión, autorización, registro presupuestal, obligación, pago o cancelación. Su ciclo se registra en estado_solicitud (BORRADOR, RADICADA, EN_VERIFICACION, DEVUELTA, PAGADA, entre otros); se relaciona con comisionados, auth.user, documentos_soporte, legalizaciones_comision, reintegros_comision y solicitudes_historial_estados. |
 | [`solicitudes_historial_estados`](#solicitudes_historial_estados) | Tabla | 0 | Auditoría append-only de transiciones de estado del expediente de comisión (RF-SIS-001 / RF-LIQ-004). |
-| [`tarifas_investigadores`](#tarifas_investigadores) | Tabla | 3 | _Por documentar_ |
-| [`tarifas_referencia_tiquetes`](#tarifas_referencia_tiquetes) | Tabla | 42 | _Por documentar_ |
-| [`tarifas_regionales_excepcion`](#tarifas_regionales_excepcion) | Tabla | 8 | _Por documentar_ |
-| [`tarifas_transporte_terminal`](#tarifas_transporte_terminal) | Tabla | 11 | _Por documentar_ |
-| [`tipos_documento_soporte`](#tipos_documento_soporte) | Tabla | 15 | _Por documentar_ |
+| [`tarifas_investigadores`](#tarifas_investigadores) | Tabla | 3 | Tarifas diarias de viáticos por categoría de investigador (JUNIOR, ASOCIADO o SENIOR). Un registro por categoría, con la tarifa diaria base que se aplica a los comisionados de tipo INVESTIGADOR. |
+| [`tarifas_referencia_tiquetes`](#tarifas_referencia_tiquetes) | Tabla | 42 | Matriz de tarifas de referencia de tiquetes aéreos por ruta, para vuelos nacionales e internacionales. Un registro por ruta de origen y destino, con códigos IATA, tarifa estimada, mínima y máxima de un tiquete de ida, y la fuente de la tarifa (paramétrica, manual o API). Se actualiza por sincronización con API o por parametrización institucional. |
+| [`tarifas_regionales_excepcion`](#tarifas_regionales_excepcion) | Tabla | 8 | Tarifas de viáticos de excepción por departamento, según el artículo 5 del Decreto 314 de 2026 para departamentos nuevos. Un registro por departamento, con la tarifa diaria, el decreto de referencia y su estado activo. |
+| [`tarifas_transporte_terminal`](#tarifas_transporte_terminal) | Tabla | 11 | Valores máximos reconocidos por trayecto para el desplazamiento a terminales aéreos. Un registro por departamento y ciudad del aeropuerto, con el valor máximo por trayecto que se usa en la liquidación de los gastos de viaje de la comisión. |
+| [`tipos_documento_soporte`](#tipos_documento_soporte) | Tabla | 15 | Catálogo de tipos de documento de soporte del trámite de comisiones. Un registro por tipo, con su código, nombre, descripción, instrucciones de validación para quien revisa y campos del formulario que se cotejan con el documento. Se usa en la configuración de documentos por tipo de comisionado, en la de legalización y en los soportes de legalización. |
 
 ## analistas_viaticos
 
@@ -63,7 +63,7 @@ Catalogo de analistas del Grupo de Viaticos para asignacion de comisiones y calc
 
 ## comisionados
 
-_Por documentar._
+Personas que pueden recibir una comisión de servicio de la ESAP: contratistas, docentes, estudiantes, funcionarios e investigadores. Un registro por persona, identificada por su número de documento, con nombres, contacto, tipo de vinculación, origen de los datos, autorización de tratamiento de datos personales, vigencia del contrato, cuentas bancarias y cargos. Es referenciada por las solicitudes de comisión y los paz y salvos.
 
 - Clave primaria: `id`
 - Filas: 4
@@ -94,7 +94,7 @@ _Por documentar._
 
 ## config_campos_formulario
 
-_Por documentar._
+Catálogo de los campos configurables del formulario de solicitud de comisión. Un registro por campo, con su clave, etiqueta, tipo de control, opciones, sección (comisionado, comisión, valores o soportes), orden y límite de caracteres. Sus claves se usan en config_tipo_comisionado y en los campos adicionales de solicitudes_comision.
 
 - Clave primaria: `id`
 - Filas: 19
@@ -178,7 +178,7 @@ EFDS-1309 — Soportes exigidos para legalizar, por tipo de comisionado. Configu
 
 ## config_tipo_comisionado
 
-_Por documentar._
+Configuración del formulario de solicitud de comisión por tipo de comisionado. Un registro por tipo, con el código del formulario y las listas de campos obligatorios, opcionales y ocultos (claves de config_campos_formulario). Se relaciona con los documentos de soporte exigidos (config_tipo_comisionado_documentos) y con config_legalizacion_documentos.
 
 - Clave primaria: `id`
 - Filas: 7
@@ -197,7 +197,7 @@ _Por documentar._
 
 ## config_tipo_comisionado_documentos
 
-_Por documentar._
+Documentos de soporte exigidos por tipo de comisionado. Un registro por combinación de tipo de comisionado y tipo de documento de soporte, que indica si el documento es obligatorio u opcional. Relaciona config_tipo_comisionado con tipos_documento_soporte.
 
 - Clave primaria: `id`
 - Filas: 24
@@ -214,7 +214,7 @@ _Por documentar._
 
 ## configuraciones_globales
 
-_Por documentar._
+Parámetros globales del módulo de viáticos. Un registro por parámetro, identificado por su clave, con su valor guardado como texto (correos, horas, números o listas JSON) y su descripción.
 
 - Clave primaria: `clave`
 - Filas: 6
@@ -229,7 +229,7 @@ _Por documentar._
 
 ## documentos_soporte
 
-_Por documentar._
+Archivos de soporte adjuntos a las solicitudes de comisión, como CDP, certificación bancaria, contrato SECOP, RUT o seguridad social. Un registro por archivo, con su tipo de documento, nombre original, nombre de almacenamiento, ruta y tipo MIME. Se relaciona con travel_expenses.solicitudes_comision.
 
 - Clave primaria: `id`
 - Filas: 0
@@ -248,7 +248,7 @@ _Por documentar._
 
 ## escalas_viaticos
 
-_Por documentar._
+Escalas de viáticos por rango salarial fijadas por decreto. Un registro por rango de asignación básica y año de vigencia, con la tarifa diaria base que se aplica en la liquidación de las comisiones.
 
 - Clave primaria: `id`
 - Filas: 11
@@ -266,7 +266,7 @@ _Por documentar._
 
 ## excepciones_autorizadas_tiquetes
 
-_Por documentar._
+Excepciones autorizadas por la Dirección Nacional o el Sindicato para omitir la restricción de ruta corta o de presupuesto agotado en la compra de tiquetes (RF-LIQ-003, RF-LIQ-004). Un registro por excepción, con la solicitud de comisión a la que aplica, el tipo de excepción, la instancia que la autoriza y el documento de soporte.
 
 - Clave primaria: `id`
 - Filas: 0
@@ -399,7 +399,7 @@ EFDS-1309 — Legalización de una comisión: plazo en días hábiles y envío a
 
 ## liquidation_params
 
-_Por documentar._
+Parámetros configurables de la autoliquidación de viáticos, como los factores por tipo de comisionado y por pernocta. Un registro por parámetro, con su clave, valor guardado como texto, tipo de dato (NUMBER o STRING) y descripción.
 
 - Clave primaria: `id`
 - Filas: 5
@@ -433,7 +433,7 @@ Parametros globales configurables del modulo de viaticos y comisiones
 
 ## paz_y_salvo_eventos
 
-_Por documentar._
+Historial de eventos sobre los paz y salvos de los comisionados. Un registro por acción (solicitado, OTP solicitado, firma verificada, consultado o descargado), con el usuario que la realizó, la fecha y el detalle. Se relaciona con travel_expenses.paz_y_salvos.
 
 - Clave primaria: `id`
 - Filas: 0
@@ -497,7 +497,7 @@ Reintegros de comisiones pagadas por avance no realizadas o ejecutadas por menos
 
 ## rutas_restringidas
 
-_Por documentar._
+Catálogo de rutas entre ciudades cuya conexión aérea está restringida (RF-LIQ-003), como las rutas cortas que requieren autorización del Director Nacional o del Sindicato. Un registro por ruta de origen y destino, con la descripción de la restricción y su estado activo. Se consulta al validar los tiquetes de una solicitud de comisión.
 
 - Clave primaria: `id`
 - Filas: 4
@@ -513,7 +513,7 @@ _Por documentar._
 
 ## saldos_tiquetes
 
-_Por documentar._
+Cupo presupuestal de cada dependencia para la compra de tiquetes aéreos. Un registro por dependencia, con el presupuesto inicial, reservado y disponible, y el porcentaje de holgura que se suma al reservar para cubrir la variación del precio del tiquete entre la radicación y la emisión (RF-LIQ-004).
 
 - Clave primaria: `id`
 - Filas: 0
@@ -533,7 +533,7 @@ _Por documentar._
 
 ## solicitudes_comision
 
-_Por documentar._
+Solicitudes de comisión de servicio de los comisionados de la ESAP. Un registro por solicitud, con destino, fechas, objeto, itinerario, liquidación de viáticos y gastos de viaje, y los datos de cada etapa del trámite: revisión, autorización, registro presupuestal, obligación, pago o cancelación. Su ciclo se registra en estado_solicitud (BORRADOR, RADICADA, EN_VERIFICACION, DEVUELTA, PAGADA, entre otros); se relaciona con comisionados, auth.user, documentos_soporte, legalizaciones_comision, reintegros_comision y solicitudes_historial_estados.
 
 - Clave primaria: `id`
 - Filas: 3
@@ -660,7 +660,7 @@ Auditoría append-only de transiciones de estado del expediente de comisión (RF
 
 ## tarifas_investigadores
 
-_Por documentar._
+Tarifas diarias de viáticos por categoría de investigador (JUNIOR, ASOCIADO o SENIOR). Un registro por categoría, con la tarifa diaria base que se aplica a los comisionados de tipo INVESTIGADOR.
 
 - Clave primaria: `id`
 - Filas: 3
@@ -675,7 +675,7 @@ _Por documentar._
 
 ## tarifas_referencia_tiquetes
 
-_Por documentar._
+Matriz de tarifas de referencia de tiquetes aéreos por ruta, para vuelos nacionales e internacionales. Un registro por ruta de origen y destino, con códigos IATA, tarifa estimada, mínima y máxima de un tiquete de ida, y la fuente de la tarifa (paramétrica, manual o API). Se actualiza por sincronización con API o por parametrización institucional.
 
 - Clave primaria: `id`
 - Filas: 42
@@ -699,7 +699,7 @@ _Por documentar._
 
 ## tarifas_regionales_excepcion
 
-_Por documentar._
+Tarifas de viáticos de excepción por departamento, según el artículo 5 del Decreto 314 de 2026 para departamentos nuevos. Un registro por departamento, con la tarifa diaria, el decreto de referencia y su estado activo.
 
 - Clave primaria: `id`
 - Filas: 8
@@ -716,7 +716,7 @@ _Por documentar._
 
 ## tarifas_transporte_terminal
 
-_Por documentar._
+Valores máximos reconocidos por trayecto para el desplazamiento a terminales aéreos. Un registro por departamento y ciudad del aeropuerto, con el valor máximo por trayecto que se usa en la liquidación de los gastos de viaje de la comisión.
 
 - Clave primaria: `id`
 - Filas: 11
@@ -735,7 +735,7 @@ _Por documentar._
 
 ## tipos_documento_soporte
 
-_Por documentar._
+Catálogo de tipos de documento de soporte del trámite de comisiones. Un registro por tipo, con su código, nombre, descripción, instrucciones de validación para quien revisa y campos del formulario que se cotejan con el documento. Se usa en la configuración de documentos por tipo de comisionado, en la de legalización y en los soportes de legalización.
 
 - Clave primaria: `id`
 - Filas: 15

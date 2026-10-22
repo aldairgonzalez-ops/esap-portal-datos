@@ -6,13 +6,13 @@ Esquema para el módulo Asistente Virtual y ChatBot institucional ESAP
 
 | Tabla | Tipo | Filas | Descripción |
 |---|---|--:|---|
-| [`conversacion`](#conversacion) | Tabla | 0 | _Por documentar_ |
-| [`mensaje`](#mensaje) | Tabla | 0 | _Por documentar_ |
-| [`prompt_template`](#prompt_template) | Tabla | 0 | _Por documentar_ |
+| [`conversacion`](#conversacion) | Tabla | 0 | Conversaciones del asistente virtual. Un registro por conversación de un usuario, con su correo, nombre, título, contexto, metadatos y si está activa; sus mensajes están en chatbot.mensaje. |
+| [`mensaje`](#mensaje) | Tabla | 0 | Mensajes de las conversaciones del asistente virtual. Un registro por mensaje, con el autor (usuario, asistente o sistema), el texto, los tokens y los metadatos; se relaciona con chatbot.conversacion. |
+| [`prompt_template`](#prompt_template) | Tabla | 0 | Catálogo de plantillas de instrucciones (prompts) de sistema del asistente virtual. Un registro por plantilla, con su código, nombre, descripción, el texto de instrucciones que se envía al modelo de lenguaje y si está activa. |
 
 ## conversacion
 
-_Por documentar._
+Conversaciones del asistente virtual. Un registro por conversación de un usuario, con su correo, nombre, título, contexto, metadatos y si está activa; sus mensajes están en chatbot.mensaje.
 
 - Clave primaria: `id`
 - Filas: 0
@@ -32,7 +32,7 @@ _Por documentar._
 
 ## mensaje
 
-_Por documentar._
+Mensajes de las conversaciones del asistente virtual. Un registro por mensaje, con el autor (usuario, asistente o sistema), el texto, los tokens y los metadatos; se relaciona con chatbot.conversacion.
 
 - Clave primaria: `id`
 - Filas: 0
@@ -50,7 +50,7 @@ _Por documentar._
 
 ## prompt_template
 
-_Por documentar._
+Catálogo de plantillas de instrucciones (prompts) de sistema del asistente virtual. Un registro por plantilla, con su código, nombre, descripción, el texto de instrucciones que se envía al modelo de lenguaje y si está activa.
 
 - Clave primaria: `id`
 - Filas: 0

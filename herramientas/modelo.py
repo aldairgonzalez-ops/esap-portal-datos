@@ -399,7 +399,7 @@ def indicadores(m):
     decl = len(fk1) + len(imp_conf)
     return [
         k("K01", "Tablas con descripción", "Comprensibilidad", pct(con_desc_t, len(oper)), "≥ 95 %",
-          f"{con_desc_t} de {pl(len(oper), 'tabla operativa', 'tablas operativas')} con descripción registrada", pct(con_desc_t, len(oper)) >= 95, "catalogo"),
+          f"{con_desc_t} de {pl(len(oper), 'tabla operativa', 'tablas operativas')} con descripción registrada o validada", pct(con_desc_t, len(oper)) >= 95, "catalogo"),
         k("K02", "Columnas con descripción", "Comprensibilidad", pct(con_desc_c, len(cols)), "≥ 95 %",
           f"{con_desc_c} de {pl(len(cols), 'columna', 'columnas')} de tablas operativas con descripción registrada o validada"
           + (f" · {prop_c} propuestas por validar" if prop_c else ""), pct(con_desc_c, len(cols)) >= 95, "catalogo"),

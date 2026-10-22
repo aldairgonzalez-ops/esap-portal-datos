@@ -20,6 +20,7 @@ academic-schedule;cetap_sin_catalogo;id;Identificador único del registro en la 
 academic-schedule;cetap_sin_catalogo;nombre_declarado;Nombre del CETAP tal como aparece en el detalle territorial, sin contraparte en el catálogo oficial.;validada
 academic-schedule;cetap_sin_catalogo;registrado_en;Fecha y hora del registro.;validada
 academic-schedule;cetap_sin_catalogo;territorial;Nombre de la dirección territorial que declaró el CETAP. Junto con nombre_declarado no se repite.;validada
+academic-schedule;concertacion_docencia;;"Concertaciones de la docencia del periodo (EFDS-2315). Un registro por docente, periodo y nivel (pregrado o posgrado), con la foto de las franjas enviadas, el total de horas y la huella que se firma; se relaciona con auth.personas (docente) y con sus firmas, revisiones e historial. Ciclo: enviada, revisada, aprobada o devuelta; la concertación aprobada se entrega al PTA (Plan de Trabajo Académico), que devuelve su estado de aplicación.";validada
 academic-schedule;concertacion_docencia;aplicacion_pta;Estado de aplicación que devuelve el PTA al registrar la decisión concertada: aplicada, pendiente_sin_pta, pendiente_pta_firmado, pendiente_pta_flujo_anterior o pendiente_pta_en_aprobacion.;validada
 academic-schedule;concertacion_docencia;comentario;Comentario u observación sobre la concertación.;validada
 academic-schedule;concertacion_docencia;created_at;Fecha y hora de creación del registro.;validada
@@ -34,6 +35,7 @@ academic-schedule;concertacion_docencia;nivel;Nivel de formación de la docencia
 academic-schedule;concertacion_docencia;notificada_pta_en;"Fecha y hora, con zona horaria, en que la concertación aprobada se entregó al PTA (Plan de Trabajo Académico) por el contrato; si está vacía, la entrega está pendiente y se reintenta (EFDS-2315).";validada
 academic-schedule;concertacion_docencia;periodo_ref;Identificador del periodo académico de la concertación: id de periodo_academico (plataforma) o UUID (legado). Junto con el docente y el nivel no se repite.;validada
 academic-schedule;concertacion_docencia;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic-schedule;concertacion_firma;;"Firmas de las concertaciones de docencia. Un registro por firma de un usuario sobre una concertación, con el rol con que firma (docente, revisor o aprobador), el modo de verificación OTP, la fecha y la huella firmada; se relaciona con concertacion_docencia.";validada
 academic-schedule;concertacion_firma;contexto;Contexto del OTP de la firma, con formato prog-docencia:<id>:<huella>:<rol>.;validada
 academic-schedule;concertacion_firma;firmado_en;Fecha y hora de la firma.;validada
 academic-schedule;concertacion_firma;huella;"Huella SHA-256 (64 caracteres hexadecimales) de la concertación sobre la que se firma; se copia de concertacion_docencia.huella en el momento de la firma.";validada
@@ -42,6 +44,7 @@ academic-schedule;concertacion_firma;id_firma;Identificador único del registro 
 academic-schedule;concertacion_firma;id_user;Identificador del usuario que firma.;validada
 academic-schedule;concertacion_firma;modo_otp;Modo de la verificación por código de un solo uso (OTP) usada en la firma. Valores permitidos: real, simulado.;validada
 academic-schedule;concertacion_firma;rol;Rol con que firma el usuario la concertación. Valores permitidos: docente, revisor, aprobador.;validada
+academic-schedule;concertacion_historial;;"Historial de acciones sobre las concertaciones de docencia. Un registro por acción (enviar, revisar, devolver o aprobar), con el estado anterior y el nuevo, el usuario que la realizó, el comentario y la fecha; se relaciona con concertacion_docencia.";validada
 academic-schedule;concertacion_historial;accion;Acción realizada sobre la concertación: ENVIAR, REVISAR_ACADEMICA (REVISAR_<tipo de revisión>), DEVOLVER o APROBAR.;validada
 academic-schedule;concertacion_historial;comentario;Comentario registrado con la acción.;validada
 academic-schedule;concertacion_historial;en;Fecha y hora en que se registró la acción, con zona horaria.;validada
@@ -54,10 +57,12 @@ academic-schedule;concertacion_revision;id_concertacion;Identificador único del
 academic-schedule;concertacion_revision;id_user;Identificador del usuario que hizo la revisión.;validada
 academic-schedule;concertacion_revision;revisado_en;Fecha y hora de la revisión.;validada
 academic-schedule;concertacion_revision;tipo;Clave primaria de la tabla concertacion_revision: tipo.;validada
+academic-schedule;equivalencia_periodo;;"Equivalencias entre los códigos de periodo de programación y los códigos de periodo académico de la plataforma (academic_work_plan.periodo_academico). Un registro por código de programación, con el periodo académico equivalente, el tipo de oferta que se asigna a sus grupos y la justificación; se relaciona con periodo_programacion.";validada
 academic-schedule;equivalencia_periodo;codigo_periodo_academico;Código del periodo académico (academic_work_plan.periodo_academico) equivalente al código de programación.;validada
 academic-schedule;equivalencia_periodo;codigo_programacion;Clave primaria de la tabla equivalencia_periodo: código programación.;validada
 academic-schedule;equivalencia_periodo;motivo;Justificación de la equivalencia entre periodos.;validada
 academic-schedule;equivalencia_periodo;tipo_oferta;Tipo de oferta que se asigna a los grupos del periodo equivalente. Valores permitidos: periodo_regular, interperiodo, creditos_virtual.;validada
+academic-schedule;franja_horaria;;"Franjas horarias de la programación académica. Un registro por franja de un grupo, con el periodo, el día, las horas de inicio y fin, la jornada, el aula, el tipo de sesión y el docente asignado; se relaciona con grupo, periodo_programacion, academic_work_plan.programa y academic_work_plan.asignatura. Ciclo: programado, tomada, aprobada, devuelta o publicada.";validada
 academic-schedule;franja_horaria;aula_codigo;Código del aula donde se dicta la franja.;validada
 academic-schedule;franja_horaria;comentario_jefatura;Comentario con el que la jefatura territorial o el revisor de la concertación devuelve la franja al docente. Se registra al pasar la franja a DEVUELTA y se borra al aprobarla o cuando el docente la vuelve a tomar.;validada
 academic-schedule;franja_horaria;created_at;Fecha y hora de creación del registro.;validada
@@ -86,6 +91,7 @@ academic-schedule;grupo;updated_at;Fecha y hora de la última actualización del
 academic-schedule;jefatura_territorial;asignado_en;Fecha y hora de la asignación.;validada
 academic-schedule;jefatura_territorial;id_direccion_territorial;Identificador único del registro en la tabla jefatura_territorial.;validada
 academic-schedule;jefatura_territorial;id_user;Identificador único del registro en la tabla jefatura_territorial.;validada
+academic-schedule;periodo_programacion;;"Periodos de programación académica. Un registro por periodo, con su código, nombre, fechas de inicio y fin y tipo de oferta (periodo regular, interperiodo o créditos virtual); lo referencian los grupos, las franjas horarias y las equivalencias de periodo. Ciclo: planeación, activo o cerrado.";validada
 academic-schedule;periodo_programacion;codigo;Código único del periodo de programación.;validada
 academic-schedule;periodo_programacion;created_at;Fecha y hora de creación del registro.;validada
 academic-schedule;periodo_programacion;fecha_fin;Fecha de finalización del periodo de programación.;validada
@@ -112,6 +118,7 @@ academic-schedule;programacion_historica;periodo;Periodo académico de la progra
 academic-schedule;programacion_historica;seccional;Nombre de la seccional, tal como llegó en la programación histórica.;validada
 academic-schedule;programacion_historica;sede;Nombre de la sede, tal como llegó en la programación histórica.;validada
 academic-schedule;programacion_historica;semestre;Semestre del plan de estudios en que se ubica la asignatura.;validada
+academic-schedule;programacion_periodo;;Estado de la programación de cada periodo académico de la plataforma. Un registro por periodo académico (relación uno a uno con academic_work_plan.periodo_academico), con el estado abierta o cerrada, la fecha de cierre y el usuario que la cerró.;validada
 academic-schedule;programacion_periodo;cerrada_en;Fecha y hora del cierre.;validada
 academic-schedule;programacion_periodo;cerrada_por;Usuario que realizó el cierre.;validada
 academic-schedule;programacion_periodo;created_at;Fecha y hora de creación del registro.;validada
@@ -176,6 +183,7 @@ academic_work_plan;ConfiguracionSistema;updatedAt;Fecha y hora de la última act
 academic_work_plan;DetallesPta;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;DetallesPta;id;Identificador único del registro en la tabla DetallesPta. Se genera automáticamente.;validada
 academic_work_plan;DetallesPta;ptaId;Referencia al registro de academic_work_plan.PlanTrabajoAcademico (id).;validada
+academic_work_plan;Docente;;"Registro de docentes del RUND. Un registro por docente y periodo de carga, con su vinculación, dedicación, sede, territorial, formación, situación administrativa, bolsa de horas del PTA y estado de aprobación (PENDIENTE_APROBACION, ACTIVO_RUND o DEVUELTO); se relaciona con auth.personas. Se diligencia por carga masiva, registro individual o autogestión del docente.";validada
 academic_work_plan;Docente;acepta_habeas_data;Indica si el docente aceptó el tratamiento de datos personales (habeas data).;validada
 academic_work_plan;Docente;actoAdministrativoVinculacion;"Tipo, número y año del contrato, resolución o acto administrativo que vincula al docente, en texto; la fecha de inicio se guarda aparte en fechaInicioVinculacion.";validada
 academic_work_plan;Docente;canal_origen;Canal por el que se creó el registro: MASIVO (por defecto), MODAL o AUTOGESTION.;validada
@@ -280,6 +288,7 @@ academic_work_plan;RolPermiso;createdAt;Fecha y hora de creación del registro.;
 academic_work_plan;RolPermiso;id;Identificador único del registro en la tabla RolPermiso. Se genera automáticamente.;validada
 academic_work_plan;RolPermiso;permisoId;Referencia al registro de academic_work_plan.Permiso (id).;validada
 academic_work_plan;RolPermiso;rolId;Referencia al registro de academic_work_plan.Rol (id).;validada
+academic_work_plan;RundAccesoDatosLog;;Bitácora de accesos a los datos de docentes del RUND. Un registro por consulta, con el usuario y sus roles, el servicio consultado, el recurso, los docentes y campos consultados, el resultado del control de acceso (completo, enmascarado o denegado) y la IP de origen.;validada
 academic_work_plan;RundAccesoDatosLog;actor_id;Identificador del usuario que accedió a los datos.;validada
 academic_work_plan;RundAccesoDatosLog;campos;Nombres de los campos consultados (lista).;validada
 academic_work_plan;RundAccesoDatosLog;createdAt;Fecha y hora de creación del registro.;validada
@@ -290,6 +299,7 @@ academic_work_plan;RundAccesoDatosLog;ip;Dirección IP desde la que se hizo el a
 academic_work_plan;RundAccesoDatosLog;recurso_id;"Identificador del recurso consultado; depende del endpoint registrado: documento del perfil, sugerencia o trabajo de extracción, carga masiva, invitación, o hash SHA-256 de la ruta en los archivos estáticos.";validada
 academic_work_plan;RundAccesoDatosLog;resultado;Resultado del control de acceso. Valores permitidos: COMPLETO, ENMASCARADO, DENEGADO.;validada
 academic_work_plan;RundAccesoDatosLog;roles;Roles que tenía el usuario al momento del acceso (lista).;validada
+academic_work_plan;RundAccesoExterno;;"Accesos temporales de entidades externas al Macro Docente (REQ-RUND-F022). Un registro por acceso otorgado, con la entidad, su contacto, el token, el docente que puede consultar, el motivo, la vigencia y quién lo otorgó o revocó; el acceso lo otorga GGP o la Dirección y las consultas hechas con él se registran en RundMacroDocenteConsultaLog.";validada
 academic_work_plan;RundAccesoExterno;activo;Indica si el acceso externo al RUND está activo.;validada
 academic_work_plan;RundAccesoExterno;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;RundAccesoExterno;docente_id;"Identificador del único docente cuyos datos puede consultar la entidad externa con este acceso; si necesita ver varios docentes, se otorgan varios accesos (REQ-RUND-F022).";validada
@@ -317,6 +327,7 @@ academic_work_plan;RundAprobacionLog;ip;Dirección IP del cliente que realizó l
 academic_work_plan;RundAprobacionLog;metadata;Metadatos adicionales de la acción en formato JSON (por ejemplo, habeasData o invitacionId).;validada
 academic_work_plan;RundAprobacionLog;observacion;"Observación registrada con la acción; es obligatoria en las devoluciones (BR-045).";validada
 academic_work_plan;RundAprobacionLog;soporte_id;Identificador del soporte documental vinculado o desvinculado en la acción, cuando aplica.;validada
+academic_work_plan;RundCampoEstado;;Estado de aprobación de los bloques de campos del perfil RUND (BR-044). Un registro por docente y bloque (IDENTIDAD, FORMACION, VINCULACION, CONTACTO), con quién lo cargó y revisó, la observación, la versión, el canal de origen y los soportes vinculados. Ciclo: Pendiente, En revisión, Aprobado, Devuelto o Soporte faltante.;validada
 academic_work_plan;RundCampoEstado;bloque;Bloque de campos del perfil RUND al que corresponde el estado: IDENTIDAD (documento, nombre, fecha de nacimiento, género), FORMACION (niveles de formación), VINCULACION (tipo, régimen, categoría, dedicación, acto administrativo, puntaje salarial) o CONTACTO (correos y teléfono).;validada
 academic_work_plan;RundCampoEstado;canal_origen;Canal de origen del último cambio del bloque: MASIVO, MODAL o AUTOGESTION.;validada
 academic_work_plan;RundCampoEstado;cargado_por;Usuario que cargó o editó los datos del bloque.;validada
@@ -343,6 +354,7 @@ academic_work_plan;RundCargaMasiva;sha256;Hash SHA-256 del archivo, en 64 caract
 academic_work_plan;RundCargaMasiva;tamano_bytes;Tamaño en bytes del archivo de la carga masiva.;validada
 academic_work_plan;RundCargaMasiva;tipo_mime;Tipo MIME del archivo importado.;validada
 academic_work_plan;RundCargaMasiva;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;RundDocumentoCategoria;;"Catálogo de categorías de documento del RUND. Un registro por categoría, con su código, nombre, descripción, tipos MIME permitidos, tamaño máximo de archivo, orden y si está activa; lo referencian los documentos del perfil (RundDocumentoPerfil).";validada
 academic_work_plan;RundDocumentoCategoria;activo;Indica si la categoría de documento está activa.;validada
 academic_work_plan;RundDocumentoCategoria;codigo;Clave primaria de la tabla RundDocumentoCategoria: código.;validada
 academic_work_plan;RundDocumentoCategoria;createdAt;Fecha y hora de creación del registro.;validada
@@ -375,6 +387,7 @@ academic_work_plan;RundDocumentoPerfil;tamano_bytes;Tamaño en bytes del archivo
 academic_work_plan;RundDocumentoPerfil;tipo_soporte;Tipo de soporte que acredita el documento, de la lista definida por bloque en el código (por ejemplo, documento_identidad, diploma_pregrado, contrato, resolucion_escalafon, autorizacion_habeas_data).;validada
 academic_work_plan;RundDocumentoPerfil;version;Número de versión del documento del perfil docente.;validada
 academic_work_plan;RundExtraccionInicio;id;Identificador único del registro en la tabla RundExtraccionInicio.;validada
+academic_work_plan;RundExtraccionSugerencia;;"Sugerencias de valores extraídos de documentos del perfil RUND (REQ-RUND-F014). Un registro por campo sugerido en un trabajo de extracción, con el valor sugerido, el valor previo, la página y el fragmento de evidencia, la confianza y la decisión del revisor; se relaciona con RundExtraccionTrabajo. Ciclo: pendiente, aprobada, corregida o descartada.";validada
 academic_work_plan;RundExtraccionSugerencia;baja_confianza;Indica si la sugerencia extraída tiene baja confianza.;validada
 academic_work_plan;RundExtraccionSugerencia;campo;Nombre del campo del perfil para el que se sugiere un valor (por ejemplo, documentNumber).;validada
 academic_work_plan;RundExtraccionSugerencia;confianza;Nivel de confianza de la extracción, entre 0 y 1.;validada
@@ -389,6 +402,7 @@ academic_work_plan;RundExtraccionSugerencia;trabajo_id;Referencia al registro de
 academic_work_plan;RundExtraccionSugerencia;valor;Valor sugerido, extraído del documento.;validada
 academic_work_plan;RundExtraccionSugerencia;valor_confirmado;Valor confirmado por el revisor.;validada
 academic_work_plan;RundExtraccionSugerencia;valor_previo;Valor que tenía el campo antes de la sugerencia.;validada
+academic_work_plan;RundExtraccionTrabajo;;"Trabajos de extracción de datos de los documentos del perfil RUND. Un registro por documento procesado de un docente, con el estado, los intentos, la reserva del proceso que lo toma, el perfil base, el motor de procesamiento, el error y el aviso de fin; se relaciona con RundDocumentoPerfil y sus sugerencias están en RundExtraccionSugerencia. Ciclo: pendiente, procesando, completado, error u obsoleto.";validada
 academic_work_plan;RundExtraccionTrabajo;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;RundExtraccionTrabajo;creado_en;Fecha y hora de creación del registro.;validada
 academic_work_plan;RundExtraccionTrabajo;creado_por;Usuario que creó el registro.;validada
@@ -416,6 +430,7 @@ academic_work_plan;RundInvitacionDocente;fecha_envio;Fecha y hora de envío de l
 academic_work_plan;RundInvitacionDocente;id;Identificador único del registro en la tabla RundInvitacionDocente. Se genera automáticamente.;validada
 academic_work_plan;RundInvitacionDocente;token_invitacion;Token único del enlace de invitación enviado al docente.;validada
 academic_work_plan;RundInvitacionDocente;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;RundMacroDocenteConsultaLog;;"Bitácora de consultas al Macro Docente (REQ-RUND-F020/F022). Un registro por consulta, con su tipo (macro docente, consulta puntual o externa), quién la hizo y con qué roles, los filtros, el docente y periodo consultados, el número de resultados y la IP; se relaciona con RundAccesoExterno cuando la consulta se hace con un acceso externo. Solo admite inserciones.";validada
 academic_work_plan;RundMacroDocenteConsultaLog;acceso_externo_id;Referencia al registro de academic_work_plan.RundAccesoExterno (id).;validada
 academic_work_plan;RundMacroDocenteConsultaLog;actor_id;Identificador de quien realizó la consulta: el id de usuario del token (o, en su defecto, el correo o el nombre de usuario), SISTEMA, o ENTE_EXTERNO:<nombre del ente> en los accesos externos.;validada
 academic_work_plan;RundMacroDocenteConsultaLog;createdAt;Fecha y hora de creación del registro.;validada
@@ -426,6 +441,7 @@ academic_work_plan;RundMacroDocenteConsultaLog;ip;Dirección IP desde la que se 
 academic_work_plan;RundMacroDocenteConsultaLog;roles;Roles que tenía el usuario al momento de la consulta, como lista de textos.;validada
 academic_work_plan;RundMacroDocenteConsultaLog;tipo_consulta;Tipo de consulta realizada sobre el Macro Docente: MACRO_DOCENTE, CONSULTA_PUNTUAL o EXTERNA.;validada
 academic_work_plan;RundMacroDocenteConsultaLog;total_resultados;Número de registros devueltos por la consulta.;validada
+academic_work_plan;RundSoporteCampo;;Soportes de los bloques de campos del perfil RUND (BR-038, BR-039, BR-041). Un registro por soporte de un docente y bloque, con el tipo de soporte, la referencia al documento en la Carpeta Digital o en RundDocumentoPerfil, el estado (Pendiente, Aprobado o Rechazado), la observación del revisor, la fecha de vencimiento y la revisión de cada campo.;validada
 academic_work_plan;RundSoporteCampo;bloque;Bloque de campos RUND al que aplica el soporte: IDENTIDAD, FORMACION, VINCULACION o CONTACTO.;validada
 academic_work_plan;RundSoporteCampo;cargado_por;Usuario que cargó el soporte.;validada
 academic_work_plan;RundSoporteCampo;createdAt;Fecha y hora de creación del registro.;validada
@@ -659,6 +675,7 @@ certification;template_config_changes;template_config_id;Referencia al registro 
 certification;template_signers;created_at;Fecha y hora de creación del registro.;validada
 certification;template_signers;id;Identificador único del registro en la tabla template_signers. Se genera automáticamente.;validada
 certification;template_signers;updated_at;Fecha y hora de la última actualización del registro.;validada
+chatbot;conversacion;;"Conversaciones del asistente virtual. Un registro por conversación de un usuario, con su correo, nombre, título, contexto, metadatos y si está activa; sus mensajes están en chatbot.mensaje.";validada
 chatbot;conversacion;created_at;Fecha y hora de creación del registro.;validada
 chatbot;conversacion;id;Identificador único del registro en la tabla conversacion. Se genera automáticamente.;validada
 chatbot;conversacion;is_activo;Indica si la conversación está activa.;validada
@@ -667,12 +684,14 @@ chatbot;conversacion;titulo;Título de la conversación. Valor inicial: «Nueva 
 chatbot;conversacion;updated_at;Fecha y hora de la última actualización del registro.;validada
 chatbot;conversacion;usuario_email;Correo electrónico del usuario de la conversación.;validada
 chatbot;conversacion;usuario_nombre;Nombre del usuario de la conversación.;validada
+chatbot;mensaje;;"Mensajes de las conversaciones del asistente virtual. Un registro por mensaje, con el autor (usuario, asistente o sistema), el texto, los tokens y los metadatos; se relaciona con chatbot.conversacion.";validada
 chatbot;mensaje;contenido;Texto del mensaje.;validada
 chatbot;mensaje;conversacion_id;Referencia al registro de chatbot.conversacion (id).;validada
 chatbot;mensaje;created_at;Fecha y hora de creación del registro.;validada
 chatbot;mensaje;id;Identificador único del registro en la tabla mensaje. Se genera automáticamente.;validada
 chatbot;mensaje;metadatos;Metadatos adicionales del mensaje, en formato JSON.;validada
 chatbot;mensaje;rol;Autor del mensaje dentro de la conversación. Valores permitidos: assistant, system, user.;validada
+chatbot;prompt_template;;Catálogo de plantillas de instrucciones (prompts) de sistema del asistente virtual. Un registro por plantilla, con su código, nombre, descripción, el texto de instrucciones que se envía al modelo de lenguaje y si está activa.;validada
 chatbot;prompt_template;codigo;Código único de la plantilla de instrucciones (prompt).;validada
 chatbot;prompt_template;created_at;Fecha y hora de creación del registro.;validada
 chatbot;prompt_template;descripcion;Descripción de la plantilla de instrucciones (prompt).;validada
@@ -1083,6 +1102,7 @@ hiring;afiliaciones_arl;id;Identificador único del registro en la tabla afiliac
 hiring;afiliaciones_arl;numero_afiliacion;Número de la afiliación o certificado expedido por la ARL.;validada
 hiring;afiliaciones_arl;registrada_por;Usuario que realizó el registro.;validada
 hiring;afiliaciones_arl;soporte_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;alcances_permiso;;"Alcances de los permisos de los roles en el proceso contractual. Un registro por permiso de un rol para una acción (ver, editar, aprobar o decidir) en un ámbito: todo el módulo, una etapa, un numeral de la matriz de flujo o un trámite de incumplimiento (INC.1 o INC.2); se relaciona con auth.role y hiring.actividades.";validada
 hiring;alcances_permiso;accion;Acción que el permiso habilita al rol. Valores permitidos: aprobar, decidir, editar, ver.;validada
 hiring;alcances_permiso;activo;Indica si el alcance del permiso está activo.;validada
 hiring;alcances_permiso;confirmado;Indica si el alcance del permiso está confirmado.;validada
@@ -1163,6 +1183,7 @@ hiring;avisos;updated_by;Usuario que realizó la última actualización del regi
 hiring;avisos_habilitacion;avisado_at;Fecha y hora en que se envió el aviso de habilitación de la actividad.;validada
 hiring;avisos_habilitacion;numeral;Clave primaria de la tabla avisos_habilitacion: numeral.;validada
 hiring;avisos_habilitacion;proceso_id;Identificador único del registro en la tabla avisos_habilitacion.;validada
+hiring;campos_formulario;;Definición de los campos del formulario de cada actividad de la matriz de flujo contractual. Un registro por campo, con el numeral de la actividad, el código, la etiqueta, la ayuda, el tipo, el grupo, el orden, las opciones y si es obligatorio, de solo lectura o está activo.;validada
 hiring;campos_formulario;activo;Indica si el campo de formulario está activo.;validada
 hiring;campos_formulario;ayuda;Texto de ayuda que se muestra junto al campo.;validada
 hiring;campos_formulario;codigo;Código del campo de formulario.;validada
@@ -1290,6 +1311,7 @@ hiring;declaratorias_desiertas;updated_at;Fecha y hora de la última actualizaci
 hiring;dias_no_habiles;created_at;Fecha y hora de creación del registro.;validada
 hiring;dias_no_habiles;descripcion;Descripción del día no hábil.;validada
 hiring;dias_no_habiles;fecha;Clave primaria de la tabla dias_no_habiles: fecha.;validada
+hiring;documentos;;"Documentos de los expedientes contractuales. Un registro por documento o versión, sea un archivo adjunto o una copia del formulario al momento de enviarlo, con el numeral de la actividad, los datos del archivo, el hash SHA-256 y quién lo cargó; se relaciona con hiring.expedientes y hiring.plantillas, y lo referencian los registros de las etapas del proceso (actas, contratos, garantías, pagos, informes, entre otros).";validada
 hiring;documentos;archivo_mime_type;Tipo MIME del archivo cargado (por ejemplo, application/pdf).;validada
 hiring;documentos;archivo_nombre_original;Nombre original del archivo cargado.;validada
 hiring;documentos;archivo_tamano;Tamaño del archivo cargado, en bytes (máximo 25 MB por archivo).;validada
@@ -1304,6 +1326,7 @@ hiring;documentos;numeral;Numeral de la actividad de la matriz de flujo a la que
 hiring;documentos;subido_por;Usuario que realizó la carga.;validada
 hiring;documentos;tipo;Tipo de documento del expediente: ADJUNTO (archivo subido, en archivo_url) o SNAPSHOT_FORMULARIO (copia inmutable del formulario del estudio previo al momento del envío).;validada
 hiring;documentos;version;Número de versión del documento del expediente.;validada
+hiring;documentos_proceso;;"Documentos cargados por cada proceso contractual para cubrir sus requisitos. Un registro por documento que satisface un requisito, con el numeral de la actividad, el código del requisito, quién lo cargó y, si fue sustituido, la anulación; el archivo está en hiring.documentos y se relaciona con hiring.procesos.";validada
 hiring;documentos_proceso;anulado_at;Fecha y hora de anulación del documento del proceso. Un documento sustituido no se borra: se anula y se carga otro, y la versión anterior queda en el expediente.;validada
 hiring;documentos_proceso;anulado_por;Usuario que realizó la anulación.;validada
 hiring;documentos_proceso;cargado_por;Usuario que realizó la carga.;validada
@@ -1337,6 +1360,7 @@ hiring;evidencias_evaluacion;descripcion;Descripción obligatoria de lo que se c
 hiring;evidencias_evaluacion;documento_id;Referencia al registro de hiring.documentos (id).;validada
 hiring;evidencias_evaluacion;id;Identificador único del registro en la tabla evidencias_evaluacion. Se genera automáticamente.;validada
 hiring;evidencias_evaluacion;resultado_id;Referencia al registro de hiring.resultados_evaluacion (id).;validada
+hiring;expedientes;;"Expedientes electrónicos de los procesos contractuales (RF-SIS-04). Un registro por proceso, con el número de expediente, la apertura, el archivo con su índice documental y radicado de Active Document, y la reapertura; se relaciona con hiring.procesos y sus documentos están en hiring.documentos. Ciclo: abierto o archivado.";validada
 hiring;expedientes;archivado_at;"Fecha y hora en que se archivó el expediente en la plataforma (RF-SIS-04); la registra el sistema al archivar. El trámite en Active Document se identifica aparte con radicado_active_document.";validada
 hiring;expedientes;archivado_por;"Usuario que archivó el expediente; se guarda el nombre de usuario de la cuenta autenticada (username del token; si falta, su correo o su identificador; «Sistema» si no hay ninguno).";validada
 hiring;expedientes;estado;Estado del expediente: abierto o archivado.;validada
@@ -1450,6 +1474,7 @@ hiring;miembros_comite;id;Identificador único del registro en la tabla miembros
 hiring;miembros_comite;nombre;Nombre del miembro del comité, copiado al momento de la designación tal como figura en el memorando.;validada
 hiring;miembros_comite;persona_id;"Identificador (id_person) de auth.personas de la persona designada en el comité evaluador, sin llave foránea; permite enlazarla con la cuenta que evalúa (auth.user.id_person).";validada
 hiring;miembros_comite;rol;Dimensión de evaluación a cargo del integrante. Valores permitidos: FINANCIERO, JURIDICO, TECNICO.;validada
+hiring;modalidades;;"Catálogo de modalidades de selección del contratista. Un registro por modalidad, con su código, nombre, orden como columna de la matriz de flujo, si está activa y si se determina por cuantía; determina qué actividades de la matriz aplican al proceso y la referencian los procesos, plazos, umbrales y reglas de actividad.";validada
 hiring;modalidades;activa;Indica si la modalidad de selección se sigue ofreciendo. Las modalidades derogadas se desactivan sin afectar los procesos que ya las usan.;validada
 hiring;modalidades;codigo;Clave primaria de la tabla modalidades: código.;validada
 hiring;modalidades;created_at;Fecha y hora de creación del registro.;validada
@@ -1576,6 +1601,7 @@ hiring;piezas_audiencia;descripcion;Descripción de la pieza que documenta la au
 hiring;piezas_audiencia;documento_id;Referencia al registro de hiring.documentos (id).;validada
 hiring;piezas_audiencia;id;Identificador único del registro en la tabla piezas_audiencia. Se genera automáticamente.;validada
 hiring;piezas_audiencia;tipo;Tipo de pieza que documenta la audiencia además del acta: GRABACION (registro audiovisual), OBSERVACION (lo planteado en la audiencia y su respuesta) o ANEXO (otro documento que la entidad quiera dejar).;validada
+hiring;plantillas;;Catálogo de formatos institucionales del Sistema Integrado de Gestión (Isolución) que se diligencian y firman fuera del sistema durante el proceso de contratación. Un registro por formato, con su código, versión, fecha de aprobación, numeral de la actividad de la matriz de flujo y las modalidades de contratación a las que aplica. Se relaciona con hiring.contratos y hiring.documentos.;validada
 hiring;plantillas;activo;Indica si la plantilla está activa.;validada
 hiring;plantillas;archivo_url;URL del archivo de la plantilla.;validada
 hiring;plantillas;codigo;Código del formato en el Sistema Integrado de Gestión (Isolución), por ejemplo BS-FO-047.;validada
@@ -1614,6 +1640,7 @@ hiring;plazos_traslado;dias_habiles;Número de días hábiles de traslado del in
 hiring;plazos_traslado;fundamento;Texto libre que sustenta el plazo de traslado de la modalidad (norma o supuesto). La siembra inicial lo registra como «Supuesto del equipo, sin validar».;validada
 hiring;plazos_traslado;modalidad;Clave primaria de la tabla plazos_traslado: modalidad.;validada
 hiring;plazos_traslado;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;proceso_actividades;;Actividades ejecutadas dentro de cada proceso de contratación, según el numeral del procedimiento. Un registro por proceso y numeral, con los datos del formulario diligenciado, el envío a revisión, la revisión y su estado (borrador, en revisión, aprobado, devuelto, negado o no aplica). Se relaciona con hiring.procesos, y las decisiones de revisión quedan en hiring.revisiones.;validada
 hiring;proceso_actividades;created_at;Fecha y hora de creación del registro.;validada
 hiring;proceso_actividades;datos;Valores del formulario diligenciado en la actividad, en formato JSON, con la estructura que define campos_formulario.;validada
 hiring;proceso_actividades;documento_requerido;Indica si la actividad del proceso requiere documento.;validada
@@ -1627,6 +1654,7 @@ hiring;proceso_actividades;revisado_at;Fecha y hora de la revisión.;validada
 hiring;proceso_actividades;revisado_por;Usuario que realizó la revisión.;validada
 hiring;proceso_actividades;updated_at;Fecha y hora de la última actualización del registro.;validada
 hiring;proceso_actividades;version;Versión del registro para control de concurrencia optimista: se incrementa en cada guardado y, si la versión que envía el cliente no coincide, la operación se rechaza (409) en lugar de sobrescribir cambios.;validada
+hiring;procesos;;Procesos de contratación radicados ante la Dirección de Contratación. Un registro por proceso, con su radicado, objeto, modalidad, causal, valor estimado, etapa en la matriz de flujo y desenlace (en curso, adjudicado, desierto o negado). Es la tabla central del esquema: de ella dependen las actividades, documentos, evaluaciones, contratos y la trazabilidad del proceso.;validada
 hiring;procesos;created_at;Fecha y hora de creación del registro.;validada
 hiring;procesos;created_by;Usuario que creó el registro.;validada
 hiring;procesos;etapa;"Número de la etapa del proceso en la matriz de flujo (1 a 10, el mismo de hiring.actividades.etapa); por defecto 3, Estudios Previos. Etapas: 4 CDP, 5 elaboración y publicación, 6 recepción y evaluación de ofertas, 7 adjudicación, 8 contrato y legalización, 9 ejecución y 10 seguimiento, control y liquidación.";validada
@@ -1711,6 +1739,7 @@ hiring;registros_presupuestales;solicitado_por;Usuario que realizó la solicitud
 hiring;registros_presupuestales;updated_at;Fecha y hora de la última actualización del registro.;validada
 hiring;registros_presupuestales;valor;"Valor comprometido en el registro presupuestal, en pesos; al solicitar se toma el del contrato si no se indica y se compara con él. Mayor que cero y obligatorio cuando el estado es EXPEDIDO.";validada
 hiring;registros_presupuestales;vigencia_fiscal;Año de la vigencia fiscal a la que se imputa el registro presupuestal. Un registro presupuestal no cruza vigencias.;validada
+hiring;reglas_actividad;;Reglas que debe cumplir una actividad de la matriz de flujo para darse por terminada, según la modalidad de contratación (por ejemplo, campo obligatorio, documento requerido, rango de valor o plazo mínimo). Un registro por regla, con sus condiciones, acciones, mensaje para el gestor, orden de evaluación y periodo de vigencia. Se relaciona con hiring.actividades y hiring.modalidades.;validada
 hiring;reglas_actividad;conector;Operador lógico con que se combinan entre sí las condiciones de la regla: AND u OR. Por defecto, AND.;validada
 hiring;reglas_actividad;config;"Detalle de la condición de la regla según su tipo, en formato JSON (un umbral lleva max, un plazo lleva dias y un campo obligatorio lleva codigo). Es la forma original de las reglas; condiciones y acciones, agregadas después, expresan reglas condicionales del formulario reactivo.";validada
 hiring;reglas_actividad;created_at;Fecha y hora de creación del registro.;validada
@@ -1752,6 +1781,7 @@ hiring;resultados_evaluacion;rectificado_por;"Nombre de usuario (username) de la
 hiring;resultados_evaluacion;registrado_at;Fecha y hora del registro.;validada
 hiring;resultados_evaluacion;registrado_por;Usuario que realizó el registro.;validada
 hiring;resultados_evaluacion;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;revisiones;;Historial de revisiones de las actividades de un proceso de contratación (numeral 3.4 de la matriz). Un registro por decisión del revisor (aprobado, devuelto o negado), con las observaciones, la versión revisada, el revisor y los soportes de la devolución. Se relaciona con hiring.proceso_actividades.;validada
 hiring;revisiones;created_at;Fecha y hora de creación del registro.;validada
 hiring;revisiones;decision;Decisión de la revisión de la actividad. Valores permitidos: APROBADO, DEVUELTO, NEGADO.;validada
 hiring;revisiones;id;Identificador único del registro en la tabla revisiones. Se genera automáticamente.;validada
@@ -1857,6 +1887,7 @@ hiring;tope_adicion;confirmado;"Indica si la Dirección de Contratación ratific
 hiring;tope_adicion;fundamento;Texto que sustenta el tope de adición: la norma y su alcance. La siembra cita la Ley 80 de 1993, art. 40, parágrafo (50 % del valor inicial).;validada
 hiring;tope_adicion;id;Identificador único del registro en la tabla tope_adicion.;validada
 hiring;tope_adicion;porcentaje;Porcentaje máximo de adición sobre el valor inicial del contrato. Mayor que 0 y hasta 100.;validada
+hiring;trazabilidad;;Bitácora de las acciones realizadas sobre los procesos de contratación y sus objetos relacionados. Un registro por acción (crear, guardar, enviar, adjuntar, aprobar, devolver, entre otras), con el objeto afectado, el detalle y el usuario que la hizo. Se relaciona con hiring.procesos.;validada
 hiring;trazabilidad;accion;Acción realizada sobre el registro, de una lista definida en el código (CREAR, GUARDAR, ENVIAR, ADJUNTAR, APROBAR, DEVOLVER, SOLICITAR, VERIFICAR, EXPEDIR, RECHAZAR, PUBLICAR, ANULAR, DESIGNAR, REVOCAR, ADJUDICAR, INICIAR, ARCHIVAR, CONSULTAR, entre otras). La columna no tiene CHECK.;validada
 hiring;trazabilidad;created_at;Fecha y hora de creación del registro.;validada
 hiring;trazabilidad;detalle;Detalle de la acción en formato JSON, sin estructura fija: cada módulo guarda los datos propios del hecho (por ejemplo, la actividad, el contrato, el tipo y los valores antes y después de una adición).;validada
@@ -1884,6 +1915,7 @@ hiring;umbrales_modalidad;unidad;Unidad en que se expresan los límites: SMMLV p
 hiring;umbrales_modalidad;updated_at;Fecha y hora de la última actualización del registro.;validada
 hiring;umbrales_modalidad;vigencia_desde;"Fecha desde la cual rige el umbral; por defecto, la fecha del registro. Los umbrales no se editan: se cierra el vigente y se abre otro.";validada
 hiring;umbrales_modalidad;vigencia_hasta;"Fecha hasta la cual rige el umbral. Nula mientras esté vigente; no puede ser anterior a vigencia_desde.";validada
+infrastructure-management;bloque_edificio;;Bloques o edificios de las sedes de la ESAP. Un registro por bloque, con su código, nombre, número de pisos, descripción y estado activo. Pertenece a una sede (infrastructure-management.sede) y agrupa los espacios físicos.;validada
 infrastructure-management;bloque_edificio;codigo;Código del bloque o edificio.;validada
 infrastructure-management;bloque_edificio;created_at;Fecha y hora de creación del registro.;validada
 infrastructure-management;bloque_edificio;descripcion;Descripción del bloque o edificio.;validada
@@ -1898,6 +1930,7 @@ infrastructure-management;catalogo_item;id_catalogo;Identificador único del reg
 infrastructure-management;catalogo_item;is_activo;Indica si el elemento del catálogo está activo.;validada
 infrastructure-management;catalogo_item;nombre;Nombre del elemento del catálogo.;validada
 infrastructure-management;catalogo_item;orden;Posición del elemento en el orden de presentación del catálogo.;validada
+infrastructure-management;espacio_fisico;;Espacios físicos de los bloques o edificios, como aulas, auditorios, laboratorios, oficinas, bibliotecas y salas de consejo. Un registro por espacio, con su tipo, capacidad, piso, área, dotación (aire acondicionado, videobeam, computadores) y estado (disponible, mantenimiento, inactivo o reservado). Pertenece a un bloque o edificio y es referenciado por las solicitudes de mantenimiento.;validada
 infrastructure-management;espacio_fisico;area_m2;Área del espacio en metros cuadrados.;validada
 infrastructure-management;espacio_fisico;capacidad;"Número de puestos del espacio físico; mínimo 1, por defecto 30.";validada
 infrastructure-management;espacio_fisico;codigo;Código del espacio físico.;validada
@@ -1913,6 +1946,7 @@ infrastructure-management;espacio_fisico;tiene_computadores;Indica si el espacio
 infrastructure-management;espacio_fisico;tiene_videobeam;Indica si el espacio físico tiene videobeam.;validada
 infrastructure-management;espacio_fisico;tipo;Tipo de espacio físico, por ejemplo AULA, AUDITORIO, LABORATORIO, OFICINA, BIBLIOTECA o SALA_CONSEJO.;validada
 infrastructure-management;espacio_fisico;updated_at;Fecha y hora de la última actualización del registro.;validada
+infrastructure-management;sede;;Sedes de la ESAP: sede central, territoriales y CETAP. Un registro por sede, con su código, nombre, tipo, ubicación (departamento, municipio y dirección), datos de contacto y si pertenece al alcance directo de la UMI. Agrupa los bloques o edificios y se asocia a las solicitudes de mantenimiento.;validada
 infrastructure-management;sede;codigo;Código único de la sede.;validada
 infrastructure-management;sede;created_at;Fecha y hora de creación del registro.;validada
 infrastructure-management;sede;departamento;Departamento donde está la sede.;validada
@@ -1938,6 +1972,7 @@ infrastructure-management;solicitud_evidencia;url_presigned;"URL prefirmada de a
 infrastructure-management;solicitud_evidencia;url_publica;"URL relativa del archivo bajo el prefijo público del servicio, servida por el gateway en el mismo origen; no es una URL de bucket público y no expira.";validada
 infrastructure-management;solicitud_evidencia;usuario_que_subio_email;Correo electrónico del usuario que subió el archivo.;validada
 infrastructure-management;solicitud_evidencia;usuario_que_subio_id;"Identificador del usuario que subió el archivo (auth.""user"".id_user, tomado del token).";validada
+infrastructure-management;solicitud_mantenimiento;;"Solicitudes y órdenes de mantenimiento de la infraestructura física y tecnológica de las sedes. Un registro por solicitud, con su consecutivo, sede, espacio y ubicación, tipo de mantenimiento, prioridad, solicitante, clasificación, técnico asignado, valoración técnica, cierre técnico y costos. Su ciclo se registra en el estado (EFDS-1728), con valores como RECIBIDA, EN_ANALISIS, EN_VALORACION, COMPLETADA o RECHAZADA; se relaciona con sede, espacio_fisico, solicitud_evidencia y solicitud_valoracion.";validada
 infrastructure-management;solicitud_mantenimiento;consecutivo;Consecutivo único de la solicitud de mantenimiento.;validada
 infrastructure-management;solicitud_mantenimiento;created_at;Fecha y hora de creación del registro.;validada
 infrastructure-management;solicitud_mantenimiento;descripcion;Descripción de la solicitud de mantenimiento.;validada
@@ -2278,6 +2313,7 @@ travel_expenses;analistas_viaticos;email;Correo electrónico del analista de vi�
 travel_expenses;analistas_viaticos;id;Identificador único del registro en la tabla analistas_viaticos. Se genera automáticamente.;validada
 travel_expenses;analistas_viaticos;telefono;Número de teléfono del analista de viáticos.;validada
 travel_expenses;analistas_viaticos;updated_at;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;comisionados;;Personas que pueden recibir una comisión de servicio de la ESAP: contratistas, docentes, estudiantes, funcionarios e investigadores. Un registro por persona, identificada por su número de documento, con nombres, contacto, tipo de vinculación, origen de los datos, autorización de tratamiento de datos personales, vigencia del contrato, cuentas bancarias y cargos. Es referenciada por las solicitudes de comisión y los paz y salvos.;validada
 travel_expenses;comisionados;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 travel_expenses;comisionados;autorizacion_habeas_data;Indica si el comisionado autorizó el tratamiento de datos personales (habeas data).;validada
 travel_expenses;comisionados;creado_en;Fecha y hora de creación del registro.;validada
@@ -2292,6 +2328,7 @@ travel_expenses;comisionados;primer_nombre;Primer nombre del comisionado.;valida
 travel_expenses;comisionados;segundo_apellido;Segundo apellido del comisionado.;validada
 travel_expenses;comisionados;segundo_nombre;Segundo nombre del comisionado.;validada
 travel_expenses;comisionados;tipo_comisionado;Tipo de vinculación del comisionado con la ESAP. Valores permitidos: CONTRATISTA, DOCENTE, ESTUDIANTE, FUNCIONARIO, INVESTIGADOR.;validada
+travel_expenses;config_campos_formulario;;Catálogo de los campos configurables del formulario de solicitud de comisión. Un registro por campo, con su clave, etiqueta, tipo de control, opciones, sección (comisionado, comisión, valores o soportes), orden y límite de caracteres. Sus claves se usan en config_tipo_comisionado y en los campos adicionales de solicitudes_comision.;validada
 travel_expenses;config_campos_formulario;activo;Indica si el campo de formulario está activo.;validada
 travel_expenses;config_campos_formulario;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 travel_expenses;config_campos_formulario;clave;Identificador único del campo del formulario.;validada
@@ -2331,6 +2368,7 @@ travel_expenses;config_legalizacion_documentos;id;Identificador único del regis
 travel_expenses;config_legalizacion_documentos;orden;Posición del soporte exigido en el orden de presentación.;validada
 travel_expenses;config_legalizacion_documentos;tipo_documento_soporte_id;Referencia al registro de travel_expenses.tipos_documento_soporte (id).;validada
 travel_expenses;config_legalizacion_documentos;tipo_requisito;Indica si el soporte es obligatorio u opcional para legalizar. Valores permitidos: OBLIGATORIO, OPCIONAL.;validada
+travel_expenses;config_tipo_comisionado;;Configuración del formulario de solicitud de comisión por tipo de comisionado. Un registro por tipo, con el código del formulario y las listas de campos obligatorios, opcionales y ocultos (claves de config_campos_formulario). Se relaciona con los documentos de soporte exigidos (config_tipo_comisionado_documentos) y con config_legalizacion_documentos.;validada
 travel_expenses;config_tipo_comisionado;activo;Indica si la configuración del tipo de comisionado está activa.;validada
 travel_expenses;config_tipo_comisionado;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 travel_expenses;config_tipo_comisionado;campos_obligatorios;"Lista JSON de claves de campos obligatorios para el tipo de comisionado. Las claves coinciden con config_campos_formulario.clave y con las propiedades de la solicitud; un campo que también figure como opcional u oculto no se exige.";validada
@@ -2339,17 +2377,20 @@ travel_expenses;config_tipo_comisionado;campos_opcionales;Lista JSON de claves d
 travel_expenses;config_tipo_comisionado;creado_en;Fecha y hora de creación del registro.;validada
 travel_expenses;config_tipo_comisionado;id;Identificador único del registro en la tabla config_tipo_comisionado. Se genera automáticamente.;validada
 travel_expenses;config_tipo_comisionado;tipo_comisionado;Tipo de comisionado al que aplica la configuración. Es único.;validada
+travel_expenses;config_tipo_comisionado_documentos;;Documentos de soporte exigidos por tipo de comisionado. Un registro por combinación de tipo de comisionado y tipo de documento de soporte, que indica si el documento es obligatorio u opcional. Relaciona config_tipo_comisionado con tipos_documento_soporte.;validada
 travel_expenses;config_tipo_comisionado_documentos;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 travel_expenses;config_tipo_comisionado_documentos;config_tipo_comisionado_id;Referencia al registro de travel_expenses.config_tipo_comisionado (id).;validada
 travel_expenses;config_tipo_comisionado_documentos;creado_en;Fecha y hora de creación del registro.;validada
 travel_expenses;config_tipo_comisionado_documentos;id;Identificador único del registro en la tabla config_tipo_comisionado_documentos. Se genera automáticamente.;validada
 travel_expenses;config_tipo_comisionado_documentos;tipo_documento_soporte_id;Referencia al registro de travel_expenses.tipos_documento_soporte (id).;validada
 travel_expenses;config_tipo_comisionado_documentos;tipo_requisito;Indica si el documento de soporte es obligatorio u opcional para el tipo de comisionado. Valores permitidos: OBLIGATORIO, OPCIONAL.;validada
+travel_expenses;configuraciones_globales;;Parámetros globales del módulo de viáticos. Un registro por parámetro, identificado por su clave, con su valor guardado como texto (correos, horas, números o listas JSON) y su descripción.;validada
 travel_expenses;configuraciones_globales;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 travel_expenses;configuraciones_globales;clave;Clave primaria de la tabla configuraciones_globales: clave.;validada
 travel_expenses;configuraciones_globales;creado_en;Fecha y hora de creación del registro.;validada
 travel_expenses;configuraciones_globales;descripcion;Descripción de la configuración global.;validada
 travel_expenses;configuraciones_globales;valor;"Valor del parámetro identificado por la clave, guardado como texto. Hay valores de correo, hora (HH:MM), número y lista JSON (DIAS_LABORALES_SEMANA); el servicio solo lee CORREO_DESTINO_SST como texto.";validada
+travel_expenses;documentos_soporte;;Archivos de soporte adjuntos a las solicitudes de comisión, como CDP, certificación bancaria, contrato SECOP, RUT o seguridad social. Un registro por archivo, con su tipo de documento, nombre original, nombre de almacenamiento, ruta y tipo MIME. Se relaciona con travel_expenses.solicitudes_comision.;validada
 travel_expenses;documentos_soporte;creado_en;Fecha y hora de creación del registro.;validada
 travel_expenses;documentos_soporte;id;Identificador único del registro en la tabla documentos_soporte. Se genera automáticamente.;validada
 travel_expenses;documentos_soporte;nombre_archivo_original;Nombre del archivo tal como lo cargó el usuario.;validada
@@ -2358,6 +2399,7 @@ travel_expenses;documentos_soporte;solicitud_id;Referencia al registro de travel
 travel_expenses;documentos_soporte;tipo_documento;Tipo de documento de soporte de la solicitud. Valores permitidos: CDP, CERT_BANCARIA, CONTRATO_SECOP, RUT, SEGURIDAD_SOCIAL.;validada
 travel_expenses;documentos_soporte;tipo_mime;Tipo MIME del archivo (por ejemplo, application/pdf).;validada
 travel_expenses;documentos_soporte;url_repositorio;Ruta relativa del archivo en el almacenamiento local del servicio (/uploads/<solicitud_id>/<nombre_archivo_seguro>), servida por el mismo servicio bajo /uploads. En el reporte de revocatoria guarda el PDF en base64.;validada
+travel_expenses;escalas_viaticos;;Escalas de viáticos por rango salarial fijadas por decreto. Un registro por rango de asignación básica y año de vigencia, con la tarifa diaria base que se aplica en la liquidación de las comisiones.;validada
 travel_expenses;escalas_viaticos;activo;Indica si la escala de viáticos está activa.;validada
 travel_expenses;escalas_viaticos;ano_vigencia;Año de vigencia de la escala de viáticos.;validada
 travel_expenses;escalas_viaticos;creado_en;Fecha y hora de creación del registro.;validada
@@ -2366,6 +2408,7 @@ travel_expenses;escalas_viaticos;id;Identificador único del registro en la tabl
 travel_expenses;escalas_viaticos;rango_maximo;Límite superior, inclusivo, del rango de asignación básica al que aplica la tarifa. Para estudiantes se compara con el SMMLV.;validada
 travel_expenses;escalas_viaticos;rango_minimo;Límite inferior, inclusivo, del rango de asignación básica al que aplica la tarifa. Para estudiantes se compara con el SMMLV.;validada
 travel_expenses;escalas_viaticos;tarifa_diaria;"Valor diario de viáticos para el rango, en pesos colombianos; es la tarifa diaria base de la liquidación.";validada
+travel_expenses;excepciones_autorizadas_tiquetes;;Excepciones autorizadas por la Dirección Nacional o el Sindicato para omitir la restricción de ruta corta o de presupuesto agotado en la compra de tiquetes (RF-LIQ-003, RF-LIQ-004). Un registro por excepción, con la solicitud de comisión a la que aplica, el tipo de excepción, la instancia que la autoriza y el documento de soporte.;validada
 travel_expenses;excepciones_autorizadas_tiquetes;autorizado_por;Instancia que autoriza la excepción de tiquetes: DIRECTOR_NACIONAL o SINDICATO.;validada
 travel_expenses;excepciones_autorizadas_tiquetes;comentarios;Comentarios sobre la excepción autorizada.;validada
 travel_expenses;excepciones_autorizadas_tiquetes;creado_en;Fecha y hora de creación del registro.;validada
@@ -2434,6 +2477,7 @@ travel_expenses;legalizaciones_comision;siif_exportado_por_id;Identificador del 
 travel_expenses;legalizaciones_comision;solicitud_id;Referencia al registro de travel_expenses.solicitudes_comision (id).;validada
 travel_expenses;legalizaciones_comision;valor_legalizado;"Valor legalizado de la comisión, digitado por el analista al registrar la legalización en SIIF, después de aprobar la revisión de los soportes. No puede superar el valor pagado; si lo supera, la legalización se devuelve al comisionado.";validada
 travel_expenses;legalizaciones_comision;valor_pagado;"Valor pagado de la comisión, copiado de solicitudes_comision.valor_pagado (pago registrado por Tesorería) al registrar la legalización en SIIF y cerrarla; base para calcular el reintegro.";validada
+travel_expenses;liquidation_params;;Parámetros configurables de la autoliquidación de viáticos, como los factores por tipo de comisionado y por pernocta. Un registro por parámetro, con su clave, valor guardado como texto, tipo de dato (NUMBER o STRING) y descripción.;validada
 travel_expenses;liquidation_params;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 travel_expenses;liquidation_params;clave;Nombre único del parámetro de liquidación.;validada
 travel_expenses;liquidation_params;creado_en;Fecha y hora de creación del registro.;validada
@@ -2448,6 +2492,7 @@ travel_expenses;parametros_globales;descripcion;Descripción del parámetro glob
 travel_expenses;parametros_globales;editable;Indica si el parámetro global puede modificarse.;validada
 travel_expenses;parametros_globales;tipo;Tipo de dato del parámetro global.;validada
 travel_expenses;parametros_globales;valor;"Valor del parámetro global, guardado como texto; la columna tipo indica el tipo (number). LIMITE_CARGA_SATURACION se convierte a entero (por defecto, 12).";validada
+travel_expenses;paz_y_salvo_eventos;;Historial de eventos sobre los paz y salvos de los comisionados. Un registro por acción (solicitado, OTP solicitado, firma verificada, consultado o descargado), con el usuario que la realizó, la fecha y el detalle. Se relaciona con travel_expenses.paz_y_salvos.;validada
 travel_expenses;paz_y_salvo_eventos;accion;Acción registrada sobre el paz y salvo. Valores permitidos: CONSULTADO, DESCARGADO, FIRMA_VERIFICADA, OTP_SOLICITADO, SOLICITADO.;validada
 travel_expenses;paz_y_salvo_eventos;creado_en;Fecha y hora de creación del registro.;validada
 travel_expenses;paz_y_salvo_eventos;detalle;"Información adicional del evento, en JSON. Vacío ({}) en SOLICITADO, OTP_SOLICITADO y CONSULTADO; en FIRMA_VERIFICADA guarda evidencia, metodo, context, verificadoEn y archivoSha256; en DESCARGADO, archivoSha256.";validada
@@ -2474,12 +2519,14 @@ travel_expenses;reintegros_comision;registrado_por_id;"Identificador (auth.""use
 travel_expenses;reintegros_comision;solicitud_id;Referencia al registro de travel_expenses.solicitudes_comision (id).;validada
 travel_expenses;reintegros_comision;valor_pagado;Valor pagado por la comisión, en pesos colombianos, copiado de solicitudes_comision.valor_pagado al generar el reintegro.;validada
 travel_expenses;reintegros_comision;valor_reintegrado;Valor efectivamente reintegrado por el comisionado, en pesos colombianos. Debe ser igual a valor_a_reintegrar.;validada
+travel_expenses;rutas_restringidas;;Catálogo de rutas entre ciudades cuya conexión aérea está restringida (RF-LIQ-003), como las rutas cortas que requieren autorización del Director Nacional o del Sindicato. Un registro por ruta de origen y destino, con la descripción de la restricción y su estado activo. Se consulta al validar los tiquetes de una solicitud de comisión.;validada
 travel_expenses;rutas_restringidas;activo;Indica si la restricción de la ruta está activa.;validada
 travel_expenses;rutas_restringidas;creado_en;Fecha y hora de creación del registro.;validada
 travel_expenses;rutas_restringidas;descripcion_restriccion;Texto que describe la restricción de la ruta aérea (por ejemplo, ruta corta que requiere autorización del Director Nacional o del Sindicato). Se muestra al validar el tiquete.;validada
 travel_expenses;rutas_restringidas;destino_ciudad;Ciudad de destino de la ruta restringida.;validada
 travel_expenses;rutas_restringidas;id;Identificador único del registro en la tabla rutas_restringidas. Se genera automáticamente.;validada
 travel_expenses;rutas_restringidas;origen_ciudad;Ciudad de origen de la ruta restringida.;validada
+travel_expenses;saldos_tiquetes;;Cupo presupuestal de cada dependencia para la compra de tiquetes aéreos. Un registro por dependencia, con el presupuesto inicial, reservado y disponible, y el porcentaje de holgura que se suma al reservar para cubrir la variación del precio del tiquete entre la radicación y la emisión (RF-LIQ-004).;validada
 travel_expenses;saldos_tiquetes;activo;Indica si el saldo de tiquetes de la dependencia está activo.;validada
 travel_expenses;saldos_tiquetes;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 travel_expenses;saldos_tiquetes;creado_en;Fecha y hora de creación del registro.;validada
@@ -2489,6 +2536,7 @@ travel_expenses;saldos_tiquetes;id;Identificador único del registro en la tabla
 travel_expenses;saldos_tiquetes;nombre_dependencia;Nombre de la dependencia.;validada
 travel_expenses;saldos_tiquetes;presupuesto_disponible;Presupuesto disponible para tiquetes, en pesos colombianos. Lo actualiza la aplicación: inicial al crear, menos cada reserva, más cada liberación y más la diferencia si cambia el presupuesto inicial.;validada
 travel_expenses;saldos_tiquetes;presupuesto_reservado;Presupuesto reservado para tiquetes de solicitudes en trámite, en pesos colombianos: se suma al reservar el valor estimado del tiquete más la holgura y se resta al liberar la reserva cuando la solicitud se rechaza, anula o cancela. No puede ser negativo.;validada
+travel_expenses;solicitudes_comision;;"Solicitudes de comisión de servicio de los comisionados de la ESAP. Un registro por solicitud, con destino, fechas, objeto, itinerario, liquidación de viáticos y gastos de viaje, y los datos de cada etapa del trámite: revisión, autorización, registro presupuestal, obligación, pago o cancelación. Su ciclo se registra en estado_solicitud (BORRADOR, RADICADA, EN_VERIFICACION, DEVUELTA, PAGADA, entre otros); se relaciona con comisionados, auth.user, documentos_soporte, legalizaciones_comision, reintegros_comision y solicitudes_historial_estados.";validada
 travel_expenses;solicitudes_comision;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 travel_expenses;solicitudes_comision;comisionado_id;Referencia al registro de travel_expenses.comisionados (id).;validada
 travel_expenses;solicitudes_comision;consecutivo_unico;Consecutivo único de la solicitud de comisión.;validada
@@ -2559,11 +2607,13 @@ travel_expenses;solicitudes_historial_estados;estado_anterior;Estado del expedie
 travel_expenses;solicitudes_historial_estados;id;Identificador único del registro en la tabla solicitudes_historial_estados. Se genera automáticamente.;validada
 travel_expenses;solicitudes_historial_estados;solicitud_id;Referencia al registro de travel_expenses.solicitudes_comision (id).;validada
 travel_expenses;solicitudes_historial_estados;usuario_id;"Identificador (auth.""user"".id_user) del usuario autenticado que ejecutó la transición de estado. Si no hay usuario se guarda el UUID 00000000-0000-0000-0000-000000000000.";validada
+travel_expenses;tarifas_investigadores;;Tarifas diarias de viáticos por categoría de investigador (JUNIOR, ASOCIADO o SENIOR). Un registro por categoría, con la tarifa diaria base que se aplica a los comisionados de tipo INVESTIGADOR.;validada
 travel_expenses;tarifas_investigadores;activo;Indica si la tarifa de investigadores está activa.;validada
 travel_expenses;tarifas_investigadores;categoria_investigador;Categoría del investigador a la que aplica la tarifa: JUNIOR, ASOCIADO o SENIOR. Es única.;validada
 travel_expenses;tarifas_investigadores;creado_en;Fecha y hora de creación del registro.;validada
 travel_expenses;tarifas_investigadores;id;Identificador único del registro en la tabla tarifas_investigadores. Se genera automáticamente.;validada
 travel_expenses;tarifas_investigadores;tarifa_diaria;"Valor diario de viáticos para la categoría de investigador, en pesos colombianos; se usa como tarifa diaria base para comisionados INVESTIGADOR.";validada
+travel_expenses;tarifas_referencia_tiquetes;;Matriz de tarifas de referencia de tiquetes aéreos por ruta, para vuelos nacionales e internacionales. Un registro por ruta de origen y destino, con códigos IATA, tarifa estimada, mínima y máxima de un tiquete de ida, y la fuente de la tarifa (paramétrica, manual o API). Se actualiza por sincronización con API o por parametrización institucional.;validada
 travel_expenses;tarifas_referencia_tiquetes;activo;Indica si la tarifa de referencia de tiquetes está activa.;validada
 travel_expenses;tarifas_referencia_tiquetes;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 travel_expenses;tarifas_referencia_tiquetes;creado_en;Fecha y hora de creación del registro.;validada
@@ -2578,12 +2628,14 @@ travel_expenses;tarifas_referencia_tiquetes;tarifa_estimada;Tarifa estimada de u
 travel_expenses;tarifas_referencia_tiquetes;tarifa_maxima;Tarifa máxima de referencia de un tiquete de ida para la ruta, en pesos colombianos.;validada
 travel_expenses;tarifas_referencia_tiquetes;tarifa_minima;Tarifa mínima de referencia de un tiquete de ida para la ruta, en pesos colombianos.;validada
 travel_expenses;tarifas_referencia_tiquetes;ultima_actualizacion;"Fecha y hora de la última actualización de los valores de la tarifa. La aplicación la fija al crear, editar o sincronizar la tarifa; actualizado_en cambia con cualquier modificación del registro.";validada
+travel_expenses;tarifas_regionales_excepcion;;Tarifas de viáticos de excepción por departamento, según el artículo 5 del Decreto 314 de 2026 para departamentos nuevos. Un registro por departamento, con la tarifa diaria, el decreto de referencia y su estado activo.;validada
 travel_expenses;tarifas_regionales_excepcion;activo;Indica si la tarifa regional de excepción está activa.;validada
 travel_expenses;tarifas_regionales_excepcion;creado_en;Fecha y hora de creación del registro.;validada
 travel_expenses;tarifas_regionales_excepcion;decreto_referencia;Decreto que establece la tarifa de excepción.;validada
 travel_expenses;tarifas_regionales_excepcion;departamento;Departamento al que aplica la tarifa de excepción. Es único.;validada
 travel_expenses;tarifas_regionales_excepcion;es_nuevo_departamento;Indica si la tarifa regional de excepción corresponde a un nuevo departamento.;validada
 travel_expenses;tarifas_regionales_excepcion;id;Identificador único del registro en la tabla tarifas_regionales_excepcion. Se genera automáticamente.;validada
+travel_expenses;tarifas_transporte_terminal;;Valores máximos reconocidos por trayecto para el desplazamiento a terminales aéreos. Un registro por departamento y ciudad del aeropuerto, con el valor máximo por trayecto que se usa en la liquidación de los gastos de viaje de la comisión.;validada
 travel_expenses;tarifas_transporte_terminal;activo;Indica si la tarifa de transporte a terminal está activa.;validada
 travel_expenses;tarifas_transporte_terminal;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 travel_expenses;tarifas_transporte_terminal;ciudad;Ciudad a la que aplica la tarifa de transporte.;validada
@@ -2592,6 +2644,7 @@ travel_expenses;tarifas_transporte_terminal;creado_en;Fecha y hora de creación 
 travel_expenses;tarifas_transporte_terminal;departamento;Nombre del departamento al que aplica la tarifa de transporte.;validada
 travel_expenses;tarifas_transporte_terminal;id;Identificador único del registro en la tabla tarifas_transporte_terminal. Se genera automáticamente.;validada
 travel_expenses;tarifas_transporte_terminal;valor_maximo;Valor máximo reconocido por trayecto de transporte a la terminal aérea, en pesos colombianos. Para tramos de ida y regreso la liquidación lo multiplica por dos.;validada
+travel_expenses;tipos_documento_soporte;;Catálogo de tipos de documento de soporte del trámite de comisiones. Un registro por tipo, con su código, nombre, descripción, instrucciones de validación para quien revisa y campos del formulario que se cotejan con el documento. Se usa en la configuración de documentos por tipo de comisionado, en la de legalización y en los soportes de legalización.;validada
 travel_expenses;tipos_documento_soporte;activo;Indica si el tipo de documento de soporte está activo.;validada
 travel_expenses;tipos_documento_soporte;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 travel_expenses;tipos_documento_soporte;campos_a_validar;Lista JSON de claves de los campos del formulario que se deben cotejar con el documento (por ejemplo, nombreComisionado, numeroDocumento, numeroCuenta).;validada
