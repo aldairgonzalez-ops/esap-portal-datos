@@ -15,6 +15,8 @@ Uso:
       -> config/propuestas/Matriz_Validacion_Descripciones_<Id>.xlsx
   python herramientas/matriz_descripciones.py incorporar --matriz config/propuestas/Matriz_Validacion_Descripciones_<Id>.xlsx
       -> lleva a config/descripciones.csv las filas con decisión «Aprobada» o «Aprobada con ajuste» (estado validada)
+  python herramientas/matriz_descripciones.py incorporar --tablas config/propuestas/<id>_tablas.csv
+      -> lo mismo para las descripciones de tabla (decisión «Aprobada»)
 """
 import argparse
 import csv
@@ -421,11 +423,17 @@ def cmd_matriz(a):
 
 def cmd_incorporar(a):
     from openpyxl import load_workbook
-    ws = load_workbook(a.matriz)["Matriz"]   # se leen los valores escritos, no fórmulas
-    enc = [c.value for c in ws[1]]
-    ix = {h: i for i, h in enumerate(enc)}
     nuevas = []
-    for row in ws.iter_rows(min_row=2, values_only=True):
+    if a.tablas:   # hoja de descripciones de tabla (config/propuestas/<id>_tablas.csv): las de decisión «Aprobada»
+        with open(a.tablas, encoding="utf-8-sig", newline="") as f:
+            for r in csv.DictReader(f, delimiter=";"):
+                texto = (r.get("descripcion_final") or "").strip() or (r.get("propuesta") or "").strip()
+                if (r.get("decision") or "").strip() in ("Aprobada", "Aprobada con ajuste") and texto:
+                    nuevas.append({"esquema": r["esquema"], "tabla": r["tabla"], "columna": "", "descripcion": texto, "estado": "validada"})
+    filas = load_workbook(a.matriz)["Matriz"].iter_rows(values_only=True) if a.matriz else iter([])
+    enc = list(next(filas, []))   # se leen los valores escritos, no fórmulas
+    ix = {h: i for i, h in enumerate(enc)}
+    for row in filas:
         dec = (row[ix["Decisión"]] or "").strip()
         final = (row[ix["Descripción final"]] or "").strip()
         prop = (row[ix["Propuesta de descripción"]] or "").strip()
@@ -442,7 +450,7 @@ def cmd_incorporar(a):
         w = csv.DictWriter(f, ["esquema", "tabla", "columna", "descripcion", "estado"], delimiter=";", extrasaction="ignore")
         w.writeheader()
         w.writerows(sorted(por.values(), key=clave))
-    print(f"config/descripciones.csv: {len(nuevas)} descripciones validadas desde la matriz · {len(por) - antes} nuevas · {len(por)} en total")
+    print(f"config/descripciones.csv: {len(nuevas)} descripciones validadas desde la matriz y la hoja de tablas · {len(por) - antes} nuevas · {len(por)} en total")
 
 
 def main():
@@ -451,6 +459,7 @@ def main():
     ap.add_argument("--extraccion")
     ap.add_argument("--alcance")
     ap.add_argument("--matriz")
+    ap.add_argument("--tablas", help="incorporar: hoja de descripciones de tabla (config/propuestas/<id>_tablas.csv)")
     ap.add_argument("--salida")
     a = ap.parse_args()
     {"contexto": cmd_contexto, "matriz": cmd_matriz, "incorporar": cmd_incorporar}[a.accion](a)
