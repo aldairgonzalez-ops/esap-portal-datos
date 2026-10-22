@@ -1,0 +1,17 @@
+{"s":"academic-schedule","owner":"postgres","d":"Esquema para la gestión de franjas horarias, aulas, jornadas y programación académica institucional ESAP"}
+{"s":"academic_registration","owner":"postgres","d":null}
+{"s":"academic_work_plan","owner":"postgres","d":null}
+{"s":"audit","owner":"postgres","d":"Schema para almacenar logs de auditoría de todas las peticiones HTTP del sistema"}
+{"s":"auth","owner":"postgres","d":null}
+{"s":"certification","owner":"postgres","d":null}
+{"s":"chatbot","owner":"postgres","d":"Esquema para el módulo Asistente Virtual y ChatBot institucional ESAP"}
+{"s":"control_interno","owner":"postgres","d":"Schema unificado para el Sistema de Control Interno Institucional"}
+{"s":"hiring","owner":"postgres","d":null}
+{"s":"infrastructure-management","owner":"postgres","d":"Esquema para la gestión de infraestructura física, sedes territoriales, bloques, aulas, espacios y solicitudes de mantenimiento ESAP"}
+{"s":"internal_disciplinary_control","owner":"postgres","d":null}
+{"s":"legal_management","owner":"postgres","d":null}
+{"s":"notifications","owner":"postgres","d":null}
+{"s":"public","owner":"pg_database_owner","d":"standard public schema"}
+{"s":"requerimientos_oc","owner":"postgres","d":null}
+{"s":"travel_expenses","owner":"postgres","d":null}
+{"_fin" : 16}
