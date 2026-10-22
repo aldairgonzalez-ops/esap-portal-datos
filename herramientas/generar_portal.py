@@ -183,8 +183,10 @@ def informe(m, version, nombre_portal, anterior, alcance=None):
          f"- Columnas: {sum(len(t['cols']) for t in op)} · FK: {len(m['fks'])} · relaciones implícitas: {len(m['implicitas'])}",
          f"- Funciones y procedimientos: {len(m['programables'])} · triggers: {len(m['triggers'])} · tipos enumerados: {len(m['tipos'])}",
          f"- Filas totales: {sum(t['filas'] or 0 for t in op):,}".replace(",", "."),
-         f"- Tablas y columnas con descripción registrada: {sum(1 for t in op if t['d'])} de {len(op)} tablas · "
-         f"{sum(1 for t in op for c in t['cols'] if c['d'])} de {sum(len(t['cols']) for t in op)} columnas"]
+         f"- Descripciones registradas en la base (COMMENT): {sum(1 for t in op if t['de'] == 'base')} de {len(op)} tablas · "
+         f"{sum(1 for t in op for c in t['cols'] if c['de'] == 'base')} de {sum(len(t['cols']) for t in op)} columnas",
+         f"- Descripciones validadas en `config/descripciones.csv`, pendientes de registrar en la base: "
+         f"{sum(1 for t in op if t['de'] == 'validada')} tablas · {sum(1 for t in op for c in t['cols'] if c['de'] == 'validada')} columnas"]
     if anterior:
         L += comparar(m, anterior)
     return "\n".join(L) + "\n"

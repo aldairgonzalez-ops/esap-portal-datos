@@ -32,14 +32,14 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `text` | no | _Por documentar_ | PK |
-| 2 | `personaId` | `uuid` | no | _Por documentar_ | FK→auth.personas.id_person |
+| 1 | `id` | `text` | no | Identificador único del registro en la tabla Docente. Se genera automáticamente. | PK |
+| 2 | `personaId` | `uuid` | no | Referencia al registro de auth.personas (id_person). | FK→auth.personas.id_person |
 | 3 | `territorialId` | `text` | no | _Por documentar_ |  |
 | 4 | `tipoVinculacion` | `text` | no | _Por documentar_ |  |
 | 5 | `dedicacion` | `text` | no | _Por documentar_ |  |
 | 6 | `estado` | `text` | no | _Por documentar_ |  |
-| 7 | `createdAt` | `timestamp(3) without time zone` | no | _Por documentar_ |  |
-| 8 | `updatedAt` | `timestamp(3) without time zone` | no | _Por documentar_ |  |
+| 7 | `createdAt` | `timestamp(3) without time zone` | no | Fecha y hora de creación del registro. |  |
+| 8 | `updatedAt` | `timestamp(3) without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 | 9 | `escalafon` | `text` | sí | _Por documentar_ |  |
 | 10 | `horasAsignables` | `integer` | no | _Por documentar_ |  |
 | 11 | `sedeId` | `text` | sí | _Por documentar_ |  |
@@ -94,18 +94,18 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `text` | no | _Por documentar_ | PK |
-| 2 | `personaId` | `text` | no | _Por documentar_ | FK→academic_work_plan.Persona.id |
+| 1 | `id` | `text` | no | Identificador único del registro en la tabla Documento. Se genera automáticamente. | PK |
+| 2 | `personaId` | `text` | no | Referencia al registro de academic_work_plan.Persona (id). | FK→academic_work_plan.Persona.id |
 | 3 | `nombre` | `text` | no | _Por documentar_ |  |
 | 4 | `url` | `text` | no | _Por documentar_ |  |
 | 5 | `tipo` | `text` | no | _Por documentar_ |  |
-| 6 | `createdAt` | `timestamp(3) without time zone` | no | _Por documentar_ |  |
+| 6 | `createdAt` | `timestamp(3) without time zone` | no | Fecha y hora de creación del registro. |  |
 | 7 | `categoria` | `text` | sí | _Por documentar_ |  |
 | 8 | `comentarios` | `text` | sí | _Por documentar_ |  |
 | 9 | `estado` | `text` | no | _Por documentar_ |  |
 | 10 | `tamanoBytes` | `integer` | no | _Por documentar_ |  |
 | 11 | `tipoDocumentoId` | `text` | sí | _Por documentar_ |  |
-| 12 | `updatedAt` | `timestamp(3) without time zone` | no | _Por documentar_ |  |
+| 12 | `updatedAt` | `timestamp(3) without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 | 13 | `versionActual` | `integer` | no | _Por documentar_ |  |
 | 14 | `aprobadoPorId` | `text` | sí | _Por documentar_ |  |
 | 15 | `aprobadoPorNombre` | `text` | sí | _Por documentar_ |  |
@@ -119,7 +119,7 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla RundAccesoDatosLog. | PK |
 | 2 | `actor_id` | `text` | no | _Por documentar_ |  |
 | 3 | `roles` | `text[]` | no | _Por documentar_ |  |
 | 4 | `endpoint` | `text` | no | _Por documentar_ |  |
@@ -128,7 +128,7 @@ _Por documentar._
 | 7 | `campos` | `text[]` | no | _Por documentar_ |  |
 | 8 | `resultado` | `text` | no | _Por documentar_ |  |
 | 9 | `ip` | `text` | sí | _Por documentar_ | Identificador en línea (IP) |
-| 10 | `createdAt` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 10 | `createdAt` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
 
 ## RundAccesoExterno
 
@@ -139,7 +139,7 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla RundAccesoExterno. Se genera automáticamente. | PK |
 | 2 | `ente_nombre` | `text` | no | _Por documentar_ |  |
 | 3 | `ente_contacto` | `text` | sí | _Por documentar_ |  |
 | 4 | `token` | `text` | no | _Por documentar_ | única Credencial de acceso |
@@ -151,7 +151,7 @@ _Por documentar._
 | 10 | `otorgado_por` | `text` | no | _Por documentar_ |  |
 | 11 | `revoked_at` | `timestamp with time zone` | sí | _Por documentar_ |  |
 | 12 | `revoked_by` | `text` | sí | _Por documentar_ |  |
-| 13 | `createdAt` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 13 | `createdAt` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
 
 ## RundAprobacionLog
 
@@ -162,7 +162,7 @@ Log de auditoría inmutable del RUND (BR-056). Sólo INSERT: registra crear/apro
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla RundAprobacionLog. Se genera automáticamente. | PK |
 | 2 | `docente_id` | `uuid` | no | _Por documentar_ |  |
 | 3 | `bloque` | `text` | sí | _Por documentar_ |  |
 | 4 | `accion` | `text` | no | _Por documentar_ |  |
@@ -175,7 +175,7 @@ Log de auditoría inmutable del RUND (BR-056). Sólo INSERT: registra crear/apro
 | 11 | `soporte_id` | `text` | sí | _Por documentar_ |  |
 | 12 | `ip` | `text` | sí | _Por documentar_ | Identificador en línea (IP) |
 | 13 | `metadata` | `jsonb` | sí | _Por documentar_ |  |
-| 14 | `createdAt` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 14 | `createdAt` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
 
 ## RundCampoEstado
 
@@ -186,7 +186,7 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla RundCampoEstado. Se genera automáticamente. | PK |
 | 2 | `docente_id` | `character varying(255)` | no | _Por documentar_ |  |
 | 3 | `bloque` | `character varying(50)` | no | _Por documentar_ |  |
 | 4 | `estado` | `character varying(50)` | no | _Por documentar_ |  |
@@ -197,8 +197,8 @@ _Por documentar._
 | 9 | `canal_origen` | `character varying(50)` | sí | _Por documentar_ |  |
 | 10 | `soporte_ids` | `jsonb` | no | _Por documentar_ |  |
 | 11 | `fecha_revision` | `timestamp without time zone` | sí | _Por documentar_ |  |
-| 12 | `createdAt` | `timestamp without time zone` | no | _Por documentar_ |  |
-| 13 | `updatedAt` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 12 | `createdAt` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
+| 13 | `updatedAt` | `timestamp without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 
 ## RundCargaMasiva
 
@@ -209,7 +209,7 @@ Soporte documental inmutable de cada importación masiva de perfiles RUND.
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla RundCargaMasiva. Se genera automáticamente. | PK |
 | 2 | `nombre_archivo` | `text` | no | _Por documentar_ |  |
 | 3 | `tipo_mime` | `text` | no | _Por documentar_ |  |
 | 4 | `tamano_bytes` | `bigint` | no | _Por documentar_ |  |
@@ -220,8 +220,8 @@ Soporte documental inmutable de cada importación masiva de perfiles RUND.
 | 9 | `ip` | `text` | sí | _Por documentar_ | Identificador en línea (IP) |
 | 10 | `estado` | `text` | no | _Por documentar_ |  |
 | 11 | `resumen` | `jsonb` | no | _Por documentar_ |  |
-| 12 | `createdAt` | `timestamp without time zone` | no | _Por documentar_ |  |
-| 13 | `updatedAt` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 12 | `createdAt` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
+| 13 | `updatedAt` | `timestamp without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 
 ## RundDocumentoCategoria
 
@@ -232,15 +232,15 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `codigo` | `text` | no | _Por documentar_ | PK |
+| 1 | `codigo` | `text` | no | Clave primaria de la tabla RundDocumentoCategoria: código. | PK |
 | 2 | `nombre` | `text` | no | _Por documentar_ |  |
 | 3 | `descripcion` | `text` | sí | _Por documentar_ |  |
 | 4 | `mime_permitidos` | `text[]` | no | _Por documentar_ |  |
 | 5 | `tamano_maximo_bytes` | `bigint` | no | _Por documentar_ |  |
 | 6 | `activo` | `boolean` | no | _Por documentar_ |  |
 | 7 | `orden` | `integer` | no | _Por documentar_ |  |
-| 8 | `createdAt` | `timestamp without time zone` | no | _Por documentar_ |  |
-| 9 | `updatedAt` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 8 | `createdAt` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
+| 9 | `updatedAt` | `timestamp without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 
 ## RundDocumentoPerfil
 
@@ -252,10 +252,10 @@ REQ-RUND-F010: documentos PDF versionados del perfil docente, almacenados en Ope
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla RundDocumentoPerfil. Se genera automáticamente. | PK |
 | 2 | `documento_logico_id` | `uuid` | no | _Por documentar_ |  |
 | 3 | `docente_id` | `uuid` | no | _Por documentar_ |  |
-| 4 | `categoria_codigo` | `text` | no | _Por documentar_ | FK→academic_work_plan.RundDocumentoCategoria.codigo |
+| 4 | `categoria_codigo` | `text` | no | Referencia al registro de academic_work_plan.RundDocumentoCategoria (codigo). | FK→academic_work_plan.RundDocumentoCategoria.codigo |
 | 5 | `bloque` | `text` | sí | _Por documentar_ |  |
 | 6 | `tipo_soporte` | `text` | sí | _Por documentar_ |  |
 | 7 | `descripcion` | `text` | sí | _Por documentar_ |  |
@@ -268,12 +268,12 @@ REQ-RUND-F010: documentos PDF versionados del perfil docente, almacenados en Ope
 | 14 | `almacenamiento_id` | `text` | sí | _Por documentar_ |  |
 | 15 | `almacenamiento_ruta` | `text` | no | _Por documentar_ |  |
 | 16 | `estado` | `text` | no | _Por documentar_ |  |
-| 17 | `reemplaza_id` | `uuid` | sí | _Por documentar_ | FK→academic_work_plan.RundDocumentoPerfil.id |
+| 17 | `reemplaza_id` | `uuid` | sí | Referencia al registro de academic_work_plan.RundDocumentoPerfil (id). | FK→academic_work_plan.RundDocumentoPerfil.id |
 | 18 | `rund_soporte_id` | `uuid` | sí | _Por documentar_ |  |
-| 19 | `creado_por` | `text` | no | _Por documentar_ |  |
+| 19 | `creado_por` | `text` | no | Usuario que creó el registro. |  |
 | 20 | `eliminado_por` | `text` | sí | _Por documentar_ |  |
 | 21 | `eliminado_en` | `timestamp without time zone` | sí | _Por documentar_ |  |
-| 22 | `createdAt` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 22 | `createdAt` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
 
 ## RundExtraccionInicio
 
@@ -284,7 +284,7 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `boolean` | no | _Por documentar_ | PK |
+| 1 | `id` | `boolean` | no | Identificador único del registro en la tabla RundExtraccionInicio. | PK |
 | 2 | `desde` | `timestamp with time zone` | no | _Por documentar_ |  |
 
 ## RundExtraccionSugerencia
@@ -297,8 +297,8 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `trabajo_id` | `uuid` | no | _Por documentar_ | FK→academic_work_plan.RundExtraccionTrabajo.id |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla RundExtraccionSugerencia. Se genera automáticamente. | PK |
+| 2 | `trabajo_id` | `uuid` | no | Referencia al registro de academic_work_plan.RundExtraccionTrabajo (id). | FK→academic_work_plan.RundExtraccionTrabajo.id |
 | 3 | `campo` | `text` | no | _Por documentar_ |  |
 | 4 | `valor` | `text` | no | _Por documentar_ |  |
 | 5 | `valor_previo` | `text` | sí | _Por documentar_ |  |
@@ -322,8 +322,8 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `documento_id` | `uuid` | no | _Por documentar_ | FK→academic_work_plan.RundDocumentoPerfil.id |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla RundExtraccionTrabajo. Se genera automáticamente. | PK |
+| 2 | `documento_id` | `uuid` | no | Referencia al registro de academic_work_plan.RundDocumentoPerfil (id). | FK→academic_work_plan.RundDocumentoPerfil.id |
 | 3 | `docente_id` | `uuid` | no | _Por documentar_ |  |
 | 4 | `estado` | `text` | no | _Por documentar_ |  |
 | 5 | `intentos` | `integer` | no | _Por documentar_ |  |
@@ -333,9 +333,9 @@ _Por documentar._
 | 9 | `perfil_base` | `jsonb` | no | _Por documentar_ |  |
 | 10 | `motor` | `jsonb` | no | _Por documentar_ |  |
 | 11 | `error_codigo` | `text` | sí | _Por documentar_ |  |
-| 12 | `creado_por` | `text` | no | _Por documentar_ |  |
-| 13 | `creado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
-| 14 | `actualizado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 12 | `creado_por` | `text` | no | Usuario que creó el registro. |  |
+| 13 | `creado_en` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
+| 14 | `actualizado_en` | `timestamp with time zone` | no | Fecha y hora de la última actualización del registro. |  |
 | 15 | `etapa` | `text` | no | _Por documentar_ |  |
 | 16 | `etapa_desde` | `timestamp with time zone` | no | _Por documentar_ |  |
 | 17 | `iniciado_en` | `timestamp with time zone` | sí | _Por documentar_ |  |
@@ -352,7 +352,7 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla RundInvitacionDocente. Se genera automáticamente. | PK |
 | 2 | `correo_institucional` | `character varying(255)` | no | _Por documentar_ |  |
 | 3 | `documento_identidad` | `character varying(100)` | sí | _Por documentar_ | Identificación |
 | 4 | `token_invitacion` | `character varying(255)` | no | _Por documentar_ | única Credencial de acceso |
@@ -366,8 +366,8 @@ _Por documentar._
 | 12 | `ultima_actividad` | `timestamp without time zone` | sí | _Por documentar_ |  |
 | 13 | `docente_id` | `text` | sí | _Por documentar_ |  |
 | 14 | `operador_id` | `character varying(255)` | sí | _Por documentar_ |  |
-| 15 | `createdAt` | `timestamp without time zone` | no | _Por documentar_ |  |
-| 16 | `updatedAt` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 15 | `createdAt` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
+| 16 | `updatedAt` | `timestamp without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 
 ## RundMacroDocenteConsultaLog
 
@@ -379,17 +379,17 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla RundMacroDocenteConsultaLog. Se genera automáticamente. | PK |
 | 2 | `tipo_consulta` | `text` | no | _Por documentar_ |  |
 | 3 | `actor_id` | `text` | no | _Por documentar_ |  |
 | 4 | `roles` | `text[]` | sí | _Por documentar_ |  |
-| 5 | `acceso_externo_id` | `uuid` | sí | _Por documentar_ | FK→academic_work_plan.RundAccesoExterno.id |
+| 5 | `acceso_externo_id` | `uuid` | sí | Referencia al registro de academic_work_plan.RundAccesoExterno (id). | FK→academic_work_plan.RundAccesoExterno.id |
 | 6 | `docente_id` | `text` | sí | _Por documentar_ |  |
 | 7 | `periodo` | `text` | sí | _Por documentar_ |  |
 | 8 | `filtros` | `jsonb` | sí | _Por documentar_ |  |
 | 9 | `total_resultados` | `integer` | sí | _Por documentar_ |  |
 | 10 | `ip` | `text` | sí | _Por documentar_ | Identificador en línea (IP) |
-| 11 | `createdAt` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 11 | `createdAt` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
 
 ## RundSoporteCampo
 
@@ -400,7 +400,7 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla RundSoporteCampo. Se genera automáticamente. | PK |
 | 2 | `docente_id` | `uuid` | sí | _Por documentar_ |  |
 | 3 | `bloque` | `text` | sí | _Por documentar_ |  |
 | 4 | `tipo_soporte` | `text` | sí | _Por documentar_ |  |
@@ -410,6 +410,6 @@ _Por documentar._
 | 8 | `cargado_por` | `character varying(255)` | sí | _Por documentar_ |  |
 | 9 | `observacion` | `text` | sí | _Por documentar_ |  |
 | 10 | `fecha_vencimiento` | `timestamp without time zone` | sí | _Por documentar_ |  |
-| 11 | `createdAt` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 11 | `createdAt` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
 | 12 | `documento_perfil_id` | `uuid` | sí | _Por documentar_ |  |
 | 13 | `revisiones_campos` | `jsonb` | no | _Por documentar_ |  |

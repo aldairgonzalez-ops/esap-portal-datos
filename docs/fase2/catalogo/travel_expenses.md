@@ -47,7 +47,7 @@ Catalogo de analistas del Grupo de Viaticos para asignacion de comisiones y calc
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla analistas_viaticos. Se genera automáticamente. | PK |
 | 2 | `usuario_id` | `uuid` | no | Referencia al usuario del sistema (auth.user.id_user) | única FK→auth.user.id_user |
 | 3 | `id_persona` | `uuid` | sí | Referencia a la persona en auth.personas |  |
 | 4 | `identificacion` | `character varying(50)` | sí | Numero de identificacion del analista | única |
@@ -57,8 +57,8 @@ Catalogo de analistas del Grupo de Viaticos para asignacion de comisiones y calc
 | 8 | `telefono` | `character varying(50)` | sí | _Por documentar_ | Contacto |
 | 9 | `cargo` | `character varying(255)` | sí | _Por documentar_ |  |
 | 10 | `activo` | `boolean` | sí | Indica si el analista esta activo para recibir asignaciones |  |
-| 11 | `created_at` | `timestamp without time zone` | sí | _Por documentar_ |  |
-| 12 | `updated_at` | `timestamp without time zone` | sí | _Por documentar_ |  |
+| 11 | `created_at` | `timestamp without time zone` | sí | Fecha y hora de creación del registro. |  |
+| 12 | `updated_at` | `timestamp without time zone` | sí | Fecha y hora de la última actualización del registro. |  |
 | 13 | `dependencia_id` | `bigint` | sí | ID de la dependencia a la que pertenece el analista (auth.dependencias.id_dependencia). |  |
 
 ## comisionados
@@ -70,7 +70,7 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla comisionados. Se genera automáticamente. | PK |
 | 2 | `numero_documento` | `character varying(20)` | no | _Por documentar_ | única Identificación |
 | 3 | `primer_nombre` | `character varying(100)` | no | _Por documentar_ | Nombre de persona |
 | 4 | `segundo_nombre` | `character varying(100)` | sí | _Por documentar_ | Nombre de persona |
@@ -83,8 +83,8 @@ _Por documentar._
 | 11 | `autorizacion_habeas_data` | `boolean` | no | _Por documentar_ |  |
 | 12 | `fecha_autorizacion_habeas_data` | `timestamp without time zone` | sí | _Por documentar_ |  |
 | 13 | `ip_registro_habeas_data` | `character varying(45)` | sí | _Por documentar_ | Identificador en línea (IP) |
-| 14 | `creado_en` | `timestamp without time zone` | sí | _Por documentar_ |  |
-| 15 | `actualizado_en` | `timestamp without time zone` | sí | _Por documentar_ |  |
+| 14 | `creado_en` | `timestamp without time zone` | sí | Fecha y hora de creación del registro. |  |
+| 15 | `actualizado_en` | `timestamp without time zone` | sí | Fecha y hora de la última actualización del registro. |  |
 | 16 | `id_dependencia` | `bigint` | sí | ID de la dependencia institucional (auth.dependencias) del comisionado. Se obtiene desde auth.personas.id_dependencia al consultar por número de documento. |  |
 | 17 | `es_facturador_electronico` | `boolean` | no | Indica si el comisionado contratista es facturador electrónico registrado ante la DIAN. |  |
 | 18 | `fecha_inicio_contrato` | `date` | sí | Fecha de inicio de la vinculación contractual o laboral. |  |
@@ -101,7 +101,7 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla config_campos_formulario. Se genera automáticamente. | PK |
 | 2 | `clave` | `character varying(100)` | no | _Por documentar_ | única |
 | 3 | `etiqueta` | `character varying(200)` | no | _Por documentar_ |  |
 | 4 | `tipo_campo` | `character varying(50)` | no | _Por documentar_ |  |
@@ -110,8 +110,8 @@ _Por documentar._
 | 7 | `grupo` | `character varying(50)` | sí | _Por documentar_ |  |
 | 8 | `orden` | `integer` | no | _Por documentar_ |  |
 | 9 | `activo` | `boolean` | no | _Por documentar_ |  |
-| 10 | `creado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
-| 11 | `actualizado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 10 | `creado_en` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
+| 11 | `actualizado_en` | `timestamp without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 | 12 | `limite_caracteres` | `integer` | sí | Límite máximo de caracteres permitido para el campo. Por defecto 250 caracteres, configurable por administrador. |  |
 
 ## config_jornada_laboral
@@ -123,7 +123,7 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `integer` | no | _Por documentar_ | PK |
+| 1 | `id` | `integer` | no | Identificador único del registro en la tabla config_jornada_laboral. Se genera automáticamente. | PK |
 | 2 | `codigo` | `character varying(50)` | no | _Por documentar_ | única |
 | 3 | `nombre` | `character varying(100)` | no | _Por documentar_ |  |
 | 4 | `hora_inicio` | `character varying(5)` | no | _Por documentar_ |  |
@@ -133,9 +133,9 @@ _Por documentar._
 | 8 | `dias_umbral_avance` | `integer` | no | _Por documentar_ |  |
 | 9 | `activo` | `boolean` | no | _Por documentar_ |  |
 | 10 | `descripcion` | `text` | sí | _Por documentar_ |  |
-| 11 | `creado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
-| 12 | `actualizado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
-| 13 | `actualizado_por` | `character varying(100)` | sí | _Por documentar_ |  |
+| 11 | `creado_en` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
+| 12 | `actualizado_en` | `timestamp with time zone` | no | Fecha y hora de la última actualización del registro. |  |
+| 13 | `actualizado_por` | `character varying(100)` | sí | Usuario que realizó la última actualización del registro. |  |
 
 ## config_legalizacion
 
@@ -146,15 +146,15 @@ EFDS-1309 — Disparador, plazo (días hábiles) y aviso de la legalización por
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `modalidad_pago` | `character varying(50)` | no | _Por documentar_ | PK |
+| 1 | `modalidad_pago` | `character varying(50)` | no | Clave primaria de la tabla config_legalizacion: modalidad pago. | PK |
 | 2 | `estado_disparador` | `character varying(50)` | no | Estado de la solicitud a partir del cual se abre la legalización. Pendiente D-1 para RECONOCIMIENTO_POSTERIOR. |  |
 | 3 | `plazo_dias_habiles` | `integer` | no | _Por documentar_ |  |
 | 4 | `dias_aviso_por_vencer` | `integer` | no | _Por documentar_ |  |
 | 5 | `hora_corte` | `character varying(5)` | no | Hora (Colombia, HH:MM) en que vence el último día hábil del plazo. Alineada con el corte de jornada de 16:30. |  |
 | 6 | `activo` | `boolean` | no | _Por documentar_ |  |
 | 7 | `actualizado_por_id` | `uuid` | sí | _Por documentar_ |  |
-| 8 | `creado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
-| 9 | `actualizado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 8 | `creado_en` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
+| 9 | `actualizado_en` | `timestamp with time zone` | no | Fecha y hora de la última actualización del registro. |  |
 
 ## config_legalizacion_documentos
 
@@ -166,15 +166,15 @@ EFDS-1309 — Soportes exigidos para legalizar, por tipo de comisionado. Configu
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `config_tipo_comisionado_id` | `uuid` | no | _Por documentar_ | FK→travel_expenses.config_tipo_comisionado.id |
-| 3 | `tipo_documento_soporte_id` | `uuid` | no | _Por documentar_ | FK→travel_expenses.tipos_documento_soporte.id |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla config_legalizacion_documentos. Se genera automáticamente. | PK |
+| 2 | `config_tipo_comisionado_id` | `uuid` | no | Referencia al registro de travel_expenses.config_tipo_comisionado (id). | FK→travel_expenses.config_tipo_comisionado.id |
+| 3 | `tipo_documento_soporte_id` | `uuid` | no | Referencia al registro de travel_expenses.tipos_documento_soporte (id). | FK→travel_expenses.tipos_documento_soporte.id |
 | 4 | `tipo_requisito` | `character varying(20)` | no | _Por documentar_ |  |
 | 5 | `condicion` | `character varying(40)` | sí | Cuándo aplica: NULL = siempre; TRANSPORTE_AEREO = solo con tramo aéreo; COMISION_EXTERNA = solo si se cumplió fuera de la ESAP. |  |
 | 6 | `orden` | `integer` | no | _Por documentar_ |  |
 | 7 | `activo` | `boolean` | no | _Por documentar_ |  |
-| 8 | `creado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
-| 9 | `actualizado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 8 | `creado_en` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
+| 9 | `actualizado_en` | `timestamp with time zone` | no | Fecha y hora de la última actualización del registro. |  |
 
 ## config_tipo_comisionado
 
@@ -185,15 +185,15 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla config_tipo_comisionado. Se genera automáticamente. | PK |
 | 2 | `tipo_comisionado` | `character varying(50)` | no | _Por documentar_ | única |
 | 3 | `codigo_formulario` | `character varying(50)` | no | _Por documentar_ |  |
 | 4 | `campos_obligatorios` | `jsonb` | no | _Por documentar_ |  |
 | 5 | `campos_opcionales` | `jsonb` | no | _Por documentar_ |  |
 | 6 | `campos_ocultos` | `jsonb` | no | _Por documentar_ |  |
 | 7 | `activo` | `boolean` | no | _Por documentar_ |  |
-| 8 | `creado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
-| 9 | `actualizado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 8 | `creado_en` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
+| 9 | `actualizado_en` | `timestamp without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 
 ## config_tipo_comisionado_documentos
 
@@ -205,12 +205,12 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `config_tipo_comisionado_id` | `uuid` | no | _Por documentar_ | FK→travel_expenses.config_tipo_comisionado.id |
-| 3 | `tipo_documento_soporte_id` | `uuid` | no | _Por documentar_ | FK→travel_expenses.tipos_documento_soporte.id |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla config_tipo_comisionado_documentos. Se genera automáticamente. | PK |
+| 2 | `config_tipo_comisionado_id` | `uuid` | no | Referencia al registro de travel_expenses.config_tipo_comisionado (id). | FK→travel_expenses.config_tipo_comisionado.id |
+| 3 | `tipo_documento_soporte_id` | `uuid` | no | Referencia al registro de travel_expenses.tipos_documento_soporte (id). | FK→travel_expenses.tipos_documento_soporte.id |
 | 4 | `tipo_requisito` | `character varying(20)` | no | _Por documentar_ |  |
-| 5 | `creado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
-| 6 | `actualizado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 5 | `creado_en` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
+| 6 | `actualizado_en` | `timestamp without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 
 ## configuraciones_globales
 
@@ -221,11 +221,11 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `clave` | `character varying(100)` | no | _Por documentar_ | PK |
+| 1 | `clave` | `character varying(100)` | no | Clave primaria de la tabla configuraciones_globales: clave. | PK |
 | 2 | `valor` | `text` | no | _Por documentar_ |  |
 | 3 | `descripcion` | `text` | sí | _Por documentar_ |  |
-| 4 | `creado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
-| 5 | `actualizado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 4 | `creado_en` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
+| 5 | `actualizado_en` | `timestamp without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 
 ## documentos_soporte
 
@@ -237,13 +237,13 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `solicitud_id` | `uuid` | no | _Por documentar_ | FK→travel_expenses.solicitudes_comision.id |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla documentos_soporte. Se genera automáticamente. | PK |
+| 2 | `solicitud_id` | `uuid` | no | Referencia al registro de travel_expenses.solicitudes_comision (id). | FK→travel_expenses.solicitudes_comision.id |
 | 3 | `tipo_documento` | `character varying(50)` | no | _Por documentar_ |  |
 | 4 | `nombre_archivo_original` | `character varying(255)` | no | _Por documentar_ |  |
 | 5 | `nombre_archivo_seguro` | `character varying(255)` | no | _Por documentar_ |  |
 | 6 | `url_repositorio` | `character varying(512)` | no | _Por documentar_ |  |
-| 7 | `creado_en` | `timestamp without time zone` | sí | _Por documentar_ |  |
+| 7 | `creado_en` | `timestamp without time zone` | sí | Fecha y hora de creación del registro. |  |
 | 8 | `tipo_mime` | `character varying(100)` | sí | _Por documentar_ |  |
 
 ## escalas_viaticos
@@ -255,13 +255,13 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `integer` | no | _Por documentar_ | PK |
+| 1 | `id` | `integer` | no | Identificador único del registro en la tabla escalas_viaticos. Se genera automáticamente. | PK |
 | 2 | `decreto_vigente` | `character varying(50)` | no | _Por documentar_ |  |
 | 3 | `ano_vigencia` | `integer` | no | _Por documentar_ |  |
 | 4 | `rango_minimo` | `numeric(12,2)` | no | _Por documentar_ |  |
 | 5 | `rango_maximo` | `numeric(12,2)` | no | _Por documentar_ |  |
 | 6 | `tarifa_diaria` | `numeric(12,2)` | no | _Por documentar_ |  |
-| 7 | `creado_en` | `timestamp without time zone` | sí | _Por documentar_ |  |
+| 7 | `creado_en` | `timestamp without time zone` | sí | Fecha y hora de creación del registro. |  |
 | 8 | `activo` | `boolean` | no | _Por documentar_ |  |
 
 ## excepciones_autorizadas_tiquetes
@@ -273,14 +273,14 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla excepciones_autorizadas_tiquetes. Se genera automáticamente. | PK |
 | 2 | `solicitud_id` | `uuid` | no | _Por documentar_ |  |
 | 3 | `tipo_excepcion` | `character varying(50)` | no | _Por documentar_ |  |
 | 4 | `autorizado_por` | `character varying(150)` | no | _Por documentar_ |  |
 | 5 | `numero_documento_soporte` | `character varying(100)` | no | _Por documentar_ |  |
 | 6 | `documento_soporte_url` | `character varying(500)` | sí | _Por documentar_ |  |
 | 7 | `comentarios` | `text` | sí | _Por documentar_ |  |
-| 8 | `creado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 8 | `creado_en` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
 
 ## legalizacion_reversiones
 
@@ -292,8 +292,8 @@ EFDS-1310 — Solicitudes de reversión de una revisión de legalización aproba
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `legalizacion_id` | `uuid` | no | _Por documentar_ | FK→travel_expenses.legalizaciones_comision.id |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla legalizacion_reversiones. Se genera automáticamente. | PK |
+| 2 | `legalizacion_id` | `uuid` | no | Referencia al registro de travel_expenses.legalizaciones_comision (id). | FK→travel_expenses.legalizaciones_comision.id |
 | 3 | `estado` | `character varying(20)` | no | _Por documentar_ |  |
 | 4 | `motivo` | `text` | no | _Por documentar_ |  |
 | 5 | `solicitada_por_id` | `uuid` | no | _Por documentar_ |  |
@@ -312,14 +312,14 @@ EFDS-1310 — Trazabilidad de la revisión de la legalización (quién, qué, cu
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `legalizacion_id` | `uuid` | no | _Por documentar_ | FK→travel_expenses.legalizaciones_comision.id |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla legalizacion_revisiones. Se genera automáticamente. | PK |
+| 2 | `legalizacion_id` | `uuid` | no | Referencia al registro de travel_expenses.legalizaciones_comision (id). | FK→travel_expenses.legalizaciones_comision.id |
 | 3 | `soporte_id` | `uuid` | sí | _Por documentar_ |  |
 | 4 | `accion` | `character varying(40)` | no | _Por documentar_ |  |
 | 5 | `observacion` | `text` | sí | _Por documentar_ |  |
 | 6 | `detalle` | `jsonb` | sí | _Por documentar_ |  |
 | 7 | `usuario_id` | `uuid` | no | _Por documentar_ |  |
-| 8 | `creado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 8 | `creado_en` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
 
 ## legalizacion_soportes
 
@@ -331,15 +331,15 @@ EFDS-1309 — PDF de soporte de la legalización, validados por contenido (%PDF-
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `legalizacion_id` | `uuid` | no | _Por documentar_ | FK→travel_expenses.legalizaciones_comision.id |
-| 3 | `tipo_documento_soporte_id` | `uuid` | no | _Por documentar_ | FK→travel_expenses.tipos_documento_soporte.id |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla legalizacion_soportes. Se genera automáticamente. | PK |
+| 2 | `legalizacion_id` | `uuid` | no | Referencia al registro de travel_expenses.legalizaciones_comision (id). | FK→travel_expenses.legalizaciones_comision.id |
+| 3 | `tipo_documento_soporte_id` | `uuid` | no | Referencia al registro de travel_expenses.tipos_documento_soporte (id). | FK→travel_expenses.tipos_documento_soporte.id |
 | 4 | `nombre_archivo_original` | `character varying(255)` | no | _Por documentar_ |  |
 | 5 | `ruta_relativa` | `character varying(512)` | no | _Por documentar_ |  |
 | 6 | `tamano_bytes` | `integer` | no | _Por documentar_ |  |
 | 7 | `sha256` | `character(64)` | no | _Por documentar_ |  |
 | 8 | `cargado_por_id` | `uuid` | no | _Por documentar_ |  |
-| 9 | `creado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 9 | `creado_en` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
 | 10 | `revision` | `character varying(20)` | sí | _Por documentar_ |  |
 | 11 | `observacion_revision` | `text` | sí | _Por documentar_ |  |
 | 12 | `revisado_por_id` | `uuid` | sí | _Por documentar_ |  |
@@ -355,8 +355,8 @@ EFDS-1309 — Legalización de una comisión: plazo en días hábiles y envío a
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `solicitud_id` | `uuid` | no | _Por documentar_ | única FK→travel_expenses.solicitudes_comision.id |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla legalizaciones_comision. Se genera automáticamente. | PK |
+| 2 | `solicitud_id` | `uuid` | no | Referencia al registro de travel_expenses.solicitudes_comision (id). | única FK→travel_expenses.solicitudes_comision.id |
 | 3 | `modalidad_pago` | `character varying(50)` | no | _Por documentar_ |  |
 | 4 | `estado_disparador` | `character varying(50)` | no | _Por documentar_ |  |
 | 5 | `fecha_disparo` | `timestamp with time zone` | no | _Por documentar_ |  |
@@ -369,8 +369,8 @@ EFDS-1309 — Legalización de una comisión: plazo en días hábiles y envío a
 | 12 | `enviada_por_id` | `uuid` | sí | _Por documentar_ |  |
 | 13 | `notificado_por_vencer_en` | `timestamp with time zone` | sí | _Por documentar_ |  |
 | 14 | `notificado_vencido_en` | `timestamp with time zone` | sí | _Por documentar_ |  |
-| 15 | `creado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
-| 16 | `actualizado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 15 | `creado_en` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
+| 16 | `actualizado_en` | `timestamp with time zone` | no | Fecha y hora de la última actualización del registro. |  |
 | 17 | `revision_aprobada_en` | `timestamp with time zone` | sí | _Por documentar_ |  |
 | 18 | `revision_aprobada_por_id` | `uuid` | sí | _Por documentar_ |  |
 | 19 | `devuelta_en` | `timestamp with time zone` | sí | EFDS-1310 — Última devolución al comisionado. La solicitud sigue en PENDIENTE_LEGALIZACION (C-2). |  |
@@ -406,13 +406,13 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `integer` | no | _Por documentar_ | PK |
+| 1 | `id` | `integer` | no | Identificador único del registro en la tabla liquidation_params. Se genera automáticamente. | PK |
 | 2 | `clave` | `character varying(50)` | no | _Por documentar_ | única |
 | 3 | `valor` | `character varying(255)` | no | _Por documentar_ |  |
 | 4 | `tipo` | `character varying(20)` | no | _Por documentar_ |  |
 | 5 | `descripcion` | `character varying(255)` | sí | _Por documentar_ |  |
-| 6 | `creado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
-| 7 | `actualizado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 6 | `creado_en` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
+| 7 | `actualizado_en` | `timestamp without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 
 ## parametros_globales
 
@@ -423,13 +423,13 @@ Parametros globales configurables del modulo de viaticos y comisiones
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `clave` | `character varying(100)` | no | _Por documentar_ | PK |
+| 1 | `clave` | `character varying(100)` | no | Clave primaria de la tabla parametros_globales: clave. | PK |
 | 2 | `valor` | `character varying(255)` | no | _Por documentar_ |  |
 | 3 | `tipo` | `character varying(50)` | no | _Por documentar_ |  |
 | 4 | `descripcion` | `text` | sí | _Por documentar_ |  |
 | 5 | `editable` | `boolean` | sí | _Por documentar_ |  |
-| 6 | `creado_en` | `timestamp without time zone` | sí | _Por documentar_ |  |
-| 7 | `actualizado_en` | `timestamp without time zone` | sí | _Por documentar_ |  |
+| 6 | `creado_en` | `timestamp without time zone` | sí | Fecha y hora de creación del registro. |  |
+| 7 | `actualizado_en` | `timestamp without time zone` | sí | Fecha y hora de la última actualización del registro. |  |
 
 ## paz_y_salvo_eventos
 
@@ -441,11 +441,11 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `bigint` | no | _Por documentar_ | PK |
-| 2 | `paz_y_salvo_id` | `uuid` | no | _Por documentar_ | FK→travel_expenses.paz_y_salvos.id |
+| 1 | `id` | `bigint` | no | Identificador único del registro en la tabla paz_y_salvo_eventos. Se genera automáticamente. | PK |
+| 2 | `paz_y_salvo_id` | `uuid` | no | Referencia al registro de travel_expenses.paz_y_salvos (id). | FK→travel_expenses.paz_y_salvos.id |
 | 3 | `usuario_id` | `uuid` | no | _Por documentar_ |  |
 | 4 | `accion` | `character varying(30)` | no | _Por documentar_ |  |
-| 5 | `creado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 5 | `creado_en` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
 | 6 | `detalle` | `jsonb` | no | _Por documentar_ |  |
 
 ## paz_y_salvos
@@ -458,12 +458,12 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `comisionado_id` | `uuid` | no | _Por documentar_ | FK→travel_expenses.comisionados.id |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla paz_y_salvos. | PK |
+| 2 | `comisionado_id` | `uuid` | no | Referencia al registro de travel_expenses.comisionados (id). | FK→travel_expenses.comisionados.id |
 | 3 | `solicitado_por_id` | `uuid` | no | _Por documentar_ |  |
 | 4 | `contenido` | `jsonb` | no | _Por documentar_ |  |
 | 5 | `contenido_sha256` | `character varying(64)` | no | _Por documentar_ |  |
-| 6 | `creado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 6 | `creado_en` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
 | 7 | `firma` | `jsonb` | sí | _Por documentar_ |  |
 | 8 | `firmado_en` | `timestamp with time zone` | sí | _Por documentar_ |  |
 | 9 | `archivo_sha256` | `character varying(64)` | sí | _Por documentar_ |  |
@@ -478,8 +478,8 @@ Reintegros de comisiones pagadas por avance no realizadas o ejecutadas por menos
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `solicitud_id` | `uuid` | no | _Por documentar_ | FK→travel_expenses.solicitudes_comision.id |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla reintegros_comision. Se genera automáticamente. | PK |
+| 2 | `solicitud_id` | `uuid` | no | Referencia al registro de travel_expenses.solicitudes_comision (id). | FK→travel_expenses.solicitudes_comision.id |
 | 3 | `origen` | `character varying(30)` | no | COMISION_NO_REALIZADA: la comisión pagada se canceló sin viajar. VIAJE_MENOR: se ejecutaron menos días de los pagados. |  |
 | 4 | `estado` | `character varying(20)` | no | _Por documentar_ |  |
 | 5 | `valor_pagado` | `numeric(14,2)` | no | _Por documentar_ |  |
@@ -491,9 +491,9 @@ Reintegros de comisiones pagadas por avance no realizadas o ejecutadas por menos
 | 11 | `soporte_path` | `character varying(255)` | sí | Ruta del soporte de la consignación del reintegro. |  |
 | 12 | `observaciones` | `text` | sí | _Por documentar_ |  |
 | 13 | `registrado_por_id` | `uuid` | sí | _Por documentar_ |  |
-| 14 | `fecha_registro` | `timestamp without time zone` | sí | _Por documentar_ |  |
-| 15 | `creado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
-| 16 | `actualizado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 14 | `fecha_registro` | `timestamp without time zone` | sí | Fecha y hora de creación del registro. |  |
+| 15 | `creado_en` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
+| 16 | `actualizado_en` | `timestamp without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 
 ## rutas_restringidas
 
@@ -504,12 +504,12 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `integer` | no | _Por documentar_ | PK |
+| 1 | `id` | `integer` | no | Identificador único del registro en la tabla rutas_restringidas. Se genera automáticamente. | PK |
 | 2 | `origen_ciudad` | `character varying(100)` | no | _Por documentar_ |  |
 | 3 | `destino_ciudad` | `character varying(100)` | no | _Por documentar_ |  |
 | 4 | `descripcion_restriccion` | `character varying(255)` | sí | _Por documentar_ |  |
 | 5 | `activo` | `boolean` | no | _Por documentar_ |  |
-| 6 | `creado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 6 | `creado_en` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
 
 ## saldos_tiquetes
 
@@ -520,7 +520,7 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla saldos_tiquetes. Se genera automáticamente. | PK |
 | 2 | `dependencia_id` | `character varying(100)` | no | _Por documentar_ | única |
 | 3 | `nombre_dependencia` | `character varying(150)` | no | _Por documentar_ |  |
 | 4 | `presupuesto_inicial` | `numeric(12,2)` | no | _Por documentar_ |  |
@@ -528,8 +528,8 @@ _Por documentar._
 | 6 | `presupuesto_disponible` | `numeric(12,2)` | no | _Por documentar_ |  |
 | 7 | `holgura_porcentaje` | `numeric(5,2)` | no | _Por documentar_ |  |
 | 8 | `activo` | `boolean` | no | _Por documentar_ |  |
-| 9 | `creado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
-| 10 | `actualizado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 9 | `creado_en` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
+| 10 | `actualizado_en` | `timestamp without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 
 ## solicitudes_comision
 
@@ -541,9 +541,9 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla solicitudes_comision. Se genera automáticamente. | PK |
 | 2 | `consecutivo_unico` | `character varying(50)` | no | _Por documentar_ | única |
-| 3 | `comisionado_id` | `uuid` | no | _Por documentar_ | FK→travel_expenses.comisionados.id |
+| 3 | `comisionado_id` | `uuid` | no | Referencia al registro de travel_expenses.comisionados (id). | FK→travel_expenses.comisionados.id |
 | 4 | `destino_ciudad` | `text` | no | _Por documentar_ |  |
 | 5 | `destino_departamento` | `text` | no | _Por documentar_ |  |
 | 6 | `fecha_inicio` | `timestamp without time zone` | no | _Por documentar_ |  |
@@ -555,8 +555,8 @@ _Por documentar._
 | 12 | `estado_solicitud` | `character varying(50)` | no | _Por documentar_ |  |
 | 13 | `radicado_fuera_jornada` | `boolean` | no | _Por documentar_ |  |
 | 14 | `creado_por_usuario_id` | `uuid` | no | _Por documentar_ |  |
-| 15 | `creado_en` | `timestamp without time zone` | sí | _Por documentar_ |  |
-| 16 | `actualizado_en` | `timestamp without time zone` | sí | _Por documentar_ |  |
+| 15 | `creado_en` | `timestamp without time zone` | sí | Fecha y hora de creación del registro. |  |
+| 16 | `actualizado_en` | `timestamp without time zone` | sí | Fecha y hora de la última actualización del registro. |  |
 | 17 | `monto_viaticos` | `numeric(12,2)` | no | _Por documentar_ |  |
 | 18 | `monto_gastos_viaje` | `numeric(12,2)` | no | _Por documentar_ |  |
 | 19 | `dias_comision` | `numeric(5,2)` | no | Número de días de la comisión con soporte decimal (ej: 0.5, 1.5, 2.0). |  |
@@ -591,7 +591,7 @@ _Por documentar._
 | 48 | `pendiente_reintegro` | `boolean` | no | Indica si la comisión contaba con recursos comprometidos (SIIF/RP/Tiquetes) y requiere reintegro/liberación en Etapa 8. |  |
 | 49 | `enviado_presupuesto` | `boolean` | no | _Por documentar_ |  |
 | 50 | `fecha_envio_presupuesto` | `timestamp with time zone` | sí | _Por documentar_ |  |
-| 51 | `enviado_presupuesto_por_id` | `uuid` | sí | _Por documentar_ | FK→auth.user.id_user |
+| 51 | `enviado_presupuesto_por_id` | `uuid` | sí | Referencia al registro de auth.user (id_user). | FK→auth.user.id_user |
 | 52 | `observaciones_envio_presupuesto` | `text` | sí | _Por documentar_ |  |
 | 53 | `numero_rp` | `character varying(50)` | sí | _Por documentar_ |  |
 | 54 | `fecha_rp` | `date` | sí | _Por documentar_ |  |
@@ -599,7 +599,7 @@ _Por documentar._
 | 56 | `rubro_rp` | `character varying(100)` | sí | _Por documentar_ |  |
 | 57 | `soporte_rp_path` | `character varying(255)` | sí | _Por documentar_ |  |
 | 58 | `fecha_expedicion_rp` | `timestamp with time zone` | sí | _Por documentar_ |  |
-| 59 | `expedido_rp_por_id` | `uuid` | sí | _Por documentar_ | FK→auth.user.id_user |
+| 59 | `expedido_rp_por_id` | `uuid` | sí | Referencia al registro de auth.user (id_user). | FK→auth.user.id_user |
 | 60 | `codigo_rp` | `character varying(150)` | sí | Código oficial del RP con nomenclatura Fecha_RP_Número expedido en SIIF Nación. |  |
 | 61 | `observaciones_rp` | `text` | sí | _Por documentar_ |  |
 | 62 | `modalidad_pago` | `character varying(50)` | no | _Por documentar_ |  |
@@ -610,7 +610,7 @@ _Por documentar._
 | 67 | `valor_obligacion` | `numeric(12,2)` | sí | _Por documentar_ |  |
 | 68 | `observaciones_obligacion` | `text` | sí | _Por documentar_ |  |
 | 69 | `soporte_obligacion_path` | `character varying(255)` | sí | _Por documentar_ |  |
-| 70 | `obligado_por_id` | `uuid` | sí | _Por documentar_ | FK→auth.user.id_user |
+| 70 | `obligado_por_id` | `uuid` | sí | Referencia al registro de auth.user (id_user). | FK→auth.user.id_user |
 | 71 | `fecha_registro_obligacion` | `timestamp with time zone` | sí | _Por documentar_ |  |
 | 72 | `notificado_sst` | `boolean` | no | _Por documentar_ |  |
 | 73 | `fecha_pago` | `date` | sí | _Por documentar_ |  |
@@ -618,7 +618,7 @@ _Por documentar._
 | 75 | `soporte_pago_path` | `character varying(255)` | sí | _Por documentar_ |  |
 | 76 | `numero_orden_pago` | `character varying(100)` | sí | _Por documentar_ |  |
 | 77 | `observaciones_pago` | `text` | sí | _Por documentar_ |  |
-| 78 | `pagado_por_id` | `uuid` | sí | _Por documentar_ | FK→auth.user.id_user |
+| 78 | `pagado_por_id` | `uuid` | sí | Referencia al registro de auth.user (id_user). | FK→auth.user.id_user |
 | 79 | `fecha_registro_pago` | `timestamp with time zone` | sí | _Por documentar_ |  |
 | 80 | `campos_adicionales` | `jsonb` | no | Metadatos y campos dinámicos configurables gobernados por travel_expenses.config_campos_formulario (JSONB). |  |
 | 81 | `itinerario` | `jsonb` | no | Arreglo de tramos/rutas de la comisión (RutaItinerario[]) con origen, destino, trayecto, fechas, días y horario militar estimado. |  |
@@ -650,13 +650,13 @@ Auditoría append-only de transiciones de estado del expediente de comisión (RF
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `solicitud_id` | `uuid` | no | _Por documentar_ | FK→travel_expenses.solicitudes_comision.id |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla solicitudes_historial_estados. Se genera automáticamente. | PK |
+| 2 | `solicitud_id` | `uuid` | no | Referencia al registro de travel_expenses.solicitudes_comision (id). | FK→travel_expenses.solicitudes_comision.id |
 | 3 | `estado_anterior` | `character varying(50)` | sí | _Por documentar_ |  |
 | 4 | `estado_nuevo` | `character varying(50)` | no | Estado posterior a la transición. Ej: SOLICITADO (la solicitud queda consolidada y en revisión del Grupo de Viáticos). |  |
 | 5 | `usuario_id` | `uuid` | no | _Por documentar_ |  |
 | 6 | `comentarios` | `character varying(255)` | sí | _Por documentar_ |  |
-| 7 | `creado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 7 | `creado_en` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
 
 ## tarifas_investigadores
 
@@ -667,10 +667,10 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `integer` | no | _Por documentar_ | PK |
+| 1 | `id` | `integer` | no | Identificador único del registro en la tabla tarifas_investigadores. Se genera automáticamente. | PK |
 | 2 | `categoria_investigador` | `character varying(50)` | no | _Por documentar_ | única |
 | 3 | `tarifa_diaria` | `numeric(12,2)` | no | _Por documentar_ |  |
-| 4 | `creado_en` | `timestamp without time zone` | sí | _Por documentar_ |  |
+| 4 | `creado_en` | `timestamp without time zone` | sí | Fecha y hora de creación del registro. |  |
 | 5 | `activo` | `boolean` | no | _Por documentar_ |  |
 
 ## tarifas_referencia_tiquetes
@@ -682,7 +682,7 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `integer` | no | _Por documentar_ | PK |
+| 1 | `id` | `integer` | no | Identificador único del registro en la tabla tarifas_referencia_tiquetes. Se genera automáticamente. | PK |
 | 2 | `origen_ciudad` | `character varying(100)` | no | _Por documentar_ |  |
 | 3 | `destino_ciudad` | `character varying(100)` | no | _Por documentar_ |  |
 | 4 | `origen_iata` | `character varying(10)` | no | _Por documentar_ |  |
@@ -694,8 +694,8 @@ _Por documentar._
 | 10 | `notas` | `character varying(255)` | sí | _Por documentar_ |  |
 | 11 | `ultima_actualizacion` | `timestamp without time zone` | no | _Por documentar_ |  |
 | 12 | `activo` | `boolean` | no | _Por documentar_ |  |
-| 13 | `creado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
-| 14 | `actualizado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 13 | `creado_en` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
+| 14 | `actualizado_en` | `timestamp without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 
 ## tarifas_regionales_excepcion
 
@@ -706,13 +706,13 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `integer` | no | _Por documentar_ | PK |
+| 1 | `id` | `integer` | no | Identificador único del registro en la tabla tarifas_regionales_excepcion. Se genera automáticamente. | PK |
 | 2 | `departamento` | `character varying(100)` | no | _Por documentar_ | única |
 | 3 | `es_nuevo_departamento` | `boolean` | no | _Por documentar_ |  |
 | 4 | `tarifa_diaria` | `numeric(12,2)` | no | _Por documentar_ |  |
 | 5 | `decreto_referencia` | `character varying(100)` | sí | _Por documentar_ |  |
 | 6 | `activo` | `boolean` | no | _Por documentar_ |  |
-| 7 | `creado_en` | `timestamp without time zone` | sí | _Por documentar_ |  |
+| 7 | `creado_en` | `timestamp without time zone` | sí | Fecha y hora de creación del registro. |  |
 
 ## tarifas_transporte_terminal
 
@@ -723,15 +723,15 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `integer` | no | _Por documentar_ | PK |
+| 1 | `id` | `integer` | no | Identificador único del registro en la tabla tarifas_transporte_terminal. Se genera automáticamente. | PK |
 | 2 | `departamento` | `character varying(100)` | no | _Por documentar_ |  |
 | 3 | `departamento_id` | `integer` | sí | _Por documentar_ |  |
 | 4 | `ciudad` | `character varying(100)` | sí | _Por documentar_ |  |
 | 5 | `ciudad_aeropuerto` | `character varying(150)` | no | _Por documentar_ |  |
 | 6 | `valor_maximo` | `numeric(12,2)` | no | _Por documentar_ |  |
 | 7 | `activo` | `boolean` | no | _Por documentar_ |  |
-| 8 | `creado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
-| 9 | `actualizado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 8 | `creado_en` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
+| 9 | `actualizado_en` | `timestamp without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 
 ## tipos_documento_soporte
 
@@ -742,12 +742,12 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id` | `uuid` | no | Identificador único del registro en la tabla tipos_documento_soporte. Se genera automáticamente. | PK |
 | 2 | `codigo` | `character varying(50)` | no | _Por documentar_ | única |
 | 3 | `nombre` | `character varying(100)` | no | _Por documentar_ |  |
 | 4 | `descripcion` | `character varying(255)` | sí | _Por documentar_ |  |
 | 5 | `activo` | `boolean` | no | _Por documentar_ |  |
-| 6 | `creado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
-| 7 | `actualizado_en` | `timestamp without time zone` | no | _Por documentar_ |  |
+| 6 | `creado_en` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
+| 7 | `actualizado_en` | `timestamp without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 | 8 | `instrucciones_validacion` | `text` | sí | _Por documentar_ |  |
 | 9 | `campos_a_validar` | `jsonb` | sí | _Por documentar_ |  |

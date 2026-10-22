@@ -74,8 +74,10 @@ def construir_doc(m, version, url_portal, repo, entorno):
           anchos=[5.4, 4.6, 1.8, 2, 2.6], derecha=(2, 3, 4))
 
     doc.add_heading("4. Contenido del modelo", level=1)
-    con_desc_t = sum(1 for t in op if t["d"])
-    con_desc_c = sum(1 for c in cols if c["d"])
+    con_desc_t = sum(1 for t in op if t["de"] == "base")
+    con_desc_c = sum(1 for c in cols if c["de"] == "base")
+    val_t = sum(1 for t in op if t["de"] == "validada")
+    val_c = sum(1 for c in cols if c["de"] == "validada")
     tabla(doc, ["Componente", "Cantidad", "Dónde se consulta"], [
         ["Relaciones declaradas (llaves foráneas)", n(len(m["fks"])), "Portal › Modelo ER y ficha de cada tabla"],
         ["Relaciones lógicas sin FK, confirmadas con los datos", n(len(m["implicitas"])), "Portal › Modelo ER (relaciones lógicas) y ficha de tabla"],
@@ -85,6 +87,8 @@ def construir_doc(m, version, url_portal, repo, entorno):
         ["Tipos enumerados", n(len(m["tipos"])), "Repositorio › docs/csv"],
         ["Tablas con descripción registrada en la base", f"{n(con_desc_t)} de {n(len(op))}", "Portal › Inicio (indicadores) y ficha de tabla"],
         ["Columnas con descripción registrada en la base", f"{n(con_desc_c)} de {n(len(cols))}", "Portal › ficha de tabla"],
+    ] + ([["Tablas con descripción validada, por registrar en la base", n(val_t), "Portal › ficha de tabla (etiqueta «validada»)"]] if val_t else []) + (
+        [["Columnas con descripción validada, por registrar en la base", n(val_c), "Portal › ficha de tabla (etiqueta «validada»)"]] if val_c else []) + [
     ], anchos=[7.5, 2.8, 5.7], derecha=(1,))
     doc.add_paragraph(
         "Las relaciones se documentan con su multiplicidad UML (por ejemplo, 0..* → 1), medida con los datos del entorno. "

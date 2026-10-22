@@ -25,15 +25,15 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_bloque` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `id_sede` | `uuid` | no | _Por documentar_ | FK→infrastructure-management.sede.id_sede |
+| 1 | `id_bloque` | `uuid` | no | Identificador único del registro en la tabla bloque_edificio. Se genera automáticamente. | PK |
+| 2 | `id_sede` | `uuid` | no | Referencia al registro de infrastructure-management.sede (id_sede). | FK→infrastructure-management.sede.id_sede |
 | 3 | `codigo` | `character varying(30)` | no | _Por documentar_ |  |
 | 4 | `nombre` | `character varying(100)` | no | _Por documentar_ |  |
 | 5 | `pisos` | `integer` | no | _Por documentar_ |  |
 | 6 | `descripcion` | `text` | sí | _Por documentar_ |  |
 | 7 | `is_activo` | `boolean` | no | _Por documentar_ |  |
-| 8 | `created_at` | `timestamp with time zone` | sí | _Por documentar_ |  |
-| 9 | `updated_at` | `timestamp with time zone` | sí | _Por documentar_ |  |
+| 8 | `created_at` | `timestamp with time zone` | sí | Fecha y hora de creación del registro. |  |
+| 9 | `updated_at` | `timestamp with time zone` | sí | Fecha y hora de la última actualización del registro. |  |
 
 ## catalogo_item
 
@@ -44,7 +44,7 @@ Catálogo genérico para listas parametrizables de infraestructura (tipos, prior
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_catalogo` | `integer` | no | _Por documentar_ | PK |
+| 1 | `id_catalogo` | `integer` | no | Identificador único del registro en la tabla catalogo_item. Se genera automáticamente. | PK |
 | 2 | `catalogo` | `character varying(50)` | no | Nombre lógico del catálogo: TIPO_MANTENIMIENTO, PRIORIDAD, TIPO_ATENCION, ESTADO_SOLICITUD |  |
 | 3 | `codigo` | `character varying(40)` | no | Valor stable que usa el frontend/backend (PK lógica visible) |  |
 | 4 | `nombre` | `character varying(120)` | no | _Por documentar_ |  |
@@ -63,8 +63,8 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_espacio` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `id_bloque` | `uuid` | no | _Por documentar_ | FK→infrastructure-management.bloque_edificio.id_bloque |
+| 1 | `id_espacio` | `uuid` | no | Identificador único del registro en la tabla espacio_fisico. Se genera automáticamente. | PK |
+| 2 | `id_bloque` | `uuid` | no | Referencia al registro de infrastructure-management.bloque_edificio (id_bloque). | FK→infrastructure-management.bloque_edificio.id_bloque |
 | 3 | `codigo` | `character varying(50)` | no | _Por documentar_ |  |
 | 4 | `nombre` | `character varying(150)` | no | _Por documentar_ |  |
 | 5 | `tipo` | `character varying(50)` | no | _Por documentar_ |  |
@@ -76,8 +76,8 @@ _Por documentar._
 | 11 | `tiene_computadores` | `boolean` | sí | _Por documentar_ |  |
 | 12 | `estado` | `character varying(30)` | no | _Por documentar_ |  |
 | 13 | `is_activo` | `boolean` | no | _Por documentar_ |  |
-| 14 | `created_at` | `timestamp with time zone` | sí | _Por documentar_ |  |
-| 15 | `updated_at` | `timestamp with time zone` | sí | _Por documentar_ |  |
+| 14 | `created_at` | `timestamp with time zone` | sí | Fecha y hora de creación del registro. |  |
+| 15 | `updated_at` | `timestamp with time zone` | sí | Fecha y hora de la última actualización del registro. |  |
 
 ## sede
 
@@ -88,7 +88,7 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_sede` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id_sede` | `uuid` | no | Identificador único del registro en la tabla sede. Se genera automáticamente. | PK |
 | 2 | `codigo` | `character varying(30)` | no | _Por documentar_ | única |
 | 3 | `nombre` | `character varying(150)` | no | _Por documentar_ |  |
 | 4 | `tipo` | `character varying(50)` | no | _Por documentar_ |  |
@@ -98,8 +98,8 @@ _Por documentar._
 | 8 | `telefono` | `character varying(50)` | sí | _Por documentar_ |  |
 | 9 | `email_contacto` | `character varying(100)` | sí | _Por documentar_ |  |
 | 10 | `is_activo` | `boolean` | no | _Por documentar_ |  |
-| 11 | `created_at` | `timestamp with time zone` | sí | _Por documentar_ |  |
-| 12 | `updated_at` | `timestamp with time zone` | sí | _Por documentar_ |  |
+| 11 | `created_at` | `timestamp with time zone` | sí | Fecha y hora de creación del registro. |  |
+| 12 | `updated_at` | `timestamp with time zone` | sí | Fecha y hora de la última actualización del registro. |  |
 | 13 | `alcance_umi` | `boolean` | sí | TRUE si la sede pertenece al alcance directo de la UMI (central o alternas; territoriales por ahora NO) |  |
 
 ## solicitud_evidencia
@@ -112,7 +112,7 @@ Evidencias/adjuntos subidos por el usuario al radicar o gestionar una solicitud 
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_evidencia` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id_evidencia` | `uuid` | no | Identificador único del registro en la tabla solicitud_evidencia. Se genera automáticamente. | PK |
 | 2 | `id_solicitud` | `uuid` | sí | FK a solicitud_mantenimiento. Puede ser NULL temporalmente cuando el usuario sube adjuntos ANTES de radicar; el create de solicitud lo actualiza a valor real vía uploadedEvidenciaIds. | FK→infrastructure-management.solicitud_mantenimiento.id_solicitud |
 | 3 | `nombre_original` | `character varying(255)` | no | _Por documentar_ |  |
 | 4 | `nombre_almacenado` | `character varying(255)` | no | _Por documentar_ |  |
@@ -139,10 +139,10 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_solicitud` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id_solicitud` | `uuid` | no | Identificador único del registro en la tabla solicitud_mantenimiento. Se genera automáticamente. | PK |
 | 2 | `consecutivo` | `character varying(50)` | no | _Por documentar_ | única |
-| 3 | `id_espacio` | `uuid` | sí | _Por documentar_ | FK→infrastructure-management.espacio_fisico.id_espacio |
-| 4 | `id_sede` | `uuid` | no | _Por documentar_ | FK→infrastructure-management.sede.id_sede |
+| 3 | `id_espacio` | `uuid` | sí | Referencia al registro de infrastructure-management.espacio_fisico (id_espacio). | FK→infrastructure-management.espacio_fisico.id_espacio |
+| 4 | `id_sede` | `uuid` | no | Referencia al registro de infrastructure-management.sede (id_sede). | FK→infrastructure-management.sede.id_sede |
 | 5 | `tipo_mantenimiento` | `character varying(50)` | no | _Por documentar_ |  |
 | 6 | `prioridad` | `character varying(30)` | no | _Por documentar_ |  |
 | 7 | `descripcion` | `text` | no | _Por documentar_ |  |
@@ -154,8 +154,8 @@ _Por documentar._
 | 13 | `estado` | `character varying(30)` | no | Estado formal de la solicitud (EFDS-1728). Válidos: RECIBIDA, EN_ANALISIS, PENDIENTE_CLASIFICACION, PENDIENTE_COTIZACION, PENDIENTE_APROBACION, EN_VALORACION, EN_PROCESO, ASIGNADA, EN_CAMPO_VALORACION, EN_ESPERA_DE_INSUMOS, EN_PROGRESO, EN_EJECUCION, PENDIENTE_RECURSO, COMPLETADA, CERRADA, CERRADA_SIN_ATENCION, RECHAZADA, REMITIDA_TI. |  |
 | 14 | `observaciones` | `text` | sí | _Por documentar_ |  |
 | 15 | `costo_estimado` | `numeric(14,2)` | sí | _Por documentar_ |  |
-| 16 | `created_at` | `timestamp with time zone` | sí | _Por documentar_ |  |
-| 17 | `updated_at` | `timestamp with time zone` | sí | _Por documentar_ |  |
+| 16 | `created_at` | `timestamp with time zone` | sí | Fecha y hora de creación del registro. |  |
+| 17 | `updated_at` | `timestamp with time zone` | sí | Fecha y hora de la última actualización del registro. |  |
 | 18 | `id_area_solicitante` | `uuid` | sí | FK (opcional por ahora) a la dependencia/area solicitante en auth.dependencias |  |
 | 19 | `nombre_area_solicitante` | `character varying(150)` | sí | Nombre descriptivo del area solicitante, redundante para auditoria |  |
 | 20 | `piso` | `character varying(20)` | sí | Piso o nivel de la ubicacion de la solicitud |  |
@@ -202,8 +202,8 @@ EFDS-1735 RF-INF-006. Cada fila es una visita técnica de inspección previa. 1-
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_valoracion` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `id_solicitud_mantenimiento` | `uuid` | no | _Por documentar_ | FK→infrastructure-management.solicitud_mantenimiento.id_solicitud |
+| 1 | `id_valoracion` | `uuid` | no | Identificador único del registro en la tabla solicitud_valoracion. Se genera automáticamente. | PK |
+| 2 | `id_solicitud_mantenimiento` | `uuid` | no | Referencia al registro de infrastructure-management.solicitud_mantenimiento (id_solicitud). | FK→infrastructure-management.solicitud_mantenimiento.id_solicitud |
 | 3 | `id_tecnico_valorador` | `uuid` | sí | _Por documentar_ |  |
 | 4 | `tecnico_codigo` | `character varying(20)` | sí | _Por documentar_ |  |
 | 5 | `tecnico_nombre` | `character varying(200)` | no | _Por documentar_ |  |
@@ -219,7 +219,7 @@ EFDS-1735 RF-INF-006. Cada fila es una visita técnica de inspección previa. 1-
 | 15 | `fecha_fin_valoracion` | `timestamp with time zone` | no | _Por documentar_ |  |
 | 16 | `es_version_corregida_por_encargado` | `boolean` | no | _Por documentar_ |  |
 | 17 | `id_usuario_corrector` | `uuid` | sí | _Por documentar_ |  |
-| 18 | `created_at` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 18 | `created_at` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
 
 ## solicitud_valoracion_insumo
 
@@ -231,8 +231,8 @@ EFDS-1735. Detalle fila-a-fila de materiales y repuestos requeridos para la ejec
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_insumo` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `id_valoracion` | `uuid` | no | _Por documentar_ | FK→infrastructure-management.solicitud_valoracion.id_valoracion |
+| 1 | `id_insumo` | `uuid` | no | Identificador único del registro en la tabla solicitud_valoracion_insumo. Se genera automáticamente. | PK |
+| 2 | `id_valoracion` | `uuid` | no | Referencia al registro de infrastructure-management.solicitud_valoracion (id_valoracion). | FK→infrastructure-management.solicitud_valoracion.id_valoracion |
 | 3 | `codigo_insumo` | `character varying(50)` | sí | _Por documentar_ |  |
 | 4 | `nombre` | `character varying(255)` | no | _Por documentar_ |  |
 | 5 | `cantidad` | `numeric(12,3)` | no | _Por documentar_ |  |
@@ -242,4 +242,4 @@ EFDS-1735. Detalle fila-a-fila de materiales y repuestos requeridos para la ejec
 | 9 | `disponibilidad` | `character varying(30)` | no | _Por documentar_ |  |
 | 10 | `tiempo_adquisicion_dias` | `smallint` | sí | _Por documentar_ |  |
 | 11 | `orden_item` | `smallint` | no | _Por documentar_ |  |
-| 12 | `created_at` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 12 | `created_at` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |

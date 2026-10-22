@@ -31,15 +31,15 @@ Docente asignado a un grupo. La llave es auth.personas.id_person (identidad esta
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_asignacion` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `id_grupo` | `uuid` | no | _Por documentar_ | única FK→academic-schedule.grupo.id_grupo |
-| 3 | `id_docente` | `uuid` | no | _Por documentar_ | FK→auth.personas.id_person |
+| 1 | `id_asignacion` | `uuid` | no | Identificador único del registro en la tabla asignacion_docente. Se genera automáticamente. | PK |
+| 2 | `id_grupo` | `uuid` | no | Referencia al registro de academic-schedule.grupo (id_grupo). | única FK→academic-schedule.grupo.id_grupo |
+| 3 | `id_docente` | `uuid` | no | Referencia al registro de auth.personas (id_person). | FK→auth.personas.id_person |
 | 4 | `horas_asignadas` | `integer` | sí | Horas consumidas por esta asignacion, congeladas al asignar (RN-06). |  |
 | 5 | `estado` | `character varying(30)` | no | _Por documentar_ |  |
 | 6 | `observaciones` | `text` | sí | _Por documentar_ |  |
 | 7 | `asignado_por` | `character varying(120)` | sí | _Por documentar_ |  |
-| 8 | `created_at` | `timestamp with time zone` | no | _Por documentar_ |  |
-| 9 | `updated_at` | `timestamp with time zone` | sí | _Por documentar_ |  |
+| 8 | `created_at` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
+| 9 | `updated_at` | `timestamp with time zone` | sí | Fecha y hora de la última actualización del registro. |  |
 | 10 | `disponibilidad_confirmada_por` | `text` | sí | Quién confirmó que se contactó al docente y está disponible en el periodo (AC-03). |  |
 | 11 | `disponibilidad_confirmada_en` | `timestamp with time zone` | sí | Cuándo se registró la confirmación de disponibilidad (AC-03). |  |
 
@@ -52,12 +52,12 @@ Catálogo de aulas. Desde el Lote 1 son las 28 reales de Sede Central (provision
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `codigo` | `character varying(40)` | no | _Por documentar_ | PK |
+| 1 | `codigo` | `character varying(40)` | no | Clave primaria de la tabla aula: código. | PK |
 | 2 | `nombre` | `character varying(120)` | no | _Por documentar_ |  |
 | 3 | `sede_codigo` | `character varying(40)` | sí | _Por documentar_ |  |
 | 4 | `capacidad` | `integer` | sí | _Por documentar_ |  |
 | 5 | `provisional` | `boolean` | no | _Por documentar_ |  |
-| 6 | `created_at` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 6 | `created_at` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
 | 7 | `tipo` | `character varying(20)` | sí | _Por documentar_ |  |
 | 8 | `piso` | `smallint` | sí | _Por documentar_ |  |
 | 9 | `codigo_cetap` | `character varying(20)` | sí | _Por documentar_ |  |
@@ -72,7 +72,7 @@ CETAPs declarados en el detalle territorial que no tienen contraparte en el cat�
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `smallint` | no | _Por documentar_ | PK |
+| 1 | `id` | `smallint` | no | Identificador único del registro en la tabla cetap_sin_catalogo. Se genera automáticamente. | PK |
 | 2 | `territorial` | `character varying(60)` | no | _Por documentar_ |  |
 | 3 | `nombre_declarado` | `character varying(120)` | no | _Por documentar_ |  |
 | 4 | `registrado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
@@ -87,8 +87,8 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_concertacion` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `id_docente` | `uuid` | no | _Por documentar_ | FK→auth.personas.id_person |
+| 1 | `id_concertacion` | `uuid` | no | Identificador único del registro en la tabla concertacion_docencia. Se genera automáticamente. | PK |
+| 2 | `id_docente` | `uuid` | no | Referencia al registro de auth.personas (id_person). | FK→auth.personas.id_person |
 | 3 | `periodo_ref` | `character varying(40)` | no | _Por documentar_ |  |
 | 4 | `nivel` | `character varying(10)` | no | _Por documentar_ |  |
 | 5 | `estado` | `character varying(20)` | no | _Por documentar_ |  |
@@ -98,8 +98,8 @@ _Por documentar._
 | 9 | `comentario` | `text` | sí | _Por documentar_ |  |
 | 10 | `notificada_pta_en` | `timestamp with time zone` | sí | _Por documentar_ |  |
 | 11 | `error_notificacion` | `text` | sí | _Por documentar_ |  |
-| 12 | `created_at` | `timestamp with time zone` | no | _Por documentar_ |  |
-| 13 | `updated_at` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 12 | `created_at` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
+| 13 | `updated_at` | `timestamp with time zone` | no | Fecha y hora de la última actualización del registro. |  |
 | 14 | `aplicacion_pta` | `character varying(40)` | sí | _Por documentar_ |  |
 
 ## concertacion_firma
@@ -112,8 +112,8 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_firma` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `id_concertacion` | `uuid` | no | _Por documentar_ | FK→academic-schedule.concertacion_docencia.id_concertacion |
+| 1 | `id_firma` | `uuid` | no | Identificador único del registro en la tabla concertacion_firma. Se genera automáticamente. | PK |
+| 2 | `id_concertacion` | `uuid` | no | Referencia al registro de academic-schedule.concertacion_docencia (id_concertacion). | FK→academic-schedule.concertacion_docencia.id_concertacion |
 | 3 | `rol` | `character varying(20)` | no | _Por documentar_ |  |
 | 4 | `id_user` | `uuid` | no | _Por documentar_ |  |
 | 5 | `firmado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
@@ -131,8 +131,8 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `bigint` | no | _Por documentar_ | PK |
-| 2 | `id_concertacion` | `uuid` | no | _Por documentar_ | FK→academic-schedule.concertacion_docencia.id_concertacion |
+| 1 | `id` | `bigint` | no | Identificador único del registro en la tabla concertacion_historial. Se genera automáticamente. | PK |
+| 2 | `id_concertacion` | `uuid` | no | Referencia al registro de academic-schedule.concertacion_docencia (id_concertacion). | FK→academic-schedule.concertacion_docencia.id_concertacion |
 | 3 | `accion` | `character varying(20)` | no | _Por documentar_ |  |
 | 4 | `estado_anterior` | `character varying(20)` | sí | _Por documentar_ |  |
 | 5 | `estado_nuevo` | `character varying(20)` | no | _Por documentar_ |  |
@@ -150,8 +150,8 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_concertacion` | `uuid` | no | _Por documentar_ | PK FK→academic-schedule.concertacion_docencia.id_concertacion |
-| 2 | `tipo` | `character varying(20)` | no | _Por documentar_ | PK |
+| 1 | `id_concertacion` | `uuid` | no | Identificador único del registro en la tabla concertacion_revision. | PK FK→academic-schedule.concertacion_docencia.id_concertacion |
+| 2 | `tipo` | `character varying(20)` | no | Clave primaria de la tabla concertacion_revision: tipo. | PK |
 | 3 | `id_user` | `uuid` | no | _Por documentar_ |  |
 | 4 | `revisado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
 
@@ -165,7 +165,7 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `codigo_programacion` | `character varying(20)` | no | _Por documentar_ | PK FK→academic-schedule.periodo_programacion.codigo |
+| 1 | `codigo_programacion` | `character varying(20)` | no | Clave primaria de la tabla equivalencia_periodo: código programación. | PK FK→academic-schedule.periodo_programacion.codigo |
 | 2 | `codigo_periodo_academico` | `character varying(10)` | sí | _Por documentar_ |  |
 | 3 | `tipo_oferta` | `character varying(30)` | no | _Por documentar_ |  |
 | 4 | `motivo` | `text` | no | _Por documentar_ |  |
@@ -180,8 +180,8 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_franja` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `id_periodo` | `uuid` | sí | _Por documentar_ | FK→academic-schedule.periodo_programacion.id_periodo |
+| 1 | `id_franja` | `uuid` | no | Identificador único del registro en la tabla franja_horaria. Se genera automáticamente. | PK |
+| 2 | `id_periodo` | `uuid` | sí | Referencia al registro de academic-schedule.periodo_programacion (id_periodo). | FK→academic-schedule.periodo_programacion.id_periodo |
 | 3 | `id_docente` | `uuid` | sí | _Por documentar_ |  |
 | 4 | `sede_codigo` | `character varying(50)` | sí | _Por documentar_ |  |
 | 5 | `aula_codigo` | `character varying(50)` | sí | _Por documentar_ |  |
@@ -191,8 +191,8 @@ _Por documentar._
 | 9 | `jornada` | `character varying(30)` | sí | _Por documentar_ |  |
 | 10 | `cupo_maximo` | `integer` | sí | _Por documentar_ |  |
 | 11 | `estado` | `character varying(30)` | sí | _Por documentar_ |  |
-| 12 | `created_at` | `timestamp with time zone` | sí | _Por documentar_ |  |
-| 13 | `updated_at` | `timestamp with time zone` | sí | _Por documentar_ |  |
+| 12 | `created_at` | `timestamp with time zone` | sí | Fecha y hora de creación del registro. |  |
+| 13 | `updated_at` | `timestamp with time zone` | sí | Fecha y hora de la última actualización del registro. |  |
 | 14 | `id_programa` | `bigint` | sí | FK a academic_work_plan.programa. El catálogo es autoritativo (SNIES): aquí solo se referencia, nunca se copia. | FK→academic_work_plan.programa.id |
 | 15 | `id_asignatura` | `bigint` | sí | Denormalización de consulta, sincronizada por trigger desde el grupo. No escribir directamente. | FK→academic_work_plan.asignatura.id |
 | 16 | `id_grupo` | `uuid` | sí | Dueño de la franja (RN-11). El horario y las fechas cuelgan del grupo, no de la asignatura. | FK→academic-schedule.grupo.id_grupo |
@@ -210,22 +210,22 @@ Instancia independiente de programación de una asignatura (RN-11). El horario y
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_grupo` | `uuid` | no | _Por documentar_ | PK |
-| 2 | `id_asignatura` | `bigint` | no | _Por documentar_ | FK→academic_work_plan.asignatura.id |
-| 3 | `id_periodo` | `uuid` | sí | _Por documentar_ | FK→academic-schedule.periodo_programacion.id_periodo |
+| 1 | `id_grupo` | `uuid` | no | Identificador único del registro en la tabla grupo. Se genera automáticamente. | PK |
+| 2 | `id_asignatura` | `bigint` | no | Referencia al registro de academic_work_plan.asignatura (id). | FK→academic_work_plan.asignatura.id |
+| 3 | `id_periodo` | `uuid` | sí | Referencia al registro de academic-schedule.periodo_programacion (id_periodo). | FK→academic-schedule.periodo_programacion.id_periodo |
 | 4 | `numero_grupo` | `smallint` | no | _Por documentar_ |  |
 | 5 | `id_docente` | `uuid` | sí | Nullable: el grupo se numera antes de asignar docente y horario. Sin UNIQUE contra id_asignatura — un docente puede dictar varios grupos de la misma asignatura (AC-03). |  |
 | 6 | `cupo_maximo` | `integer` | no | _Por documentar_ |  |
 | 7 | `estado` | `character varying(30)` | no | _Por documentar_ |  |
 | 8 | `observaciones` | `text` | sí | _Por documentar_ |  |
-| 9 | `created_at` | `timestamp with time zone` | no | _Por documentar_ |  |
-| 10 | `updated_at` | `timestamp with time zone` | sí | _Por documentar_ |  |
+| 9 | `created_at` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
+| 10 | `updated_at` | `timestamp with time zone` | sí | Fecha y hora de la última actualización del registro. |  |
 | 11 | `fecha_inicio` | `date` | sí | Inicio del ciclo de clases de ESTE grupo. Cada grupo tiene su ventana propia. |  |
 | 12 | `fecha_fin` | `date` | sí | _Por documentar_ |  |
 | 13 | `publicado_en` | `timestamp with time zone` | sí | Cuándo se publicó la oferta del grupo. Publicar exige aula en todas las franjas (EFDS-1374). |  |
-| 14 | `id_periodo_academico` | `bigint` | sí | _Por documentar_ | FK→academic_work_plan.periodo_academico.id |
+| 14 | `id_periodo_academico` | `bigint` | sí | Referencia al registro de academic_work_plan.periodo_academico (id). | FK→academic_work_plan.periodo_academico.id |
 | 15 | `tipo_oferta` | `character varying(30)` | sí | _Por documentar_ |  |
-| 16 | `id_oferta_cetap` | `bigint` | sí | _Por documentar_ | FK→academic_work_plan.oferta_cetap_programa.id |
+| 16 | `id_oferta_cetap` | `bigint` | sí | Referencia al registro de academic_work_plan.oferta_cetap_programa (id). | FK→academic_work_plan.oferta_cetap_programa.id |
 
 ## jefatura_territorial
 
@@ -237,8 +237,8 @@ Qué territorial(es) gobierna cada usuario con el rol JEFATURA_TERRITORIAL. Refe
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_user` | `uuid` | no | _Por documentar_ | PK FK→auth.user.id_user |
-| 2 | `id_direccion_territorial` | `bigint` | no | _Por documentar_ | PK FK→academic_work_plan.direccion_territorial.id |
+| 1 | `id_user` | `uuid` | no | Identificador único del registro en la tabla jefatura_territorial. | PK FK→auth.user.id_user |
+| 2 | `id_direccion_territorial` | `bigint` | no | Identificador único del registro en la tabla jefatura_territorial. | PK FK→academic_work_plan.direccion_territorial.id |
 | 3 | `asignado_en` | `timestamp with time zone` | no | _Por documentar_ |  |
 
 ## periodo_programacion
@@ -250,13 +250,13 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_periodo` | `uuid` | no | _Por documentar_ | PK |
+| 1 | `id_periodo` | `uuid` | no | Identificador único del registro en la tabla periodo_programacion. Se genera automáticamente. | PK |
 | 2 | `codigo` | `character varying(20)` | no | _Por documentar_ | única |
 | 3 | `nombre` | `character varying(100)` | no | _Por documentar_ |  |
 | 4 | `fecha_inicio` | `date` | no | _Por documentar_ |  |
 | 5 | `fecha_fin` | `date` | no | _Por documentar_ |  |
-| 6 | `created_at` | `timestamp with time zone` | sí | _Por documentar_ |  |
-| 7 | `updated_at` | `timestamp with time zone` | sí | _Por documentar_ |  |
+| 6 | `created_at` | `timestamp with time zone` | sí | Fecha y hora de creación del registro. |  |
+| 7 | `updated_at` | `timestamp with time zone` | sí | Fecha y hora de la última actualización del registro. |  |
 | 8 | `tipo` | `character varying(30)` | sí | Tipo de oferta académica (EFDS-1375): periodo_regular, creditos_virtual o interperiodo. |  |
 | 9 | `estado` | `character varying(20)` | no | Ciclo de vida del periodo (NUEVA-5a): planeacion, activo o cerrado. Reemplaza a is_activo, que no podía expresar el tercer estado. Un periodo cerrado es inmutable (NUEVA-5b). OJO: "borrador" pertenece a la publicación de la programación (NUEVA-1), no al periodo: no reintroducir ese nombre aquí. |  |
 
@@ -269,7 +269,7 @@ Programación 2026-1 y 2026-V1 tal como llegó. Sin FK: cod_asigna es PROGRAMA_P
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id` | `bigint` | no | _Por documentar_ | PK |
+| 1 | `id` | `bigint` | no | Identificador único del registro en la tabla programacion_historica. Se genera automáticamente. | PK |
 | 2 | `periodo` | `character varying(20)` | sí | _Por documentar_ |  |
 | 3 | `tipo_oferta` | `character varying(40)` | sí | _Por documentar_ |  |
 | 4 | `cod_sede` | `character varying(10)` | sí | _Por documentar_ |  |
@@ -311,9 +311,9 @@ _Por documentar._
 
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
-| 1 | `id_periodo_academico` | `bigint` | no | _Por documentar_ | PK FK→academic_work_plan.periodo_academico.id |
+| 1 | `id_periodo_academico` | `bigint` | no | Identificador único del registro en la tabla programacion_periodo. | PK FK→academic_work_plan.periodo_academico.id |
 | 2 | `estado` | `character varying(20)` | no | _Por documentar_ |  |
 | 3 | `cerrada_en` | `timestamp with time zone` | sí | _Por documentar_ |  |
 | 4 | `cerrada_por` | `uuid` | sí | _Por documentar_ |  |
-| 5 | `created_at` | `timestamp with time zone` | no | _Por documentar_ |  |
-| 6 | `updated_at` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 5 | `created_at` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
+| 6 | `updated_at` | `timestamp with time zone` | no | Fecha y hora de la última actualización del registro. |  |
