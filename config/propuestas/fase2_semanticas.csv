@@ -1,0 +1,704 @@
+﻿esquema;tabla;columna;propuesta;confianza;fundamento;pregunta
+academic-schedule;aula;sede_codigo;Código de la sede donde se ubica el aula.;Alta;nombre + tabla aula + columna vecina codigo;
+academic-schedule;aula;capacidad;"Número máximo de personas que admite el aula. Debe ser mayor o igual a cero; puede quedar vacío mientras no se registre.";Alta;nombre + tipo integer + CHECK capacidad >= 0 + descripción de la tabla;
+academic-schedule;aula;piso;Número del piso en que se ubica el aula.;Media;nombre + tipo smallint;¿Cómo se registran sótanos o mezzanines (valores negativos, cero)?
+academic-schedule;aula;codigo_cetap;Código del CETAP (Centro Territorial de Administración Pública) al que pertenece el aula, cuando no está en la Sede Central.;Media;nombre + contexto de programación territorial;¿El código corresponde al catálogo oficial de CETAP? ¿Qué tabla es la fuente?
+academic-schedule;aula;origen;Origen del registro del aula (fuente o proceso de carga).;Baja;nombre genérico + descripción de la tabla que menciona el Lote 1;¿Qué valores toma (por ejemplo, Lote 1, CRUD, importación) y quién lo asigna?
+academic-schedule;cetap_sin_catalogo;territorial;Nombre de la dirección territorial que declaró el CETAP. Junto con nombre_declarado no se repite.;Alta;nombre + índice único (territorial, nombre_declarado) + descripción de la tabla;
+academic-schedule;cetap_sin_catalogo;nombre_declarado;Nombre del CETAP tal como aparece en el detalle territorial, sin contraparte en el catálogo oficial.;Alta;nombre + descripción de la tabla + índice único;
+academic-schedule;concertacion_docencia;periodo_ref;Referencia del periodo académico al que corresponde la concertación. Junto con el docente y el nivel no se repite.;Media;nombre + índice único (docente, periodo, nivel);¿Qué formato tiene la referencia (por ejemplo, 2026-1) y a qué tabla de periodos corresponde?
+academic-schedule;concertacion_docencia;nivel;Nivel de formación de la docencia concertada. Valores permitidos: pregrado, posgrado.;Alta;valores permitidos del CHECK + índice único;
+academic-schedule;concertacion_docencia;horas;Número de horas de docencia concertadas, con un decimal.;Media;nombre + tipo numeric(8,1) + defecto 0;¿Son horas semanales o totales del periodo?
+academic-schedule;concertacion_docencia;franjas;Franjas horarias concertadas, en formato JSON (lista).;Media;nombre + tipo jsonb + defecto lista vacía;¿Qué estructura tiene cada elemento (día, hora de inicio, hora de fin, sede)?
+academic-schedule;concertacion_docencia;huella;Huella digital (hash de 64 caracteres hexadecimales, probablemente SHA-256) del contenido de la concertación.;Media;nombre + tipo character(64);¿Qué algoritmo se usa y sobre qué campos se calcula?
+academic-schedule;concertacion_docencia;comentario;Comentario u observación sobre la concertación.;Alta;nombre + tipo text;
+academic-schedule;concertacion_docencia;notificada_pta_en;Fecha y hora en que la concertación se notificó al PTA, con zona horaria.;Media;nombre + tipo timestamptz + columna vecina error_notificacion;¿Qué significa PTA (¿plan de trabajo académico?) y cómo se envía la notificación?
+academic-schedule;concertacion_docencia;error_notificacion;Mensaje de error registrado si falló la notificación al PTA.;Alta;nombre + tipo text + columna vecina notificada_pta_en;
+academic-schedule;concertacion_docencia;aplicacion_pta;Identificador o resultado de la aplicación de la concertación en el PTA.;Baja;nombre + columnas vecinas notificada_pta_en;¿Qué guarda: un identificador devuelto por el PTA, un estado o una fecha en texto?
+academic-schedule;concertacion_firma;rol;Rol con que firma el usuario la concertación. Valores permitidos: docente, revisor, aprobador.;Alta;valores permitidos del CHECK;
+academic-schedule;concertacion_firma;id_user;Identificador del usuario que firma.;Alta;nombre + tipo uuid + columna vecina firmado_en;
+academic-schedule;concertacion_firma;modo_otp;Modo de la verificación por código de un solo uso (OTP) usada en la firma. Valores permitidos: real, simulado.;Alta;nombre + valores permitidos del CHECK;
+academic-schedule;concertacion_firma;huella;Huella digital (hash de 64 caracteres, probablemente SHA-256) del contenido firmado.;Media;nombre + tipo character(64);¿Qué algoritmo se usa y coincide con la huella de concertacion_docencia en el momento de la firma?
+academic-schedule;concertacion_firma;contexto;Datos de contexto de la firma (por ejemplo, dispositivo o dirección IP).;Baja;nombre genérico + tipo varchar(160);¿Qué información se guarda en este campo?
+academic-schedule;concertacion_historial;accion;Acción realizada sobre la concertación.;Media;nombre + tabla de historial;¿Qué valores toma (crear, firmar, devolver, aprobar…)?
+academic-schedule;concertacion_historial;estado_anterior;Estado de la concertación antes de la acción. Vacío cuando no había estado previo.;Alta;nombre + columna vecina estado_nuevo;
+academic-schedule;concertacion_historial;estado_nuevo;Estado de la concertación después de la acción.;Alta;nombre + columna vecina estado_anterior;
+academic-schedule;concertacion_historial;id_user;Identificador del usuario que realizó la acción.;Alta;nombre + tipo uuid + tabla de historial;
+academic-schedule;concertacion_historial;comentario;Comentario registrado con la acción.;Alta;nombre + tipo text;
+academic-schedule;concertacion_historial;en;Fecha y hora en que se registró la acción, con zona horaria.;Alta;nombre + tipo timestamptz + defecto now();
+academic-schedule;concertacion_revision;id_user;Identificador del usuario que hizo la revisión.;Alta;nombre + tipo uuid + columna vecina revisado_en;
+academic-schedule;equivalencia_periodo;codigo_periodo_academico;Código del periodo académico (academic_work_plan.periodo_academico) equivalente al código de programación.;Alta;uso en la función reapuntar_grupos_por_equivalencia (JOIN con periodo_academico.codigo);
+academic-schedule;equivalencia_periodo;tipo_oferta;Tipo de oferta que se asigna a los grupos del periodo equivalente. Valores permitidos: periodo_regular, interperiodo, creditos_virtual.;Alta;valores permitidos del CHECK + uso en la función reapuntar_grupos_por_equivalencia;
+academic-schedule;equivalencia_periodo;motivo;Justificación de la equivalencia entre periodos.;Alta;nombre + tipo text not null;
+academic-schedule;franja_horaria;id_docente;Identificador del docente asignado a la franja. Se propaga desde el grupo mediante la función fn_propagar_docente_a_franjas.;Media;nombre + tipo uuid + uso en la función fn_propagar_docente_a_franjas + CHECK que menciona PUBLICADA;El CHECK asociado menciona el valor PUBLICADA: ¿exige docente cuando la franja está publicada?
+academic-schedule;franja_horaria;sede_codigo;Código de la sede donde se dicta la franja.;Alta;nombre + columna vecina aula_codigo;
+academic-schedule;franja_horaria;aula_codigo;Código del aula donde se dicta la franja.;Alta;nombre + índice por aula, día y horario;
+academic-schedule;franja_horaria;dia_semana;Día de la semana de la franja. Valores permitidos: LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO.;Alta;valores permitidos del CHECK;
+academic-schedule;franja_horaria;hora_inicio;Hora de inicio de la franja. Debe ser anterior a hora_fin.;Alta;nombre + tipo time + CHECK hora_fin > hora_inicio;
+academic-schedule;franja_horaria;hora_fin;Hora de finalización de la franja. Debe ser posterior a hora_inicio.;Alta;nombre + tipo time + CHECK hora_fin > hora_inicio;
+academic-schedule;franja_horaria;jornada;Jornada de la franja. Valores permitidos: DIURNA, NOCTURNA, FIN_DE_SEMANA, DISTANCIA. Por defecto, DIURNA.;Alta;valores permitidos del CHECK + defecto;
+academic-schedule;franja_horaria;cupo_maximo;Número máximo de estudiantes de la franja. Por defecto, 30.;Media;nombre + tipo integer + defecto 30;¿Este cupo es independiente del cupo_maximo del grupo o se hereda de él?
+academic-schedule;franja_horaria;comentario_jefatura;Comentario de la jefatura sobre la franja.;Media;nombre + tipo text;¿A qué jefatura se refiere (jefatura de programa o de departamento) y en qué momento lo registra?
+academic-schedule;grupo;numero_grupo;Número del grupo dentro de la asignatura y el periodo. Debe ser mayor que cero.;Alta;nombre + CHECK numero_grupo > 0 + índice único por asignatura y periodo;
+academic-schedule;grupo;cupo_maximo;"Número máximo de estudiantes del grupo. Debe ser mayor que cero; por defecto, 30.";Alta;nombre + CHECK cupo_maximo > 0 + defecto 30;
+academic-schedule;grupo;tipo_oferta;Tipo de oferta del grupo. Valores permitidos: periodo_regular, interperiodo, creditos_virtual.;Alta;valores permitidos del CHECK + uso en la función reapuntar_grupos_por_equivalencia;
+academic-schedule;programacion_historica;periodo;Periodo académico de la programación (por ejemplo, 2026-1 o 2026-V1), tal como llegó en la programación histórica.;Alta;nombre + descripción de la tabla + índice;
+academic-schedule;programacion_historica;tipo_oferta;Tipo de oferta de la programación, tal como llegó en la programación histórica.;Media;nombre + columna homónima en grupo;¿Usa los mismos valores que grupo.tipo_oferta o los de la fuente original?
+academic-schedule;programacion_historica;cod_sede;Código de la sede, tal como llegó en la programación histórica.;Alta;nombre + columnas vecinas sede y seccional;
+academic-schedule;programacion_historica;seccional;Nombre de la seccional, tal como llegó en la programación histórica.;Alta;nombre + columnas vecinas sede y cod_sede;
+academic-schedule;programacion_historica;sede;Nombre de la sede, tal como llegó en la programación histórica.;Alta;nombre + columna vecina cod_sede;
+academic-schedule;programacion_historica;pensum;Código del pensum (plan de estudios), tal como llegó en la programación histórica.;Media;nombre + descripción de la tabla (PROGRAMA_PENSUM);¿Es el código o la versión del pensum?
+academic-schedule;programacion_historica;programa;Código del programa académico, tal como llegó en la programación histórica.;Media;nombre + tipo varchar(20) + descripción de la tabla;¿Es un código o una sigla del programa?
+academic-schedule;programacion_historica;cod_asigna;"Código compuesto PROGRAMA_PENSUM de la asignatura; no es el código de la materia.";Alta;descripción de la tabla;
+academic-schedule;programacion_historica;asignatura;Nombre de la asignatura, tal como llegó en la programación histórica.;Alta;nombre + tipo varchar(200);
+academic-schedule;programacion_historica;detalle_asignatura;Texto adicional que describe la asignatura, tal como llegó en la programación histórica.;Media;nombre + tipo text;¿Qué contiene (contenido, modalidad, observaciones)?
+academic-schedule;programacion_historica;creditos;Número de créditos académicos de la asignatura.;Alta;nombre + tipo smallint;
+academic-schedule;programacion_historica;semestre;Semestre del plan de estudios en que se ubica la asignatura.;Alta;nombre + tipo smallint;
+academic-schedule;programacion_historica;horas;Número de horas de la asignatura.;Media;nombre + tipo smallint + columna vecina hrs_clase;¿Son horas totales del periodo o semanales? ¿En qué se diferencia de hrs_clase?
+academic-schedule;programacion_historica;jornada;Jornada del grupo, tal como llegó en la programación histórica.;Alta;nombre + columna homónima en franja_horaria;
+academic-schedule;programacion_historica;cedula_docente;Número de cédula del docente asignado, tal como llegó en la programación histórica.;Alta;nombre + índice idx_hist_docente;
+academic-schedule;programacion_historica;nombre_docente;Nombre completo del docente asignado, tal como llegó en la programación histórica.;Alta;nombre + columna vecina cedula_docente;
+academic-schedule;programacion_historica;vinculacion_docente;Tipo de vinculación del docente (por ejemplo, planta u ocasional), tal como llegó en la programación histórica.;Media;nombre;¿Qué valores trae la fuente?
+academic-schedule;programacion_historica;dia;Día de la semana de la sesión, en texto, tal como llegó en la programación histórica.;Alta;nombre + índice por aula y día;
+academic-schedule;programacion_historica;hora_inicio;Hora de inicio de la sesión, en texto, tal como llegó en la programación histórica.;Alta;nombre + tipo varchar(10) + índice;
+academic-schedule;programacion_historica;hora_fin;Hora de finalización de la sesión, en texto, tal como llegó en la programación histórica.;Alta;nombre + tipo varchar(10) + índice;
+academic-schedule;programacion_historica;hrs_clase;Duración de la sesión de clase en horas, en texto.;Media;nombre + tipo varchar(10);¿Es la duración de cada sesión o el total de horas de clase? ¿En qué formato viene?
+academic-schedule;programacion_historica;aula;Nombre o código del aula, tal como llegó en la programación histórica.;Alta;nombre + índice por aula y día;
+academic-schedule;programacion_historica;estado_aula;Estado de la asignación del aula en la fuente.;Baja;nombre + tipo varchar(20);¿Qué valores toma (asignada, pendiente…) y quién los define?
+academic-schedule;programacion_historica;estado_docente;Estado de la asignación del docente en la fuente.;Baja;nombre + tipo varchar(20);¿Qué valores toma (asignado, por contratar…) y quién los define?
+academic-schedule;programacion_historica;importado_en;Fecha y hora en que se importó el registro, con zona horaria.;Alta;nombre + tipo timestamptz + defecto now();
+academic_work_plan;Docente;territorialId;Identificador de la dirección territorial a la que pertenece el docente.;Alta;nombre + índice;
+academic_work_plan;Docente;tipoVinculacion;Tipo de vinculación del docente con la ESAP (por ejemplo, planta u ocasional).;Media;nombre + índice + columna vecina vinculacionDisplay;¿Qué valores toma?
+academic_work_plan;Docente;dedicacion;Tipo de dedicación del docente (por ejemplo, tiempo completo o medio tiempo).;Media;nombre + columna vecina dedicacionDisplay;¿Qué valores toma?
+academic_work_plan;Docente;escalafon;Categoría del docente en el escalafón.;Media;nombre + índice;¿Qué valores toma (auxiliar, asistente, asociado, titular)?
+academic_work_plan;Docente;horasAsignables;Número de horas que se pueden asignar al docente. Por defecto, 0.;Media;nombre + tipo integer + defecto 0;¿Son horas semanales o del periodo? ¿Se calcula a partir de la dedicación?
+academic_work_plan;Docente;sedeId;Identificador de la sede a la que está adscrito el docente.;Alta;nombre;
+academic_work_plan;Docente;ordenListado;Posición del docente en el orden de los listados.;Media;nombre + tipo integer;¿Qué criterio fija el orden y quién lo asigna?
+academic_work_plan;Docente;vinculacionDisplay;Texto de la vinculación del docente para mostrar en pantalla.;Alta;nombre + columna vecina tipoVinculacion;
+academic_work_plan;Docente;dedicacionDisplay;Texto de la dedicación del docente para mostrar en pantalla.;Alta;nombre + columna vecina dedicacion;
+academic_work_plan;Docente;nucleoTematico;Núcleo temático o área de conocimiento del docente.;Media;nombre + índice;¿Se toma de un catálogo o es texto libre?
+academic_work_plan;Docente;nivelFormacion;Máximo nivel de formación del docente.;Media;nombre + índice + columnas vecinas pregrado…posDoctorado;¿Qué valores toma y se calcula a partir de los títulos registrados?
+academic_work_plan;Docente;perfilAcademicoPro;Perfil académico profesional del docente.;Baja;nombre + columna vecina perfilAcademico;¿En qué se diferencia de perfilAcademico?
+academic_work_plan;Docente;perfilAcademico;Descripción del perfil académico del docente.;Media;nombre + tipo text;¿Es texto libre o una categoría?
+academic_work_plan;Docente;pregrado;Título o títulos de pregrado del docente.;Media;nombre + columnas vecinas de formación;¿Guarda el nombre del título, la institución o ambos? ¿Cómo se separan varios títulos?
+academic_work_plan;Docente;especializacion;Título o títulos de especialización del docente.;Media;nombre + columnas vecinas de formación;¿Guarda el nombre del título, la institución o ambos?
+academic_work_plan;Docente;maestria;Título o títulos de maestría del docente.;Media;nombre + columnas vecinas de formación;¿Guarda el nombre del título, la institución o ambos?
+academic_work_plan;Docente;doctorado;Título o títulos de doctorado del docente.;Media;nombre + columnas vecinas de formación;¿Guarda el nombre del título, la institución o ambos?
+academic_work_plan;Docente;posDoctorado;Estudios posdoctorales del docente.;Media;nombre + columnas vecinas de formación;¿Guarda el nombre del programa, la institución o ambos?
+academic_work_plan;Docente;investigacion;Información sobre la actividad de investigación del docente.;Baja;nombre + tipo text;¿Qué guarda: grupos de investigación, líneas, productos o una marca?
+academic_work_plan;Docente;origenVinculacion;Origen de la vinculación del docente.;Baja;nombre;¿Qué valores toma (concurso, encargo, contrato…)?
+academic_work_plan;Docente;actoAdministrativoVinculacion;Número o referencia del acto administrativo (resolución) de vinculación del docente.;Media;nombre + tipo text;¿Guarda solo el número o también la fecha del acto?
+academic_work_plan;Docente;correoInstitucional;Correo electrónico institucional del docente.;Alta;nombre + columna vecina correoAlternativo;
+academic_work_plan;Docente;ultimaEvaluacion;Resultado o referencia de la última evaluación de desempeño del docente.;Baja;nombre + tipo text;¿Guarda la calificación, la fecha o el periodo de la evaluación?
+academic_work_plan;Docente;situacionAdministrativa;Situación administrativa del docente (por ejemplo, activo, en comisión o en licencia).;Media;nombre + columna vecina situacionCategoria;¿Qué valores toma?
+academic_work_plan;Docente;fechaInicioVinculacion;Fecha de inicio de la vinculación del docente.;Alta;nombre + tipo timestamp;
+academic_work_plan;Docente;fechaFinVinculacion;Fecha de finalización de la vinculación del docente. Vacía si la vinculación no tiene fecha de fin.;Alta;nombre + tipo timestamp + nulable;
+academic_work_plan;Docente;puntajeSalarial;Puntaje salarial del docente según el régimen aplicable.;Media;nombre + tipo double precision + columna vecina regimenNormativo;¿Corresponde a los puntos salariales del Decreto 1279 de 2002 u otro régimen?
+academic_work_plan;Docente;edadReferencia;Edad del docente en años, en la fecha de referencia del registro.;Media;nombre + tipo integer + columna vecina rangoEdad;¿Se calcula o se digita? ¿En qué fecha se toma la referencia?
+academic_work_plan;Docente;rangoEdad;Rango de edad del docente.;Media;nombre + columna vecina edadReferencia;¿Qué rangos se usan y se calculan a partir de edadReferencia?
+academic_work_plan;Docente;regimenNormativo;Régimen normativo que rige la vinculación del docente.;Media;nombre;¿Qué valores toma?
+academic_work_plan;Docente;periodoCarga;Periodo académico en que se cargó la información del docente.;Media;nombre + índice + columna vecina datosCargaMasiva;¿Es el periodo de la carga masiva o el periodo académico de la asignación?
+academic_work_plan;Docente;idRund;Identificador del docente en el RUND.;Media;nombre;¿Es un código generado por el sistema o viene de una fuente externa?
+academic_work_plan;Docente;estadoAprobacion;Estado de aprobación del registro del docente en el RUND. Por defecto, PENDIENTE_APROBACION.;Media;nombre + defecto;¿Qué otros valores toma (APROBADO, DEVUELTO…)?
+academic_work_plan;Docente;completitud;Grado de completitud del perfil del docente por bloque o campo, en formato JSON.;Media;nombre + tipo jsonb + defecto objeto vacío;¿Qué estructura tiene (porcentaje por bloque, lista de campos faltantes)?
+academic_work_plan;Docente;canal_origen;Canal por el que se creó el registro. Por defecto, MASIVO.;Media;nombre + defecto;¿Qué otros valores toma (MANUAL, AUTOGESTION…)?
+academic_work_plan;Docente;ip_creacion;Dirección IP desde la que se creó el registro.;Alta;nombre + tipo varchar(50);
+academic_work_plan;Docente;sexoBiologico;Sexo biológico del docente.;Media;nombre;¿Qué valores toma?
+academic_work_plan;Docente;dedicacionHorasSemana;Número de horas semanales de dedicación del docente.;Alta;nombre + tipo integer;
+academic_work_plan;Docente;situacionCategoria;Categoría de la situación administrativa del docente.;Baja;nombre + columna vecina situacionAdministrativa;¿Qué valores toma y en qué se diferencia de situacionAdministrativa?
+academic_work_plan;Documento;categoria;Categoría del documento. Por defecto, general.;Media;nombre + defecto;¿Qué otras categorías existen y de qué catálogo salen?
+academic_work_plan;Documento;comentarios;Comentarios sobre el documento.;Media;nombre + tipo text;¿Son comentarios de quien lo carga o de quien lo revisa?
+academic_work_plan;Documento;tamanoBytes;Tamaño del archivo en bytes.;Alta;nombre + tipo integer;
+academic_work_plan;Documento;tipoDocumentoId;Identificador del tipo de documento.;Alta;nombre;
+academic_work_plan;Documento;versionActual;Número de la versión vigente del documento. Por defecto, 1.;Alta;nombre + tipo integer + defecto 1;
+academic_work_plan;Documento;aprobadoPorId;Identificador del usuario que aprobó el documento.;Alta;nombre + columna vecina aprobadoPorNombre;
+academic_work_plan;Documento;aprobadoPorNombre;Nombre del usuario que aprobó el documento.;Alta;nombre + columna vecina aprobadoPorId;
+academic_work_plan;RundAccesoDatosLog;actor_id;Identificador del usuario que accedió a los datos.;Alta;nombre + tabla de bitácora de acceso + índice por actor y fecha;
+academic_work_plan;RundAccesoDatosLog;roles;Roles que tenía el usuario al momento del acceso (lista).;Alta;nombre + tipo text[];
+academic_work_plan;RundAccesoDatosLog;endpoint;Ruta del servicio (endpoint) consultado.;Alta;nombre + tipo text;
+academic_work_plan;RundAccesoDatosLog;recurso_id;Identificador del recurso consultado.;Media;nombre + índice;¿Qué tipo de recurso es (docente, documento, soporte)?
+academic_work_plan;RundAccesoDatosLog;docentes;Identificadores de los docentes cuyos datos se consultaron (lista).;Alta;nombre + tipo text[] + índice;
+academic_work_plan;RundAccesoDatosLog;campos;Nombres de los campos consultados (lista).;Alta;nombre + tipo text[];
+academic_work_plan;RundAccesoDatosLog;resultado;Resultado del control de acceso. Valores permitidos: COMPLETO, ENMASCARADO, DENEGADO.;Alta;valores permitidos del CHECK;
+academic_work_plan;RundAccesoExterno;ente_nombre;Nombre de la entidad externa a la que se otorga el acceso.;Alta;nombre + tabla de acceso externo;
+academic_work_plan;RundAccesoExterno;ente_contacto;Datos de contacto de la entidad externa.;Media;nombre + tipo text;¿Guarda correo, teléfono o nombre de la persona de contacto?
+academic_work_plan;RundAccesoExterno;token;Token de acceso que se entrega a la entidad externa. No se repite.;Alta;nombre + restricción única;
+academic_work_plan;RundAccesoExterno;docente_id;Identificador del docente cuyos datos puede consultar la entidad externa.;Alta;nombre;
+academic_work_plan;RundAccesoExterno;motivo;Motivo por el que se otorga el acceso.;Alta;nombre + tipo text;
+academic_work_plan;RundAccesoExterno;otorgado_por;Identificador del usuario que otorgó el acceso.;Alta;nombre + columnas vecinas revoked_by;
+academic_work_plan;RundAccesoExterno;revoked_at;Fecha y hora en que se revocó el acceso, con zona horaria. Vacía si sigue vigente.;Alta;nombre + tipo timestamptz + columna vecina revoked_by;
+academic_work_plan;RundAccesoExterno;revoked_by;Identificador del usuario que revocó el acceso.;Alta;nombre + columna vecina revoked_at;
+academic_work_plan;RundAprobacionLog;docente_id;Identificador del docente al que corresponde el evento.;Alta;nombre + tipo uuid + índice;
+academic_work_plan;RundAprobacionLog;bloque;Bloque del perfil RUND afectado por el evento.;Media;nombre + columna homónima en RundCampoEstado;¿Qué bloques existen (datos personales, formación, experiencia…)?
+academic_work_plan;RundAprobacionLog;accion;Acción registrada (crear, aprobar, devolver, editar, vincular soporte).;Media;nombre + descripción de la tabla;¿Con qué valores exactos se guardan las acciones?
+academic_work_plan;RundAprobacionLog;actor_id;Identificador del usuario que realizó la acción.;Alta;nombre + tabla de auditoría;
+academic_work_plan;RundAprobacionLog;canal_origen;Canal por el que se realizó la acción.;Media;nombre + columna homónima en Docente;¿Qué valores toma (MASIVO, MANUAL…)?
+academic_work_plan;RundAprobacionLog;campo_afectado;Nombre del campo modificado por la acción.;Alta;nombre + columnas vecinas dato_previo y dato_nuevo;
+academic_work_plan;RundAprobacionLog;dato_previo;Valor del campo antes de la acción.;Alta;nombre + columna vecina dato_nuevo;
+academic_work_plan;RundAprobacionLog;dato_nuevo;Valor del campo después de la acción.;Alta;nombre + columna vecina dato_previo;
+academic_work_plan;RundAprobacionLog;soporte_id;Identificador del soporte documental vinculado en la acción.;Alta;nombre + descripción de la tabla (vincular soporte);
+academic_work_plan;RundCampoEstado;docente_id;Identificador del docente.;Alta;nombre + índice;
+academic_work_plan;RundCampoEstado;bloque;Bloque del perfil RUND al que corresponde el estado.;Media;nombre + tipo varchar(50);¿Qué bloques existen?
+academic_work_plan;RundCampoEstado;canal_origen;Canal por el que se cargó la información del bloque.;Media;nombre + columna homónima en Docente;¿Qué valores toma?
+academic_work_plan;RundCampoEstado;soporte_ids;Identificadores de los soportes documentales del bloque, en formato JSON (lista).;Alta;nombre + tipo jsonb + defecto lista vacía;
+academic_work_plan;RundCargaMasiva;nombre_archivo;Nombre del archivo importado.;Alta;nombre + descripción de la tabla;
+academic_work_plan;RundCargaMasiva;tipo_mime;Tipo MIME del archivo importado.;Alta;nombre;
+academic_work_plan;RundCargaMasiva;sha256;Hash SHA-256 del archivo, en 64 caracteres hexadecimales.;Alta;nombre + tipo varchar(64);
+academic_work_plan;RundCargaMasiva;contenido;Contenido binario del archivo importado.;Alta;nombre + tipo bytea + descripción de la tabla;
+academic_work_plan;RundCargaMasiva;actor_id;Identificador del usuario que realizó la importación.;Alta;nombre;
+academic_work_plan;RundCargaMasiva;justificacion;Justificación de la importación masiva.;Alta;nombre + tipo text not null;
+academic_work_plan;RundCargaMasiva;resumen;Resumen del resultado de la importación, en formato JSON.;Media;nombre + tipo jsonb;¿Qué estructura tiene (registros creados, actualizados, con error)?
+academic_work_plan;RundDocumentoCategoria;mime_permitidos;Tipos MIME permitidos para los documentos de la categoría (lista). Por defecto, application/pdf.;Alta;nombre + tipo text[] + defecto;
+academic_work_plan;RundDocumentoCategoria;tamano_maximo_bytes;Tamaño máximo permitido del archivo, en bytes. Por defecto, 10485760 (10 MB).;Alta;nombre + tipo bigint + defecto;
+academic_work_plan;RundDocumentoPerfil;documento_logico_id;Identificador común a todas las versiones de un mismo documento. Junto con version no se repite.;Alta;nombre + índice único (documento_logico_id, version) + descripción de la tabla;
+academic_work_plan;RundDocumentoPerfil;docente_id;Identificador del docente dueño del documento.;Alta;nombre + uso en la función prevent_rund_document_change (JOIN con Docente);
+academic_work_plan;RundDocumentoPerfil;bloque;Bloque del perfil RUND al que se asocia el documento.;Media;nombre + columna homónima en RundCampoEstado;¿Qué bloques existen?
+academic_work_plan;RundDocumentoPerfil;tipo_soporte;Tipo de soporte que acredita el documento.;Media;nombre;¿Qué valores toma y de qué catálogo salen?
+academic_work_plan;RundDocumentoPerfil;nombre_archivo;Nombre original del archivo cargado.;Alta;nombre;
+academic_work_plan;RundDocumentoPerfil;checksum_sha256;Hash SHA-256 del archivo.;Alta;nombre;
+academic_work_plan;RundDocumentoPerfil;proveedor_almacenamiento;Proveedor donde se almacena el archivo (OpenKM o almacenamiento local de desarrollo).;Media;nombre + descripción de la tabla;¿Con qué valores exactos se registra cada proveedor?
+academic_work_plan;RundDocumentoPerfil;almacenamiento_id;Identificador del archivo en el proveedor de almacenamiento.;Alta;nombre + descripción de la tabla;
+academic_work_plan;RundDocumentoPerfil;almacenamiento_ruta;Ruta del archivo en el proveedor de almacenamiento.;Alta;nombre + descripción de la tabla;
+academic_work_plan;RundDocumentoPerfil;rund_soporte_id;Identificador del soporte RUND al que corresponde el documento.;Media;nombre + índice;¿A qué tabla de soportes apunta?
+academic_work_plan;RundExtraccionInicio;desde;Fecha y hora desde la que se toman los registros para la extracción, con zona horaria.;Baja;nombre + tipo timestamptz + defecto now();¿Qué proceso usa esta fecha y qué registros filtra?
+academic_work_plan;RundExtraccionSugerencia;campo;Nombre del campo del perfil para el que se sugiere un valor (por ejemplo, documentNumber).;Alta;nombre + índice único (trabajo_id, campo) + uso en la función prevent_rund_document_change;
+academic_work_plan;RundExtraccionSugerencia;valor;Valor sugerido, extraído del documento.;Alta;nombre + uso en la función prevent_rund_document_change;
+academic_work_plan;RundExtraccionSugerencia;valor_previo;Valor que tenía el campo antes de la sugerencia.;Alta;nombre + columna vecina valor;
+academic_work_plan;RundExtraccionSugerencia;pagina;Número de la página del documento de donde se extrajo el valor. Debe ser mayor que cero.;Alta;nombre + CHECK pagina > 0;
+academic_work_plan;RundExtraccionSugerencia;evidencia;Fragmento de texto del documento que respalda el valor sugerido.;Media;nombre + tipo text + columna vecina pagina;¿Es el texto extraído o una referencia a una región del documento?
+academic_work_plan;RundExtraccionSugerencia;confianza;Nivel de confianza de la extracción, entre 0 y 1.;Alta;nombre + CHECK entre 0 y 1;
+academic_work_plan;RundExtraccionSugerencia;valor_confirmado;Valor confirmado por el revisor.;Alta;nombre + columnas vecinas revisado_por y revisado_en;
+academic_work_plan;RundExtraccionSugerencia;motivo;Motivo de la decisión del revisor sobre la sugerencia.;Media;nombre + columnas vecinas estado y revisado_por;¿Se registra solo al rechazar o en cualquier decisión?
+academic_work_plan;RundExtraccionTrabajo;docente_id;"Identificador del docente cuyo documento RUND se procesa en este trabajo de extracción. Referencia a academic_work_plan.""Docente"".";Alta;nombre + uuid + JOIN con Docente en prevent_rund_document_change;
+academic_work_plan;RundExtraccionTrabajo;intentos;Número de intentos de procesamiento realizados para este trabajo de extracción.;Media;nombre + integer con defecto 0 + columnas vecinas de cola (estado, disponible_en);¿Se incrementa en cada intento fallido o en cada toma del trabajo, y existe un máximo de reintentos?
+academic_work_plan;RundExtraccionTrabajo;disponible_en;Fecha y hora a partir de la cual el trabajo queda disponible para que un proceso lo tome de la cola.;Media;nombre + timestamptz con defecto now() + índice idx_rund_extraccion_cola;¿Se reprograma a una fecha futura cuando el trabajo falla y debe reintentarse?
+academic_work_plan;RundExtraccionTrabajo;lease_id;Identificador de la reserva temporal (lease) con la que un proceso de trabajo toma el registro para procesarlo.;Baja;nombre técnico + uuid + columna vecina lease_hasta;¿Qué componente asigna este identificador y se limpia al terminar el procesamiento?
+academic_work_plan;RundExtraccionTrabajo;lease_hasta;"Fecha y hora en que vence la reserva temporal (lease) del trabajo; después puede tomarlo otro proceso.";Baja;nombre + timestamptz + columna vecina lease_id;¿Cuál es la duración de la reserva y qué ocurre con el trabajo cuando vence sin terminar?
+academic_work_plan;RundExtraccionTrabajo;perfil_base;Datos del perfil del docente usados como punto de partida para la extracción, en formato JSON.;Baja;nombre + jsonb con defecto '{}';¿Qué estructura tiene este JSON y de dónde se toman los datos del perfil base?
+academic_work_plan;RundExtraccionTrabajo;motor;Información del motor de extracción usado en el trabajo (por ejemplo, nombre, versión o parámetros), en formato JSON.;Baja;nombre técnico + jsonb con defecto '{}';¿Qué datos guarda este JSON: identificación del motor, configuración o resultados del procesamiento?
+academic_work_plan;RundExtraccionTrabajo;error_codigo;Código del error ocurrido en el último intento de procesamiento, si lo hubo.;Media;nombre + text nulo + columna vecina intentos;¿Existe un catálogo de códigos de error posibles?
+academic_work_plan;RundExtraccionTrabajo;etapa;Etapa actual del trabajo de extracción dentro de su procesamiento. Valor inicial: EN_COLA.;Media;nombre + text con defecto 'EN_COLA';¿Cuáles son las etapas posibles además de EN_COLA y en qué se diferencian de la columna estado?
+academic_work_plan;RundExtraccionTrabajo;etapa_desde;Fecha y hora en que el trabajo entró a su etapa actual.;Alta;nombre + timestamptz con defecto now() + columna vecina etapa;
+academic_work_plan;RundExtraccionTrabajo;notificacion_id;Identificador de la notificación asociada al trabajo de extracción. Se genera automáticamente.;Baja;nombre + uuid con defecto gen_random_uuid() + columnas vecinas notificado_en, notificacion_proxima;¿Este identificador corresponde a un registro del esquema notifications o solo sirve para evitar avisos duplicados?
+academic_work_plan;RundExtraccionTrabajo;notificacion_proxima;Fecha y hora programada para el próximo aviso relacionado con el trabajo de extracción.;Media;nombre + timestamptz con defecto now() + índice idx_rund_extraccion_aviso;¿A quién se envía el aviso y con qué periodicidad se reprograma?
+academic_work_plan;RundInvitacionDocente;correo_institucional;Correo electrónico institucional del docente al que se envía la invitación.;Alta;nombre + varchar(255) + índice idx_rund_invitacion_correo;
+academic_work_plan;RundInvitacionDocente;documento_identidad;Número del documento de identidad del docente invitado.;Alta;nombre + varchar(100);
+academic_work_plan;RundInvitacionDocente;token_invitacion;Token único del enlace de invitación enviado al docente.;Alta;nombre + restricción única + columna vecina caducidad_token;
+academic_work_plan;RundInvitacionDocente;otp_hash;Hash del código de un solo uso (OTP) enviado al docente para validar el acceso. No guarda el código en claro.;Media;nombre + varchar(255) + columna vecina intentos_otp;¿Qué algoritmo de hash se usa y se borra el valor después de validar el código?
+academic_work_plan;RundInvitacionDocente;estado_invitacion;Estado de la invitación al docente. Valor inicial: Enviada.;Media;nombre + varchar(50) con defecto 'Enviada';¿Cuáles son los demás estados posibles (por ejemplo, Abierta, Completada, Vencida)?
+academic_work_plan;RundInvitacionDocente;caducidad_token;Fecha y hora en que vence el token de invitación.;Alta;nombre + timestamp + columna vecina token_invitacion;
+academic_work_plan;RundInvitacionDocente;intentos_otp;Número de intentos de validación del código OTP realizados por el docente.;Media;nombre + integer con defecto 0 + columna vecina bloqueo_hasta;¿Cuántos intentos fallidos se permiten antes del bloqueo y se cuentan también los exitosos?
+academic_work_plan;RundInvitacionDocente;bloqueo_hasta;Fecha y hora hasta la cual la invitación queda bloqueada tras superar los intentos permitidos de OTP.;Media;nombre + timestamp + columna vecina intentos_otp;¿Cuánto dura el bloqueo y qué número de intentos lo activa?
+academic_work_plan;RundInvitacionDocente;ultima_actividad;Fecha y hora de la última acción del docente sobre la invitación.;Media;nombre + timestamp + columnas vecinas fecha_envio, fecha_apertura;¿Qué acciones actualizan este valor: apertura, validación OTP o carga de información?
+academic_work_plan;RundInvitacionDocente;docente_id;Identificador del docente asociado a la invitación, en texto.;Media;nombre + text nulo;"¿Corresponde al id de academic_work_plan.""Docente"" y por qué se guarda como texto y no como uuid?"
+academic_work_plan;RundInvitacionDocente;operador_id;Identificador del usuario operador que generó o envió la invitación.;Media;nombre + varchar(255) nulo;"¿El operador es el usuario de auth.""user"" o de auth.personas, y qué identificador se guarda?"
+academic_work_plan;RundMacroDocenteConsultaLog;tipo_consulta;Tipo de consulta realizada sobre la información macro de docentes.;Media;nombre + text not null + tabla de registro de consultas;¿Cuáles son los tipos de consulta posibles?
+academic_work_plan;RundMacroDocenteConsultaLog;actor_id;Identificador del usuario que realizó la consulta.;Media;nombre + text not null + columna vecina roles;¿Qué identificador se guarda (id de usuario, id de persona o correo)?
+academic_work_plan;RundMacroDocenteConsultaLog;roles;Roles que tenía el usuario al momento de la consulta, como lista de textos.;Alta;nombre + text[] + columna vecina actor_id;
+academic_work_plan;RundMacroDocenteConsultaLog;docente_id;Identificador del docente consultado, cuando la consulta se refiere a un docente específico.;Media;nombre + text nulo + índice idx_rund_macro_docente_log_docente;"¿Corresponde al id de academic_work_plan.""Docente""?"
+academic_work_plan;RundMacroDocenteConsultaLog;periodo;Periodo académico consultado.;Media;nombre + text nulo;¿Qué formato tiene el periodo (por ejemplo, 2026-1)?
+academic_work_plan;RundMacroDocenteConsultaLog;filtros;Filtros aplicados en la consulta, en formato JSON.;Alta;nombre + jsonb + tabla de registro de consultas;
+academic_work_plan;RundMacroDocenteConsultaLog;total_resultados;Número de registros devueltos por la consulta.;Alta;nombre + integer + tabla de registro de consultas;
+academic_work_plan;RundSoporteCampo;docente_id;Identificador del docente al que pertenece el soporte.;Alta;nombre + uuid + índices por docente;
+academic_work_plan;RundSoporteCampo;bloque;Bloque o sección del formulario RUND al que corresponde el soporte.;Media;nombre + text + índice idx_rund_soporte_campo_bloque junto con docente_id;¿Cuáles son los bloques posibles del formulario RUND?
+academic_work_plan;RundSoporteCampo;tipo_soporte;Tipo de soporte cargado (por ejemplo, certificado o diploma).;Media;nombre + text nulo;¿Existe un catálogo de tipos de soporte?
+academic_work_plan;RundSoporteCampo;documento_carpeta_id;Identificador de la carpeta del repositorio documental donde se guarda el archivo del soporte.;Baja;nombre + text nulo;¿A qué sistema o tabla corresponde este identificador de carpeta?
+academic_work_plan;RundSoporteCampo;nombre_archivo;Nombre del archivo cargado como soporte.;Alta;nombre + text;
+academic_work_plan;RundSoporteCampo;documento_perfil_id;Identificador del documento de perfil del docente al que se asocia el soporte.;Baja;nombre + uuid nulo;"¿Hace referencia a academic_work_plan.""Documento"" u otra tabla?"
+academic_work_plan;RundSoporteCampo;revisiones_campos;Resultado de la revisión de cada campo del soporte, en formato JSON.;Baja;nombre + jsonb con defecto '{}';¿Qué estructura tiene el JSON (campo, estado, observación, revisor)?
+chatbot;conversacion;usuario_id;Identificador del usuario que inició la conversación con el asistente virtual.;Media;nombre + uuid + índice idx_chatbot_conversacion_usuario;"¿Corresponde al id de auth.""user"" o a auth.personas?"
+chatbot;conversacion;usuario_email;Correo electrónico del usuario de la conversación.;Alta;nombre + varchar(255) + índice;
+chatbot;conversacion;usuario_nombre;Nombre del usuario de la conversación.;Alta;nombre + varchar(255);
+chatbot;conversacion;titulo;Título de la conversación. Valor inicial: «Nueva conversación».;Alta;nombre + defecto 'Nueva conversación';
+chatbot;conversacion;contexto;Contexto o tema de la conversación con el asistente virtual. Valor inicial: general.;Media;nombre + varchar(100) con defecto 'general';¿Cuáles son los contextos posibles y se relacionan con chatbot.prompt_template?
+chatbot;mensaje;rol;Autor del mensaje dentro de la conversación. Valores permitidos: assistant, system, user.;Alta;valores permitidos del CHECK;
+chatbot;mensaje;contenido;Texto del mensaje.;Alta;nombre + text not null;
+chatbot;mensaje;tokens;Número de tokens del mensaje, según el modelo de lenguaje.;Media;nombre + integer con defecto 0 + contexto de asistente virtual;¿Cuenta los tokens del mensaje o el consumo total de la llamada al modelo?
+chatbot;prompt_template;system_prompt;Texto de instrucciones de sistema (system prompt) que se envía al modelo de lenguaje con esta plantilla.;Alta;nombre + text not null + tabla de plantillas;
+hiring;actas_inicio;temas_tratados;Temas tratados en la reunión de inicio del contrato. Debe tener al menos 10 caracteres.;Alta;nombre + CHECK de longitud mínima;
+hiring;actas_inicio;asistentes;Personas que asistieron a la reunión de inicio, en texto libre.;Media;nombre + text nulo;¿Se registran nombres, cargos o ambos, y en qué formato?
+hiring;actas_liquidacion;balance;Balance financiero de la liquidación del contrato, en formato JSON.;Media;nombre + jsonb + descripción de la tabla;¿Qué conceptos incluye el JSON (valor ejecutado, pagado, saldo)?
+hiring;actas_liquidacion;bilateral_hasta;Fecha límite para liquidar el contrato de mutuo acuerdo (bilateral).;Alta;nombre + date + índice ix_actas_liquidacion_plazo + tipo de liquidación;
+hiring;actas_liquidacion;unilateral_hasta;Fecha límite para liquidar el contrato de forma unilateral.;Alta;nombre + date + columna vecina bilateral_hasta;
+hiring;actas_liquidacion;momento_del_plazo;Momento del plazo de liquidación en que se firmó el acta. Valores permitidos: BILATERAL, UNILATERAL, VENCIDO.;Media;valores permitidos del CHECK + columnas vecinas bilateral_hasta y unilateral_hasta;¿Se calcula comparando fecha_acta con los plazos o lo digita el usuario?
+hiring;actividades;etapa;Número de la etapa del proceso contractual a la que pertenece la actividad.;Media;nombre + integer + descripción de la tabla (por etapa y numeral);¿Existe un catálogo con el nombre de cada etapa (1 a 10)?
+hiring;actividades_con_soporte;etapa;Número de la etapa del proceso contractual a la que pertenece la actividad.;Media;nombre + integer + columna vecina numeral;¿Coincide siempre con la etapa registrada en hiring.actividades para el mismo numeral?
+hiring;actividades_con_soporte;nota_fuente;Nota sobre la fuente de la que se tomó la regla de la actividad (por ejemplo, la matriz de flujo).;Media;nombre + text + columna vecina confirmado;¿Indica el documento de origen o una aclaración sobre cómo se interpretó?
+hiring;actividades_excluidas;motivo;Motivo por el que la actividad no aplica a la modalidad.;Alta;nombre + descripción de la tabla;
+hiring;actividades_salvedad;variante;Nombre o código de la variante de la actividad propia de la modalidad.;Media;nombre + text + descripción de la tabla;¿Los valores de variante siguen un catálogo?
+hiring;actividades_salvedad;nota;Descripción de la condición o variante con la que aplica la actividad en la modalidad.;Alta;nombre + text not null + descripción de la tabla;
+hiring;actos_adjudicacion;numero_acto;Número del acto administrativo de adjudicación.;Alta;nombre + varchar(60) + descripción de la tabla;
+hiring;actos_adjudicacion;valor_adjudicado;Valor adjudicado en el acto. Debe ser mayor que cero.;Media;nombre + numeric(18,2) + CHECK > 0;¿El valor está en pesos colombianos e incluye IVA?
+hiring;actos_adjudicacion;emitido_por;Usuario que registró la emisión del acto de adjudicación.;Media;nombre + varchar(200);¿Se guarda el nombre, el correo o el identificador del usuario?
+hiring;actos_adjudicacion;emitido_at;Fecha y hora en que se registró la emisión del acto de adjudicación.;Alta;nombre + timestamptz con defecto now();
+hiring;adendas;objeto;Objeto o contenido de la adenda.;Alta;nombre + text not null + descripción de la tabla;
+hiring;adendas;emitida_por;Usuario que emitió la adenda.;Media;nombre + varchar(200);¿Se guarda el nombre, el correo o el identificador del usuario?
+hiring;adendas;vencimiento_nuevo;Nueva fecha de vencimiento del cronograma fijada por la adenda.;Media;"nombre + date + columna vecina vencimiento_anterior; los valores CRONOGRAMA, PUBLICADA vienen de un CHECK que la condiciona según tipo y estado";¿Es obligatoria cuando la adenda es de tipo CRONOGRAMA y está PUBLICADA?
+hiring;afiliaciones_arl;afiliado_por;Quién realizó la afiliación a riesgos laborales. Valores permitidos: CONTRATISTA, ENTIDAD.;Alta;valores permitidos del CHECK;
+hiring;afiliaciones_arl;administradora;Nombre de la administradora de riesgos laborales (ARL).;Alta;nombre + descripción de la tabla;
+hiring;afiliaciones_arl;numero_afiliacion;Número de la afiliación o certificado expedido por la ARL.;Alta;nombre + varchar(80);
+hiring;alcances_permiso;accion;Acción que el permiso habilita al rol. Valores permitidos: aprobar, decidir, editar, ver.;Alta;valores permitidos del CHECK + columna vecina rol_id;
+hiring;alcances_permiso;etapa;Etapa del proceso contractual a la que se limita el permiso, de 1 a 10. Solo se diligencia uno entre etapa, numeral y trámite.;Alta;CHECK de rango 1–10 + CHECK num_nonnulls(etapa, numeral, tramite) <= 1;
+hiring;alcances_permiso;tramite;Trámite al que se limita el permiso. Valores permitidos: INC.1, INC.2.;Media;valores permitidos del CHECK;¿A qué trámites corresponden INC.1 e INC.2 (por ejemplo, incumplimiento y sancionatorio)?
+hiring;amparos;valor_asegurado;Valor asegurado por el amparo de la garantía. Debe ser mayor que cero.;Media;nombre + numeric(18,2) + CHECK > 0;¿El valor está en pesos colombianos?
+hiring;amparos;vigencia_desde;Fecha de inicio de la vigencia del amparo.;Alta;nombre + date + CHECK vigencia_hasta > vigencia_desde;
+hiring;amparos;vigencia_hasta;Fecha de fin de la vigencia del amparo. Debe ser posterior a vigencia_desde.;Alta;nombre + date + CHECK + índice ix_amparos_vencimiento;
+hiring;aperturas_proceso;resolucion_numero;Número de la resolución de apertura del proceso.;Alta;nombre + descripción de la tabla;
+hiring;aperturas_proceso;resolucion_fecha;Fecha de la resolución de apertura del proceso.;Alta;nombre + date;
+hiring;aperturas_proceso;secop_url;Dirección web del proceso publicado en SECOP.;Alta;nombre + text;
+hiring;aperturas_proceso;abierto_por;Usuario que registró la apertura del proceso.;Media;nombre + varchar(200);¿Se guarda el nombre, el correo o el identificador del usuario?
+hiring;audiencia_riesgos_config;fundamento;Fundamento normativo o razón por la que la audiencia de riesgos es o no obligatoria en la modalidad.;Alta;nombre + descripción de la tabla + columna vecina obligatoria;
+hiring;audiencias_adjudicacion;celebrada_at;Fecha y hora en que se celebró la audiencia de adjudicación.;Alta;nombre + timestamptz not null;
+hiring;audiencias_adjudicacion;presidida_por;Nombre de quien presidió la audiencia de adjudicación.;Media;nombre + varchar(200) not null;¿Se registra el nombre de la persona, su cargo o ambos?
+hiring;audiencias_adjudicacion;resumen;Resumen de lo tratado y resuelto en la audiencia.;Alta;nombre + descripción de la tabla;
+hiring;audiencias_sancionatorias;citada_para;Fecha y hora para la que se citó la audiencia sancionatoria.;Alta;nombre + timestamptz + descripción de la tabla;
+hiring;audiencias_sancionatorias;objeto;Objeto o asunto de la audiencia sancionatoria.;Alta;nombre + text;
+hiring;audiencias_sancionatorias;celebrada_el;Fecha en que se celebró la audiencia.;Media;"nombre + date; el valor CELEBRADA viene de un CHECK que la condiciona según el estado";¿Es obligatoria cuando el estado es CELEBRADA?
+hiring;audiencias_sancionatorias;resumen;Resumen de lo ocurrido en la audiencia celebrada.;Media;"nombre + text; el valor CELEBRADA viene de un CHECK según el estado";¿Es obligatorio cuando el estado es CELEBRADA?
+hiring;audiencias_sancionatorias;motivo;Motivo de la cancelación o suspensión de la audiencia.;Media;"nombre + text; los valores CANCELADA, SUSPENDIDA vienen de un CHECK según el estado";¿Es obligatorio cuando el estado es CANCELADA o SUSPENDIDA?
+hiring;audiencias_sancionatorias;citada_por;Usuario que registró la citación a la audiencia.;Media;nombre + varchar(200);¿Se guarda el nombre, el correo o el identificador del usuario?
+hiring;avisos;papeles;Papeles o responsabilidades dentro del proceso que reciben el aviso, como lista en formato JSON.;Baja;nombre + jsonb con defecto '[]' + columnas vecinas roles, personas;¿Qué diferencia hay entre papeles y roles, y cuáles son los valores posibles?
+hiring;avisos;roles;Roles de usuario que reciben el aviso, como lista en formato JSON.;Media;nombre + jsonb con defecto '[]' + descripción de la tabla;¿Los valores son códigos de rol de auth o de hiring?
+hiring;avisos_habilitacion;avisado_at;Fecha y hora en que se envió el aviso de habilitación de la actividad.;Alta;nombre + timestamptz con defecto now() + descripción de la tabla;
+hiring;campos_formulario;numeral;Numeral de la actividad de la matriz de flujo a cuyo formulario pertenece el campo.;Alta;nombre + índices idx_campos_num, uq_campo + uso de numeral en hiring.actividades;
+hiring;campos_formulario;etiqueta;Texto que se muestra como etiqueta del campo en el formulario.;Alta;nombre + varchar(300);
+hiring;campos_formulario;ayuda;Texto de ayuda que se muestra junto al campo.;Alta;nombre + text;
+hiring;campos_formulario;grupo;Grupo o sección del formulario en la que se muestra el campo.;Alta;nombre + columna vecina orden;
+hiring;campos_formulario;opciones;Opciones disponibles para el campo cuando es de tipo seleccion, en formato JSON.;Media;"nombre + jsonb; el valor seleccion viene de un CHECK según el tipo";¿Es obligatoria cuando el tipo es seleccion y qué estructura tiene cada opción?
+hiring;casos_incumplimiento;motivo;Descripción del presunto incumplimiento reportado. Debe tener al menos 10 caracteres.;Alta;nombre + CHECK de longitud mínima + descripción de la tabla;
+hiring;casos_incumplimiento;reportado_por;Usuario que reportó el presunto incumplimiento.;Media;nombre + varchar(200);¿Se guarda el nombre, el correo o el identificador del usuario?
+hiring;causales_contratacion;referencia_normativa;Norma que establece la causal (ley, decreto y artículo).;Alta;nombre + varchar(200) not null;
+hiring;cdp;valor;Valor del certificado de disponibilidad presupuestal.;Media;"nombre + numeric(18,2); el valor EXPEDIDO viene de un CHECK según el estado";¿Está en pesos colombianos y es obligatorio cuando el estado es EXPEDIDO?
+hiring;cdp;vigencia_fiscal;Año de la vigencia fiscal del CDP.;Alta;nombre + integer;
+hiring;cdp;expedido_por;Usuario o funcionario que expidió el CDP.;Media;nombre + varchar(160);¿Se guarda el nombre del funcionario de presupuesto o el usuario que registró la expedición?
+hiring;cierres_contrato;amparos_verificados;Amparos de la garantía verificados para el cierre, como lista en formato JSON.;Media;nombre + jsonb con defecto '[]' + descripción de la tabla;¿Qué datos de cada amparo se guardan (id, tipo, vencimiento)?
+hiring;cierres_contrato;ultimo_vencimiento;Fecha del último vencimiento entre los amparos verificados.;Media;nombre + date + columna vecina amparos_verificados;¿Se calcula a partir de hiring.amparos o lo digita el usuario?
+hiring;cierres_contrato;revertido_at;Fecha y hora en que se revirtió el cierre del contrato.;Alta;"nombre + timestamptz; el valor REVERTIDO viene de un CHECK según el estado";
+hiring;cierres_contrato;revertido_por;Usuario que revirtió el cierre del contrato.;Media;nombre + varchar(200);¿Se guarda el nombre, el correo o el identificador del usuario?
+hiring;cierres_financieros;referencia_pago_final;Referencia del pago final del contrato (por ejemplo, número de orden de pago).;Media;nombre + varchar(120);¿Qué documento identifica la referencia: orden de pago, comprobante u obligación en SIIF?
+hiring;cierres_financieros;valor_rp;Valor del registro presupuestal (RP) del contrato.;Media;nombre + numeric(18,2) + descripción de la tabla;¿Está en pesos colombianos y se toma del RP registrado o se digita?
+hiring;cierres_financieros;valor_pagado;Valor total pagado al contratista con cargo al RP.;Media;nombre + numeric(18,2) + columna vecina valor_rp;¿Está en pesos colombianos y se calcula a partir de los pagos registrados?
+hiring;cierres_financieros;valor_liberado;Saldo no comprometido del RP que se libera. No puede ser negativo.;Media;nombre + numeric(18,2) + CHECK >= 0 + descripción de la tabla;¿Se calcula como valor_rp menos valor_pagado?
+hiring;cierres_financieros;revertido_at;Fecha y hora en que se revirtió el cierre financiero.;Alta;"nombre + timestamptz; el valor REVERTIDO viene de un CHECK según el estado";
+hiring;cierres_financieros;revertido_por;Usuario que revirtió el cierre financiero.;Media;nombre + varchar(200);¿Se guarda el nombre, el correo o el identificador del usuario?
+hiring;comites_evaluadores;designado_por;Usuario o funcionario que designó el comité evaluador.;Media;nombre + varchar(200);¿Se guarda el nombre de quien firma el memorando o el usuario que lo registró?
+hiring;contratos;valor;Valor total del contrato. Debe ser mayor que cero.;Media;nombre + numeric(18,2) + CHECK > 0;¿Está en pesos colombianos e incluye IVA?
+hiring;contratos;plazo_dias;Plazo de ejecución del contrato, en días.;Media;nombre + integer;¿Son días calendario o hábiles?
+hiring;contratos;contratista_documento;Número del documento de identificación del contratista (cédula o NIT).;Alta;nombre + varchar(40) + columna vecina contratista_tipo;
+hiring;contratos;contratista_nombre;Nombre o razón social del contratista.;Alta;nombre + varchar(300);
+hiring;contratos;contratista_tipo;Tipo de persona del contratista. Valores permitidos: JURIDICA, NATURAL.;Alta;valores permitidos del CHECK;
+hiring;contratos;aceptado_at;Fecha y hora en que el proponente aceptó el contrato.;Alta;"nombre + timestamptz; el valor ACEPTADO viene de un CHECK según el estado";
+hiring;contratos;aceptado_por;Persona que aceptó el contrato en nombre del proponente.;Media;"nombre + varchar(200); el valor ACEPTADO viene de un CHECK según el estado";¿Se guarda el nombre, el correo o el identificador de quien acepta?
+hiring;contratos;aceptado_observacion;Observación registrada al aceptar el contrato.;Alta;nombre + text + columnas vecinas aceptado_*;
+hiring;contratos;perfeccionado_at;Fecha y hora en que el contrato quedó perfeccionado.;Alta;"nombre + timestamptz; el valor PERFECCIONADO viene de un CHECK según el estado";
+hiring;declaratorias_desiertas;causal;Causal de la declaratoria desierta. Valores permitidos: SIN_OFERTAS, SIN_OFERTAS_HABILITADAS.;Media;valores permitidos del CHECK;¿Existen otras causales previstas (por ejemplo, ofertas que no cumplen) que no estén en la lista?
+hiring;declaratorias_desiertas;motivo;Motivación de la declaratoria desierta.;Alta;nombre + text not null + descripción de la tabla;
+hiring;declaratorias_desiertas;numero_acto;Número del acto administrativo que declara desierto el proceso.;Alta;nombre + varchar(60);
+hiring;declaratorias_desiertas;ofertas_recibidas;Número de ofertas recibidas en el proceso.;Media;"nombre + integer con defecto 0; los valores SIN_OFERTAS, SIN_OFERTAS_HABILITADAS vienen de un CHECK que la relaciona con la causal";¿El CHECK exige cero ofertas cuando la causal es SIN_OFERTAS?
+hiring;declaratorias_desiertas;declarada_por;Usuario que registró la declaratoria desierta.;Media;nombre + varchar(200);¿Se guarda el nombre, el correo o el identificador del usuario?
+hiring;declaratorias_desiertas;declarada_at;Fecha y hora en que se registró la declaratoria desierta.;Alta;nombre + timestamptz con defecto now();
+hiring;documentos;numeral;Numeral de la actividad de la matriz de flujo a la que corresponde el documento.;Alta;nombre + varchar(20) + uso de numeral en hiring.actividades;
+hiring;documentos;archivo_url;Ubicación del archivo adjunto en el almacenamiento.;Media;"nombre + text; los valores ADJUNTO, SNAPSHOT_FORMULARIO vienen de un CHECK según el tipo";¿Es obligatoria cuando el tipo es ADJUNTO, y es una URL pública o una ruta interna?
+hiring;documentos;contenido_snapshot;Copia del contenido del formulario en el momento de generar el documento, en formato JSON.;Media;"nombre + jsonb; los valores ADJUNTO, SNAPSHOT_FORMULARIO vienen de un CHECK según el tipo";¿Es obligatoria cuando el tipo es SNAPSHOT_FORMULARIO?
+hiring;documentos;archivo_nombre_original;Nombre original del archivo cargado.;Alta;nombre + varchar(300);
+hiring;documentos;archivo_mime_type;Tipo MIME del archivo cargado (por ejemplo, application/pdf).;Alta;nombre + varchar(120);
+hiring;documentos;archivo_tamano;Tamaño del archivo cargado, en bytes.;Media;nombre + bigint;¿La unidad es bytes?
+hiring;documentos;hash_sha256;Hash SHA-256 del contenido del documento, en 64 caracteres hexadecimales, para verificar su integridad.;Alta;nombre + character(64);
+hiring;documentos_proceso;numeral;Numeral de la actividad de la matriz de flujo a la que corresponde el documento del proceso.;Alta;nombre + índices ix_documentos_proceso_proceso, uq_documento_proceso_vigente;
+hiring;documentos_requeridos;numeral;Numeral de la actividad de la matriz de flujo que exige el documento.;Alta;nombre + índice uq_documento_requerido + descripción de la tabla;
+hiring;documentos_requeridos;modalidades;Modalidades de contratación en las que se exige el documento, como lista en formato JSON.;Media;nombre + jsonb con defecto '[]' + descripción de la tabla;¿Una lista vacía significa que aplica a todas las modalidades?
+hiring;expedientes;numero_expediente;Número único del expediente contractual.;Alta;nombre + restricción única;
+hiring;expedientes;radicado_active_document;Número de radicado del expediente en el sistema de gestión documental.;Baja;nombre + varchar(120);¿A qué sistema corresponde «active_document» y cuándo se asigna el radicado?
+hiring;expedientes;observaciones_archivo;Observaciones registradas al archivar el expediente.;Alta;nombre + columnas vecinas archivado_at, archivado_por;
+hiring;expedientes;reabierto_at;Fecha y hora en que se reabrió el expediente. Si tiene valor, motivo_reapertura es obligatorio.;Alta;nombre + timestamptz + CHECK con motivo_reapertura;
+hiring;expedientes;reabierto_por;Usuario que reabrió el expediente.;Media;nombre + varchar(200);¿Se guarda el nombre, el correo o el identificador del usuario?
+hiring;firmas_contrato;parte;Parte del contrato que firma. Valores permitidos: CONTRATISTA, ORDENADOR.;Alta;valores permitidos del CHECK + índice uq_firma_parte;
+hiring;firmas_contrato;firmante_nombre;Nombre de la persona que firma el contrato.;Alta;nombre + varchar(300);
+hiring;firmas_contrato;firmante_documento;Número del documento de identificación de la persona que firma.;Alta;nombre + varchar(40);
+hiring;firmas_contrato;hash_documento;Hash del documento firmado, en 64 caracteres hexadecimales, para verificar su integridad.;Media;nombre + character(64);¿Se usa SHA-256, como en hiring.documentos?
+hiring;garantias;aseguradora;Nombre de la compañía aseguradora que expidió la póliza.;Alta;nombre + descripción de la tabla;
+hiring;garantias;numero_poliza;Número de la póliza de garantía.;Alta;nombre + índice uq_garantia_poliza_vigente;
+hiring;informes_definitivos;resultado;Resultado de la evaluación definitiva, en formato JSON, congelado al generar el informe.;Media;nombre + jsonb + descripción de la tabla;¿Qué estructura tiene el JSON (oferentes, puntajes, orden de elegibilidad)?
+hiring;informes_definitivos;cambios;Cambios del resultado respecto al informe preliminar, en formato JSON.;Media;nombre + jsonb con defecto '{}' + descripción de la tabla;¿Qué estructura tiene el JSON de cambios?
+hiring;informes_definitivos;ofertas_recibidas;Número de ofertas recibidas en el proceso.;Alta;nombre + integer con defecto 0;
+hiring;informes_evaluacion;resultado;Resultado del comité evaluador, en formato JSON, congelado al trasladar el informe.;Media;nombre + jsonb + descripción de la tabla;¿Qué estructura tiene el JSON (oferentes, puntajes, habilitación)?
+hiring;informes_evaluacion;ofertas_recibidas;Número de ofertas recibidas en el proceso.;Alta;nombre + integer con defecto 0;
+hiring;informes_evaluacion;observacion_entidad;Observación de la entidad sobre el informe de evaluación.;Media;nombre + text;¿Es una observación interna o la que se publica con el informe?
+hiring;informes_evaluacion;trasladado_por;Usuario que dio traslado del informe de evaluación.;Media;nombre + varchar(120);¿Se guarda el nombre, el correo o el identificador del usuario?
+hiring;informes_evaluacion;trasladado_at;Fecha y hora en que se dio traslado del informe de evaluación.;Media;"nombre + timestamptz; los valores CERRADO, TRASLADADO vienen de un CHECK según el estado";¿Es obligatoria cuando el estado es TRASLADADO o CERRADO?
+hiring;informes_evaluacion;vence_el;Fecha en que vence el plazo de traslado del informe.;Media;"nombre + date + columna vecina plazo_dias_habiles; los valores CERRADO, TRASLADADO vienen de un CHECK según el estado";¿Se calcula sumando plazo_dias_habiles a la fecha de traslado?
+hiring;informes_evaluacion;nota_cierre;Nota registrada al cerrar el traslado del informe.;Alta;nombre + columnas vecinas cerrado_por, cerrado_at;
+hiring;informes_finales;conclusion;Conclusión del supervisor sobre la ejecución del contrato.;Alta;nombre + text not null + descripción de la tabla;
+hiring;informes_finales;balance;Balance de la ejecución del contrato, en formato JSON, congelado al elaborar el informe.;Media;nombre + jsonb + descripción de la tabla;¿Qué conceptos incluye el JSON (valor ejecutado, pagos, saldos, obligaciones)?
+hiring;informes_finales;elaborado_por;Usuario que elaboró el informe final.;Media;nombre + varchar(200);¿Se guarda el nombre, el correo o el identificador del supervisor?
+hiring;limitaciones_mipyme;manifestaciones_contadas;Número de manifestaciones de interés de MIPYME contadas para la decisión. No puede ser negativo.;Alta;nombre + CHECK >= 0 + tabla hiring.manifestaciones_mipyme;
+hiring;limitaciones_mipyme;valor_proceso;Valor del proceso considerado para decidir la limitación a MIPYME.;Media;nombre + numeric(18,2);¿Está en pesos colombianos y se toma del presupuesto oficial del proceso?
+hiring;limitaciones_mipyme;tope_valor_aplicado;Valor máximo aplicado para permitir la limitación a MIPYME, expresado en la unidad de unidad_tope_aplicada.;Media;nombre + numeric(18,2) + columna vecina unidad_tope_aplicada;¿El tope se guarda en dólares, en pesos o en la unidad indicada?
+hiring;limitaciones_mipyme;unidad_tope_aplicada;Unidad en que se expresa el tope de valor aplicado.;Baja;nombre + varchar(10) + columnas vecinas tope_valor_aplicado, smmlv_aplicado;¿Cuáles son las unidades posibles (por ejemplo, USD, COP, SMMLV)?
+hiring;limitaciones_mipyme;minimo_manifestaciones;Número mínimo de manifestaciones de interés exigido para limitar la convocatoria a MIPYME.;Alta;nombre + integer + columna vecina manifestaciones_contadas;
+hiring;limitaciones_mipyme;motivo;Motivo de la decisión. Es obligatorio cuando la decisión (limitado) difiere de lo que indican las condiciones cumplidas.;Alta;nombre + CHECK (limitado = condiciones_cumplidas OR motivo IS NOT NULL);
+hiring;limitaciones_mipyme;documento_id;Identificador del documento soporte de la decisión de limitación a MIPYME.;Media;nombre + uuid nulo;¿Hace referencia a hiring.documentos?
+hiring;limitaciones_mipyme;decidido_por;Usuario que registró la decisión de limitación.;Media;nombre + varchar(160);¿Se guarda el nombre, el correo o el identificador del usuario?
+hiring;limitaciones_mipyme;decidido_at;Fecha y hora en que se registró la decisión de limitación.;Alta;nombre + timestamptz con defecto now();
+hiring;manifestaciones_mipyme;documento_id;Identificador del documento con la manifestación de interés presentada.;Media;nombre + uuid nulo;¿Hace referencia a hiring.documentos?
+hiring;miembros_comite;persona_id;Identificador de la persona que integra el comité evaluador.;Media;nombre + uuid + índices ix_miembros_persona, uq_miembro_rol;¿Hace referencia a auth.personas (id_person)?
+hiring;miembros_comite;rol;Dimensión de evaluación a cargo del integrante. Valores permitidos: FINANCIERO, JURIDICO, TECNICO.;Alta;valores permitidos del CHECK + descripción de la tabla;
+hiring;modificaciones_contrato;justificacion;Justificación de la modificación contractual.;Alta;nombre + tipo text not null + tabla de modificaciones;
+hiring;modificaciones_contrato;valor_adicionado;Valor que se adiciona al contrato con la modificación. Un CHECK lo relaciona con el tipo de modificación (ADICION, MUTUO_ACUERDO, PRORROGA, TERMINACION_ANTICIPADA, UNILATERAL).;Media;nombre + numeric(18,2) + CHECK que combina con tipo/terminacion_causal;¿El valor está en pesos colombianos y es obligatorio solo cuando el tipo es ADICION?
+hiring;modificaciones_contrato;valor_contrato_antes;Valor del contrato antes de aplicar la modificación.;Media;nombre + numeric(18,2) + vecina valor_contrato_despues;¿Está en pesos colombianos y se calcula automáticamente desde el contrato o se digita?
+hiring;modificaciones_contrato;valor_contrato_despues;Valor del contrato después de aplicar la modificación.;Media;nombre + numeric(18,2) + vecinas valor_contrato_antes y valor_adicionado;¿Se calcula como valor_contrato_antes + valor_adicionado o se digita?
+hiring;modificaciones_contrato;tope_porcentaje;Porcentaje máximo de adición permitido sobre el valor inicial del contrato, vigente al registrar la modificación.;Media;nombre + numeric(5,2) + tabla tope_adicion;¿Se copia de hiring.tope_adicion.porcentaje al registrar la modificación?
+hiring;modificaciones_contrato;plazo_dias_antes;Plazo del contrato en días antes de la modificación.;Media;nombre + integer + vecinas dias_prorroga y plazo_dias_despues;¿Los días son calendario o hábiles?
+hiring;modificaciones_contrato;plazo_dias_despues;Plazo del contrato en días después de la modificación.;Media;nombre + integer + vecinas dias_prorroga y plazo_dias_antes;¿Se calcula como plazo_dias_antes + dias_prorroga? ¿Días calendario o hábiles?
+hiring;modificaciones_contrato;suspension_desde;Fecha de inicio de la suspensión del contrato. Un CHECK la relaciona con el tipo SUSPENSION.;Media;nombre + tipo date + CHECK con valor SUSPENSION;¿Es obligatoria solo cuando el tipo de modificación es SUSPENSION?
+hiring;modificaciones_contrato;suspension_hasta;Fecha de fin de la suspensión del contrato. Un CHECK la relaciona con el tipo SUSPENSION.;Media;nombre + tipo date + CHECK con valor SUSPENSION;¿Es obligatoria solo cuando el tipo es SUSPENSION y debe ser posterior a suspension_desde?
+hiring;modificaciones_contrato;reanudada_el;Fecha en que se reanuda el contrato suspendido. Un CHECK la relaciona con el tipo REANUDACION.;Media;nombre + tipo date + CHECK con valor REANUDACION + vecina reanuda_modificacion_id;¿Es obligatoria solo cuando el tipo de modificación es REANUDACION?
+hiring;modificaciones_contrato;cedente_documento;Número de documento de identificación del cedente en una cesión del contrato.;Media;nombre + varchar(40) + vecinas cesionario_*;¿Corresponde al NIT o cédula del contratista actual que cede el contrato?
+hiring;modificaciones_contrato;cedente_nombre;Nombre o razón social del cedente en una cesión del contrato.;Alta;nombre + varchar(300) + vecinas cedente_*;
+hiring;modificaciones_contrato;cedente_tipo;Tipo de persona del cedente en una cesión del contrato.;Media;nombre + varchar(20) + CHECK de cesionario_tipo con NATURAL y JURIDICA;¿Los valores posibles son NATURAL y JURIDICA, igual que en cesionario_tipo?
+hiring;modificaciones_contrato;cesionario_documento;Número de documento de identificación del cesionario que recibe el contrato. Un CHECK lo relaciona con el tipo CESION.;Media;nombre + varchar(40) + CHECK con CESION, JURIDICA, NATURAL;¿Es obligatorio solo cuando el tipo de modificación es CESION?
+hiring;modificaciones_contrato;cesionario_nombre;Nombre o razón social del cesionario que recibe el contrato. Un CHECK lo relaciona con el tipo CESION.;Media;nombre + varchar(300) + CHECK con CESION;¿Es obligatorio solo cuando el tipo de modificación es CESION?
+hiring;modificaciones_contrato;cesionario_tipo;Tipo de persona del cesionario. Valores permitidos: NATURAL, JURIDICA.;Media;nombre + varchar(20) + CHECK con NATURAL, JURIDICA y CESION;¿Los valores NATURAL y JURIDICA aplican a esta columna y es obligatoria solo en una CESION?
+hiring;modificaciones_contrato;terminacion_el;Fecha de terminación anticipada del contrato. Un CHECK la relaciona con las causales MUTUO_ACUERDO y UNILATERAL y el tipo TERMINACION_ANTICIPADA.;Media;nombre + tipo date + CHECK con TERMINACION_ANTICIPADA, MUTUO_ACUERDO, UNILATERAL;¿Es obligatoria solo cuando el tipo es TERMINACION_ANTICIPADA?
+hiring;modificaciones_contrato;estado_contrato_antes;Estado que tenía el contrato antes de aplicar la modificación.;Media;nombre + varchar(20);¿Se guarda para restaurar el estado del contrato al revocar la modificación? ¿Qué valores toma?
+hiring;observaciones_pliego;presentado_por;Nombre de la persona o empresa interesada que presenta la observación al proyecto de pliego.;Alta;nombre + varchar(200) + vecina identificacion + descripción de la tabla;
+hiring;observaciones_pliego;asunto;Asunto de la observación.;Alta;nombre + varchar(300);
+hiring;observaciones_pliego;contenido;Texto de la observación presentada al proyecto de pliego.;Alta;nombre + text not null + descripción de la tabla;
+hiring;observaciones_pliego;respuesta;Respuesta de la entidad a la observación. Se registra junto con respondida_at y modifico_pliego: las tres quedan vacías o las tres diligenciadas.;Alta;nombre + CHECK conjunto con respondida_at y modifico_pliego;
+hiring;observaciones_pliego;respondida_por;Usuario que registró la respuesta a la observación.;Media;nombre + varchar(160) + patrón *_por;¿Guarda el nombre, el correo o el identificador del usuario?
+hiring;observaciones_pliego;respondida_at;Fecha y hora en que se respondió la observación. Se registra junto con respuesta y modifico_pliego.;Alta;nombre + timestamptz + CHECK conjunto con respuesta;
+hiring;pagos_contrato;periodo_desde;Fecha de inicio del periodo que cubre la cuenta de cobro. No puede ser posterior a periodo_hasta.;Alta;nombre + tipo date + CHECK periodo_hasta >= periodo_desde;
+hiring;pagos_contrato;periodo_hasta;Fecha de fin del periodo que cubre la cuenta de cobro. No puede ser anterior a periodo_desde.;Alta;nombre + tipo date + CHECK periodo_hasta >= periodo_desde;
+hiring;pagos_contrato;valor;Valor de la cuenta de cobro. Debe ser mayor que cero.;Media;nombre + numeric(18,2) + CHECK valor > 0;¿El valor está en pesos colombianos?
+hiring;pagos_contrato;avalado_at;Fecha y hora en que se avaló la cuenta de cobro. Un CHECK la relaciona con el estado TRAMITADO.;Media;nombre + timestamptz + CHECK con estado TRAMITADO;¿Debe estar diligenciada cuando el estado es TRAMITADO?
+hiring;pagos_contrato;avalado_por;Usuario que avaló la cuenta de cobro.;Media;nombre + varchar(200) + vecina avalado_at;¿Guarda el nombre, el correo o el identificador del usuario (por ejemplo, el supervisor)?
+hiring;pagos_contrato;observacion_aval;Observación registrada al avalar la cuenta de cobro.;Alta;nombre + text + vecinas avalado_*;
+hiring;pagos_contrato;devuelto_at;Fecha y hora en que se devolvió la cuenta de cobro. Un CHECK la relaciona con el estado DEVUELTO.;Alta;nombre + timestamptz + CHECK con estado DEVUELTO + vecina motivo_devolucion;
+hiring;pagos_contrato;devuelto_por;Usuario que devolvió la cuenta de cobro.;Media;nombre + varchar(200) + vecina devuelto_at;¿Guarda el nombre, el correo o el identificador del usuario?
+hiring;pagos_contrato;tramitado_at;Fecha y hora en que se tramitó la cuenta de cobro para pago. Un CHECK la relaciona con el estado TRAMITADO.;Alta;nombre + timestamptz + CHECK con estado TRAMITADO;
+hiring;pagos_contrato;tramitado_por;Usuario que tramitó la cuenta de cobro.;Media;nombre + varchar(200) + vecina tramitado_at;¿Guarda el nombre, el correo o el identificador del usuario?
+hiring;pagos_contrato;referencia_pago;Referencia del pago tramitado.;Media;nombre + varchar(120) + vecinas tramitado_*;¿Qué referencia guarda: número de orden de pago, comprobante del sistema financiero u otro?
+hiring;parametros_alerta;valor;Valor vigente del parámetro de alerta. Debe estar entre minimo y maximo.;Media;nombre + integer + CHECK con minimo y maximo + descripción de la tabla;¿La unidad depende de la clave (días para plazos, hora para el aviso diario)?
+hiring;parametros_alerta;minimo;Valor mínimo permitido para el parámetro.;Alta;nombre + integer + CHECK valor >= minimo;
+hiring;parametros_alerta;maximo;Valor máximo permitido para el parámetro.;Alta;nombre + integer + CHECK valor <= maximo;
+hiring;parametros_mipyme;valor;Valor de la condición que habilita la limitación a MIPYME, expresado en la unidad indicada. Debe ser mayor que cero.;Alta;nombre + numeric + CHECK valor > 0 + vecina unidad;
+hiring;parametros_mipyme;unidad;Unidad en que se expresa el valor. Valores permitidos: PESOS, SMMLV.;Alta;valores permitidos del CHECK;
+hiring;parametros_mipyme;fundamento;Fundamento normativo del parámetro.;Media;nombre + text + vecina confirmado + tablas de parámetros;¿Guarda la norma o el texto que sustenta el valor?
+hiring;participaciones_proceso;papel;Papel de la persona en el proceso. Valores permitidos: ABOGADO, CONTRATACION, FINANCIERA.;Alta;valores permitidos del CHECK + índice uq_participacion_vigente;
+hiring;participaciones_proceso;usuario_id;Identificador del usuario de la plataforma asignado al proceso.;Media;nombre + tipo uuid + vecina usuario_nombre;"¿Corresponde a auth.""user""?"
+hiring;participaciones_proceso;usuario_nombre;Nombre del usuario asignado al proceso.;Alta;nombre + varchar(120) + vecina usuario_id;
+hiring;participaciones_proceso;persona_id;Identificador de la persona asignada al proceso.;Media;nombre + tipo uuid + vecinas nombre, cargo, email;¿Corresponde a auth.personas.id_person?
+hiring;participaciones_proceso;cargo;Cargo de la persona asignada al proceso.;Alta;nombre + varchar(200);
+hiring;participaciones_proceso;relevado_at;Fecha y hora en que la persona fue relevada del proceso. Un CHECK la relaciona con el estado RELEVADO.;Alta;nombre + timestamptz + CHECK con estado RELEVADO + vecina motivo_relevo;
+hiring;participaciones_proceso;relevado_por;Usuario que registró el relevo.;Media;nombre + varchar(200) + vecina relevado_at;¿Guarda el nombre, el correo o el identificador del usuario?
+hiring;plantillas;numeral;Numeral de la actividad del proceso de contratación al que corresponde la plantilla.;Media;nombre + varchar(20) + índice + uso de numeral en proceso_actividades;¿El numeral corresponde a la actividad del procedimiento (por ejemplo, 3.7) o al código del formato del SIG?
+hiring;plantillas;modalidades;Modalidades de contratación en las que aplica la plantilla, en formato JSON (lista).;Media;nombre + jsonb con defecto [];¿Una lista vacía significa que aplica a todas las modalidades?
+hiring;plantillas;archivo_url;URL del archivo de la plantilla.;Alta;nombre + tipo text;
+hiring;plazo_publicacion_acta;fundamento;Fundamento normativo del plazo.;Media;nombre + text + vecinas dias_habiles y confirmado;¿Guarda la norma o el texto que sustenta el plazo?
+hiring;plazo_publicacion_contrato;fundamento;Fundamento normativo del plazo.;Media;nombre + text + vecinas dias_habiles y confirmado;¿Guarda la norma o el texto que sustenta el plazo?
+hiring;plazos_ofertas;fundamento;Fundamento normativo del plazo.;Media;nombre + text + vecinas dias_habiles y confirmado;¿Guarda la norma o el texto que sustenta el plazo?
+hiring;plazos_publicacion;fundamento;Fundamento normativo del plazo.;Media;nombre + text + vecinas dias_habiles y confirmado;¿Guarda la norma o el texto que sustenta el plazo?
+hiring;plazos_traslado;fundamento;Fundamento normativo del plazo.;Media;nombre + text + vecinas dias_habiles y confirmado;¿Guarda la norma o el texto que sustenta el plazo?
+hiring;proceso_actividades;numeral;Numeral de la actividad dentro del procedimiento de contratación. Es único por proceso.;Alta;nombre + varchar(20) + índice uq_proceso_numeral;
+hiring;proceso_actividades;datos;Datos diligenciados en la actividad, en formato JSON.;Media;nombre + jsonb con defecto {};¿La estructura del JSON depende del numeral? ¿Hay un esquema documentado por actividad?
+hiring;procesos;radicado;Número de radicado del proceso de contratación. Es único.;Alta;nombre + varchar(60) + restricción única;
+hiring;procesos;objeto;Objeto del proceso de contratación.;Alta;nombre + text not null + contexto de contratación;
+hiring;procesos;etapa;Etapa actual del proceso de contratación. Valor por defecto: 3.;Baja;nombre + integer con defecto 3;¿Qué representa cada número de etapa y por qué los procesos empiezan en la 3?
+hiring;publicaciones_acta;destino;Medio donde se publica el acta de liquidación. Valores permitidos: SECOP_II, WEB_ESAP.;Alta;valores permitidos del CHECK + índice único por destino;
+hiring;publicaciones_acta;secop_numero;Número asignado en SECOP II a la publicación.;Media;nombre + varchar(80) + vecina secop_url;¿Es obligatorio cuando el destino es SECOP_II?
+hiring;publicaciones_acta;secop_url;URL de la publicación en SECOP II.;Alta;nombre + tipo text + vecina secop_numero;
+hiring;publicaciones_contrato;destino;Medio donde se publica el contrato. Valores permitidos: SECOP_II, WEB_ESAP.;Alta;valores permitidos del CHECK + índice único por destino;
+hiring;publicaciones_contrato;secop_numero;Número asignado en SECOP II a la publicación.;Media;nombre + varchar(80) + vecina secop_url;¿Es obligatorio cuando el destino es SECOP_II?
+hiring;publicaciones_contrato;secop_url;URL de la publicación en SECOP II.;Alta;nombre + tipo text + vecina secop_numero;
+hiring;publicaciones_modificacion;secop_numero;Número asignado en SECOP II a la publicación de la modificación.;Media;nombre + varchar(80) + descripción de la tabla;¿Corresponde al número del proceso o al de la publicación de la modificación en SECOP II?
+hiring;publicaciones_modificacion;secop_url;URL de la publicación de la modificación en SECOP II.;Alta;nombre + tipo text + descripción de la tabla;
+hiring;publicaciones_pliego;secop_numero;Número del proceso en SECOP II asociado a la publicación del proyecto de pliego.;Media;nombre + varchar(60) + descripción de la tabla;¿Corresponde al número del proceso en SECOP II o a un identificador de la publicación?
+hiring;publicaciones_pliego;secop_url;URL de la publicación del proyecto de pliego en SECOP II.;Alta;nombre + tipo text + descripción de la tabla;
+hiring;registros_actividad;nota;Nota que describe la actividad registrada.;Alta;nombre + text not null + descripción de la tabla;
+hiring;registros_actividad;datos;Datos adicionales de la actividad registrada, en formato JSON.;Media;nombre + jsonb con defecto {};¿Qué estructura tiene el JSON y depende del numeral?
+hiring;registros_presupuestales;valor;Valor del registro presupuestal. Un CHECK lo relaciona con el estado EXPEDIDO.;Media;nombre + numeric(18,2) + CHECK con estado EXPEDIDO;¿Está en pesos colombianos y es obligatorio cuando el estado es EXPEDIDO?
+hiring;registros_presupuestales;rubro;Rubro presupuestal que afecta el registro.;Media;nombre + varchar(160) + contexto presupuestal;¿Guarda el código del rubro, su nombre o ambos?
+hiring;registros_presupuestales;vigencia_fiscal;Año de la vigencia fiscal del registro presupuestal.;Alta;nombre + tipo integer;
+hiring;registros_presupuestales;expedido_por;Usuario o funcionario que expidió el registro presupuestal.;Media;nombre + varchar(200) + patrón *_por;¿Guarda el nombre, el correo o el identificador del usuario?
+hiring;reglas_actividad;config;Configuración de la regla, en formato JSON.;Baja;nombre + jsonb con defecto {} + índice uq_regla_vigente;¿Qué estructura tiene y en qué se diferencia de condiciones y acciones?
+hiring;reglas_actividad;mensaje;Mensaje que se muestra al usuario cuando se aplica la regla.;Media;nombre + tipo text;¿El mensaje se muestra al usuario cuando la regla se cumple o cuando bloquea la actividad?
+hiring;reglas_actividad;vigente_desde;Fecha y hora desde la cual la regla está vigente. Por defecto, la fecha de creación.;Alta;nombre + timestamptz con defecto now() + CHECK con vigente_hasta;
+hiring;reglas_actividad;vigente_hasta;"Fecha y hora hasta la cual la regla está vigente. Vacía si sigue vigente; debe ser posterior a vigente_desde.";Alta;nombre + CHECK vigente_hasta IS NULL OR > vigente_desde;
+hiring;reglas_actividad;conector;Operador lógico con que se combinan las condiciones de la regla. Valores permitidos: AND, OR. Por defecto, AND.;Media;valores permitidos del CHECK + vecina condiciones;¿Combina los elementos de la columna condiciones?
+hiring;resoluciones_sancionatorias;valor_sancion;Valor de la sanción impuesta en la resolución. Un CHECK lo relaciona con el sentido de la decisión (DECLARA_CADUCIDAD, DECLARA_INCUMPLIMIENTO).;Media;nombre + numeric(18,2) + CHECK con valores de sentido;¿Está en pesos colombianos y es obligatorio solo cuando el sentido declara incumplimiento o caducidad?
+hiring;resoluciones_sancionatorias;estado_contrato_antes;Estado que tenía el contrato antes de la resolución.;Media;nombre + varchar(20) + vecinas revocada_*;¿Se guarda para restaurar el estado del contrato si se revoca la resolución? ¿Qué valores toma?
+hiring;resoluciones_sancionatorias;notificada_el;Fecha de notificación de la resolución.;Alta;nombre + tipo date + CHECK con firme_el;
+hiring;resoluciones_sancionatorias;firme_el;Fecha en que la resolución quedó en firme. Requiere fecha de notificación y no puede ser anterior a ella.;Alta;nombre + tipo date + CHECK firme_el >= notificada_el;
+hiring;resoluciones_sancionatorias;expedida_por;Usuario o funcionario que expidió la resolución.;Media;nombre + varchar(200) + patrón *_por;¿Guarda el nombre, el correo o el identificador del usuario?
+hiring;resultados_evaluacion;puntaje_obtenido;Puntaje obtenido por la oferta en la evaluación. Se registra junto con puntaje_maximo y no puede ser negativo.;Alta;nombre + numeric(6,2) + CHECK con puntaje_maximo;
+hiring;resultados_evaluacion;puntaje_maximo;Puntaje máximo posible en la evaluación. Se registra junto con puntaje_obtenido y debe ser mayor que cero.;Alta;nombre + numeric(6,2) + CHECK con puntaje_obtenido;
+hiring;resultados_evaluacion;valor_evaluado;Valor de la oferta considerado en la evaluación. Si se registra, debe ser mayor que cero.;Media;nombre + numeric(18,2) + CHECK valor_evaluado > 0;¿Está en pesos colombianos y corresponde al valor ofertado o a un valor corregido por el comité?
+hiring;resultados_evaluacion;justificacion;Justificación del resultado de la evaluación.;Alta;nombre + text not null + descripción de la tabla;
+hiring;resultados_evaluacion;rectificado_at;Fecha y hora en que se rectificó el resultado de la evaluación. Un CHECK la relaciona con el estado RECTIFICADO.;Alta;nombre + timestamptz + CHECK con estado RECTIFICADO + vecina motivo_rectificacion;
+hiring;resultados_evaluacion;rectificado_por;Usuario que rectificó el resultado.;Media;nombre + varchar(200) + vecina rectificado_at;¿Guarda el nombre, el correo o el identificador del usuario?
+hiring;revisiones;decision;Decisión de la revisión de la actividad. Valores permitidos: APROBADO, DEVUELTO, NEGADO.;Alta;valores permitidos del CHECK;
+hiring;revisiones;version_revisada;Número de versión de la actividad que se revisó.;Alta;nombre + integer + columna version de proceso_actividades;
+hiring;revisiones;revisado_por_id;Identificador del usuario que hizo la revisión.;Media;nombre + varchar(120) + vecina revisado_por;"¿A qué tabla corresponde el identificador (auth.""user"", Keycloak u otro)?"
+hiring;seguimientos_contrato;periodo_desde;Fecha de inicio del periodo que cubre el seguimiento. Se registra junto con periodo_hasta y no puede ser posterior a ella.;Alta;nombre + tipo date + CHECK con periodo_hasta;
+hiring;seguimientos_contrato;periodo_hasta;Fecha de fin del periodo que cubre el seguimiento. Se registra junto con periodo_desde.;Alta;nombre + tipo date + CHECK con periodo_desde;
+hiring;sesiones_comite_contratacion;fecha;Fecha de la sesión del comité de contratación.;Alta;nombre + tipo date + descripción de la tabla;
+hiring;sesiones_comite_contratacion;decision;Decisión del comité en la sesión. Valores permitidos: APROBADO, APROBADO_CON_CONDICIONES, OBSERVADO, RECHAZADO.;Alta;valores permitidos del CHECK;
+hiring;sesiones_comite_contratacion;condiciones;Condiciones impuestas por el comité. Un CHECK la relaciona con la decisión APROBADO_CON_CONDICIONES.;Alta;nombre + text + CHECK con APROBADO_CON_CONDICIONES;
+hiring;sesiones_comite_contratacion;registrado_por_id;Identificador del usuario que registró la sesión.;Media;nombre + varchar(120) + vecina registrado_por;"¿A qué tabla corresponde el identificador (auth.""user"", Keycloak u otro)?"
+hiring;smmlv;valor;Valor del salario mínimo mensual legal vigente del año, en pesos colombianos. Debe ser mayor que cero.;Alta;nombre + numeric + CHECK > 0 + descripción de la tabla;
+hiring;sobres_economicos;valor_ofertado;Valor ofertado en el sobre económico. Debe ser mayor que cero.;Media;nombre + numeric(18,2) + CHECK > 0;¿Está en pesos colombianos?
+hiring;sobres_economicos;abierto_por;Usuario que abrió el sobre económico en la audiencia.;Media;nombre + varchar(200) + vecina abierto_at;¿Guarda el nombre, el correo o el identificador del usuario?
+hiring;sobres_economicos;abierto_at;Fecha y hora de apertura del sobre económico. Por defecto, la fecha del registro.;Alta;nombre + timestamptz con defecto now();
+hiring;subsanaciones;presentado_por;Nombre de quien presenta la subsanación u observación.;Alta;nombre + varchar(200) + descripción de la tabla;
+hiring;subsanaciones;asunto;Asunto de la subsanación u observación.;Alta;nombre + varchar(300);
+hiring;subsanaciones;contenido;Texto de la subsanación u observación presentada por el oferente.;Alta;nombre + text not null + descripción de la tabla;
+hiring;subsanaciones;respuesta;Respuesta de la entidad a la subsanación u observación. Es obligatoria cuando se registra la decisión (aceptada) y la fecha de respuesta.;Alta;nombre + CHECK con aceptada y respondida_at;
+hiring;subsanaciones;respondida_por;Usuario que registró la respuesta.;Media;nombre + varchar(120) + vecina respondida_at;¿Guarda el nombre, el correo o el identificador del usuario?
+hiring;subsanaciones;respondida_at;Fecha y hora de la respuesta. Se registra junto con aceptada.;Alta;nombre + timestamptz + CHECK con aceptada;
+hiring;supervisiones_contrato;persona_id;Identificador de la persona designada como supervisora del contrato.;Media;nombre + uuid not null + índice + vecinas nombre, cargo;¿Corresponde a auth.personas.id_person?
+hiring;supervisiones_contrato;cargo;Cargo del supervisor designado.;Alta;nombre + varchar(200);
+hiring;supervisiones_contrato;designado_por;Usuario o funcionario que designó al supervisor.;Media;nombre + varchar(200) + patrón *_por;¿Guarda el nombre del ordenador del gasto, el usuario que registró la designación u otro?
+hiring;supervisiones_contrato;alerta_enviada_at;Fecha y hora en que se envió la alerta al supervisor.;Baja;nombre + timestamptz;¿Qué alerta es (aviso de designación, de vencimiento u otra) y quién la recibe?
+hiring;supervisiones_contrato;relevado_at;Fecha y hora en que el supervisor fue relevado. Un CHECK la relaciona con el estado RELEVADO.;Alta;nombre + timestamptz + CHECK con estado RELEVADO + vecina motivo_relevo;
+hiring;supervisiones_contrato;relevado_por;Usuario que registró el relevo del supervisor.;Media;nombre + varchar(200) + vecina relevado_at;¿Guarda el nombre, el correo o el identificador del usuario?
+hiring;tipologias_contrato;numeral_formato;Numeral del formato del SIG que sirve de minuta para la tipología. Por defecto, 8.1.;Media;nombre + varchar(20) con defecto 8.1 + descripción de la tabla;¿Corresponde al numeral de hiring.plantillas?
+hiring;tope_adicion;porcentaje;Porcentaje máximo de adición sobre el valor inicial del contrato. Mayor que 0 y hasta 100.;Alta;nombre + numeric(5,2) + CHECK 0 < porcentaje <= 100 + descripción de la tabla;
+hiring;tope_adicion;fundamento;Fundamento normativo del tope de adición.;Media;nombre + text + vecina confirmado;¿Guarda la norma o el texto que sustenta el tope?
+hiring;trazabilidad;entidad;Nombre del tipo de registro afectado por la acción (por ejemplo, la tabla o el objeto del proceso).;Media;nombre + varchar(80) + vecina entidad_id + tabla de trazabilidad;¿Guarda el nombre de la tabla o un nombre funcional del objeto?
+hiring;trazabilidad;entidad_id;Identificador del registro afectado por la acción.;Alta;nombre + uuid + vecina entidad;
+hiring;trazabilidad;accion;Acción realizada sobre el registro.;Media;nombre + varchar(60);¿Qué valores toma (por ejemplo, CREAR, ENVIAR, APROBAR)?
+hiring;trazabilidad;detalle;Detalle de la acción, en formato JSON.;Media;nombre + jsonb;¿Qué estructura tiene (por ejemplo, valores antes y después)?
+hiring;trazabilidad;usuario_id;Identificador del usuario que hizo la acción.;Media;nombre + varchar(120) + vecina usuario_nombre;"¿A qué tabla corresponde el identificador (auth.""user"", Keycloak u otro)?"
+hiring;trazabilidad;usuario_nombre;Nombre del usuario que hizo la acción.;Alta;nombre + varchar(200) + vecina usuario_id;
+hiring;umbrales_comite_contratacion;valor;Cuantía a partir de la cual el proceso pasa por el comité de contratación, expresada en la unidad indicada. Debe ser mayor que cero.;Media;nombre + numeric + CHECK > 0 + descripción de la tabla;¿El umbral se aplica con «mayor que» o con «mayor o igual que»?
+hiring;umbrales_comite_contratacion;unidad;Unidad en que se expresa el valor. Valores permitidos: PESOS, SMMLV. Por defecto, SMMLV.;Alta;valores permitidos del CHECK + defecto;
+hiring;umbrales_comite_contratacion;fundamento;Fundamento normativo del umbral.;Media;nombre + text + vecina confirmado;¿Guarda la norma o el texto que sustenta el umbral?
+hiring;umbrales_modalidad;limite_inferior;Límite inferior del rango de cuantía de la modalidad, en la unidad indicada. Debe registrarse al menos uno de los dos límites y, si están ambos, el inferior es menor.;Media;nombre + numeric + CHECK con limite_superior;¿El límite inferior es inclusivo o exclusivo?
+hiring;umbrales_modalidad;limite_superior;Límite superior del rango de cuantía de la modalidad, en la unidad indicada. Vacío si el rango no tiene tope.;Media;nombre + numeric + CHECK con limite_inferior;¿El límite superior es inclusivo o exclusivo?
+hiring;umbrales_modalidad;unidad;Unidad en que se expresan los límites. Valores permitidos: PESOS, SMMLV. Por defecto, SMMLV.;Alta;valores permitidos del CHECK + defecto;
+hiring;umbrales_modalidad;vigencia_desde;Fecha desde la cual rige el umbral. Por defecto, la fecha del registro.;Alta;nombre + date con defecto CURRENT_DATE + CHECK con vigencia_hasta;
+hiring;umbrales_modalidad;vigencia_hasta;"Fecha hasta la cual rige el umbral. Vacía si sigue vigente; no puede ser anterior a vigencia_desde.";Alta;nombre + date + CHECK vigencia_hasta >= vigencia_desde;
+infrastructure-management;bloque_edificio;pisos;Número de pisos del bloque o edificio. Por defecto, 1.;Alta;nombre + integer con defecto 1;
+infrastructure-management;espacio_fisico;capacidad;Número de personas que caben en el espacio. Por defecto, 30.;Media;nombre + integer con defecto 30;¿La capacidad se expresa en número de personas (puestos)?
+infrastructure-management;espacio_fisico;piso;Piso del bloque en que está el espacio. Por defecto, 1.;Alta;nombre + integer + tabla bloque_edificio.pisos;
+infrastructure-management;espacio_fisico;area_m2;Área del espacio en metros cuadrados.;Alta;nombre con sufijo m2 + numeric(8,2);
+infrastructure-management;sede;departamento;Departamento donde está la sede.;Alta;nombre + varchar(100) + vecina municipio;
+infrastructure-management;sede;municipio;Municipio donde está la sede.;Alta;nombre + varchar(100);
+infrastructure-management;sede;direccion;Dirección de la sede.;Alta;nombre + varchar(255);
+infrastructure-management;sede;email_contacto;Correo electrónico de contacto de la sede.;Alta;nombre + varchar(100);
+infrastructure-management;solicitud_evidencia;nombre_original;Nombre original del archivo subido por el usuario.;Alta;nombre + varchar(255) + descripción de la tabla;
+infrastructure-management;solicitud_evidencia;nombre_almacenado;Nombre con que se guardó el archivo en el almacenamiento de objetos.;Alta;nombre + vecina nombre_original + descripción de la tabla (MinIO);
+infrastructure-management;solicitud_evidencia;bucket;Bucket de MinIO donde se guarda el archivo. Por defecto, infraestructura-evidencias.;Alta;nombre + defecto + descripción de la tabla (MinIO);
+infrastructure-management;solicitud_evidencia;url_publica;URL pública del archivo.;Media;nombre + text + vecina url_presigned;¿El bucket permite acceso público o esta URL solo se usa internamente?
+infrastructure-management;solicitud_evidencia;url_presigned;"URL prefirmada de acceso temporal al archivo; vence en la fecha de vencimiento_presigned.";Alta;nombre + text + vecina vencimiento_presigned;
+infrastructure-management;solicitud_evidencia;usuario_que_subio_id;Identificador del usuario que subió el archivo.;Media;nombre + uuid + vecina usuario_que_subio_email;"¿Corresponde a auth.""user""?"
+infrastructure-management;solicitud_evidencia;usuario_que_subio_email;Correo electrónico del usuario que subió el archivo.;Alta;nombre + varchar(180);
+infrastructure-management;solicitud_evidencia;notas;Notas sobre la evidencia.;Alta;nombre + tipo text;
+infrastructure-management;solicitud_mantenimiento;consecutivo;Consecutivo único de la solicitud de mantenimiento.;Alta;nombre + varchar(50) + restricción única;
+infrastructure-management;solicitud_mantenimiento;tipo_mantenimiento;Tipo de mantenimiento solicitado.;Media;nombre + varchar(50);¿Qué valores toma (por ejemplo, PREVENTIVO, CORRECTIVO)?
+infrastructure-management;solicitud_mantenimiento;prioridad;Prioridad de la solicitud. Por defecto, MEDIA.;Media;nombre + varchar(30) con defecto MEDIA;¿Qué otros valores toma (por ejemplo, BAJA, ALTA, URGENTE)?
+infrastructure-management;solicitud_mantenimiento;solicitante_email;Correo electrónico de quien solicita el mantenimiento.;Alta;nombre + varchar(150);
+infrastructure-management;solicitud_mantenimiento;solicitante_nombre;Nombre de quien solicita el mantenimiento.;Alta;nombre + varchar(150);
+infrastructure-management;solicitud_mantenimiento;responsable_asignado;Responsable asignado para atender la solicitud.;Media;nombre + varchar(150) + índice con estado + vecina id_tecnico_asignado;¿Guarda el nombre o el correo del responsable?
+infrastructure-management;solicitud_mantenimiento;costo_estimado;Costo estimado de la atención de la solicitud. Por defecto, 0.;Media;nombre + numeric(14,2) con defecto 0 + vecina total_estimado_insumos_cop;¿Está en pesos colombianos y en qué se diferencia de total_estimado_insumos_cop?
+infrastructure-management;solicitud_mantenimiento;riesgo_valoracion;Nivel de riesgo identificado en la valoración técnica. Valores permitidos: ALTO, BAJO, MEDIO.;Alta;valores permitidos del CHECK + vecinas *_valoracion;
+infrastructure-management;solicitud_mantenimiento;total_estimado_insumos_cop;Valor total estimado de los insumos, en pesos colombianos. Por defecto, 0.;Media;nombre con sufijo cop + numeric(15,2);¿Se calcula a partir de un detalle de insumos o se digita?
+infrastructure-management;solicitud_mantenimiento;dias_extendidos_por_insumos;Días en que se extendió el plazo de atención por espera de insumos. Por defecto, 0.;Media;nombre + smallint + vecinas espera_insumos_flag y fecha_limite_original_antes_extension;¿Los días son calendario o hábiles?
+infrastructure-management;solicitud_mantenimiento;usuario_cierre_tecnico_id;Identificador del usuario que hizo el cierre técnico de la solicitud.;Media;nombre + uuid + vecina fecha_cierre_tecnico;"¿Corresponde a auth.""user""?"
+infrastructure-management;solicitud_mantenimiento;responsable_cierre_display;Nombre del responsable del cierre técnico, tal como se muestra en pantalla.;Media;nombre con sufijo display + text;¿Se copia del usuario al cerrar o se digita?
+infrastructure-management;solicitud_mantenimiento;observaciones_cierre;Observaciones registradas en el cierre de la solicitud.;Alta;nombre + tipo text;
+infrastructure-management;solicitud_valoracion;id_tecnico_valorador;Identificador del técnico que hizo la visita de valoración.;Media;nombre + uuid + índice + vecinas tecnico_*;"¿A qué tabla corresponde el identificador (auth.""user"", técnicos u otra)?"
+infrastructure-management;solicitud_valoracion;tecnico_codigo;Código del técnico que hizo la valoración.;Media;nombre + varchar(20);¿Qué código es (código interno del técnico, documento u otro)?
+infrastructure-management;solicitud_valoracion;tecnico_nombre;Nombre del técnico que hizo la valoración.;Alta;nombre + varchar(200);
+infrastructure-management;solicitud_valoracion;estado_al_finalizar;Estado en que queda la solicitud al terminar la valoración. Valores permitidos: EN_ESPERA_DE_INSUMOS, EN_PROGRESO.;Alta;valores permitidos del CHECK;
+infrastructure-management;solicitud_valoracion;diagnostico;Diagnóstico técnico de la visita de valoración. Mínimo 10 caracteres.;Alta;nombre + CHECK char_length >= 10;
+infrastructure-management;solicitud_valoracion;alcance_identificado;Alcance del trabajo identificado en la valoración. Mínimo 10 caracteres.;Alta;nombre + CHECK char_length >= 10;
+infrastructure-management;solicitud_valoracion;tiempo_estimado_horas;Tiempo estimado del trabajo, en horas. Entre 0,25 y 240.;Alta;nombre con sufijo horas + CHECK 0.25–240;
+infrastructure-management;solicitud_valoracion;nivel_riesgo;Nivel de riesgo identificado en la valoración. Valores permitidos: ALTO, BAJO, MEDIO.;Alta;valores permitidos del CHECK;
+infrastructure-management;solicitud_valoracion;id_usuario_corrector;Identificador del usuario que corrigió la valoración.;Media;nombre + uuid + vecina es_version_corregida_por_encargado;¿Corresponde al encargado que corrige la valoración del técnico y a qué tabla apunta?
+infrastructure-management;solicitud_valoracion_insumo;codigo_insumo;Código del material o repuesto en el catálogo de insumos.;Media;nombre + columna vecina nombre + descripción de la tabla;¿El código proviene de un catálogo o sistema de inventario? ¿Cuál?
+infrastructure-management;solicitud_valoracion_insumo;cantidad;Cantidad requerida del insumo, expresada en la unidad de medida de la fila. Debe ser mayor que cero.;Alta;nombre + tipo numeric(12,3) + CHECK cantidad > 0 + columna unidad_medida;
+infrastructure-management;solicitud_valoracion_insumo;unidad_medida;Unidad de medida del insumo. Valores permitidos: L, cj, glb, kg, m, m2, otro, paq, rol, un.;Alta;valores permitidos;
+infrastructure-management;solicitud_valoracion_insumo;costo_unitario_cop;Costo por unidad del insumo, en pesos colombianos. No puede ser negativo.;Alta;sufijo _cop + tipo numeric + CHECK >= 0;
+infrastructure-management;solicitud_valoracion_insumo;subtotal_cop;Subtotal del insumo en pesos colombianos: cantidad por costo unitario.;Alta;defecto cantidad * costo_unitario_cop + sufijo _cop;
+infrastructure-management;solicitud_valoracion_insumo;disponibilidad;Disponibilidad del insumo para la visita. Valores permitidos: DISPONIBLE_EN_BODEGA, NO_DISPONIBLE_A_SOLICITAR.;Alta;valores permitidos + descripción de la tabla;
+infrastructure-management;solicitud_valoracion_insumo;tiempo_adquisicion_dias;Tiempo estimado para adquirir el insumo, en días. Es obligatorio cuando la disponibilidad es NO_DISPONIBLE_A_SOLICITAR.;Media;nombre + tipo smallint + restricción chk_tiempo_adquisicion_si_no_disponible de la descripción de la tabla (los valores permitidos listados son los de disponibilidad);¿Los días son calendario o hábiles?
+infrastructure-management;solicitud_valoracion_insumo;orden_item;Posición del insumo en el listado de la valoración.;Alta;nombre + tipo smallint + defecto 1;
+travel_expenses;analistas_viaticos;cargo;Cargo del analista del Grupo de Viáticos.;Media;nombre + descripción de la tabla;¿Es texto libre o viene del catálogo de cargos de talento humano?
+travel_expenses;comisionados;numero_documento;Número del documento de identidad del comisionado. Es único.;Alta;nombre + índice único;
+travel_expenses;comisionados;primer_nombre;Primer nombre del comisionado.;Alta;nombre;
+travel_expenses;comisionados;segundo_nombre;Segundo nombre del comisionado.;Alta;nombre;
+travel_expenses;comisionados;primer_apellido;Primer apellido del comisionado.;Alta;nombre;
+travel_expenses;comisionados;segundo_apellido;Segundo apellido del comisionado.;Alta;nombre;
+travel_expenses;comisionados;telefono_contacto;Teléfono de contacto del comisionado.;Media;nombre + longitud 150;¿Puede contener varios números en el mismo campo? ¿Con qué separador?
+travel_expenses;comisionados;tipo_comisionado;Tipo de vinculación del comisionado con la ESAP. Valores permitidos: CONTRATISTA, DOCENTE, ESTUDIANTE, FUNCIONARIO, INVESTIGADOR.;Alta;valores permitidos;
+travel_expenses;comisionados;origen_datos;Fuente de la que se obtuvieron los datos del comisionado. Valores permitidos: ESAP, HUMANO, SECOP.;Media;valores permitidos + nombre;¿HUMANO corresponde al sistema de talento humano o a registro manual?
+travel_expenses;comisionados;ip_registro_habeas_data;Dirección IP desde la que se registró la autorización de tratamiento de datos personales (habeas data). Admite IPv4 e IPv6.;Alta;nombre + longitud 45 + columnas vecinas autorizacion_habeas_data, fecha_autorizacion_habeas_data;
+travel_expenses;config_campos_formulario;clave;Identificador único del campo del formulario.;Alta;nombre + índice único + tabla de configuración de campos;
+travel_expenses;config_campos_formulario;etiqueta;Texto que se muestra como rótulo del campo en el formulario.;Alta;nombre + tabla de configuración de formulario;
+travel_expenses;config_campos_formulario;tipo_campo;Tipo de control del campo en el formulario (por ejemplo, texto, fecha o lista).;Media;nombre + tabla de configuración de formulario;¿Qué valores admite (text, date, select…)?
+travel_expenses;config_campos_formulario;placeholder;Texto de ayuda que se muestra dentro del campo vacío.;Alta;nombre + tabla de configuración de formulario;
+travel_expenses;config_campos_formulario;opciones;Opciones disponibles para campos de selección, en formato JSON.;Media;nombre + tipo jsonb;¿Cuál es la estructura del JSON (lista de valores, pares valor-etiqueta)?
+travel_expenses;config_campos_formulario;grupo;Grupo o sección del formulario a la que pertenece el campo.;Media;nombre + índice con orden;¿Qué grupos existen y cómo se muestran?
+travel_expenses;config_jornada_laboral;hora_inicio;Hora de inicio de la jornada laboral, en formato HH:MM.;Alta;nombre + varchar(5) + defecto '08:00';
+travel_expenses;config_jornada_laboral;hora_fin;Hora de fin de la jornada laboral, en formato HH:MM.;Alta;nombre + varchar(5) + defecto '16:30';
+travel_expenses;config_jornada_laboral;dias_laborales;"Días de la semana laborables, en formato JSON (lista de números; 1 = lunes).";Media;tipo jsonb + defecto [1, 2, 3, 4, 5];¿La numeración es 1 = lunes a 7 = domingo?
+travel_expenses;config_jornada_laboral;dias_anticipacion_minima;Días mínimos de anticipación con que debe radicarse una solicitud de comisión.;Media;nombre + defecto 14 + módulo de viáticos;¿Son días hábiles o calendario? ¿Qué pasa si no se cumple (solicitud extemporánea)?
+travel_expenses;config_jornada_laboral;dias_umbral_avance;Número de días que define el umbral para la modalidad de pago por avance.;Baja;nombre + defecto 5 + columnas modalidad_pago y dias_habiles_previos en solicitudes_comision;¿Cómo se usa este umbral para decidir la modalidad de pago? ¿Son días hábiles?
+travel_expenses;config_legalizacion;dias_aviso_por_vencer;Días antes del vencimiento del plazo de legalización en que se envía el aviso. No puede ser negativo.;Media;nombre + defecto 2 + CHECK >= 0 + descripción de la tabla;¿Son días hábiles, como el plazo?
+travel_expenses;config_legalizacion;actualizado_por_id;Identificador del usuario que actualizó por última vez la configuración.;Media;patrón *_por_id + tipo uuid;"¿Referencia a auth.""user"" o a auth.personas?"
+travel_expenses;config_legalizacion_documentos;tipo_requisito;Indica si el soporte es obligatorio u opcional para legalizar. Valores permitidos: OBLIGATORIO, OPCIONAL.;Alta;valores permitidos + descripción de la tabla;
+travel_expenses;config_tipo_comisionado;tipo_comisionado;Tipo de comisionado al que aplica la configuración. Es único.;Alta;nombre + índice único + tipo_comisionado de comisionados;
+travel_expenses;config_tipo_comisionado;codigo_formulario;Código del formulario de solicitud que usa el tipo de comisionado.;Media;nombre + índice;¿Dónde se definen los códigos de formulario?
+travel_expenses;config_tipo_comisionado;campos_obligatorios;Lista de campos obligatorios del formulario para el tipo de comisionado, en formato JSON.;Media;nombre + tipo jsonb + defecto [];¿La lista contiene las claves de config_campos_formulario?
+travel_expenses;config_tipo_comisionado;campos_opcionales;Lista de campos opcionales del formulario para el tipo de comisionado, en formato JSON.;Media;nombre + tipo jsonb + defecto [];¿La lista contiene las claves de config_campos_formulario?
+travel_expenses;config_tipo_comisionado;campos_ocultos;Lista de campos que no se muestran en el formulario para el tipo de comisionado, en formato JSON.;Media;nombre + tipo jsonb + defecto [];¿La lista contiene las claves de config_campos_formulario?
+travel_expenses;config_tipo_comisionado_documentos;tipo_requisito;Indica si el documento de soporte es obligatorio u opcional para el tipo de comisionado. Valores permitidos: OBLIGATORIO, OPCIONAL.;Alta;valores permitidos + columnas vecinas;
+travel_expenses;configuraciones_globales;valor;Valor del parámetro de configuración identificado por la clave, guardado como texto.;Media;nombre + tipo text + columna vecina clave;¿Hay valores con formato JSON o numérico que se convierten en la aplicación?
+travel_expenses;documentos_soporte;tipo_documento;Tipo de documento de soporte de la solicitud. Valores permitidos: CDP, CERT_BANCARIA, CONTRATO_SECOP, RUT, SEGURIDAD_SOCIAL.;Alta;valores permitidos;
+travel_expenses;documentos_soporte;nombre_archivo_original;Nombre del archivo tal como lo cargó el usuario.;Alta;nombre + columna vecina nombre_archivo_seguro;
+travel_expenses;documentos_soporte;nombre_archivo_seguro;Nombre con el que se guarda el archivo en el repositorio, generado por el sistema.;Media;nombre + columna vecina nombre_archivo_original;¿Cómo se genera el nombre (UUID, hash)?
+travel_expenses;documentos_soporte;url_repositorio;URL o ruta del archivo en el repositorio documental.;Media;nombre + longitud 512;¿Qué repositorio se usa y la URL es pública o interna?
+travel_expenses;documentos_soporte;tipo_mime;Tipo MIME del archivo (por ejemplo, application/pdf).;Alta;nombre + defecto application/pdf;
+travel_expenses;escalas_viaticos;decreto_vigente;Decreto que fija la escala de viáticos.;Alta;nombre + tabla de escalas;
+travel_expenses;escalas_viaticos;ano_vigencia;Año de vigencia de la escala de viáticos.;Alta;nombre + tipo integer + índice;
+travel_expenses;escalas_viaticos;rango_minimo;Límite inferior del rango de ingreso (asignación básica) al que aplica la tarifa, en pesos colombianos.;Media;nombre + tipo numeric + índice con rango_maximo + columna tarifa_diaria;¿El rango es sobre el salario básico mensual? ¿El límite es inclusivo?
+travel_expenses;escalas_viaticos;rango_maximo;Límite superior del rango de ingreso (asignación básica) al que aplica la tarifa, en pesos colombianos.;Media;nombre + tipo numeric + índice con rango_minimo + columna tarifa_diaria;¿El rango es sobre el salario básico mensual? ¿El límite es inclusivo?
+travel_expenses;escalas_viaticos;tarifa_diaria;Valor diario de viáticos para el rango, en pesos colombianos.;Media;nombre + tipo numeric + tabla de escalas;¿Confirmar que el valor está en pesos colombianos?
+travel_expenses;excepciones_autorizadas_tiquetes;solicitud_id;Identificador de la solicitud de comisión a la que aplica la excepción.;Alta;nombre + tipo uuid + índice + tabla solicitudes_comision;
+travel_expenses;excepciones_autorizadas_tiquetes;tipo_excepcion;Motivo de la excepción autorizada para los tiquetes. Valores permitidos: PRESUPUESTO_AGOTADO, RUTA_CORTA.;Alta;valores permitidos;
+travel_expenses;excepciones_autorizadas_tiquetes;autorizado_por;Instancia que autoriza la excepción. Valores permitidos: DIRECTOR_NACIONAL, SINDICATO.;Alta;valores permitidos;
+travel_expenses;excepciones_autorizadas_tiquetes;numero_documento_soporte;Número del documento que soporta la autorización de la excepción.;Media;nombre + columna vecina documento_soporte_url;¿Qué tipo de documento es (resolución, acta, oficio)?
+travel_expenses;excepciones_autorizadas_tiquetes;documento_soporte_url;URL o ruta del documento que soporta la excepción.;Alta;nombre + columna vecina numero_documento_soporte;
+travel_expenses;excepciones_autorizadas_tiquetes;comentarios;Comentarios sobre la excepción autorizada.;Alta;nombre + tipo text;
+travel_expenses;legalizacion_reversiones;motivo;Motivo de la solicitud de reversión. Debe tener al menos 10 caracteres.;Alta;nombre + CHECK length >= 10;
+travel_expenses;legalizacion_reversiones;solicitada_por_id;Identificador del usuario que solicita la reversión.;Media;patrón *_por_id + tipo uuid + CHECK que lo distingue de resuelta_por_id;"¿Referencia a auth.""user""?"
+travel_expenses;legalizacion_reversiones;resuelta_por_id;Identificador del usuario que resuelve la reversión. Debe ser distinto de quien la solicitó.;Media;patrón *_por_id + CHECK resuelta_por_id <> solicitada_por_id + descripción de la tabla (los valores permitidos listados corresponden a estado);"¿Referencia a auth.""user""?"
+travel_expenses;legalizacion_reversiones;resuelta_en;Fecha y hora en que se resolvió la reversión.;Alta;patrón *_en + tipo timestamptz (los valores permitidos listados corresponden a estado);
+travel_expenses;legalizacion_reversiones;observacion_resolucion;Observación registrada al resolver la reversión.;Media;nombre + tipo text (los valores permitidos listados corresponden a estado);¿Es obligatoria cuando la reversión se rechaza?
+travel_expenses;legalizacion_revisiones;soporte_id;Identificador del soporte de legalización revisado, cuando la acción recae sobre un soporte.;Media;nombre + tabla legalizacion_soportes + acciones SOPORTE_APROBADO, SOPORTE_RECHAZADO;¿Referencia a legalizacion_soportes.id?
+travel_expenses;legalizacion_revisiones;accion;Acción registrada en la revisión de la legalización. Valores permitidos: APROBACION, DEVOLUCION, EXPORTACION_SIIF, REGISTRO_SIIF_Y_CIERRE, REVERSION_APROBADA, REVERSION_RECHAZADA, REVERSION_SOLICITADA, SOPORTE_APROBADO, SOPORTE_RECHAZADO.;Alta;valores permitidos;
+travel_expenses;legalizacion_revisiones;detalle;Información adicional de la acción, en formato JSON.;Baja;nombre + tipo jsonb;¿Qué estructura tiene el JSON según la acción?
+travel_expenses;legalizacion_revisiones;usuario_id;Identificador del usuario que realizó la acción.;Media;nombre + tipo uuid + descripción de la tabla (quién);"¿Referencia a auth.""user""?"
+travel_expenses;legalizacion_soportes;nombre_archivo_original;Nombre del archivo PDF tal como lo cargó el usuario.;Alta;nombre + descripción de la tabla;
+travel_expenses;legalizacion_soportes;ruta_relativa;Ruta relativa del archivo en el almacenamiento.;Media;nombre + longitud 512;¿Relativa a qué directorio o repositorio?
+travel_expenses;legalizacion_soportes;sha256;Huella SHA-256 del archivo, en hexadecimal (64 caracteres).;Alta;nombre + tipo character(64);
+travel_expenses;legalizacion_soportes;cargado_por_id;Identificador del usuario que cargó el soporte.;Media;patrón *_por_id + tipo uuid;"¿Referencia a auth.""user""?"
+travel_expenses;legalizacion_soportes;revision;Resultado de la revisión del soporte. Valores permitidos: APROBADO, RECHAZADO.;Alta;valores permitidos;
+travel_expenses;legalizacion_soportes;observacion_revision;Observación registrada al revisar el soporte.;Media;nombre + tipo text (los valores permitidos listados corresponden a revision);¿Es obligatoria cuando el soporte se rechaza?
+travel_expenses;legalizacion_soportes;revisado_por_id;Identificador del usuario que revisó el soporte.;Media;patrón *_por_id + tipo uuid;"¿Referencia a auth.""user""?"
+travel_expenses;legalizaciones_comision;modalidad_pago;Modalidad de pago de la comisión, que determina las reglas de legalización.;Media;nombre + config_legalizacion por modalidad de pago;¿Qué valores admite (AVANCE, …)? ¿Se copia de solicitudes_comision?
+travel_expenses;legalizaciones_comision;estado_disparador;Estado de la solicitud que inicia el plazo de legalización.;Media;nombre + descripción de config_legalizacion (disparador);¿Qué estados se usan como disparador?
+travel_expenses;legalizaciones_comision;hora_corte;Hora límite del último día del plazo de legalización, en formato HH:MM.;Media;nombre + varchar(5) + config_legalizacion;¿Se copia de config_legalizacion al crear la legalización?
+travel_expenses;legalizaciones_comision;enviada_por_id;Identificador del usuario que envió la legalización a revisión. Se registra junto con fecha_envio.;Media;patrón *_por_id + CHECK con fecha_envio;"¿Referencia a auth.""user""?"
+travel_expenses;legalizaciones_comision;notificado_por_vencer_en;Fecha y hora en que se notificó que el plazo de legalización estaba por vencer.;Alta;nombre + tipo timestamptz + config_legalizacion.dias_aviso_por_vencer;
+travel_expenses;legalizaciones_comision;notificado_vencido_en;Fecha y hora en que se notificó que el plazo de legalización venció.;Alta;nombre + tipo timestamptz;
+travel_expenses;legalizaciones_comision;revision_aprobada_en;Fecha y hora en que se aprobó la revisión de la legalización. Es obligatoria para cerrarla.;Alta;nombre + tipo timestamptz + CHECK de cierre;
+travel_expenses;legalizaciones_comision;revision_aprobada_por_id;Identificador del usuario que aprobó la revisión de la legalización.;Media;patrón *_por_id + columna vecina revision_aprobada_en;"¿Referencia a auth.""user""?"
+travel_expenses;legalizaciones_comision;devuelta_por_id;Identificador del usuario que devolvió la legalización. Se registra junto con devuelta_en.;Media;patrón *_por_id + CHECK con devuelta_en;"¿Referencia a auth.""user""?"
+travel_expenses;legalizaciones_comision;observacion_devolucion;Motivo de la devolución de la legalización. Es obligatoria cuando hay devolución.;Alta;nombre + CHECK con devuelta_en;
+travel_expenses;legalizaciones_comision;numero_devoluciones;Número de veces que se ha devuelto la legalización. No puede ser negativo.;Alta;nombre + defecto 0 + CHECK >= 0;
+travel_expenses;legalizaciones_comision;siif_exportado_en;Fecha y hora en que la legalización se exportó para el SIIF.;Alta;nombre + tipo timestamptz + acción EXPORTACION_SIIF;
+travel_expenses;legalizaciones_comision;siif_exportado_por_id;Identificador del usuario que exportó la legalización para el SIIF.;Media;patrón *_por_id + columna vecina siif_exportado_en;"¿Referencia a auth.""user""?"
+travel_expenses;legalizaciones_comision;numero_registro_siif;Número del registro de la legalización en el SIIF. Es obligatorio para cerrarla.;Alta;nombre + CHECK de cierre;
+travel_expenses;legalizaciones_comision;registrado_siif_por_id;Identificador del usuario que registró la legalización en el SIIF.;Media;patrón *_por_id + columnas numero_registro_siif, fecha_registro_siif;"¿Referencia a auth.""user""?"
+travel_expenses;legalizaciones_comision;valor_pagado;Valor pagado al comisionado por la comisión, en pesos colombianos.;Media;nombre + tipo numeric + columnas valor_legalizado, valor_reintegro;¿Se copia de solicitudes_comision.valor_pagado?
+travel_expenses;legalizaciones_comision;valor_legalizado;Valor legalizado de la comisión, en pesos colombianos. No puede ser negativo y es obligatorio para cerrarla.;Media;nombre + tipo numeric + CHECK de cierre y >= 0;¿Confirmar la unidad (pesos colombianos)?
+travel_expenses;legalizaciones_comision;dias_reales;"Días efectivamente ejecutados en la comisión. No puede ser negativo; admite fracciones.";Media;nombre + tipo numeric(6,2) + CHECK >= 0;¿Las fracciones corresponden a días sin pernoctar (medio día)?
+travel_expenses;legalizaciones_comision;observaciones_cierre;Observaciones registradas al cerrar la legalización.;Alta;nombre + tipo text + columna vecina cerrada_en;
+travel_expenses;legalizaciones_comision;cerrada_por_id;Identificador del usuario que cerró la legalización. Es obligatorio para cerrarla.;Media;patrón *_por_id + CHECK de cierre;"¿Referencia a auth.""user""?"
+travel_expenses;legalizaciones_comision;entidad_externa;Nombre de la entidad externa cuando la comisión es externa. Es obligatorio en ese caso.;Alta;nombre + CHECK con comision_externa;
+travel_expenses;legalizaciones_comision;cumplimiento_registrado_en;Fecha y hora en que se registró el cumplimiento de la comisión.;Media;nombre + tipo timestamptz + columnas fecha_inicio_real, fecha_fin_real;¿Qué se entiende por cumplimiento: el informe o certificado de la comisión?
+travel_expenses;legalizaciones_comision;cumplimiento_registrado_por_id;Identificador del usuario que registró el cumplimiento de la comisión.;Media;patrón *_por_id + columna vecina cumplimiento_registrado_en;"¿Referencia a auth.""user""?"
+travel_expenses;liquidation_params;clave;Nombre único del parámetro de liquidación.;Alta;nombre + índice único + tabla de parámetros;
+travel_expenses;liquidation_params;valor;"Valor del parámetro de liquidación, guardado como texto; su tipo lo indica la columna tipo.";Media;nombre + columna vecina tipo;¿Qué tipos se usan y cómo se convierten?
+travel_expenses;parametros_globales;valor;"Valor del parámetro global, guardado como texto; su tipo lo indica la columna tipo.";Media;nombre + columna vecina tipo + descripción de la tabla;¿Qué tipos se usan y cómo se convierten?
+travel_expenses;paz_y_salvo_eventos;usuario_id;Identificador del usuario que realizó la acción sobre el paz y salvo.;Media;nombre + tipo uuid;"¿Referencia a auth.""user""?"
+travel_expenses;paz_y_salvo_eventos;accion;Acción registrada sobre el paz y salvo. Valores permitidos: CONSULTADO, DESCARGADO, FIRMA_VERIFICADA, OTP_SOLICITADO, SOLICITADO.;Alta;valores permitidos;
+travel_expenses;paz_y_salvo_eventos;detalle;Información adicional del evento, en formato JSON.;Baja;nombre + tipo jsonb + defecto {};¿Qué estructura tiene el JSON según la acción?
+travel_expenses;paz_y_salvos;solicitado_por_id;Identificador del usuario que solicitó el paz y salvo.;Media;patrón *_por_id + tipo uuid;"¿Referencia a auth.""user""?"
+travel_expenses;paz_y_salvos;contenido;Contenido del paz y salvo, en formato JSON.;Media;nombre + tipo jsonb + columna contenido_sha256;¿Qué datos incluye el JSON?
+travel_expenses;paz_y_salvos;contenido_sha256;Huella SHA-256 del contenido del paz y salvo, en hexadecimal.;Alta;nombre + varchar(64) + columna contenido;
+travel_expenses;paz_y_salvos;firma;Datos de la firma del paz y salvo, en formato JSON. Se registra junto con firmado_en y archivo_sha256.;Media;nombre + tipo jsonb + CHECK con firmado_en y archivo_sha256;¿Qué tipo de firma se usa y qué datos guarda el JSON?
+travel_expenses;paz_y_salvos;archivo_sha256;Huella SHA-256 del archivo firmado del paz y salvo, en hexadecimal. Se registra junto con la firma.;Alta;nombre + varchar(64) + CHECK con firma;
+travel_expenses;reintegros_comision;valor_pagado;Valor pagado por la comisión, en pesos colombianos.;Media;nombre + tipo numeric + descripción de la tabla;¿Se copia de solicitudes_comision.valor_pagado?
+travel_expenses;reintegros_comision;dias_comision;Días autorizados de la comisión.;Media;nombre + tipo numeric(6,2) + columna dias_ejecutados;¿Admite fracciones por días sin pernoctar?
+travel_expenses;reintegros_comision;dias_ejecutados;Días efectivamente ejecutados de la comisión.;Media;nombre + tipo numeric(6,2) + descripción de la tabla;¿Admite fracciones por días sin pernoctar?
+travel_expenses;reintegros_comision;valor_reintegrado;Valor efectivamente reintegrado, en pesos colombianos. Si se registra, debe ser mayor que cero.;Media;nombre + CHECK > 0 + columna valor_a_reintegrar;¿Puede ser distinto de valor_a_reintegrar?
+travel_expenses;reintegros_comision;registrado_por_id;Identificador del usuario que registró el reintegro.;Media;patrón *_por_id + columna fecha_registro;"¿Referencia a auth.""user""?"
+travel_expenses;rutas_restringidas;origen_ciudad;Ciudad de origen de la ruta restringida.;Alta;nombre + índice único con destino_ciudad;
+travel_expenses;rutas_restringidas;destino_ciudad;Ciudad de destino de la ruta restringida.;Alta;nombre + índice único con origen_ciudad;
+travel_expenses;rutas_restringidas;descripcion_restriccion;Descripción de la restricción que aplica a la ruta.;Media;nombre;¿Qué tipo de restricción se registra (por ejemplo, no se compra tiquete aéreo)?
+travel_expenses;saldos_tiquetes;dependencia_id;Identificador de la dependencia dueña del presupuesto de tiquetes. Es único.;Media;nombre + índice único + tipo varchar;¿Es el código de la dependencia en otro sistema? ¿Por qué es texto y no numérico?
+travel_expenses;saldos_tiquetes;nombre_dependencia;Nombre de la dependencia.;Alta;nombre;
+travel_expenses;saldos_tiquetes;presupuesto_inicial;Presupuesto inicial asignado para tiquetes, en pesos colombianos. No puede ser negativo.;Media;nombre + CHECK >= 0 + tabla saldos_tiquetes;¿Corresponde a una vigencia fiscal?
+travel_expenses;saldos_tiquetes;presupuesto_reservado;Presupuesto reservado para tiquetes de solicitudes en trámite, en pesos colombianos. No puede ser negativo.;Media;nombre + defecto 0 + CHECK >= 0;¿Cuándo se reserva y cuándo se libera el valor?
+travel_expenses;saldos_tiquetes;presupuesto_disponible;Presupuesto disponible para tiquetes, en pesos colombianos.;Media;nombre + columnas presupuesto_inicial, presupuesto_reservado;¿Se calcula como inicial menos reservado o se actualiza en la aplicación?
+travel_expenses;saldos_tiquetes;holgura_porcentaje;Porcentaje de holgura sobre el presupuesto de tiquetes, entre 0 y 100.;Baja;nombre + defecto 15.00 + CHECK 0–100;¿Para qué se usa la holgura (margen de alerta o reserva adicional)?
+travel_expenses;solicitudes_comision;consecutivo_unico;Consecutivo único de la solicitud de comisión.;Alta;nombre + índice único;
+travel_expenses;solicitudes_comision;destino_ciudad;Ciudad de destino de la comisión.;Alta;nombre;
+travel_expenses;solicitudes_comision;destino_departamento;Departamento de destino de la comisión.;Alta;nombre;
+travel_expenses;solicitudes_comision;objeto_comision;Objeto o propósito de la comisión de servicio.;Alta;nombre;
+travel_expenses;solicitudes_comision;prioridad;Prioridad de la solicitud. Valores permitidos: ALTA, BAJA, MEDIA.;Alta;valores permitidos;
+travel_expenses;solicitudes_comision;rubro_presupuestal;Rubro presupuestal con cargo al cual se financia la comisión.;Alta;nombre;
+travel_expenses;solicitudes_comision;estado_solicitud;Estado de la solicitud en el flujo de trámite. Al crearse queda en RADICADA.;Media;nombre + defecto RADICADA + índices por estado obligada y pagada;¿Cuál es la lista completa de estados?
+travel_expenses;solicitudes_comision;creado_por_usuario_id;Identificador del usuario que creó la solicitud.;Media;nombre + tipo uuid;"¿Referencia a auth.""user""?"
+travel_expenses;solicitudes_comision;monto_viaticos;Valor de los viáticos de la comisión, en pesos colombianos.;Media;nombre + defecto 0 + columnas de liquidación;¿Corresponde a la suma de total_pernoctados y total_no_pernoctados?
+travel_expenses;solicitudes_comision;monto_gastos_viaje;Valor de los gastos de viaje de la comisión, en pesos colombianos.;Media;nombre + defecto 0;¿Qué conceptos incluye (transporte terrestre, tiquetes)?
+travel_expenses;solicitudes_comision;tipo_comision;Medio de transporte o tipo de comisión. Valor por defecto: TERRESTRE.;Baja;nombre + defecto TERRESTRE;¿Qué valores admite (TERRESTRE, AEREA…)?
+travel_expenses;solicitudes_comision;id_dependencia;Identificador de la dependencia que tramita la comisión.;Media;nombre + tipo bigint + índice;¿Referencia a qué tabla de dependencias?
+travel_expenses;solicitudes_comision;observaciones_envio_presupuesto;Observaciones registradas al enviar la solicitud al área de presupuesto.;Alta;nombre + columnas enviado_presupuesto, fecha_envio_presupuesto;
+travel_expenses;solicitudes_comision;numero_rp;Número del registro presupuestal (RP) de la comisión.;Alta;nombre + columnas fecha_rp, valor_comprometido;
+travel_expenses;solicitudes_comision;valor_comprometido;Valor comprometido en el registro presupuestal, en pesos colombianos.;Media;nombre + columnas numero_rp, rubro_rp;¿Confirmar la unidad (pesos colombianos)?
+travel_expenses;solicitudes_comision;rubro_rp;Rubro presupuestal del registro presupuestal.;Alta;nombre + columna numero_rp;
+travel_expenses;solicitudes_comision;soporte_rp_path;Ruta del archivo de soporte del registro presupuestal.;Alta;nombre + sufijo _path;
+travel_expenses;solicitudes_comision;observaciones_rp;Observaciones del registro presupuestal.;Alta;nombre + columna numero_rp;
+travel_expenses;solicitudes_comision;modalidad_pago;Modalidad de pago de la comisión. Valor por defecto: AVANCE.;Media;nombre + defecto AVANCE + columna fecha_calculo_modalidad;¿Qué otras modalidades existen (por ejemplo, reembolso)?
+travel_expenses;solicitudes_comision;dias_habiles_previos;Días hábiles entre la radicación y el inicio de la comisión.;Media;nombre + defecto 0 + columnas modalidad_pago, fecha_calculo_modalidad;¿Se calcula automáticamente? ¿Se usa para definir la modalidad de pago?
+travel_expenses;solicitudes_comision;numero_obligacion;Número de la obligación presupuestal de la comisión.;Alta;nombre + columnas fecha_obligacion, valor_obligacion;
+travel_expenses;solicitudes_comision;valor_obligacion;Valor de la obligación presupuestal, en pesos colombianos.;Media;nombre + columna numero_obligacion;¿Confirmar la unidad (pesos colombianos)?
+travel_expenses;solicitudes_comision;observaciones_obligacion;Observaciones de la obligación presupuestal.;Alta;nombre + columna numero_obligacion;
+travel_expenses;solicitudes_comision;soporte_obligacion_path;Ruta del archivo de soporte de la obligación presupuestal.;Alta;nombre + sufijo _path;
+travel_expenses;solicitudes_comision;valor_pagado;Valor pagado al comisionado, en pesos colombianos.;Media;nombre + columnas fecha_pago, numero_orden_pago;¿Confirmar la unidad (pesos colombianos)?
+travel_expenses;solicitudes_comision;soporte_pago_path;Ruta del archivo de soporte del pago.;Alta;nombre + sufijo _path;
+travel_expenses;solicitudes_comision;numero_orden_pago;Número de la orden de pago de la comisión.;Alta;nombre + columnas fecha_pago, valor_pagado;
+travel_expenses;solicitudes_comision;observaciones_pago;Observaciones del pago.;Alta;nombre + columnas de pago;
+travel_expenses;solicitudes_comision;dias_pernoctados;Días de la comisión con pernocta.;Alta;nombre + columnas tarifa_dia_pernoctado, total_pernoctados;
+travel_expenses;solicitudes_comision;tarifa_dia_pernoctado;Tarifa diaria aplicada a los días con pernocta, en pesos colombianos.;Media;nombre + columnas dias_pernoctados, total_pernoctados;¿Confirmar la unidad (pesos colombianos)?
+travel_expenses;solicitudes_comision;total_pernoctados;Valor total de los días con pernocta, en pesos colombianos.;Media;nombre + columnas dias_pernoctados, tarifa_dia_pernoctado;¿Se calcula como días por tarifa?
+travel_expenses;solicitudes_comision;dias_no_pernoctados;Días de la comisión sin pernocta.;Alta;nombre + columnas tarifa_dia_no_pernoctado, total_no_pernoctados;
+travel_expenses;solicitudes_comision;tarifa_dia_no_pernoctado;Tarifa diaria aplicada a los días sin pernocta, en pesos colombianos.;Media;nombre + columnas dias_no_pernoctados, total_no_pernoctados;¿Confirmar la unidad y si corresponde a un porcentaje de la tarifa completa?
+travel_expenses;solicitudes_comision;total_no_pernoctados;Valor total de los días sin pernocta, en pesos colombianos.;Media;nombre + columnas dias_no_pernoctados, tarifa_dia_no_pernoctado;¿Se calcula como días por tarifa?
+travel_expenses;solicitudes_comision;factor_comisionado;Factor multiplicador de la tarifa según el tipo de comisionado.;Baja;nombre + tipo numeric(4,2) + defecto 1.00;¿De dónde se toma el factor y qué valores toma?
+travel_expenses;solicitudes_comision;factor_pernocta;Factor multiplicador de la tarifa según haya o no pernocta.;Baja;nombre + tipo numeric(4,2) + defecto 1.00;¿De dónde se toma el factor y qué valores toma?
+travel_expenses;solicitudes_comision;tarifa_diaria_base;Tarifa diaria de viáticos tomada de la escala antes de aplicar factores, en pesos colombianos.;Media;nombre + columnas factor_*, tarifa_final_aplicada_dia, escalas_viaticos;¿Se toma de escalas_viaticos, tarifas_investigadores o tarifas_regionales_excepcion?
+travel_expenses;solicitudes_comision;tarifa_final_aplicada_dia;Tarifa diaria final aplicada después de los factores, en pesos colombianos.;Media;nombre + columnas tarifa_diaria_base, factor_*;¿Se calcula como tarifa base por los factores?
+travel_expenses;solicitudes_comision;salario_base_aplicado;Salario base usado para ubicar la escala de viáticos, en pesos colombianos.;Media;nombre + columnas salario_basico, decreto_aplicado;¿En qué se diferencia de salario_basico?
+travel_expenses;solicitudes_comision;decreto_aplicado;Decreto de escala de viáticos aplicado en la liquidación. Valor por defecto: Decreto 314 de 2026.;Alta;nombre + defecto 'Decreto 314 de 2026' + escalas_viaticos.decreto_vigente;
+travel_expenses;solicitudes_comision;numero_cdp;Número del certificado de disponibilidad presupuestal (CDP).;Alta;nombre + columna fecha_cdp;
+travel_expenses;solicitudes_comision;fecha_cdp;Fecha del certificado de disponibilidad presupuestal (CDP), guardada como texto.;Media;nombre + tipo text;¿Qué formato de fecha se guarda? ¿Por qué no es tipo date?
+travel_expenses;solicitudes_historial_estados;estado_anterior;Estado de la solicitud antes de la transición. Vacío en el primer registro.;Alta;nombre + nulable + columna estado_nuevo + descripción de la tabla;
+travel_expenses;solicitudes_historial_estados;usuario_id;Identificador del usuario que realizó el cambio de estado.;Media;nombre + tipo uuid;"¿Referencia a auth.""user""?"
+travel_expenses;solicitudes_historial_estados;comentarios;Comentarios del cambio de estado.;Alta;nombre + descripción de la tabla;
+travel_expenses;tarifas_investigadores;categoria_investigador;Categoría del investigador a la que aplica la tarifa. Es única.;Media;nombre + índice único;¿Qué categorías se usan (por ejemplo, las de Minciencias)?
+travel_expenses;tarifas_investigadores;tarifa_diaria;Valor diario de viáticos para la categoría de investigador, en pesos colombianos.;Media;nombre + tipo numeric;¿Confirmar la unidad (pesos colombianos)?
+travel_expenses;tarifas_referencia_tiquetes;origen_ciudad;Ciudad de origen de la ruta.;Alta;nombre + índice con destino_ciudad;
+travel_expenses;tarifas_referencia_tiquetes;destino_ciudad;Ciudad de destino de la ruta.;Alta;nombre + índice con origen_ciudad;
+travel_expenses;tarifas_referencia_tiquetes;origen_iata;Código IATA del aeropuerto de origen.;Alta;nombre + índice único de ruta;
+travel_expenses;tarifas_referencia_tiquetes;destino_iata;Código IATA del aeropuerto de destino.;Alta;nombre + índice único de ruta;
+travel_expenses;tarifas_referencia_tiquetes;tarifa_estimada;Tarifa estimada del tiquete para la ruta, en pesos colombianos.;Media;nombre + columnas tarifa_minima, tarifa_maxima;¿Es tarifa de ida o de ida y regreso?
+travel_expenses;tarifas_referencia_tiquetes;tarifa_minima;Tarifa mínima de referencia del tiquete para la ruta, en pesos colombianos.;Media;nombre + columna tarifa_estimada;¿Es tarifa de ida o de ida y regreso?
+travel_expenses;tarifas_referencia_tiquetes;tarifa_maxima;Tarifa máxima de referencia del tiquete para la ruta, en pesos colombianos.;Media;nombre + columna tarifa_estimada;¿Es tarifa de ida o de ida y regreso?
+travel_expenses;tarifas_referencia_tiquetes;fuente;Fuente de la tarifa de referencia. Valor por defecto: PARAMETRICO_ESAP.;Media;nombre + defecto PARAMETRICO_ESAP;¿Qué otras fuentes existen?
+travel_expenses;tarifas_referencia_tiquetes;notas;Notas sobre la tarifa de referencia.;Alta;nombre;
+travel_expenses;tarifas_referencia_tiquetes;ultima_actualizacion;Fecha y hora de la última actualización de la tarifa.;Media;nombre + defecto now() + columna actualizado_en;¿En qué se diferencia de actualizado_en?
+travel_expenses;tarifas_regionales_excepcion;departamento;Departamento al que aplica la tarifa de excepción. Es único.;Alta;nombre + índice único;
+travel_expenses;tarifas_regionales_excepcion;tarifa_diaria;Valor diario de viáticos de excepción para el departamento, en pesos colombianos.;Media;nombre + tipo numeric;¿Reemplaza o se suma a la tarifa de la escala?
+travel_expenses;tarifas_regionales_excepcion;decreto_referencia;Decreto que establece la tarifa de excepción.;Alta;nombre;
+travel_expenses;tarifas_transporte_terminal;departamento;Nombre del departamento al que aplica la tarifa de transporte.;Alta;nombre + índice + columna departamento_id;
+travel_expenses;tarifas_transporte_terminal;departamento_id;Identificador del departamento.;Media;nombre + tipo integer + índice;¿Referencia a qué tabla o codificación (DANE)?
+travel_expenses;tarifas_transporte_terminal;ciudad;Ciudad a la que aplica la tarifa de transporte.;Alta;nombre;
+travel_expenses;tarifas_transporte_terminal;ciudad_aeropuerto;Ciudad o aeropuerto de llegada o salida del trayecto a la terminal.;Media;nombre + longitud 150;¿Guarda el nombre del aeropuerto o de la ciudad donde está?
+travel_expenses;tarifas_transporte_terminal;valor_maximo;Valor máximo reconocido por transporte a la terminal o aeropuerto, en pesos colombianos.;Media;nombre + tabla tarifas_transporte_terminal;¿Es por trayecto o ida y regreso?
+travel_expenses;tipos_documento_soporte;instrucciones_validacion;Instrucciones para validar el documento de soporte.;Media;nombre + tipo text + columna campos_a_validar;¿Las usa el revisor o un proceso automático?
+travel_expenses;tipos_documento_soporte;campos_a_validar;Lista de campos que deben validarse en el documento, en formato JSON.;Media;nombre + tipo jsonb + defecto [];¿Qué estructura tiene la lista?

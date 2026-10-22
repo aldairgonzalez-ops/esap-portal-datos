@@ -180,6 +180,8 @@ def cmd_matriz(a):
         ("     Rechazada: la propuesta no corresponde; escriba la descripción correcta en «Descripción final» o explique en «Observaciones».", Font(name=F, size=10)),
         ("     Requiere aclaración: falta información; anote la duda en «Observaciones».", Font(name=F, size=10)),
         ("3. Registre quién revisó y la fecha. «Descripción a registrar» se calcula sola.", Font(name=F, size=10)),
+        ("     Ejemplo: Decisión = Aprobada con ajuste · Descripción final = «Valor de los viáticos de la comisión, en pesos colombianos, "
+         "calculado como la suma de días pernoctados y no pernoctados.» · Revisado por = Equipo Viáticos · Fecha de revisión = 2026-10-23.", Font(name=F, size=10, italic=True)),
         ("4. La hoja «Métricas» muestra el avance por dominio, por confianza y por uso en la lógica.", Font(name=F, size=10)),
         ("", None),
         ("Columnas de la matriz", Font(name=F, bold=True, size=11)),

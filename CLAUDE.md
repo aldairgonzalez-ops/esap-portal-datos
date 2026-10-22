@@ -61,6 +61,7 @@ python herramientas/generar_informe_interno.py --extraccion extracciones/<fecha>
 ## 4b. Descripciones de columnas
 - `herramientas/proponer_descripciones.py` genera la hoja `config/propuestas/<alcance>_columnas.csv` (Excel, separador `;`) con propuestas derivadas solo de la estructura: PK, FK, relaciones lógicas confirmadas, auditoría (`created_at`…), responsables (`*_por`), fechas, banderas booleanas, `motivo_*`. Cada fila lleva su `regla`; las que no cubre ninguna regla quedan «por documentar».
 - El equipo funcional revisa la hoja y cambia `estado` a `validada`. `--incorporar <hoja>` la lleva a `config/descripciones.csv`. Después, `generar_comentarios.py` crea el lote `COMMENT ON` con reversa, solo de las validadas, y se aplica con aprobación.
+- **Matriz de validación con desarrollo** (`herramientas/matriz_descripciones.py`): `contexto` reúne por columna pendiente tipo, restricciones, valores permitidos (solo CHECK que restringen la columna o tipo enumerado), catálogo y uso en funciones, triggers, vistas e índices → `config/propuestas/<id>_contexto.jsonl`. Las propuestas semánticas (con confianza Alta/Media/Baja, fundamento y pregunta para desarrollo) van en `config/propuestas/<id>_semanticas.csv`. `matriz` genera `config/propuestas/Matriz_Validacion_Descripciones_<Id>.xlsx` (hojas Instrucciones, Métricas, Matriz, Uso en lógica; decisión con lista desplegable). `incorporar --matriz` lleva las aprobadas a `config/descripciones.csv` como validadas.
 - Los indicadores K01 y K02 cuentan solo las descripciones registradas en la base o validadas. Las propuestas se muestran aparte, con su etiqueta.
 
 ## 5. Estructura del repositorio
@@ -69,7 +70,7 @@ python herramientas/generar_informe_interno.py --extraccion extracciones/<fecha>
 | `sql/extraccion/` | 14 consultas de solo lectura (00–13) y `extraer_todo.sql`, que las encadena |
 | `sql/00_rol_lector.sql` | Rol lector para el DBA (opcional) |
 | `sql/metadatos/` | Lotes `COMMENT ON` generados, con su reversa |
-| `herramientas/` | `extraer.py`, `modelo.py`, `generar_portal.py`, `proponer_descripciones.py`, `plantilla_portal.html`, `generar_resumen.py`, `generar_informe_interno.py`, `generar_comentarios.py`, `docx_util.py` |
+| `herramientas/` | `extraer.py`, `modelo.py`, `generar_portal.py`, `proponer_descripciones.py`, `matriz_descripciones.py`, `plantilla_portal.html`, `generar_resumen.py`, `generar_informe_interno.py`, `generar_comentarios.py`, `docx_util.py` |
 | `config/` | `dominios.csv` (nombre funcional de cada esquema), `descripciones.csv` (propuestas de descripción), plantilla de conexión |
 | `extracciones/<fecha>/` | JSONL de cada corte (solo metadatos y conteos) |
 | `evidencias/<fecha>/` | CSV de las verificaciones que corre el usuario (por ejemplo, la verificación de conexión) |
