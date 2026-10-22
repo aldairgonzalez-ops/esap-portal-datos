@@ -1,0 +1,3 @@
+﻿tabla;columna;tabla_destino;columna_destino;regla;valores;con_padre;sin_padre;cobertura_pct;estado;otros_destinos_posibles
+hiring.observaciones_pliego;documento_id;hiring.documentos;id;R2;4;4;0;100.0;confirmada por datos;control_interno.documento, legal_management.documentos
+hiring.publicaciones_pliego;documento_id;hiring.documentos;id;R2;3;3;0;100.0;confirmada por datos;control_interno.documento, legal_management.documentos

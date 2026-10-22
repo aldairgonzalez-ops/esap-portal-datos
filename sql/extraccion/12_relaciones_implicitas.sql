@@ -2,7 +2,8 @@
 -- Reglas (la tabla destino debe tener PK o UNIQUE de una columna y tipo de la misma categoría):
 --   Solo se evalúan columnas con forma de clave: id_X, X_id, cod_X, X_code, X_codigo.
 --   R1  la columna se llama igual que la clave de otra tabla           (id_sede -> sedes.id_sede)
---   R2  existe la tabla X, Xs o Xes con clave id/id_X (o code/codigo/cod_X) (programa_id -> programas.id)
+--   R2  existe la tabla X, Xs o Xes con clave id/id_X (o code/codigo/cod_X) (programa_id -> programas.id);
+--       el nombre de la tabla se compara sin distinguir mayúsculas (docente_id -> "Docente".id)
 -- Se valida con datos: cuántos valores encuentran a su padre y cuántos no (solo conteos).
 with claves as (
   select n.nspname as s, c.relname as t, a.attname as col, a.atttypid as typ
@@ -38,7 +39,7 @@ with claves as (
   join claves k on not (k.s = c.s and k.t = c.t)
    and (select t1.typcategory from pg_type t1 where t1.oid = c.typ) = (select t2.typcategory from pg_type t2 where t2.oid = k.typ)
    and (c.col = k.col
-        or (k.t in (c.base, c.base || 's', c.base || 'es')
+        or (lower(k.t) in (lower(c.base), lower(c.base) || 's', lower(c.base) || 'es')
             and ((c.forma = 'id'  and k.col in ('id', 'id_' || c.base))
               or (c.forma = 'cod' and k.col in ('code', 'codigo', 'cod_' || c.base)))))
   order by c.s, c.t, c.col, k.s, k.t, (c.col = k.col) desc

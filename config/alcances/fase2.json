@@ -1,0 +1,15 @@
+{
+  "id": "Fase2",
+  "nombre": "Fase 2",
+  "descripcion": "Módulos de la Fase 2 de la SuperApp ESAP: Programación académica, RUND, Contratación, Gestión de infraestructura, Viáticos y Chatbot.",
+  "esquemas": ["academic-schedule", "hiring", "infrastructure-management", "travel_expenses", "chatbot"],
+  "parciales": {
+    "academic_work_plan": {
+      "nombre": "RUND",
+      "descripcion": "Tablas del módulo RUND (prefijo Rund) del esquema academic_work_plan y las tablas Docente y Documento, a las que hacen referencia por nombre de columna (docente_id, documento_id).",
+      "prefijos": ["Rund"],
+      "tablas": ["Docente", "Documento"]
+    }
+  },
+  "orden": ["academic-schedule", "academic_work_plan", "hiring", "infrastructure-management", "travel_expenses", "chatbot"]
+}

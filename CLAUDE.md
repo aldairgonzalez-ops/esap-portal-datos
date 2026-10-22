@@ -44,6 +44,7 @@ python herramientas/generar_portal.py --extraccion extracciones/<fecha> --versio
 python herramientas/generar_resumen.py --extraccion extracciones/<fecha> --version vX.Y --url-portal <url> --repo <url>
 python herramientas/generar_informe_interno.py --extraccion extracciones/<fecha> --version vX.Y      # uso interno
 ```
+- **Versión Lite por alcance** (`--alcance config/alcances/<id>.json` en los tres generadores): filtra esquemas completos y tablas sueltas (prefijos o nombres) de esquemas parciales. Las salidas van a `portal/<id>/`, `informe/<id>/`, `docs/<id>/` e `interno/<id>/` con el sufijo `_<Id>`. Las tablas de fuera del alcance a las que apuntan las FK se dibujan en el Modelo ER como «otro dominio»; en la ficha aparecen sin enlace. **Fase 2** (`config/alcances/fase2.json`): Programación académica, RUND (tablas `Rund*` más `Docente` y `Documento` de `academic_work_plan`), Contratación, Gestión de infraestructura, Viáticos y Chatbot.
 - Si Claude corre **en el equipo del usuario** (Claude Code en VS Code o en la terminal, con Tailscale activo), puede lanzar el paso 1 directamente.
 - Si Claude corre **en la nube**, no llega a la red de Tailscale: el usuario ejecuta el paso 1 y sube la carpeta de la extracción (por Git o por Drive) para los pasos 2 y 3.
 - Probar el portal en el navegador antes de entregar: todas las vistas y fichas, tema claro y oscuro, sin errores de consola. Servidor local: `.claude/launch.json` (`python -m http.server 8765`).

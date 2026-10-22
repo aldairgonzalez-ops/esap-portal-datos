@@ -155,11 +155,22 @@ def bloques(m, version, entorno):
 
     esquemas = [e for e in m["esquemas"] if e["tablas"]]
     dominios = [{"name": e["s"], "tables": sorted(t["t"] for t in T.values() if t["s"] == e["s"]), "main": True} for e in esquemas]
+    # versión Lite: las tablas de fuera del alcance a las que apuntan sus FK se dibujan como «otro dominio»
+    contexto = {k: t for k, t in m.get("contexto", {}).items() if k not in T}
+    for k, t in contexto.items():
+        tablas_sm[k] = {"rows": int(t["filas"] or 0), "ncol": len(t["cols"]), "d": t["d"] or None,
+                        "cols": [dict({"n": c["n"], "t": c["ty"], "nn": not c["nul"], "pk": c["pk"]}, **({"d": c["d"]} if c["d"] else {}))
+                                 for c in t["cols"]], "sp": []}
     fks = [{"fk": f["n"], "c": f["c"], "p": f["p"], "cc": f["cols"], "pc": f["pcols"], "dis": False,
-            "unt": not f["validada"], "one": bool(f["unica"])} for f in m["fks"] if f["c"] in T and f["p"] in T]
+            "unt": not f["validada"], "one": bool(f["unica"])} for f in m["fks"] if f["c"] in T and (f["p"] in T or f["p"] in contexto)]
     fecha = ctx["fecha"].replace("T", " ")[:16]
+    smap = {e["s"]: e["nombre"] for e in esquemas}
+    dominios_cfg = {r["esquema"]: r for r in M.leer_csv("dominios.csv")}
+    for k in contexto:
+        sch = k.split(".")[0]
+        smap.setdefault(sch, (dominios_cfg.get(sch) or {}).get("nombre") or sch)
     sm = {"ctx": {"db": ctx["db"], "srv": ctx.get("host_conexion") or ctx["srv"], "fecha": fecha},
-          "domains": dominios, "tables": tablas_sm, "fks": fks, "smap": {e["s"]: e["nombre"] for e in esquemas}, "rotas": {}}
+          "domains": dominios, "tables": tablas_sm, "fks": fks, "smap": smap, "rotas": {}}
 
     def veredicto(i):
         if not i["nn"]:
@@ -167,7 +178,7 @@ def bloques(m, version, entorno):
         if i["cob"] >= 95:
             return "CONFIRMADA" if not i["sin_padre"] else "CONFIRMADA CON HUERFANOS"
         return "DUDOSA" if i["ok"] else "DESCARTADA"
-    inferidas = [{"c": i["c"], "col": i["col"], "p": i["p"], "pc": i["pcol"], "amb": bool(i["alternativas"]),
+    inferidas = [{"c": i["c"], "col": i["col"], "p": i["p"] if (i["p"] in T or i["p"] in contexto) else None, "pc": i["pcol"], "amb": bool(i["alternativas"]),
                   "pct": i["cob"], "orf": i["sin_padre"], "ver": veredicto(i),
                   "msg": None if i["ok"] else ("Sin valores para validar" if not i["nn"] else "Ningún valor coincide con la tabla candidata"),
                   "nat": "Auditoría / histórico" if M.es_bitacora(*i["c"].split(".", 1)) else "Negocio", "src": "bd"}
@@ -199,6 +210,8 @@ def tarjetas_dominios(esquemas):
 
 
 def construir_html(m, version, entorno):
+    alc = m.get("alcance")
+    etiqueta = f"{alc['nombre']} · {version}" if alc else version
     db, sm, rel, pii, esquemas = bloques(m, version, entorno)
     html = open(PLANTILLA, encoding="utf-8").read()
     ctx = m["ctx"]
@@ -221,14 +234,17 @@ def construir_html(m, version, entorno):
                        "Funciona sin conexión: Tailwind CSS compilado, fuentes Inter y JetBrains Mono, íconos Lucide.") + html[html.index(" -->", i):]
 
     rep = [
-        ("<title>Portal Interactivo de Datos - SIPAE v2.3</title>", f"<title>Portal Interactivo de Datos - ESAP {version}</title>"),
+        ("<title>Portal Interactivo de Datos - SIPAE v2.3</title>", f"<title>Portal Interactivo de Datos - ESAP {etiqueta}</title>"),
         (">SIPAE Data Portal</h1>", ">ESAP Data Portal</h1>"),
-        (">v2.3 · Modelo ER + Inventario</p>", f">{version} · Modelo ER + Inventario</p>"),
+        (">v2.3 · Modelo ER + Inventario</p>", f">{etiqueta} · Modelo ER + Inventario</p>"),
         ('font-semibold">sqldb-sipae-pprd</span> <span class="ml-1 px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-500 text-[10px]">QA</span>',
          f'font-semibold">{H.escape(ctx["db"])}</span> <span class="ml-1 px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-500 text-[10px]">{H.escape(entorno)}</span>'),
-        ("Sistema de Información de Alimentación Escolar (SIPAE)", "SuperApp ESAP · Escuela Superior de Administración Pública"),
-        ("Arquitectura Conceptual de Módulos (SIPAE)", "Arquitectura Conceptual de Módulos (ESAP)"),
+        ("Sistema de Información de Alimentación Escolar (SIPAE)",
+         f"SuperApp ESAP · {alc['nombre']}" if alc else "SuperApp ESAP · Escuela Superior de Administración Pública"),
+        ("Arquitectura Conceptual de Módulos (SIPAE)", f"Arquitectura Conceptual de Módulos (ESAP · {alc['nombre']})" if alc else "Arquitectura Conceptual de Módulos (ESAP)"),
         ("La base de datos se encuentra estructurada en múltiples módulos funcionales e integrados para dar soporte a la Unidad Administrativa Especial de Alimentación Escolar (UAPA):",
+         (f"Esta versión documenta solo la {alc['nombre']} del proyecto: {len(esquemas)} dominios funcionales de la SuperApp ESAP. "
+          "Las tablas de otros dominios a las que se hace referencia aparecen en el Modelo ER como «otro dominio»:") if alc else
          f"La base de datos se organiza en {len(esquemas)} dominios funcionales que dan soporte a los módulos de la SuperApp ESAP:"),
         (">Maestros, tránsito y staging</span>", ">Maestras, transaccionales y catálogos</span>"),
         (">Lógica T-SQL compilada</span>", ">Lógica SQL y PL/pgSQL en la base</span>"),
@@ -262,6 +278,11 @@ def construir_html(m, version, entorno):
         ("if (/^(Sub)?Tipos?|^Estados?|^TipoEstado/i.test(n) || (!outDeg[k] && (t.ncol||0) <= 6)) return 'cat';",
          "if (/^(Sub)?Tipos?|^Estados?|^TipoEstado|^tipos?_|^estados?_|^cat_|^catalogo|_tipos?$|_estados?$/i.test(n) || (!outDeg[k] && (t.ncol||0) <= 6)) return 'cat';"),
         ("Cardinalidad (v2.1): lado padre", "Cardinalidad: lado padre"),
+        # ficha de tabla: una FK hacia una tabla que no está en el catálogo (fuera del alcance) se muestra sin enlace
+        ("          const card = document.createElement('a');\n          card.href = `#${encodeURIComponent(fk[1])}`;",
+         "          const enCatalogo = !!DB_DATA.tables[fk[1]];\n"
+         "          const card = document.createElement(enCatalogo ? 'a' : 'div');\n"
+         "          if (enCatalogo) card.href = `#${encodeURIComponent(fk[1])}`; else card.title = 'Tabla de otro dominio, fuera del alcance de esta versión';"),
         # Modelo ER: un dominio sin relaciones dibuja sus tablas como tarjetas independientes en lugar de quedar vacío
         ("        edges.push({p:f.p, c:f.c, f});\n      });\n    return {nodes, edges};\n  }\n  function focusGraph(k){",
          "        edges.push({p:f.p, c:f.c, f});\n      });\n"

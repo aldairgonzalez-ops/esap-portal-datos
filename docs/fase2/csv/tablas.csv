@@ -1,0 +1,156 @@
+﻿esquema;tabla;tipo;descripcion;estado_descripcion;filas;columnas;clave_primaria;fk_salida;fk_entrada;implicitas_salida;implicitas_entrada;indices;triggers;apoyo;bytes
+academic-schedule;asignacion_docente;Tabla;Docente asignado a un grupo. La llave es auth.personas.id_person (identidad estable), no Docente.id, que cambia por periodo de carga.;base;0;11;id_asignacion;2;0;0;0;4;1;no;40960
+academic-schedule;aula;Tabla;"Catálogo de aulas. Desde el Lote 1 son las 28 reales de Sede Central (provisional=FALSE); capacidad pendiente del CRUD de NUEVA-6.";base;28;10;codigo;0;0;0;0;1;0;no;24576
+academic-schedule;cetap_sin_catalogo;Tabla;CETAPs declarados en el detalle territorial que no tienen contraparte en el catálogo oficial. Pendientes de código. No inventar: resolver con Gestión Profesoral.;base;46;4;id;0;0;0;0;2;0;no;40960
+academic-schedule;concertacion_docencia;Tabla;;;0;14;id_concertacion;1;3;0;0;3;0;no;32768
+academic-schedule;concertacion_firma;Tabla;;;0;8;id_firma;1;0;0;0;2;0;no;16384
+academic-schedule;concertacion_historial;Tabla;;;0;8;id;1;0;0;0;1;0;no;16384
+academic-schedule;concertacion_revision;Tabla;;;0;4;id_concertacion,tipo;1;0;0;0;1;0;no;8192
+academic-schedule;equivalencia_periodo;Tabla;;;5;4;codigo_programacion;1;0;0;0;1;0;no;32768
+academic-schedule;franja_horaria;Tabla;;;5;19;id_franja;4;0;0;0;6;1;no;114688
+academic-schedule;grupo;Tabla;Instancia independiente de programación de una asignatura (RN-11). El horario y las fechas cuelgan del GRUPO, no de la asignatura.;base;2;16;id_grupo;4;2;0;0;8;0;no;147456
+academic-schedule;jefatura_territorial;Tabla;Qué territorial(es) gobierna cada usuario con el rol JEFATURA_TERRITORIAL. Referencia la territorial por id: un nombre puede divergir, un id no.;base;0;3;id_user,id_direccion_territorial;2;0;0;0;2;0;no;16384
+academic-schedule;periodo_programacion;Tabla;;;5;9;id_periodo;0;3;0;0;2;0;no;40960
+academic-schedule;programacion_historica;Tabla;Programación 2026-1 y 2026-V1 tal como llegó. Sin FK: cod_asigna es PROGRAMA_PENSUM, no código de materia. No pasa por el guard de publicación.;base;575;31;id;0;0;0;0;4;0;no;557056
+academic-schedule;programacion_periodo;Tabla;;;0;6;id_periodo_academico;1;0;0;0;1;0;no;8192
+academic_work_plan;Docente;Tabla;;;814;51;id;1;0;0;0;8;0;no;819200
+academic_work_plan;Documento;Tabla;;;2;15;id;1;0;0;0;1;0;no;32768
+academic_work_plan;RundAccesoDatosLog;Tabla;;;9141;10;id;0;0;0;0;4;2;no;5799936
+academic_work_plan;RundAccesoExterno;Tabla;;;0;13;id;0;1;0;0;4;0;no;40960
+academic_work_plan;RundAprobacionLog;Tabla;Log de auditoría inmutable del RUND (BR-056). Sólo INSERT: registra crear/aprobar/devolver/editar/vincular soporte.;base;6760;14;id;0;0;0;0;2;1;no;3923968
+academic_work_plan;RundCampoEstado;Tabla;;;6594;13;id;0;0;0;0;2;0;no;1449984
+academic_work_plan;RundCargaMasiva;Tabla;Soporte documental inmutable de cada importación masiva de perfiles RUND.;base;0;13;id;0;0;0;0;2;1;no;24576
+academic_work_plan;RundDocumentoCategoria;Tabla;;;10;9;codigo;0;1;0;0;1;0;no;32768
+academic_work_plan;RundDocumentoPerfil;Tabla;REQ-RUND-F010: documentos PDF versionados del perfil docente, almacenados en OpenKM o proveedor local de desarrollo.;base;11;22;id;2;2;0;0;5;0;no;98304
+academic_work_plan;RundExtraccionInicio;Tabla;;;0;2;id;0;0;0;0;1;0;no;8192
+academic_work_plan;RundExtraccionSugerencia;Tabla;;;0;14;id;1;0;0;0;2;0;no;24576
+academic_work_plan;RundExtraccionTrabajo;Tabla;;;0;20;id;1;1;0;0;5;0;no;49152
+academic_work_plan;RundInvitacionDocente;Tabla;;;0;16;id;0;0;0;0;4;0;no;40960
+academic_work_plan;RundMacroDocenteConsultaLog;Tabla;;;0;11;id;1;0;0;0;4;0;no;40960
+academic_work_plan;RundSoporteCampo;Tabla;;;12;13;id;0;0;0;0;3;0;no;65536
+chatbot;conversacion;Tabla;;;0;10;id;0;1;0;0;3;0;no;32768
+chatbot;mensaje;Tabla;;;0;7;id;1;0;0;0;3;0;no;32768
+chatbot;prompt_template;Tabla;;;0;8;id;0;0;0;0;2;0;no;24576
+hiring;actas_inicio;Tabla;Reunión de inicio y su acta, cuando el contrato la pactó (EFDS-1167, actividad 9.1).;base;1;9;id;2;0;0;0;3;0;no;65536
+hiring;actas_liquidacion;Tabla;Acta de liquidación bilateral o unilateral, con balance financiero y paz y salvo (EFDS-1172).;base;0;19;id;3;1;0;0;4;0;no;40960
+hiring;actividades;Tabla;Catálogo de actividades de la matriz de flujo, por etapa y numeral.;base;63;10;numeral;0;6;0;0;1;0;no;73728
+hiring;actividades_con_soporte;Tabla;Las actividades de la matriz que se cumplen registrando lo que pasó afuera, y si exigen soporte.;base;14;5;numeral;0;1;0;0;1;0;no;32768
+hiring;actividades_excluidas;Tabla;Celdas marcadas NO en la matriz de flujo: la actividad no aplica a esa modalidad.;base;161;3;numeral,modalidad;2;0;0;0;1;0;no;65536
+hiring;actividades_salvedad;Tabla;Celdas de la matriz donde la actividad aplica pero con una condición o una variante propia de la modalidad.;base;0;4;numeral,modalidad;2;0;0;0;1;0;no;16384
+hiring;actos_adjudicacion;Tabla;Acto administrativo de adjudicación del Ordenador del Gasto, con su notificación y publicación (EFDS-1159).;base;1;20;id;5;0;0;0;2;0;no;49152
+hiring;adendas;Tabla;Adendas de fondo y de cronograma del proceso, con su emisión y su publicación (EFDS-1154).;base;3;17;id;3;0;0;0;3;0;no;65536
+hiring;afiliaciones_arl;Tabla;Afiliación a riesgos laborales, exigida a los contratistas persona natural (EFDS-1164).;base;0;9;id;2;0;0;0;2;0;no;24576
+hiring;alcances_permiso;Tabla;;;313;11;id;2;0;0;0;3;0;no;180224
+hiring;amparos;Tabla;Coberturas de cada garantía con su vigencia, para controlar vencimientos (EFDS-1164).;base;1;7;id;2;0;0;0;4;0;no;73728
+hiring;aperturas_proceso;Tabla;Resolución de apertura y pliego definitivo de cada proceso (EFDS-1152).;base;3;10;id;4;0;0;0;2;0;no;49152
+hiring;audiencia_riesgos_config;Tabla;En qué modalidades la audiencia de riesgos es obligatoria (EFDS-1153, RF-PUB-04).;base;1;6;modalidad;1;0;0;0;1;0;no;32768
+hiring;audiencias_adjudicacion;Tabla;Audiencia de adjudicación del proceso, con su acta y lo que en ella se resolvió (EFDS-1159).;base;1;13;id;2;2;0;0;2;0;no;49152
+hiring;audiencias_riesgos;Tabla;Audiencias de asignación de riesgos celebradas, con su acta y su matriz consolidada.;base;3;11;id;3;0;0;0;2;0;no;49152
+hiring;audiencias_sancionatorias;Tabla;"Audiencias del trámite sancionatorio (EFDS-1181, RF-INC-02). La citación mira al futuro; el acta, al hecho ya ocurrido.";base;0;13;id;3;0;0;0;2;0;no;24576
+hiring;avisos;Tabla;Lo que cambió la Dirección sobre los avisos de cada actividad. Sin fila, la actividad avisa con lo sugerido.;base;0;13;numeral,evento;1;0;0;0;1;0;no;16384
+hiring;avisos_habilitacion;Tabla;Actividades de cada proceso de las que ya salió el aviso de «te toca». Evita repetirlo.;base;156;3;proceso_id,numeral;2;0;0;0;1;0;no;57344
+hiring;campos_formulario;Tabla;;;13;15;id;0;0;0;0;3;0;no;65536
+hiring;casos_incumplimiento;Tabla;Reportes de presunto incumplimiento del contrato (EFDS-1180, RF-INC-01).;base;0;9;id;3;2;0;0;2;0;no;24576
+hiring;causales_contratacion;Tabla;Actividad 3.6 (3.5.1 de la matriz): causales que habilitan contratar por una modalidad. La matriz la describe como «filtro según la modalidad» y solo la marca aplicable en selección abreviada de menor cuantía y en contratación directa.;base;14;8;codigo;1;1;0;0;2;0;no;49152
+hiring;cdp;Tabla;Certificado de Disponibilidad Presupuestal del proceso. Requisito previo a la apertura (EFDS-1148).;base;4;16;id;3;1;0;0;6;0;no;106496
+hiring;cierres_contrato;Tabla;Cierre definitivo del contrato tras vencer los amparos de estabilidad y calidad (EFDS-1175).;base;0;13;id;2;0;0;0;3;0;no;32768
+hiring;cierres_financieros;Tabla;Pago final y liberación del saldo no comprometido del RP (EFDS-1173).;base;0;16;id;3;0;0;0;4;0;no;40960
+hiring;comites_evaluadores;Tabla;Comités evaluadores designados por memorando, vigentes y revocados (EFDS-1156).;base;3;10;id;2;1;0;0;2;0;no;49152
+hiring;contratos;Tabla;Contratos generados a partir del formato de su tipología, con la aceptación del proponente (EFDS-1161).;base;1;27;id;5;16;0;0;4;1;no;81920
+hiring;declaratorias_desiertas;Tabla;Declaratoria desierta del proceso: causal, motivación, acto firmado, notificación y publicación (EFDS-1160, RF-ADJ-02).;base;0;21;id;5;0;0;0;3;0;no;32768
+hiring;dias_no_habiles;Tabla;Días no laborables propios de la ESAP, adicionales a los festivos nacionales que el servicio calcula (EFDS-1150).;base;0;3;fecha;0;0;0;0;1;0;no;8192
+hiring;documentos;Tabla;;;130;15;id;2;56;0;2;3;0;no;139264
+hiring;documentos_proceso;Tabla;;;40;9;id;2;0;0;0;3;0;no;65536
+hiring;documentos_requeridos;Tabla;Catálogo de documentos que exige cada actividad, filtrado por modalidad (EFDS-1149).;base;23;16;id;0;0;0;0;3;0;no;65536
+hiring;entregables_informe;Tabla;Consolidado de entregables del informe final (EFDS-1171).;base;0;7;id;2;0;0;0;2;0;no;24576
+hiring;evidencias_evaluacion;Tabla;Documentos con que el comité sustenta su evaluación: verificaciones, cuadro comparativo, actas (EFDS-1157).;base;0;6;id;2;0;0;0;2;0;no;24576
+hiring;expedientes;Tabla;;;10;13;id;1;1;0;0;4;0;no;81920
+hiring;firmas_contrato;Tabla;Firmas del ordenador del gasto y del contratista, con su evidencia (EFDS-1162).;base;2;10;id;2;0;0;0;3;0;no;65536
+hiring;garantias;Tabla;Pólizas constituidas por el contratista, con su revisión y aprobación (EFDS-1164).;base;1;11;id;2;1;0;0;3;0;no;65536
+hiring;informes_definitivos;Tabla;Informe de evaluación definitivo, con el resultado congelado y lo que cambió desde el preliminar (EFDS-1159).;base;1;18;id;5;1;0;0;2;0;no;49152
+hiring;informes_evaluacion;Tabla;Informe de evaluación del proceso, con el resultado del comité congelado al momento de trasladarlo (EFDS-1158).;base;2;23;id;4;2;0;0;3;0;no;65536
+hiring;informes_finales;Tabla;Informe final del supervisor con el balance congelado de la ejecución (EFDS-1171).;base;0;12;id;2;1;0;0;3;0;no;32768
+hiring;limitaciones_mipyme;Tabla;Decisión de limitar o no la convocatoria a MIPYME, con las condiciones que se evaluaron (EFDS-1151).;base;2;16;id;1;0;0;0;2;0;no;49152
+hiring;manifestaciones_mipyme;Tabla;"Manifestaciones de interés de MIPYME en participar; su número decide la limitación (EFDS-1151).";base;0;8;id;1;0;0;0;2;0;no;16384
+hiring;miembros_comite;Tabla;Integrantes del comité evaluador con su dimensión de evaluación (EFDS-1156).;base;3;6;id;1;0;0;0;4;0;no;73728
+hiring;modalidades;Tabla;;;11;6;codigo;0;11;0;0;1;0;no;24576
+hiring;modificaciones_contrato;Tabla;"Modificaciones contractuales de la actividad 9.5; hoy solo la adición tiene trámite (EFDS-1176).";base;0;38;id;5;4;0;0;6;0;no;57344
+hiring;observaciones_pliego;Tabla;Observaciones de interesados al proyecto de pliego publicado, con su respuesta (EFDS-1151).;base;4;17;id;2;0;1;0;3;0;no;65536
+hiring;oferentes;Tabla;Ofertas recibidas dentro del plazo, con su soporte. Al cerrar la recepción componen la lista publicada (EFDS-1155).;base;4;10;id;2;4;0;0;4;0;no;73728
+hiring;pagos_contrato;Tabla;Cuentas de cobro del contrato, su aval y su trámite (EFDS-1170).;base;2;24;id;3;1;0;0;4;0;no;81920
+hiring;parametros_alerta;Tabla;Plazos que gobiernan las alertas de contratación: anticipación por vencimiento, tolerancia sin abogado y hora del aviso diario.;base;6;7;clave;0;0;0;0;1;0;no;32768
+hiring;parametros_mipyme;Tabla;Condiciones que habilitan la limitación a MIPYME. Parametrizables (EFDS-1393).;base;2;8;clave;0;0;0;0;1;0;no;32768
+hiring;participaciones_proceso;Tabla;Quién está en cada proceso y con qué papel, vigentes y relevados, con el motivo del cambio (EFDS-1183).;base;17;16;id;1;0;0;0;5;0;no;98304
+hiring;piezas_audiencia;Tabla;Acta, grabaciones, observaciones y anexos que documentan la audiencia de adjudicación (EFDS-1159).;base;0;7;id;2;0;0;0;2;0;no;24576
+hiring;plantillas;Tabla;;;10;10;id;0;2;0;0;3;0;no;65536
+hiring;plazo_publicacion_acta;Tabla;Plazo para publicar el acta de liquidación, parametrizable y marcado si está sin confirmar (EFDS-1174).;base;1;5;id;0;0;0;0;1;0;no;32768
+hiring;plazo_publicacion_contrato;Tabla;Plazo para publicar el contrato, parametrizable y marcado si está sin confirmar (EFDS-1166).;base;1;5;id;0;0;0;0;1;0;no;32768
+hiring;plazos_ofertas;Tabla;Días hábiles de recepción de ofertas por modalidad, contados desde la apertura (EFDS-1155).;base;7;6;modalidad;1;0;0;0;1;0;no;32768
+hiring;plazos_publicacion;Tabla;Días hábiles de publicidad del proyecto de pliego, por modalidad. Parametrizables (EFDS-1150).;base;7;6;modalidad;1;0;0;0;1;0;no;32768
+hiring;plazos_traslado;Tabla;Días hábiles de traslado del informe de evaluación por modalidad, contados desde su publicación (EFDS-1158).;base;7;6;modalidad;1;0;0;0;1;0;no;32768
+hiring;proceso_actividades;Tabla;;;590;14;id;1;1;0;0;3;0;no;237568
+hiring;procesos;Tabla;;;10;14;id;2;25;0;0;3;0;no;65536
+hiring;publicaciones_acta;Tabla;Publicaciones del acta de liquidación con su destino, evidencia y control de plazo (EFDS-1174).;base;0;11;id;2;0;0;0;3;0;no;32768
+hiring;publicaciones_contrato;Tabla;Publicaciones del contrato con su destino, evidencia y control de plazo (EFDS-1166).;base;1;11;id;2;0;0;0;3;0;no;65536
+hiring;publicaciones_modificacion;Tabla;Publicación de la modificación en SECOP II, con su evidencia (EFDS-1176, RF-MOD-05).;base;0;8;id;2;0;0;0;3;0;no;32768
+hiring;publicaciones_pliego;Tabla;Registro de la publicación del proyecto de pliego en SECOP II y su plazo de publicidad (EFDS-1150).;base;3;14;id;1;1;1;0;4;0;no;81920
+hiring;recepciones_ofertas;Tabla;Plazo de recepción de ofertas de cada proceso y su cierre (EFDS-1155).;base;3;8;id;1;1;0;0;2;0;no;40960
+hiring;registros_actividad;Tabla;Constancia de que una actividad sin historia propia ocurrió, con su fecha, su nota y su soporte.;base;2;13;id;3;0;0;0;3;0;no;65536
+hiring;registros_presupuestales;Tabla;Registros presupuestales que comprometen los recursos del contrato (EFDS-1163).;base;1;16;id;3;2;0;0;4;0;no;73728
+hiring;reglas_actividad;Tabla;;;13;14;id;2;0;0;0;3;0;no;65536
+hiring;resoluciones_sancionatorias;Tabla;Actos administrativos del trámite sancionatorio (EFDS-1181, RF-INC-02): el que lo abre y el que lo decide, incluida la caducidad.;base;0;16;id;2;0;0;0;3;0;no;32768
+hiring;resultados_evaluacion;Tabla;Resultado de la evaluación hecha por el comité fuera de la plataforma: oferta ganadora, su valoración y el informe que la sustenta (EFDS-1157).;base;2;16;id;3;4;0;0;2;0;no;49152
+hiring;revisiones;Tabla;;;12;9;id;1;0;0;0;2;0;no;49152
+hiring;roles_del_modulo;Vista;Roles que trabajan en contratación: los que tienen al menos un permiso del módulo. Alimenta el selector de aprobadores.;base;;3;;0;0;0;0;0;0;no;0
+hiring;seguimientos_contrato;Tabla;Informes, actas y soportes de la ejecución del contrato (EFDS-1168, actividad 9.2).;base;1;11;id;3;0;0;0;2;0;no;49152
+hiring;sesiones_comite_contratacion;Tabla;Sesiones del comité de contratación sobre un proceso (actividad 3.7). Una por sesión: observar devuelve el proceso al comité, y las dos quedan.;base;4;10;id;2;0;0;0;2;0;no;49152
+hiring;smmlv;Tabla;Salario mínimo mensual legal vigente por año. Base de los umbrales expresados en SMMLV (EFDS-1147).;base;2;5;anio;0;0;0;0;1;0;no;24576
+hiring;sobres_economicos;Tabla;Apertura del sobre económico en la audiencia de adjudicación, donde la modalidad lo exige (EFDS-1159).;base;1;9;id;3;0;0;0;2;0;no;49152
+hiring;soportes_pago;Tabla;Documentos que acompañan la cuenta de cobro. Se cargan a mano mientras no exista la integración con Click (EFDS-1170).;base;4;7;id;2;0;0;0;2;0;no;49152
+hiring;subsanaciones;Tabla;Subsanaciones y observaciones que presentan los oferentes durante el traslado del informe (EFDS-1158).;base;1;19;id;4;0;0;0;2;0;no;49152
+hiring;supervisiones_contrato;Tabla;Supervisores designados por acto administrativo, vigentes y relevados (EFDS-1165).;base;1;15;id;2;2;0;0;4;0;no;81920
+hiring;suscripciones_acta_inicio;Tabla;Acta de inicio suscrita por la entidad y el contratista (actividad 8.7). La reunión (9.1) va en actas_inicio.;base;1;6;id;2;0;0;0;2;0;no;40960
+hiring;tipologias_contrato;Tabla;Tipologías de contrato y el formato del SIG que sirve de minuta (EFDS-1161).;base;12;7;codigo;0;1;0;0;1;0;no;32768
+hiring;tipos_amparo;Tabla;Coberturas que puede incluir una garantía, para controlar sus vencimientos (EFDS-1164).;base;7;5;codigo;0;1;0;0;1;0;no;32768
+hiring;tope_adicion;Tabla;Tope legal de la adición como porcentaje del valor inicial del contrato (EFDS-1176).;base;1;5;id;0;0;0;0;1;0;no;32768
+hiring;trazabilidad;Tabla;;;236;9;id;1;0;0;0;2;0;no;155648
+hiring;umbrales_comite_contratacion;Tabla;Condición de cuantía para pasar por el comité de contratación (actividad 3.7). La modalidad sin fila va a comité siempre que la matriz la marque.;base;1;7;modalidad;1;0;0;0;1;0;no;32768
+hiring;umbrales_modalidad;Tabla;Rangos de cuantía que sugieren cada modalidad. Parametrizables por administrador (EFDS-1147).;base;3;11;id;1;0;0;0;3;0;no;57344
+infrastructure-management;bloque_edificio;Tabla;;;23;9;id_bloque;1;1;0;0;2;0;no;49152
+infrastructure-management;catalogo_item;Tabla;Catálogo genérico para listas parametrizables de infraestructura (tipos, prioridades, estados);base;45;8;id_catalogo;0;0;0;0;3;0;no;98304
+infrastructure-management;espacio_fisico;Tabla;;;81;15;id_espacio;1;1;0;0;2;0;no;73728
+infrastructure-management;sede;Tabla;;;7;13;id_sede;0;2;0;0;3;0;no;65536
+infrastructure-management;solicitud_evidencia;Tabla;Evidencias/adjuntos subidos por el usuario al radicar o gestionar una solicitud de mantenimiento (fotos, PDFs, planos). Almacenado en MinIO, referenciado por URL;base;6;16;id_evidencia;1;0;0;0;5;0;no;98304
+infrastructure-management;solicitud_mantenimiento;Tabla;;;0;52;id_solicitud;2;2;0;0;13;0;no;114688
+infrastructure-management;solicitud_valoracion;Tabla;EFDS-1735 RF-INF-006. Cada fila es una visita técnica de inspección previa. 1-N con solicitud (se permiten revalorizaciones o segundas visitas).;base;0;18;id_valoracion;1;1;0;0;3;0;no;32768
+infrastructure-management;solicitud_valoracion_insumo;Tabla;EFDS-1735. Detalle fila-a-fila de materiales y repuestos requeridos para la ejecución de una visita de valoración. Restricción a nivel fila chk_tiempo_adquisicion_si_no_disponible: si disponibilidad=NO_DISPONIBLE_A_SOLICITAR, es obligatorio tiempo_adquisicion_dias para extender el SLA.;base;0;12;id_insumo;1;0;0;0;2;0;no;16384
+travel_expenses;analistas_viaticos;Tabla;Catalogo de analistas del Grupo de Viaticos para asignacion de comisiones y calculo de carga laboral;base;0;13;id;1;0;0;0;7;1;no;65536
+travel_expenses;comisionados;Tabla;;;4;21;id;0;2;0;0;4;1;no;81920
+travel_expenses;config_campos_formulario;Tabla;;;19;12;id;0;0;0;0;4;0;no;81920
+travel_expenses;config_jornada_laboral;Tabla;;;1;13;id;0;0;0;0;4;0;no;81920
+travel_expenses;config_legalizacion;Tabla;EFDS-1309 — Disparador, plazo (días hábiles) y aviso de la legalización por modalidad de pago.;base;2;9;modalidad_pago;0;0;0;0;1;1;no;24576
+travel_expenses;config_legalizacion_documentos;Tabla;EFDS-1309 — Soportes exigidos para legalizar, por tipo de comisionado. Configuración, no código (D-2).;base;42;9;id;2;0;0;0;2;1;no;73728
+travel_expenses;config_tipo_comisionado;Tabla;;;7;9;id;0;2;0;0;4;0;no;81920
+travel_expenses;config_tipo_comisionado_documentos;Tabla;;;24;6;id;2;0;0;0;4;0;no;73728
+travel_expenses;configuraciones_globales;Tabla;;;6;5;clave;0;0;0;0;1;0;no;32768
+travel_expenses;documentos_soporte;Tabla;;;0;8;id;1;0;0;0;2;0;no;24576
+travel_expenses;escalas_viaticos;Tabla;;;11;8;id;0;0;0;0;4;0;no;73728
+travel_expenses;excepciones_autorizadas_tiquetes;Tabla;;;0;8;id;0;0;0;0;3;0;no;32768
+travel_expenses;legalizacion_reversiones;Tabla;"EFDS-1310 — Solicitudes de reversión de una revisión de legalización aprobada. La solicita el analista y la resuelve otra persona; solo antes del registro en SIIF.";base;0;9;id;1;0;0;0;3;1;no;32768
+travel_expenses;legalizacion_revisiones;Tabla;EFDS-1310 — Trazabilidad de la revisión de la legalización (quién, qué, cuándo). Solo inserción.;base;0;8;id;1;0;0;0;2;1;no;24576
+travel_expenses;legalizacion_soportes;Tabla;EFDS-1309 — PDF de soporte de la legalización, validados por contenido (%PDF-), no por extensión.;base;0;13;id;2;0;0;0;2;1;no;24576
+travel_expenses;legalizaciones_comision;Tabla;EFDS-1309 — Legalización de una comisión: plazo en días hábiles y envío a revisión.;base;0;41;id;1;3;0;0;4;2;no;40960
+travel_expenses;liquidation_params;Tabla;;;5;7;id;0;0;0;0;3;0;no;65536
+travel_expenses;parametros_globales;Tabla;Parametros globales configurables del modulo de viaticos y comisiones;base;1;7;clave;0;0;0;0;1;0;no;32768
+travel_expenses;paz_y_salvo_eventos;Tabla;;;0;6;id;1;0;0;0;2;0;no;24576
+travel_expenses;paz_y_salvos;Tabla;;;0;9;id;1;1;0;0;2;0;no;24576
+travel_expenses;reintegros_comision;Tabla;Reintegros de comisiones pagadas por avance no realizadas o ejecutadas por menos días (RF-PAG-004).;base;0;16;id;1;0;0;0;4;0;no;40960
+travel_expenses;rutas_restringidas;Tabla;;;4;6;id;0;0;0;0;3;0;no;57344
+travel_expenses;saldos_tiquetes;Tabla;;;0;10;id;0;0;0;0;3;0;no;24576
+travel_expenses;solicitudes_comision;Tabla;;;3;98;id;8;4;0;0;29;1;no;507904
+travel_expenses;solicitudes_historial_estados;Tabla;Auditoría append-only de transiciones de estado del expediente de comisión (RF-SIS-001 / RF-LIQ-004).;base;0;7;id;1;0;0;0;3;0;no;24576
+travel_expenses;tarifas_investigadores;Tabla;;;3;5;id;0;0;0;0;4;0;no;73728
+travel_expenses;tarifas_referencia_tiquetes;Tabla;;;42;14;id;0;0;0;0;5;0;no;98304
+travel_expenses;tarifas_regionales_excepcion;Tabla;;;8;7;id;0;0;0;0;3;0;no;57344
+travel_expenses;tarifas_transporte_terminal;Tabla;;;11;9;id;0;0;0;0;3;0;no;57344
+travel_expenses;tipos_documento_soporte;Tabla;;;15;9;id;0;3;0;0;3;0;no;65536

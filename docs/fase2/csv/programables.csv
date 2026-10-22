@@ -1,0 +1,16 @@
+﻿esquema;nombre;tipo;lenguaje;parametros;devuelve;usa;escribe_en;descripcion;security_definer
+academic-schedule;fn_franja_sincroniza_asignatura;Función;plpgsql;;trigger;;;;no
+academic-schedule;fn_propagar_docente_a_franjas;Función;plpgsql;;trigger;;;;no
+academic-schedule;reapuntar_grupos_por_equivalencia;Función;plpgsql;;integer;academic_work_plan.periodo_academico;;;no
+academic_work_plan;prevent_rund_document_change;Función;plpgsql;;trigger;academic_work_plan.Docente, academic_work_plan.RundDocumentoPerfil, academic_work_plan.RundExtraccionSugerencia, academic_work_plan.RundExtraccionTrabajo;;REQ-RUND-F001: bloquea cambios de cédula salvo una sugerencia OCR pendiente, vigente y vinculada a la misma persona.;no
+hiring;fn_objeto_contrato_inmutable;Función;plpgsql;;trigger;;;;no
+travel_expenses;fn_legalizacion_cerrada_inmutable;Función;plpgsql;;trigger;;;;no
+travel_expenses;fn_purga_pruebas_activa;Función;sql;;boolean;;;EFDS-1310 — Solo la purga de pruebas automatizadas, con el rol travel_expenses_pruebas (inexistente fuera de entornos locales) y la variable de sesión explícita, salta la inmutabilidad de legalizaciones cerradas.;no
+travel_expenses;fn_reversion_resuelta_inmutable;Función;plpgsql;;trigger;;;;no
+travel_expenses;fn_revision_solo_insercion;Función;plpgsql;;trigger;;;;no
+travel_expenses;fn_soporte_legalizacion_cerrada_inmutable;Función;plpgsql;;trigger;travel_expenses.legalizaciones_comision;;;no
+travel_expenses;update_actualizado_en;Función;plpgsql;;trigger;;;;no
+travel_expenses;update_analistas_viaticos_updated_at;Función;plpgsql;;trigger;;;;no
+academic_work_plan;prevent_rund_access_log_mutation;Función;plpgsql;;trigger;;;;no
+academic_work_plan;prevent_rund_audit_mutation;Función;plpgsql;;trigger;;;;no
+academic_work_plan;prevent_rund_bulk_support_mutation;Función;plpgsql;;trigger;;;;no

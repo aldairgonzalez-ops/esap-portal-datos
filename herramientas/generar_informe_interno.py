@@ -219,13 +219,16 @@ def construir_doc(m, version, entorno):
     oper = [t for t in T.values() if t["k"] in "rp" and not t["particion"] and not t["apoyo"]]
 
     doc = documento()
-    portada(doc, "SuperApp ESAP · Base de datos", "Informe interno de hallazgos y oportunidades de mejora",
+    alc = m.get("alcance")
+    portada(doc, "SuperApp ESAP · Base de datos" + (f" · {alc['nombre']}" if alc else ""), "Informe interno de hallazgos y oportunidades de mejora",
             f"Entorno {entorno} · base {ctx['db']} · corte del {fecha_larga(ctx['fecha'])} · versión {version}", marca="USO INTERNO · NO ENTREGABLE")
 
     doc.add_heading("1. Objetivo y alcance", level=1)
     doc.add_paragraph(
         "Este informe reúne los hallazgos sobre la estructura y la consistencia de la base de datos, y las oportunidades de mejora "
         "que se derivan de ellos. Complementa el Portal de Datos y el resumen ejecutivo que se entregan al cliente, que son descriptivos.")
+    if alc:
+        doc.add_paragraph(f"Alcance de esta versión: {alc['descripcion']} Las cifras y los hallazgos se limitan a las tablas de ese alcance.")
     doc.add_paragraph(
         f"Fuente: extracción de solo lectura de {ctx['db']} ({entorno}) del {fecha_larga(ctx['fecha'])}, servidor {ctx.get('host_conexion') or ctx['srv']} (IP interna {ctx['srv']}). "
         "Cada cifra sale de la extracción; no se revisaron valores de registros.")
@@ -307,14 +310,17 @@ def main():
     ap.add_argument("--extraccion", required=True)
     ap.add_argument("--version", default="v1.0")
     ap.add_argument("--entorno", default="QA")
+    ap.add_argument("--alcance", help="versión Lite: JSON de config/alcances/ con los esquemas y tablas incluidos")
     ap.add_argument("--salida")
     a = ap.parse_args()
+    alcance = M.cargar_alcance(a.alcance) if a.alcance else None
     try:
-        m = M.construir(os.path.abspath(a.extraccion))
+        m = M.aplicar_alcance(M.construir(os.path.abspath(a.extraccion)), alcance)
     except M.ErrorExtraccion as e:
         sys.exit(f"No se generó el informe: {e}")
     doc, H, OM = construir_doc(m, a.version, a.entorno)
-    destino = a.salida or os.path.join(M.RAIZ, "interno", f"Informe_Interno_Hallazgos_BD_ESAP_{a.version}.docx")
+    sufijo, sub = (f"_{alcance['id']}", alcance["id"].lower()) if alcance else ("", "")
+    destino = a.salida or os.path.join(M.RAIZ, "interno", sub, f"Informe_Interno_Hallazgos_BD_ESAP{sufijo}_{a.version}.docx")
     os.makedirs(os.path.dirname(destino), exist_ok=True)
     doc.save(destino)
     print(f"Informe interno: {os.path.relpath(destino, M.RAIZ)} · {len(H)} hallazgos · {len(OM)} oportunidades de mejora")

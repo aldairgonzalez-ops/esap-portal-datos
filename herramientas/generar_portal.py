@@ -141,7 +141,7 @@ def generar_md(m, carpeta, nombre_portal):
 
 def comparar(m, anterior):
     """Cambios de estructura frente a una extracción anterior (tablas, columnas, FK, programables, filas)."""
-    a = M.construir(anterior)
+    a = M.aplicar_alcance(M.construir(anterior), m.get("alcance"))
     ta, tn = set(a["tablas"]), set(m["tablas"])
     ca = {(k, c["n"]): c["ty"] for k, t in a["tablas"].items() for c in t["cols"]}
     cn = {(k, c["n"]): c["ty"] for k, t in m["tablas"].items() for c in t["cols"]}
@@ -169,10 +169,12 @@ def comparar(m, anterior):
     return L
 
 
-def informe(m, version, nombre_portal, anterior):
+def informe(m, version, nombre_portal, anterior, alcance=None):
     ctx, k = m["ctx"], m["kpi"]
     op = [t for t in m["tablas"].values() if t["k"] in "rp" and not t["particion"]]
-    L = [f"# Informe de la extracción · Portal de Datos ESAP {version}", "",
+    titulo = f"Portal de Datos ESAP · {alcance['nombre']} {version}" if alcance else f"Portal de Datos ESAP {version}"
+    L = [f"# Informe de la extracción · {titulo}", "",
+         *([f"**Alcance:** {alcance['descripcion']}", ""] if alcance else []),
          "| | |", "|---|---|", f"| Base | `{ctx['db']}` |", f"| Servidor | `{ctx.get('host_conexion') or ctx['srv']}:{ctx['puerto']}` (IP interna del servidor: `{ctx['srv']}`) |", f"| Motor | {ctx['version']} |",
          f"| Usuario de extracción | `{ctx['usuario']}` |", f"| Fecha de extracción | {ctx['fecha'].replace('T', ' ')} |",
          f"| Portal generado | `portal/{nombre_portal}` · {datetime.datetime.now():%Y-%m-%d %H:%M} |", "",
@@ -196,16 +198,20 @@ def main():
     ap.add_argument("--repo", default="", help="URL del repositorio con el detalle técnico (se cita en el portal)")
     ap.add_argument("--anterior", help="extracción anterior para listar cambios en el informe")
     ap.add_argument("--simular", action="store_true")
+    ap.add_argument("--alcance", help="versión Lite: archivo de alcance, p. ej. config/alcances/fase2.json")
     a = ap.parse_args()
 
     ext = os.path.abspath(a.extraccion)
+    alcance = M.cargar_alcance(a.alcance)
     try:
-        m = M.construir(ext)
+        m = M.aplicar_alcance(M.construir(ext), alcance)
     except M.ErrorExtraccion as e:
         sys.exit(f"No se generó el portal: {e}")
 
-    nombre = f"Portal_de_Datos_ESAP_{a.version}.html"
-    nombre_int = f"Portal_de_Datos_ESAP_{a.version}_interno.html"
+    sufijo = f"_{alcance['id']}" if alcance else ""
+    sub = alcance["id"].lower() if alcance else ""
+    nombre = f"Portal_de_Datos_ESAP{sufijo}_{a.version}.html"
+    nombre_int = f"Portal_de_Datos_ESAP{sufijo}_{a.version}_interno.html"
     base = {k: m[k] for k in ("ctx", "esquemas", "tablas", "fks", "implicitas", "programables", "triggers", "tipos")}
     base["vistas"] = [{"v": v["v"], "usa": v["usa"]} for v in m["vistas"]]
     base.update({"version": a.version, "entorno": a.entorno, "repo": a.repo, "generado": f"{datetime.datetime.now():%Y-%m-%d %H:%M}"})
@@ -215,7 +221,7 @@ def main():
     # La edición para el cliente no lleva diagnóstico: ni indicadores con meta, ni identidad, ni conteos de valores sin padre.
     cliente = dict(base, edicion="cliente", identidad=[], kpi=[],
                    fks=[{k: v for k, v in f.items() if k not in ("huerf", "indexada", "validada")} for f in m["fks"]])
-    texto_inf = informe(M.vista_cliente(m), a.version, nombre, os.path.abspath(a.anterior) if a.anterior else None)
+    texto_inf = informe(M.vista_cliente(m), a.version, f"{sub}/{nombre}" if sub else nombre, os.path.abspath(a.anterior) if a.anterior else None, alcance)
     print(texto_inf[:3000])
     if a.simular:
         print("Simulación: no se escribió nada.")
@@ -235,19 +241,20 @@ def main():
         else:
             carga = json.dumps(datos, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
             html = plantilla.replace("/*__DATOS__*/", carga).replace("__VERSION__", a.version)
-        destino = os.path.join(RAIZ, carpeta, archivo)
+        destino = os.path.join(RAIZ, carpeta, sub, archivo)
         os.makedirs(os.path.dirname(destino), exist_ok=True)
         if os.path.exists(destino):
             print(f"Aviso: {archivo} ya existía y se reemplaza. Para conservar versiones anteriores usa otra --version.")
         open(destino, "w", encoding="utf-8", newline="\n").write(html)
-        print(f"Portal {datos['edicion']}: {carpeta}/{archivo} ({len(html) / 1048576:.2f} MB)")
+        print(f"Portal {datos['edicion']}: {os.path.relpath(destino, RAIZ)} ({len(html) / 1048576:.2f} MB)")
 
-    generar_csv(mc, os.path.join(RAIZ, "docs", "csv"))
-    generar_csv_interno(m, os.path.join(RAIZ, "interno", "csv"))
-    generar_md(mc, os.path.join(RAIZ, "docs", "catalogo"), nombre)
-    ruta_inf = os.path.join(RAIZ, "docs", f"informe_extraccion_{a.version}.md")
+    docs = os.path.join(RAIZ, "docs", sub)
+    generar_csv(mc, os.path.join(docs, "csv"))
+    generar_csv_interno(m, os.path.join(RAIZ, "interno", sub, "csv"))
+    generar_md(mc, os.path.join(docs, "catalogo"), f"{sub}/{nombre}" if sub else nombre)
+    ruta_inf = os.path.join(docs, f"informe_extraccion{sufijo}_{a.version}.md")
     open(ruta_inf, "w", encoding="utf-8").write(texto_inf)
-    print("Detalle: docs/csv/, docs/catalogo/ y", os.path.relpath(ruta_inf, RAIZ), "· uso interno: interno/csv/")
+    print("Detalle:", os.path.relpath(docs, RAIZ) + "/csv,", os.path.relpath(docs, RAIZ) + "/catalogo y", os.path.relpath(ruta_inf, RAIZ))
 
 
 if __name__ == "__main__":

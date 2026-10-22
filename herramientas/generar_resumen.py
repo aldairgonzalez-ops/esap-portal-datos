@@ -30,9 +30,12 @@ def construir_doc(m, version, url_portal, repo, entorno):
     vistas = sum(1 for t in m["tablas"].values() if t["k"] in "vm")
     fecha = fecha_larga(ctx["fecha"])
     enlace = lambda vista: (url_portal + "#" + vista) if url_portal else ""
+    alc = m.get("alcance")
+    sufijo, sub = (f"_{alc['id']}", alc["id"].lower() + "/") if alc else ("", "")
+    nombre_alc = f" · {alc['nombre']}" if alc else ""
 
     doc = documento()
-    portada(doc, "Escuela Superior de Administración Pública · SuperApp ESAP", "Resumen ejecutivo de la base de datos",
+    portada(doc, "Escuela Superior de Administración Pública · SuperApp ESAP" + nombre_alc, "Resumen ejecutivo de la base de datos",
             f"Entorno {entorno} · base {ctx['db']} · corte del {fecha} · versión {version}")
     if url_portal:
         p = doc.add_paragraph("Portal de Datos ESAP: ")
@@ -43,6 +46,10 @@ def construir_doc(m, version, url_portal, repo, entorno):
         "Este documento presenta la base de datos de la SuperApp ESAP: su alcance, su organización por dominios y el contenido "
         "de su modelo. El detalle de cada tabla, columna y relación se consulta en el Portal de Datos ESAP. Las consultas, los archivos "
         "CSV y la documentación en Markdown que respaldan el portal están en el repositorio técnico (sección 6).")
+    if alc:
+        doc.add_paragraph(f"Esta versión cubre solo la {alc['nombre']} del proyecto. {alc['descripcion']} Las cifras de este documento "
+                          "se limitan a esas tablas. Las tablas de otros dominios a las que hacen referencia se muestran en el Modelo ER del portal "
+                          "como «otro dominio».")
 
     doc.add_heading("2. Fuente y alcance", level=1)
     doc.add_paragraph(
@@ -51,7 +58,7 @@ def construir_doc(m, version, url_portal, repo, entorno):
         "No incluye valores de los registros.")
     tabla(doc, ["Elemento", "Valor"], [
         ["Motor", ctx["version"].split(" on ")[0].split(" (")[0]],
-        ["Tamaño de la base", n(ctx["bytes"] / 1048576) + " MB"],
+        ["Tamaño de la base" + (" (completa)" if alc else ""), n(ctx["bytes"] / 1048576) + " MB"],
         ["Dominios (esquemas)", n(len(m["esquemas"]))],
         ["Tablas", n(len(op)) + ((", de las cuales 1 es de apoyo (respaldo, copia o migración)" if len(apoyo) == 1 else
                                   f", de las cuales {n(len(apoyo))} son de apoyo (respaldos, copias o migraciones)") if apoyo else "")],
@@ -94,13 +101,13 @@ def construir_doc(m, version, url_portal, repo, entorno):
         tabla(doc, ["Categoría", "Columnas"], [[k, n(v)] for k, v in por_cat.most_common()], anchos=[8, 3], derecha=(1,))
 
     doc.add_heading("6. Dónde consultar el detalle", level=1)
-    p = doc.add_paragraph(f"Portal de Datos ESAP {version}: ")
+    p = doc.add_paragraph(f"Portal de Datos ESAP{nombre_alc} {version}: ")
     if url_portal:
         hipervinculo(p, url_portal, url_portal)
     else:
-        p.add_run(f"portal/Portal_de_Datos_ESAP_{version}.html. Es un archivo HTML autónomo que se abre en cualquier navegador, sin conexión.")
+        p.add_run(f"portal/{sub}Portal_de_Datos_ESAP{sufijo}_{version}.html. Es un archivo HTML autónomo que se abre en cualquier navegador, sin conexión.")
     secciones = [("Inicio", "welcome", "Cifras del catálogo, indicadores del modelo de datos (ISO/IEC 25012) y dominios funcionales"),
-                 ("Buscador y fichas de tabla", "auth.personas", "Menú por esquema y buscador de tablas, columnas y programables. Cada ficha muestra "
+                 ("Buscador y fichas de tabla", "auth.personas" if not alc else next(iter(sorted(m["tablas"]))), "Menú por esquema y buscador de tablas, columnas y programables. Cada ficha muestra "
                   "propósito, campos, restricciones, datos personales, relaciones, vista enfocada del Modelo ER y lógica relacionada"),
                  ("Modelo ER", "modelo", "Diagrama entidad-relación por dominio, con cardinalidad UML y relaciones lógicas; exportable a SVG y PNG"),
                  ("Inventario de programables", "inventario", "Funciones, procedimientos, vistas y triggers, con las tablas que usan, a quién invocan y quién los invoca")]
@@ -114,9 +121,9 @@ def construir_doc(m, version, url_portal, repo, entorno):
         hipervinculo(p, repo, repo)
     else:
         p.add_run("(ubicación por definir)")
-    for ruta, d in [("docs/csv/", "catálogo, columnas, relaciones, programables y datos personales en formato CSV"),
-                    ("docs/catalogo/", "un documento Markdown por dominio con todas sus tablas y columnas"),
-                    (f"docs/informe_extraccion_{version}.md", "cifras de la extracción y cambios frente al corte anterior"),
+    for ruta, d in [(f"docs/{sub}csv/", "catálogo, columnas, relaciones, programables y datos personales en formato CSV"),
+                    (f"docs/{sub}catalogo/", "un documento Markdown por dominio con todas sus tablas y columnas"),
+                    (f"docs/{sub}informe_extraccion{sufijo}_{version}.md", "cifras de la extracción y cambios frente al corte anterior"),
                     ("sql/extraccion/", "consultas de solo lectura que producen esta información y permiten regenerarla")]:
         vineta(doc, f" {d}.", ruta)
 
@@ -138,14 +145,17 @@ def main():
     ap.add_argument("--entorno", default="QA")
     ap.add_argument("--url-portal", default="", help="URL donde quedará publicado el portal")
     ap.add_argument("--repo", default="", help="URL del repositorio técnico")
+    ap.add_argument("--alcance", help="versión Lite: JSON de config/alcances/ con los esquemas y tablas incluidos")
     ap.add_argument("--salida")
     a = ap.parse_args()
+    alcance = M.cargar_alcance(a.alcance) if a.alcance else None
     try:
-        m = M.vista_cliente(M.construir(os.path.abspath(a.extraccion)))
+        m = M.vista_cliente(M.aplicar_alcance(M.construir(os.path.abspath(a.extraccion)), alcance))
     except M.ErrorExtraccion as e:
         sys.exit(f"No se generó el resumen: {e}")
     doc = construir_doc(m, a.version, a.url_portal, a.repo, a.entorno)
-    destino = a.salida or os.path.join(M.RAIZ, "informe", f"Resumen_Ejecutivo_BD_ESAP_{a.version}.docx")
+    sufijo, sub = (f"_{alcance['id']}", alcance["id"].lower()) if alcance else ("", "")
+    destino = a.salida or os.path.join(M.RAIZ, "informe", sub, f"Resumen_Ejecutivo_BD_ESAP{sufijo}_{a.version}.docx")
     os.makedirs(os.path.dirname(destino), exist_ok=True)
     doc.save(destino)
     print("Resumen ejecutivo (cliente):", os.path.relpath(destino, M.RAIZ))

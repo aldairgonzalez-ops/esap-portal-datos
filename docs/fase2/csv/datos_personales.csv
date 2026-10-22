@@ -1,0 +1,36 @@
+﻿esquema;tabla;columna;tipo;categoria;nivel;tabla_apoyo
+academic-schedule;programacion_historica;cedula_docente;character varying(20);Identificación;alta;no
+academic_work_plan;Docente;edadReferencia;integer;Dato personal;media;no
+academic_work_plan;Docente;correoAlternativo;text;Contacto;media;no
+academic_work_plan;Docente;ip_creacion;character varying(50);Identificador en línea (IP);media;no
+academic_work_plan;Docente;sexoBiologico;text;Dato personal;media;no
+academic_work_plan;RundAccesoDatosLog;ip;text;Identificador en línea (IP);media;no
+academic_work_plan;RundAccesoExterno;token;text;Credencial de acceso;alta;no
+academic_work_plan;RundAprobacionLog;ip;text;Identificador en línea (IP);media;no
+academic_work_plan;RundCargaMasiva;ip;text;Identificador en línea (IP);media;no
+academic_work_plan;RundInvitacionDocente;documento_identidad;character varying(100);Identificación;alta;no
+academic_work_plan;RundInvitacionDocente;token_invitacion;character varying(255);Credencial de acceso;alta;no
+academic_work_plan;RundMacroDocenteConsultaLog;ip;text;Identificador en línea (IP);media;no
+chatbot;conversacion;usuario_email;character varying(255);Contacto;media;no
+hiring;actos_adjudicacion;correo_contratista;character varying(200);Contacto;media;no
+hiring;avisos;correos_externos;jsonb;Contacto;media;no
+hiring;contratos;contratista_documento;character varying(40);Identificación;alta;no
+hiring;firmas_contrato;firmante_documento;character varying(40);Identificación;alta;no
+hiring;modificaciones_contrato;cedente_documento;character varying(40);Identificación;alta;no
+hiring;modificaciones_contrato;cesionario_documento;character varying(40);Identificación;alta;no
+hiring;participaciones_proceso;email;character varying(200);Contacto;media;no
+hiring;supervisiones_contrato;email;character varying(200);Contacto;media;no
+infrastructure-management;solicitud_evidencia;usuario_que_subio_email;character varying(180);Contacto;media;no
+infrastructure-management;solicitud_mantenimiento;solicitante_email;character varying(150);Contacto;media;no
+infrastructure-management;solicitud_mantenimiento;usuario_solicitante_email;character varying(150);Contacto;media;no
+travel_expenses;analistas_viaticos;nombre_completo;character varying(255);Nombre de persona;media;no
+travel_expenses;analistas_viaticos;email;character varying(255);Contacto;media;no
+travel_expenses;analistas_viaticos;telefono;character varying(50);Contacto;media;no
+travel_expenses;comisionados;numero_documento;character varying(20);Identificación;alta;no
+travel_expenses;comisionados;primer_nombre;character varying(100);Nombre de persona;media;no
+travel_expenses;comisionados;segundo_nombre;character varying(100);Nombre de persona;media;no
+travel_expenses;comisionados;primer_apellido;character varying(100);Nombre de persona;media;no
+travel_expenses;comisionados;segundo_apellido;character varying(100);Nombre de persona;media;no
+travel_expenses;comisionados;email;character varying(150);Contacto;media;no
+travel_expenses;comisionados;telefono_contacto;character varying(150);Contacto;media;no
+travel_expenses;comisionados;ip_registro_habeas_data;character varying(45);Identificador en línea (IP);media;no

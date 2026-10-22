@@ -438,3 +438,79 @@ def vista_cliente(m):
             if col["imp"] and col["n"] not in destinos:
                 col["imp"] = None
     return c
+
+
+def cargar_alcance(ruta):
+    if not ruta:
+        return None
+    with open(ruta, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def aplicar_alcance(m, alcance):
+    """Modelo restringido a un alcance (p. ej. la Fase 2): esquemas completos más tablas elegidas de otros esquemas.
+    Las tablas de fuera del alcance a las que apuntan sus FK quedan en m["contexto"]: el Modelo ER las muestra como
+    «otro dominio», pero no entran al catálogo, a las cifras ni a los indicadores."""
+    import copy
+    if not alcance:
+        return m
+    completos = set(alcance.get("esquemas", []))
+    parciales = alcance.get("parciales", {})
+
+    def en_alcance(t):
+        if t["s"] in completos:
+            return True
+        p = parciales.get(t["s"])
+        return bool(p) and (t["t"] in p.get("tablas", []) or any(t["t"].startswith(x) for x in p.get("prefijos", [])))
+
+    c = copy.deepcopy(m)
+    dentro = {k for k, t in m["tablas"].items() if en_alcance(t)}
+    c["tablas"] = collections.OrderedDict((k, t) for k, t in c["tablas"].items() if k in dentro)
+    c["fks"] = [f for f in c["fks"] if f["c"] in dentro]
+    c["contexto"] = {f["p"]: m["tablas"][f["p"]] for f in c["fks"] if f["p"] not in dentro and f["p"] in m["tablas"]}
+    viejas = c["implicitas"]
+    conservar = [i for i, x in enumerate(viejas) if x["c"] in dentro and (x["p"] in dentro or x["p"] in c["contexto"])]
+    nuevo = {v: n for n, v in enumerate(conservar)}
+    c["implicitas"] = [viejas[i] for i in conservar]
+    nombres_fk = {(f["c"], f["n"]) for f in c["fks"]}
+    for k, t in c["tablas"].items():
+        t["fk_in"] = [n for n in t["fk_in"] if any((f["c"], f["n"]) in nombres_fk and f["n"] == n and f["p"] == k for f in c["fks"])]
+        t["imp_out"] = [nuevo[i] for i in t["imp_out"] if i in nuevo]
+        t["imp_in"] = [nuevo[i] for i in t["imp_in"] if i in nuevo]
+        t["usada_por"] = [v for v in t["usada_por"] if v in dentro]
+        for col in t["cols"]:
+            if col["imp"] and col["imp"].rsplit(".", 1)[0] not in dentro and col["imp"].rsplit(".", 1)[0] not in c["contexto"]:
+                col["imp"] = None
+    esquemas_dentro = {t["s"] for t in c["tablas"].values()}
+    c["programables"] = [p for p in c["programables"] if p["s"] in completos or set(p["usa"]) & dentro or set(p["escribe"]) & dentro]
+    c["triggers"] = [g for g in c["triggers"] if g["tabla"] in dentro]
+    fn_trigger = {g["fn"] for g in c["triggers"]}
+    ya = {f'{p["s"]}.{p["n"]}' for p in c["programables"]}
+    c["programables"] += [p for p in m["programables"] if f'{p["s"]}.{p["n"]}' in fn_trigger and f'{p["s"]}.{p["n"]}' not in ya]
+    for t in c["tablas"].values():
+        t["prog"] = [x for x in t["prog"] if x in {f'{p["s"]}.{p["n"]}' for p in c["programables"]}]
+    c["vistas"] = [v for v in c["vistas"] if v["v"] in dentro or (v["v"].split(".")[0] in completos)]
+    c["tipos"] = [x for x in c["tipos"] if x["s"] in completos]
+    c["identidad"] = [i for i in c["identidad"] if i["tabla"] in dentro or i["es_maestro"]]
+    orden = {s: n for n, s in enumerate(alcance.get("orden", []))}
+    esquemas = []
+    for e in c["esquemas"]:
+        if e["s"] not in esquemas_dentro:
+            continue
+        ts = [t for t in c["tablas"].values() if t["s"] == e["s"]]
+        e = dict(e)
+        if e["s"] in parciales:
+            p = parciales[e["s"]]
+            e.update({"nombre": p.get("nombre", e["nombre"]), "d": p.get("descripcion", e["d"]), "de": "base" if p.get("descripcion") else e.get("de")})
+        e.update({"orden": orden.get(e["s"], 999),
+                  "tablas": sum(1 for t in ts if t["k"] in "rpf" and not t["particion"]), "vistas": sum(1 for t in ts if t["k"] in "vm"),
+                  "columnas": sum(len(t["cols"]) for t in ts if t["k"] in "rpf" and not t["particion"]),
+                  "filas": sum(t["filas"] or 0 for t in ts if t["k"] in "rpf" and not t["particion"]),
+                  "vacias": sum(1 for t in ts if t["k"] in "rp" and not t["particion"] and t["filas"] == 0),
+                  "apoyo": sum(1 for t in ts if t["k"] in "rp" and not t["particion"] and t["apoyo"]),
+                  "bytes": sum(t["bytes"] for t in ts), "prog": sum(1 for p in c["programables"] if p["s"] == e["s"])})
+        esquemas.append(e)
+    c["esquemas"] = sorted(esquemas, key=lambda e: (e["orden"], e["s"]))
+    c["alcance"] = alcance
+    c["kpi"] = indicadores(c)
+    return c
