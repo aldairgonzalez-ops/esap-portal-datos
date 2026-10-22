@@ -43,11 +43,12 @@ def es_catalogo(m, k):
 
 
 def valores_check(defn, col):
-    # CHECK ((col)::text = ANY (ARRAY['a'::text, 'b'::text]))  o  col IN ('a','b')
-    if not palabra(col).search(defn):
+    # solo CHECK que restringen la propia columna: (col)::text = ANY (ARRAY['a'::text, …])  o  col IN ('a', …)
+    c = r'\(*"?' + re.escape(col) + r'"?\)*(?:::[\w ]+)?\)*'
+    m = re.search(c + r"\s*=\s*ANY\s*\(+\s*ARRAY\[(.*?)\]", defn, re.I) or re.search(c + r"\s+IN\s*\((.*?)\)", defn, re.I)
+    if not m:
         return []
-    vals = re.findall(r"'((?:[^']|'')*)'::(?:text|character varying|bpchar)", defn) or re.findall(r"'((?:[^']|'')*)'", defn)
-    return [v.replace("''", "'") for v in vals]
+    return [v.replace("''", "'") for v in re.findall(r"'((?:[^']|'')*)'", m.group(1))]
 
 
 def contexto(ext, alcance):
