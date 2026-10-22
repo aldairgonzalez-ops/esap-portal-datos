@@ -1,13 +1,18 @@
 ﻿esquema;tabla;columna;decision;descripcion_final;revisado_por;fecha;observaciones
 academic-schedule;asignacion_docente;asignado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic-schedule;asignacion_docente;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic-schedule;asignacion_docente;observaciones;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic-schedule;aula;capacidad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic-schedule;aula;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic-schedule;aula;provisional;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;aula;sede_codigo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic-schedule;aula;tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic-schedule;cetap_sin_catalogo;nombre_declarado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;cetap_sin_catalogo;registrado_en;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;cetap_sin_catalogo;territorial;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;concertacion_docencia;comentario;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;concertacion_docencia;error_notificacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic-schedule;concertacion_docencia;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic-schedule;concertacion_docencia;nivel;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;concertacion_docencia;periodo_ref;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;concertacion_firma;contexto;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -27,12 +32,21 @@ academic-schedule;equivalencia_periodo;motivo;Aprobada;;Aldair González (aproba
 academic-schedule;equivalencia_periodo;tipo_oferta;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;franja_horaria;aula_codigo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;franja_horaria;dia_semana;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic-schedule;franja_horaria;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic-schedule;franja_horaria;excepcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic-schedule;franja_horaria;hora_fin;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;franja_horaria;hora_inicio;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;franja_horaria;jornada;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;grupo;cupo_maximo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic-schedule;grupo;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic-schedule;grupo;fecha_fin;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic-schedule;grupo;observaciones;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic-schedule;grupo;tipo_oferta;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;jefatura_territorial;asignado_en;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic-schedule;periodo_programacion;codigo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic-schedule;periodo_programacion;fecha_fin;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic-schedule;periodo_programacion;fecha_inicio;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic-schedule;periodo_programacion;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic-schedule;programacion_historica;asignatura;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;programacion_historica;aula;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;programacion_historica;cedula_docente;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -40,6 +54,8 @@ academic-schedule;programacion_historica;cod_asigna;Aprobada;;Aldair González (
 academic-schedule;programacion_historica;cod_sede;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;programacion_historica;creditos;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;programacion_historica;dia;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic-schedule;programacion_historica;fecha_fin;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic-schedule;programacion_historica;fecha_inicio;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic-schedule;programacion_historica;hora_fin;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;programacion_historica;hora_inicio;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;programacion_historica;importado_en;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -51,31 +67,44 @@ academic-schedule;programacion_historica;sede;Aprobada;;Aldair González (aproba
 academic-schedule;programacion_historica;semestre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;programacion_periodo;cerrada_en;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic-schedule;programacion_periodo;cerrada_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic-schedule;programacion_periodo;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic_work_plan;Docente;acepta_habeas_data;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;Docente;canal_origen;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;Docente;completitud;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;Docente;correoInstitucional;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;Docente;dedicacionDisplay;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;Docente;dedicacionHorasSemana;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;Docente;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;Docente;estadoAprobacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;Docente;fechaFinVinculacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;Docente;fechaInicioVinculacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;Docente;fecha_aceptacion_habeas_data;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;Docente;ip_creacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;Docente;observaciones;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;Docente;sedeId;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;Docente;territorialId;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;Docente;vinculacionDisplay;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;Documento;aprobadoPorId;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;Documento;aprobadoPorNombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;Documento;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic_work_plan;Documento;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;Documento;tamanoBytes;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;Documento;tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;Documento;tipoDocumentoId;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;Documento;url;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;Documento;versionActual;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundAccesoDatosLog;actor_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundAccesoDatosLog;campos;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundAccesoDatosLog;docentes;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundAccesoDatosLog;endpoint;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;RundAccesoDatosLog;ip;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;RundAccesoDatosLog;resultado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundAccesoDatosLog;roles;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;RundAccesoExterno;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;RundAccesoExterno;docente_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundAccesoExterno;ente_nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;RundAccesoExterno;fecha_fin;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic_work_plan;RundAccesoExterno;fecha_inicio;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;RundAccesoExterno;motivo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundAccesoExterno;otorgado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundAccesoExterno;revoked_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -105,22 +134,36 @@ academic_work_plan;RundCampoEstado;soporte_ids;Aprobada;;Aldair González (aprob
 academic_work_plan;RundCampoEstado;version;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundCargaMasiva;actor_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundCargaMasiva;contenido;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;RundCargaMasiva;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic_work_plan;RundCargaMasiva;ip;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;RundCargaMasiva;justificacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundCargaMasiva;nombre_archivo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundCargaMasiva;sha256;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;RundCargaMasiva;tamano_bytes;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;RundCargaMasiva;tipo_mime;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;RundDocumentoCategoria;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic_work_plan;RundDocumentoCategoria;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;RundDocumentoCategoria;mime_permitidos;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;RundDocumentoCategoria;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic_work_plan;RundDocumentoCategoria;orden;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;RundDocumentoCategoria;tamano_maximo_bytes;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundDocumentoPerfil;almacenamiento_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundDocumentoPerfil;almacenamiento_ruta;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundDocumentoPerfil;checksum_sha256;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;RundDocumentoPerfil;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;RundDocumentoPerfil;docente_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundDocumentoPerfil;documento_logico_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundDocumentoPerfil;eliminado_en;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundDocumentoPerfil;eliminado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;RundDocumentoPerfil;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic_work_plan;RundDocumentoPerfil;mime_type;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;RundDocumentoPerfil;nombre_archivo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;RundDocumentoPerfil;tamano_bytes;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic_work_plan;RundDocumentoPerfil;version;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic_work_plan;RundExtraccionSugerencia;baja_confianza;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;RundExtraccionSugerencia;campo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundExtraccionSugerencia;confianza;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;RundExtraccionSugerencia;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;RundExtraccionSugerencia;pagina;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundExtraccionSugerencia;revisado_en;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundExtraccionSugerencia;revisado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -128,14 +171,18 @@ academic_work_plan;RundExtraccionSugerencia;valor;Aprobada;;Aldair González (ap
 academic_work_plan;RundExtraccionSugerencia;valor_confirmado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundExtraccionSugerencia;valor_previo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundExtraccionTrabajo;docente_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;RundExtraccionTrabajo;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;RundExtraccionTrabajo;etapa_desde;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundExtraccionTrabajo;iniciado_en;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundExtraccionTrabajo;notificado_en;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundInvitacionDocente;caducidad_token;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundInvitacionDocente;correo_institucional;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundInvitacionDocente;documento_identidad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;RundInvitacionDocente;fecha_apertura;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+academic_work_plan;RundInvitacionDocente;fecha_envio;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;RundInvitacionDocente;token_invitacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundMacroDocenteConsultaLog;filtros;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+academic_work_plan;RundMacroDocenteConsultaLog;ip;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 academic_work_plan;RundMacroDocenteConsultaLog;roles;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundMacroDocenteConsultaLog;tipo_consulta;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundMacroDocenteConsultaLog;total_resultados;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -148,11 +195,18 @@ academic_work_plan;RundSoporteCampo;fecha_vencimiento;Aprobada;;Aldair González
 academic_work_plan;RundSoporteCampo;nombre_archivo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundSoporteCampo;observacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 academic_work_plan;RundSoporteCampo;tipo_soporte;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+chatbot;conversacion;is_activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+chatbot;conversacion;metadatos;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 chatbot;conversacion;titulo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 chatbot;conversacion;usuario_email;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 chatbot;conversacion;usuario_nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 chatbot;mensaje;contenido;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+chatbot;mensaje;metadatos;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 chatbot;mensaje;rol;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+chatbot;prompt_template;codigo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+chatbot;prompt_template;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+chatbot;prompt_template;is_activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+chatbot;prompt_template;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 chatbot;prompt_template;system_prompt;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;actas_inicio;acta_pactada;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;actas_inicio;asistentes;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -162,17 +216,26 @@ hiring;actas_inicio;temas_tratados;Aprobada;;Aldair González (aprobación en bl
 hiring;actas_liquidacion;anulado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;actas_liquidacion;anulado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;actas_liquidacion;bilateral_hasta;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;actas_liquidacion;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;actas_liquidacion;fecha_acta;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;actas_liquidacion;liquidado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;actas_liquidacion;momento_del_plazo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;actas_liquidacion;motivo_anulacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;actas_liquidacion;observaciones;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;actas_liquidacion;paz_y_salvo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;actas_liquidacion;tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;actas_liquidacion;unilateral_hasta;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;actividades;activa;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;actividades;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;actividades;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;actividades;orden;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;actividades_con_soporte;exige_soporte;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;actividades_excluidas;motivo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;actividades_salvedad;nota;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;actividades_salvedad;variante;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;actos_adjudicacion;emitido_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;actos_adjudicacion;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;actos_adjudicacion;fecha_acto;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;actos_adjudicacion;motivo_revocacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;actos_adjudicacion;notificado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;actos_adjudicacion;numero_acto;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -181,25 +244,32 @@ hiring;actos_adjudicacion;revocado_at;Aprobada;;Aldair González (aprobación en
 hiring;actos_adjudicacion;revocado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;adendas;anulada_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;adendas;anulada_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;adendas;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;adendas;motivo_anulacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;adendas;numero;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;adendas;objeto;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;adendas;publicada_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;adendas;tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;afiliaciones_arl;administradora;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;afiliaciones_arl;afiliado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;afiliaciones_arl;fecha_afiliacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;afiliaciones_arl;numero_afiliacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;afiliaciones_arl;registrada_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;alcances_permiso;accion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;alcances_permiso;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;alcances_permiso;confirmado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;alcances_permiso;etapa;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;amparos;vigencia_desde;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;amparos;vigencia_hasta;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;aperturas_proceso;resolucion_fecha;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;aperturas_proceso;resolucion_numero;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;aperturas_proceso;secop_url;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;audiencia_riesgos_config;confirmado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;audiencia_riesgos_config;fundamento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;audiencia_riesgos_config;obligatoria;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;audiencias_adjudicacion;anulada_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;audiencias_adjudicacion;celebrada_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;audiencias_adjudicacion;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;audiencias_adjudicacion;motivo_anulacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;audiencias_adjudicacion;presidida_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;audiencias_adjudicacion;registrada_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -209,35 +279,53 @@ hiring;audiencias_riesgos;anulada_at;Aprobada;;Aldair González (aprobación en 
 hiring;audiencias_riesgos;anulada_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;audiencias_riesgos;fecha_celebracion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;audiencias_riesgos;motivo_anulacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;audiencias_riesgos;observaciones;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;audiencias_riesgos;registrado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;audiencias_sancionatorias;citada_para;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;audiencias_sancionatorias;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;audiencias_sancionatorias;motivo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;audiencias_sancionatorias;objeto;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;audiencias_sancionatorias;registrada_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;audiencias_sancionatorias;resumen;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;avisos;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;avisos;papeles;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;avisos_habilitacion;avisado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;campos_formulario;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;campos_formulario;ayuda;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;campos_formulario;codigo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;campos_formulario;etiqueta;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;campos_formulario;grupo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;campos_formulario;numeral;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;campos_formulario;obligatorio;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;campos_formulario;orden;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;campos_formulario;solo_lectura;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;campos_formulario;tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;casos_incumplimiento;fecha_hecho;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;casos_incumplimiento;motivo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;causales_contratacion;activa;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;causales_contratacion;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;causales_contratacion;orden;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;causales_contratacion;referencia_normativa;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;cdp;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;cdp;fecha_expedicion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;cdp;numero;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;cdp;observaciones;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;cdp;solicitado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;cdp;solicitado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;cdp;vigencia_fiscal;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;cierres_contrato;cerrado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;cierres_contrato;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;cierres_contrato;fecha_cierre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;cierres_contrato;motivo_reversion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;cierres_contrato;observaciones;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;cierres_contrato;revertido_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;cierres_financieros;cerrado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;cierres_financieros;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;cierres_financieros;fecha_pago_final;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;cierres_financieros;motivo_reversion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;cierres_financieros;observaciones;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;cierres_financieros;revertido_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;comites_evaluadores;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;comites_evaluadores;fecha_designacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;comites_evaluadores;motivo_revocacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;comites_evaluadores;revocado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -257,6 +345,8 @@ hiring;contratos;rechazado_at;Aprobada;;Aldair González (aprobación en bloque)
 hiring;contratos;rechazado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;declaratorias_desiertas;causal;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;declaratorias_desiertas;declarada_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;declaratorias_desiertas;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;declaratorias_desiertas;fecha_acto;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;declaratorias_desiertas;motivo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;declaratorias_desiertas;motivo_revocacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;declaratorias_desiertas;notificada_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -264,23 +354,35 @@ hiring;declaratorias_desiertas;numero_acto;Aprobada;;Aldair González (aprobaci�
 hiring;declaratorias_desiertas;publicada_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;declaratorias_desiertas;revocada_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;declaratorias_desiertas;revocada_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;dias_no_habiles;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;documentos;archivo_mime_type;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;documentos;archivo_nombre_original;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;documentos;hash_sha256;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;documentos;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;documentos;numeral;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;documentos;subido_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;documentos;tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;documentos;version;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;documentos_proceso;anulado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;documentos_proceso;anulado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;documentos_proceso;cargado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;documentos_proceso;codigo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;documentos_proceso;numeral;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;documentos_requeridos;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;documentos_requeridos;codigo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;documentos_requeridos;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;documentos_requeridos;modalidades;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;documentos_requeridos;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;documentos_requeridos;numeral;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;documentos_requeridos;obligatorio;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;documentos_requeridos;orden;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;entregables_informe;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;entregables_informe;fecha_entrega;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;entregables_informe;observacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;evidencias_evaluacion;cargada_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;evidencias_evaluacion;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;expedientes;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;expedientes;fecha_apertura;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;expedientes;motivo_reapertura;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;expedientes;numero_expediente;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;expedientes;observaciones_archivo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -293,11 +395,13 @@ hiring;firmas_contrato;parte;Aprobada;;Aldair González (aprobación en bloque);
 hiring;firmas_contrato;registrada_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;garantias;aseguradora;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;garantias;cargada_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;garantias;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;garantias;motivo_rechazo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;garantias;numero_poliza;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;garantias;revisada_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;garantias;revisada_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;informes_definitivos;anulado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;informes_definitivos;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;informes_definitivos;generado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;informes_definitivos;generado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;informes_definitivos;motivo_anulacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -307,6 +411,7 @@ hiring;informes_definitivos;publicado_por;Aprobada;;Aldair González (aprobació
 hiring;informes_evaluacion;anulado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;informes_evaluacion;cerrado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;informes_evaluacion;cerrado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;informes_evaluacion;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;informes_evaluacion;generado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;informes_evaluacion;generado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;informes_evaluacion;motivo_anulacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -319,6 +424,7 @@ hiring;informes_evaluacion;vence_el;Aprobada;;Aldair González (aprobación en b
 hiring;informes_finales;anulado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;informes_finales;anulado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;informes_finales;conclusion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;informes_finales;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;informes_finales;fecha_elaboracion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;informes_finales;motivo_anulacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;limitaciones_mipyme;decidido_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -327,12 +433,15 @@ hiring;limitaciones_mipyme;manifestaciones_contadas;Aprobada;;Aldair González (
 hiring;limitaciones_mipyme;minimo_manifestaciones;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;limitaciones_mipyme;motivo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;limitaciones_mipyme;valor_proceso;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;manifestaciones_mipyme;fecha_presentacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;manifestaciones_mipyme;identificacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;manifestaciones_mipyme;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;manifestaciones_mipyme;registrado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;miembros_comite;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;miembros_comite;persona_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;miembros_comite;rol;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;modalidades;activa;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;modalidades;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;modalidades;orden;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;modificaciones_contrato;aprobada_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;modificaciones_contrato;cedente_documento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -341,6 +450,7 @@ hiring;modificaciones_contrato;cesionario_documento;Aprobada;;Aldair González (
 hiring;modificaciones_contrato;cesionario_nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;modificaciones_contrato;cesionario_tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;modificaciones_contrato;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;modificaciones_contrato;fecha_suscripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;modificaciones_contrato;justificacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;modificaciones_contrato;motivo_revocacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;modificaciones_contrato;numero;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -357,11 +467,14 @@ hiring;observaciones_pliego;modifico_pliego;Aprobada;;Aldair González (aprobaci
 hiring;observaciones_pliego;presentado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;observaciones_pliego;registrado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;observaciones_pliego;respondida_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;oferentes;identificacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;oferentes;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;oferentes;numero;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;oferentes;registrado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;pagos_contrato;anulado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;pagos_contrato;anulado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;pagos_contrato;devuelto_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;pagos_contrato;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;pagos_contrato;motivo_anulacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;pagos_contrato;motivo_devolucion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;pagos_contrato;numero;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -371,15 +484,19 @@ hiring;pagos_contrato;periodo_hasta;Aprobada;;Aldair González (aprobación en b
 hiring;pagos_contrato;radicado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;pagos_contrato;radicado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;pagos_contrato;referencia_pago;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;parametros_alerta;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;parametros_alerta;maximo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;parametros_alerta;minimo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;parametros_mipyme;confirmado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;parametros_mipyme;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;parametros_mipyme;fundamento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;parametros_mipyme;unidad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;parametros_mipyme;valor;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;participaciones_proceso;asignado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;participaciones_proceso;asignado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;participaciones_proceso;cargo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;participaciones_proceso;email;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;participaciones_proceso;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;participaciones_proceso;motivo_relevo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;participaciones_proceso;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;participaciones_proceso;papel;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -388,36 +505,51 @@ hiring;participaciones_proceso;relevado_at;Aprobada;;Aldair González (aprobaci�
 hiring;participaciones_proceso;usuario_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;participaciones_proceso;usuario_nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;piezas_audiencia;cargada_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;piezas_audiencia;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;piezas_audiencia;tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;plantillas;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;plantillas;archivo_url;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;plantillas;codigo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;plantillas;fecha_aprobacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;plantillas;modalidades;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;plantillas;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;plantillas;version;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;plazo_publicacion_acta;actualizado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;plazo_publicacion_acta;confirmado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;plazo_publicacion_acta;dias_habiles;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;plazo_publicacion_acta;fundamento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;plazo_publicacion_contrato;actualizado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;plazo_publicacion_contrato;confirmado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;plazo_publicacion_contrato;dias_habiles;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;plazo_publicacion_contrato;fundamento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;plazos_ofertas;confirmado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;plazos_ofertas;dias_habiles;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;plazos_ofertas;fundamento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;plazos_publicacion;confirmado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;plazos_publicacion;dias_habiles;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;plazos_publicacion;fundamento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;plazos_traslado;confirmado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;plazos_traslado;dias_habiles;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;proceso_actividades;datos;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;proceso_actividades;documento_requerido;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;proceso_actividades;enviado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;proceso_actividades;enviado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;proceso_actividades;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;proceso_actividades;numeral;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;proceso_actividades;revisado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;proceso_actividades;revisado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;proceso_actividades;version;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;procesos;fecha_radicacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;procesos;objeto;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;procesos;radicado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;publicaciones_acta;destino;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;publicaciones_acta;fecha_limite;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;publicaciones_acta;fecha_publicacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;publicaciones_acta;plazo_dias_habiles;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;publicaciones_acta;publicado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;publicaciones_acta;secop_url;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;publicaciones_contrato;destino;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;publicaciones_contrato;fecha_limite;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;publicaciones_contrato;fecha_publicacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;publicaciones_contrato;plazo_dias_habiles;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;publicaciones_contrato;publicado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -428,19 +560,23 @@ hiring;publicaciones_modificacion;secop_url;Aprobada;;Aldair González (aprobaci
 hiring;publicaciones_pliego;anulada_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;publicaciones_pliego;anulada_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;publicaciones_pliego;documento_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;publicaciones_pliego;fecha_vencimiento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;publicaciones_pliego;motivo_anulacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;publicaciones_pliego;publicado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;publicaciones_pliego;secop_url;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;recepciones_ofertas;cerrada_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;recepciones_ofertas;cerrada_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;recepciones_ofertas;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;recepciones_ofertas;plazo_dias_habiles;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;registros_actividad;anulado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;registros_actividad;anulado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;registros_actividad;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;registros_actividad;motivo_anulacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;registros_actividad;nota;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;registros_actividad;registrado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;registros_actividad;registrado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;registros_presupuestales;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;registros_presupuestales;fecha_expedicion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;registros_presupuestales;numero;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;registros_presupuestales;observaciones;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;registros_presupuestales;solicitado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -449,13 +585,18 @@ hiring;registros_presupuestales;vigencia_fiscal;Aprobada;;Aldair González (apro
 hiring;reglas_actividad;conector;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;reglas_actividad;mensaje;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;reglas_actividad;orden;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;reglas_actividad;tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;reglas_actividad;vigente_desde;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;reglas_actividad;vigente_hasta;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;resoluciones_sancionatorias;fecha_expedicion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;resoluciones_sancionatorias;firme_el;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;resoluciones_sancionatorias;motivo_revocacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;resoluciones_sancionatorias;notificada_el;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;resoluciones_sancionatorias;numero;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;resoluciones_sancionatorias;revocada_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;resoluciones_sancionatorias;revocada_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;resoluciones_sancionatorias;tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;resultados_evaluacion;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;resultados_evaluacion;justificacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;resultados_evaluacion;motivo_rectificacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;resultados_evaluacion;puntaje_maximo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -479,19 +620,24 @@ hiring;sesiones_comite_contratacion;registrado_por;Aprobada;;Aldair González (a
 hiring;smmlv;confirmado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;smmlv;valor;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;sobres_economicos;abierto_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;sobres_economicos;observacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;soportes_pago;cargado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;soportes_pago;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;soportes_pago;tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;subsanaciones;aceptada;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;subsanaciones;asunto;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;subsanaciones;contenido;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;subsanaciones;extemporanea;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;subsanaciones;fecha_presentacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;subsanaciones;identificacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;subsanaciones;presentado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;subsanaciones;registrado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;subsanaciones;respondida_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;subsanaciones;tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;supervisiones_contrato;alerta_enviada_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;supervisiones_contrato;cargo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;supervisiones_contrato;email;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;supervisiones_contrato;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;supervisiones_contrato;fecha_designacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;supervisiones_contrato;motivo_relevo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;supervisiones_contrato;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -499,8 +645,16 @@ hiring;supervisiones_contrato;persona_id;Aprobada;;Aldair González (aprobación
 hiring;supervisiones_contrato;relevado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;suscripciones_acta_inicio;fecha_suscripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;suscripciones_acta_inicio;registrado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;tipologias_contrato;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;tipologias_contrato;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;tipologias_contrato;exige_garantias;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;tipologias_contrato;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;tipologias_contrato;numeral_formato;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+hiring;tipologias_contrato;orden;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;tipos_amparo;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;tipos_amparo;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;tipos_amparo;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+hiring;tipos_amparo;orden;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 hiring;tope_adicion;actualizado_at;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;tope_adicion;confirmado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;tope_adicion;porcentaje;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -514,42 +668,84 @@ hiring;umbrales_modalidad;limite_inferior;Aprobada;;Aldair González (aprobació
 hiring;umbrales_modalidad;unidad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;umbrales_modalidad;vigencia_desde;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 hiring;umbrales_modalidad;vigencia_hasta;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;bloque_edificio;codigo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;bloque_edificio;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;bloque_edificio;is_activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;bloque_edificio;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;bloque_edificio;pisos;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;catalogo_item;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;catalogo_item;is_activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;catalogo_item;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;catalogo_item;orden;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;espacio_fisico;area_m2;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;espacio_fisico;capacidad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;espacio_fisico;codigo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;espacio_fisico;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;espacio_fisico;is_activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;espacio_fisico;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;espacio_fisico;piso;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;espacio_fisico;tiene_aire_acondicionado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;espacio_fisico;tiene_computadores;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;espacio_fisico;tiene_videobeam;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;espacio_fisico;tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;sede;codigo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;sede;departamento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;sede;direccion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;sede;email_contacto;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;sede;is_activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;sede;municipio;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;sede;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;sede;telefono;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;sede;tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_evidencia;bucket;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;solicitud_evidencia;fecha_subida;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;solicitud_evidencia;mime_type;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;solicitud_evidencia;nombre_almacenado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_evidencia;nombre_original;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_evidencia;notas;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;solicitud_evidencia;orden;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;solicitud_evidencia;tamano_bytes;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;solicitud_evidencia;url_presigned;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_evidencia;usuario_que_subio_email;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_mantenimiento;consecutivo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;solicitud_mantenimiento;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;solicitud_mantenimiento;espera_insumos_flag;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;solicitud_mantenimiento;fecha_ejecucion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;solicitud_mantenimiento;fecha_fin_valoracion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;solicitud_mantenimiento;fecha_inicio_valoracion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;solicitud_mantenimiento;fecha_limite_original_antes_extension;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;solicitud_mantenimiento;fecha_programada;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;solicitud_mantenimiento;observaciones;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;solicitud_mantenimiento;observaciones_cierre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_mantenimiento;prioridad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;solicitud_mantenimiento;requiere_apagado_electrico;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;solicitud_mantenimiento;riesgo_valoracion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_mantenimiento;solicitante_email;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_mantenimiento;solicitante_nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_mantenimiento;tipo_mantenimiento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_valoracion;alcance_identificado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_valoracion;diagnostico;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;solicitud_valoracion;es_version_corregida_por_encargado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;solicitud_valoracion;estado_al_finalizar;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;solicitud_valoracion;fecha_fin_valoracion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;solicitud_valoracion;fecha_inicio_valoracion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;solicitud_valoracion;nivel_riesgo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;solicitud_valoracion;observaciones;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+infrastructure-management;solicitud_valoracion;requiere_apagado_electrico;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;solicitud_valoracion;tecnico_nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_valoracion;tiempo_estimado_horas;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_valoracion_insumo;cantidad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_valoracion_insumo;costo_unitario_cop;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_valoracion_insumo;disponibilidad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+infrastructure-management;solicitud_valoracion_insumo;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 infrastructure-management;solicitud_valoracion_insumo;orden_item;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_valoracion_insumo;subtotal_cop;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 infrastructure-management;solicitud_valoracion_insumo;unidad_medida;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;analistas_viaticos;email;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;analistas_viaticos;telefono;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;comisionados;autorizacion_habeas_data;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;comisionados;email;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;comisionados;fecha_autorizacion_habeas_data;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;comisionados;ip_registro_habeas_data;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;comisionados;numero_documento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;comisionados;primer_apellido;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -557,18 +753,31 @@ travel_expenses;comisionados;primer_nombre;Aprobada;;Aldair González (aprobaci�
 travel_expenses;comisionados;segundo_apellido;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;comisionados;segundo_nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;comisionados;tipo_comisionado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;config_campos_formulario;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;config_campos_formulario;clave;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;config_campos_formulario;etiqueta;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;config_campos_formulario;orden;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;config_campos_formulario;placeholder;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;config_jornada_laboral;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;config_jornada_laboral;codigo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;config_jornada_laboral;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;config_jornada_laboral;dias_laborales;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;config_jornada_laboral;hora_fin;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;config_jornada_laboral;hora_inicio;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;config_jornada_laboral;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;config_legalizacion;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;config_legalizacion;plazo_dias_habiles;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;config_legalizacion_documentos;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;config_legalizacion_documentos;orden;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;config_legalizacion_documentos;tipo_requisito;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;config_tipo_comisionado;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;config_tipo_comisionado;tipo_comisionado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;config_tipo_comisionado_documentos;tipo_requisito;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;configuraciones_globales;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;documentos_soporte;nombre_archivo_original;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;documentos_soporte;tipo_documento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;documentos_soporte;tipo_mime;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;escalas_viaticos;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;escalas_viaticos;ano_vigencia;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;escalas_viaticos;decreto_vigente;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;excepciones_autorizadas_tiquetes;autorizado_por;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -576,18 +785,23 @@ travel_expenses;excepciones_autorizadas_tiquetes;comentarios;Aprobada;;Aldair Go
 travel_expenses;excepciones_autorizadas_tiquetes;documento_soporte_url;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;excepciones_autorizadas_tiquetes;solicitud_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;excepciones_autorizadas_tiquetes;tipo_excepcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;legalizacion_reversiones;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;legalizacion_reversiones;motivo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizacion_reversiones;resuelta_en;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizacion_reversiones;solicitada_en;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizacion_revisiones;accion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;legalizacion_revisiones;observacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;legalizacion_soportes;nombre_archivo_original;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizacion_soportes;observacion_revision;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizacion_soportes;revisado_en;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizacion_soportes;revisado_por_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizacion_soportes;sha256;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;legalizacion_soportes;tamano_bytes;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;legalizaciones_comision;cerrada_por_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizaciones_comision;cumplimiento_registrado_por_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizaciones_comision;devuelta_por_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;legalizaciones_comision;fecha_disparo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;legalizaciones_comision;fecha_limite;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;legalizaciones_comision;fecha_registro_siif;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizaciones_comision;notificado_por_vencer_en;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizaciones_comision;notificado_vencido_en;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -595,23 +809,45 @@ travel_expenses;legalizaciones_comision;numero_devoluciones;Aprobada;;Aldair Gon
 travel_expenses;legalizaciones_comision;numero_registro_siif;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizaciones_comision;observacion_devolucion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizaciones_comision;observaciones_cierre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;legalizaciones_comision;plazo_dias_habiles;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;legalizaciones_comision;registrado_siif_por_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizaciones_comision;revision_aprobada_por_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizaciones_comision;siif_exportado_en;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;legalizaciones_comision;siif_exportado_por_id;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;liquidation_params;clave;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;liquidation_params;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;liquidation_params;tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;parametros_globales;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;parametros_globales;editable;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;parametros_globales;tipo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;paz_y_salvo_eventos;accion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;paz_y_salvos;archivo_sha256;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;paz_y_salvos;contenido_sha256;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;paz_y_salvos;firmado_en;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;reintegros_comision;estado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;reintegros_comision;fecha_reintegro;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;reintegros_comision;observaciones;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;rutas_restringidas;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;rutas_restringidas;destino_ciudad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;rutas_restringidas;origen_ciudad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;saldos_tiquetes;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;saldos_tiquetes;nombre_dependencia;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;solicitudes_comision;consecutivo_unico;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;solicitudes_comision;decreto_aplicado;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;solicitudes_comision;destino_ciudad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;solicitudes_comision;destino_departamento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;solicitudes_comision;dias_no_pernoctados;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;solicitudes_comision;es_internacional;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;solicitudes_comision;extemporanea;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;solicitudes_comision;fecha_calculo_modalidad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;solicitudes_comision;fecha_envio_presupuesto;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;solicitudes_comision;fecha_expedicion_rp;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;solicitudes_comision;fecha_fin;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;solicitudes_comision;fecha_inicio;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;solicitudes_comision;fecha_obligacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;solicitudes_comision;fecha_registro_obligacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;solicitudes_comision;fecha_registro_pago;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;solicitudes_comision;fecha_rp;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;solicitudes_comision;modalidad_pago;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;solicitudes_comision;numero_cdp;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;solicitudes_comision;numero_obligacion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -623,6 +859,8 @@ travel_expenses;solicitudes_comision;observaciones_obligacion;Aprobada;;Aldair G
 travel_expenses;solicitudes_comision;observaciones_pago;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;solicitudes_comision;observaciones_rp;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;solicitudes_comision;prioridad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;solicitudes_comision;radicado_fuera_jornada;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;solicitudes_comision;requiere_tiquetes;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;solicitudes_comision;rubro_presupuestal;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;solicitudes_comision;rubro_rp;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;solicitudes_comision;soporte_obligacion_path;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
@@ -630,12 +868,21 @@ travel_expenses;solicitudes_comision;soporte_pago_path;Aprobada;;Aldair Gonzále
 travel_expenses;solicitudes_comision;soporte_rp_path;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;solicitudes_historial_estados;comentarios;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;solicitudes_historial_estados;estado_anterior;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;tarifas_investigadores;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;tarifas_referencia_tiquetes;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;tarifas_referencia_tiquetes;destino_ciudad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;tarifas_referencia_tiquetes;destino_iata;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;tarifas_referencia_tiquetes;notas;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;tarifas_referencia_tiquetes;origen_ciudad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;tarifas_referencia_tiquetes;origen_iata;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;tarifas_regionales_excepcion;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;tarifas_regionales_excepcion;decreto_referencia;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;tarifas_regionales_excepcion;departamento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;tarifas_regionales_excepcion;es_nuevo_departamento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;tarifas_transporte_terminal;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
 travel_expenses;tarifas_transporte_terminal;ciudad;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
 travel_expenses;tarifas_transporte_terminal;departamento;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 1: propuesta del comentario del desarrollador o de confianza alta, o regla de fecha/responsable/motivo.
+travel_expenses;tipos_documento_soporte;activo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;tipos_documento_soporte;codigo;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;tipos_documento_soporte;descripcion;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
+travel_expenses;tipos_documento_soporte;nombre;Aprobada;;Aldair González (aprobación en bloque);2026-10-22;Nivel 2: regla estructural con redacción revisada.
