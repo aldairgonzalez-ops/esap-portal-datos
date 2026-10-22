@@ -103,17 +103,30 @@ Si se agregó una columna o tabla nueva, aparecerá sin descripción («Definici
 
 ### 1.5 Copiar a Drive y subir al repositorio
 
+En Drive, cada carpeta muestra solo la versión vigente; las anteriores se guardan en su subcarpeta `Anteriores`. Por eso se copia **solo la versión nueva** (`$V`). Después de copiar, mueva a `Anteriores` los archivos de la versión que reemplaza.
+
 ```powershell
+$V = "vX.Y"
+$D = "G:\Mi unidad\SuperApp ESAP\Portal_Datos_BD"
+
 # Fase 2
-robocopy portal\fase2  "G:\Mi unidad\SuperApp ESAP\Portal_Datos_BD\Entregable\Fase2" /E
-robocopy informe\fase2 "G:\Mi unidad\SuperApp ESAP\Portal_Datos_BD\Entregable\Fase2" /E
-robocopy docs\fase2    "G:\Mi unidad\SuperApp ESAP\Portal_Datos_BD\Entregable\Fase2\docs" /E
-robocopy interno\fase2 "G:\Mi unidad\SuperApp ESAP\Portal_Datos_BD\Interno\Fase2" /E
+robocopy portal\fase2  "$D\Entregable\Fase2" "Portal_de_Datos_ESAP_Fase2_$V.html"
+robocopy informe\fase2 "$D\Entregable\Fase2" "Resumen_Ejecutivo_BD_ESAP_Fase2_$V.docx"
+robocopy docs\fase2    "$D\Entregable\Fase2\docs" "informe_extraccion_Fase2_$V.md"
+robocopy docs\fase2\csv      "$D\Entregable\Fase2\docs\csv" /E
+robocopy docs\fase2\catalogo "$D\Entregable\Fase2\docs\catalogo" /E
+robocopy interno\fase2 "$D\Interno\Fase2" "*_$V*"
+robocopy interno\fase2\csv "$D\Interno\Fase2\csv" /E
 
 # Base completa
-robocopy portal  "G:\Mi unidad\SuperApp ESAP\Portal_Datos_BD\Entregable" Portal_de_Datos_ESAP_v*.html
-robocopy informe "G:\Mi unidad\SuperApp ESAP\Portal_Datos_BD\Entregable" Resumen_Ejecutivo_BD_ESAP_v*.docx
-robocopy interno "G:\Mi unidad\SuperApp ESAP\Portal_Datos_BD\Interno" *.html *.docx
+robocopy portal  "$D\Entregable" "Portal_de_Datos_ESAP_$V.html"
+robocopy informe "$D\Entregable" "Resumen_Ejecutivo_BD_ESAP_$V.docx"
+robocopy docs    "$D\Entregable\docs" "informe_extraccion_$V.md"
+robocopy interno "$D\Interno" "*_$V*"
+
+# Matrices y guía (se reemplazan)
+robocopy config\propuestas "$D\Interno\Matrices" Matriz_Validacion_Descripciones_*.xlsx fase2_tablas.csv fase2_decisiones.csv
+robocopy . "$D\Interno" GUIA_ACTUALIZACION_PORTAL.md
 
 git add portal informe docs config
 git commit -m "Portal vX.Y"
