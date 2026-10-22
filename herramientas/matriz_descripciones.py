@@ -165,6 +165,8 @@ def cmd_matriz(a):
     etiqueta = alcance["nombre"] if alcance else "Base completa"
     sem = leer_semanticas(sufijo)
     cod = leer_semanticas(sufijo, "codigo")        # propuestas afinadas con el código de la aplicación
+    aju = leer_semanticas(sufijo, "ajustes")       # propuestas reescritas o verificadas contra el código (tienen prioridad)
+    dec = leer_semanticas(sufijo, "decisiones")    # decisiones ya tomadas (aprobaciones en bloque); se precargan en la matriz
     evid = {}
     ruta_ev = os.path.join(M.CONFIG, "propuestas", f"{sufijo}_evidencia_codigo.jsonl")
     if os.path.isfile(ruta_ev):
@@ -210,10 +212,11 @@ def cmd_matriz(a):
         ("     Ejemplo: Decisión = Aprobada con ajuste · Descripción final = «Valor de los viáticos de la comisión, en pesos colombianos, "
          "calculado como la suma de días pernoctados y no pernoctados.» · Revisado por = Equipo Viáticos · Fecha de revisión = 2026-10-23.", Font(name=F, size=10, italic=True)),
         ("4. La hoja «Métricas» muestra el avance por dominio, por confianza y por uso en la lógica.", Font(name=F, size=10)),
+        ("Las decisiones que ya vienen diligenciadas salen de config/propuestas/<alcance>_decisiones.csv (por ejemplo, aprobaciones en bloque); se pueden cambiar en la matriz.", Font(name=F, size=10)),
         ("", None),
         ("Columnas de la matriz", Font(name=F, bold=True, size=11)),
         ("Confianza: Alta (el nombre, el tipo y la lógica coinciden) · Media (el nombre es claro pero falta confirmar el uso) · Baja (el nombre es ambiguo; revisar con prioridad).", Font(name=F, size=10)),
-        ("Origen: «Código fuente» (redactada a partir del comentario del desarrollador en la entidad o la migración), «Regla estructural» (convención de nombre) "
+        ("Origen: «Código fuente (verificado)» (contrastada con entidades, servicios y migraciones), «Regla estructural (redacción revisada)», «Código fuente» (redactada a partir del comentario del desarrollador en la entidad o la migración), «Regla estructural» (convención de nombre) "
          "o «Propuesta semántica» (redactada a partir del contexto de la base).", Font(name=F, size=10)),
         ("Evidencia en código: archivo y línea del repositorio de la aplicación (rama micro-frontend) donde se define la columna, con el comentario del "
          "desarrollador, los valores del enum y las validaciones declaradas.", Font(name=F, size=10)),
@@ -253,7 +256,10 @@ def cmd_matriz(a):
     for n, r in enumerate(filas, 2):
         clave = (r["esquema"], r["tabla"], r["columna"])
         s = sem.get(clave, {})
-        if clave in cod:
+        if clave in aju:
+            s = aju[clave]
+            origen, prop, conf, fund = s["origen"], s["propuesta"], s["confianza"], s["fundamento"]
+        elif clave in cod:
             s = cod[clave]
             origen, prop, conf, fund = "Código fuente", s["propuesta"], s["confianza"], s["fundamento"]
         elif r["propuesta_regla"]:
@@ -275,7 +281,9 @@ def cmd_matriz(a):
         fila = [f"C{n - 1:04d}", dominios.get(r["esquema"], r["esquema"]), r["esquema"], r["tabla"], r["filas_tabla"], r["columna"], r["tipo"],
                 "Sí" if r["nulo"] else "No", restr, valores, r["fk"], "Sí" if catal else "No", "Sí" if uso else "No",
                 (uso + (" — " + detalle if detalle else "")) if uso else "", ", ".join(r["indices"]), ev_txt,
-                origen, prop, conf, fund, s.get("pregunta", ""), "Pendiente", "", "", None, "",
+                origen, prop, conf, fund, s.get("pregunta", ""),
+                (d := dec.get(clave, {})).get("decision") or "Pendiente", d.get("descripcion_final", ""), d.get("revisado_por", ""),
+                datetime.date.fromisoformat(d["fecha"]) if d.get("fecha") else None, d.get("observaciones", ""),
                 f'=IF(OR(V{n}="Aprobada"),R{n},IF(AND(OR(V{n}="Aprobada con ajuste",V{n}="Rechazada"),W{n}<>""),W{n},""))']
         ws.append(fila)
         for i in range(1, len(enc) + 1):
