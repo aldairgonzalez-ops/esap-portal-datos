@@ -153,7 +153,7 @@ Solicitudes y órdenes de mantenimiento de la infraestructura física y tecnoló
 | 12 | `fecha_ejecucion` | `date` | sí | Fecha de ejecución del mantenimiento. |  |
 | 13 | `estado` | `character varying(30)` | no | Estado formal de la solicitud (EFDS-1728). Válidos: RECIBIDA, EN_ANALISIS, PENDIENTE_CLASIFICACION, PENDIENTE_COTIZACION, PENDIENTE_APROBACION, EN_VALORACION, EN_PROCESO, ASIGNADA, EN_CAMPO_VALORACION, EN_ESPERA_DE_INSUMOS, EN_PROGRESO, EN_EJECUCION, PENDIENTE_RECURSO, COMPLETADA, CERRADA, CERRADA_SIN_ATENCION, RECHAZADA, REMITIDA_TI. |  |
 | 14 | `observaciones` | `text` | sí | Observaciones sobre la solicitud de mantenimiento. |  |
-| 15 | `costo_estimado` | `numeric(14,2)` | sí | _Por documentar_ |  |
+| 15 | `costo_estimado` | `numeric(14,2)` | sí | Costo estimado de la atención de la solicitud. Por defecto, 0. |  |
 | 16 | `created_at` | `timestamp with time zone` | sí | Fecha y hora de creación del registro. |  |
 | 17 | `updated_at` | `timestamp with time zone` | sí | Fecha y hora de la última actualización del registro. |  |
 | 18 | `id_area_solicitante` | `uuid` | sí | FK (opcional por ahora) a la dependencia/area solicitante en auth.dependencias |  |
@@ -218,7 +218,7 @@ EFDS-1735 RF-INF-006. Cada fila es una visita técnica de inspección previa. 1-
 | 14 | `fecha_inicio_valoracion` | `timestamp with time zone` | no | Fecha y hora de inicio de la visita de valoración. |  |
 | 15 | `fecha_fin_valoracion` | `timestamp with time zone` | no | Fecha y hora de finalización de la visita de valoración. |  |
 | 16 | `es_version_corregida_por_encargado` | `boolean` | no | Indica si la valoración es una versión corregida por el encargado. |  |
-| 17 | `id_usuario_corrector` | `uuid` | sí | _Por documentar_ |  |
+| 17 | `id_usuario_corrector` | `uuid` | sí | Identificador del usuario que corrigió la valoración, cuando es una versión corregida por el encargado. |  |
 | 18 | `created_at` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
 
 ## solicitud_valoracion_insumo
@@ -233,7 +233,7 @@ EFDS-1735. Detalle fila-a-fila de materiales y repuestos requeridos para la ejec
 |--:|---|---|---|---|---|
 | 1 | `id_insumo` | `uuid` | no | Identificador único del registro en la tabla solicitud_valoracion_insumo. Se genera automáticamente. | PK |
 | 2 | `id_valoracion` | `uuid` | no | Referencia al registro de infrastructure-management.solicitud_valoracion (id_valoracion). | FK→infrastructure-management.solicitud_valoracion.id_valoracion |
-| 3 | `codigo_insumo` | `character varying(50)` | sí | _Por documentar_ |  |
+| 3 | `codigo_insumo` | `character varying(50)` | sí | Código opcional del material o repuesto, digitado por el técnico en la valoración. |  |
 | 4 | `nombre` | `character varying(255)` | no | Nombre del insumo requerido para la valoración. |  |
 | 5 | `cantidad` | `numeric(12,3)` | no | Cantidad requerida del insumo, expresada en la unidad de medida de la fila. Debe ser mayor que cero. |  |
 | 6 | `unidad_medida` | `character varying(4)` | no | Unidad de medida del insumo. Valores permitidos: L, cj, glb, kg, m, m2, otro, paq, rol, un. |  |

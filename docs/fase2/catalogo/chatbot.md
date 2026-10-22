@@ -20,11 +20,11 @@ Conversaciones del asistente virtual. Un registro por conversación de un usuari
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
 | 1 | `id` | `uuid` | no | Identificador único del registro en la tabla conversacion. Se genera automáticamente. | PK |
-| 2 | `usuario_id` | `uuid` | sí | _Por documentar_ |  |
+| 2 | `usuario_id` | `uuid` | sí | Identificador del usuario que inició la conversación con el asistente virtual, enviado por el cliente al crearla. |  |
 | 3 | `usuario_email` | `character varying(255)` | sí | Correo electrónico del usuario de la conversación. | Contacto |
 | 4 | `usuario_nombre` | `character varying(255)` | sí | Nombre del usuario de la conversación. |  |
 | 5 | `titulo` | `character varying(255)` | no | Título de la conversación. Valor inicial: «Nueva conversación». |  |
-| 6 | `contexto` | `character varying(100)` | sí | _Por documentar_ |  |
+| 6 | `contexto` | `character varying(100)` | sí | Contexto o tema de la conversación con el asistente virtual. Valor inicial: general. |  |
 | 7 | `metadatos` | `jsonb` | sí | Metadatos adicionales de la conversación, en formato JSON. |  |
 | 8 | `is_activo` | `boolean` | no | Indica si la conversación está activa. |  |
 | 9 | `created_at` | `timestamp with time zone` | sí | Fecha y hora de creación del registro. |  |
@@ -44,7 +44,7 @@ Mensajes de las conversaciones del asistente virtual. Un registro por mensaje, c
 | 2 | `conversacion_id` | `uuid` | no | Referencia al registro de chatbot.conversacion (id). | FK→chatbot.conversacion.id |
 | 3 | `rol` | `character varying(30)` | no | Autor del mensaje dentro de la conversación. Valores permitidos: assistant, system, user. |  |
 | 4 | `contenido` | `text` | no | Texto del mensaje. |  |
-| 5 | `tokens` | `integer` | sí | _Por documentar_ |  |
+| 5 | `tokens` | `integer` | sí | Número de tokens del mensaje. |  |
 | 6 | `metadatos` | `jsonb` | sí | Metadatos adicionales del mensaje, en formato JSON. |  |
 | 7 | `created_at` | `timestamp with time zone` | sí | Fecha y hora de creación del registro. |  |
 

@@ -12,7 +12,7 @@ Esquema para la gestión de franjas horarias, aulas, jornadas y programación ac
 | [`concertacion_docencia`](#concertacion_docencia) | Tabla | 0 | Concertaciones de la docencia del periodo (EFDS-2315). Un registro por docente, periodo y nivel (pregrado o posgrado), con la foto de las franjas enviadas, el total de horas y la huella que se firma; se relaciona con auth.personas (docente) y con sus firmas, revisiones e historial. Ciclo: enviada, revisada, aprobada o devuelta; la concertación aprobada se entrega al PTA (Plan de Trabajo Académico), que devuelve su estado de aplicación. |
 | [`concertacion_firma`](#concertacion_firma) | Tabla | 0 | Firmas de las concertaciones de docencia. Un registro por firma de un usuario sobre una concertación, con el rol con que firma (docente, revisor o aprobador), el modo de verificación OTP, la fecha y la huella firmada; se relaciona con concertacion_docencia. |
 | [`concertacion_historial`](#concertacion_historial) | Tabla | 0 | Historial de acciones sobre las concertaciones de docencia. Un registro por acción (enviar, revisar, devolver o aprobar), con el estado anterior y el nuevo, el usuario que la realizó, el comentario y la fecha; se relaciona con concertacion_docencia. |
-| [`concertacion_revision`](#concertacion_revision) | Tabla | 0 | _Por documentar_ |
+| [`concertacion_revision`](#concertacion_revision) | Tabla | 0 | Revisiones de las concertaciones de docencia. Un registro por concertación y tipo de revisión, con el usuario que revisó y la fecha; se relaciona con concertacion_docencia. |
 | [`equivalencia_periodo`](#equivalencia_periodo) | Tabla | 5 | Equivalencias entre los códigos de periodo de programación y los códigos de periodo académico de la plataforma (academic_work_plan.periodo_academico). Un registro por código de programación, con el periodo académico equivalente, el tipo de oferta que se asigna a sus grupos y la justificación; se relaciona con periodo_programacion. |
 | [`franja_horaria`](#franja_horaria) | Tabla | 5 | Franjas horarias de la programación académica. Un registro por franja de un grupo, con el periodo, el día, las horas de inicio y fin, la jornada, el aula, el tipo de sesión y el docente asignado; se relaciona con grupo, periodo_programacion, academic_work_plan.programa y academic_work_plan.asignatura. Ciclo: programado, tomada, aprobada, devuelta o publicada. |
 | [`grupo`](#grupo) | Tabla | 2 | Instancia independiente de programación de una asignatura (RN-11). El horario y las fechas cuelgan del GRUPO, no de la asignatura. |
@@ -59,7 +59,7 @@ Catálogo de aulas. Desde el Lote 1 son las 28 reales de Sede Central (provision
 | 5 | `provisional` | `boolean` | no | Indica si el aula se registró como aprovisionamiento provisional y no como dato oficial. |  |
 | 6 | `created_at` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
 | 7 | `tipo` | `character varying(20)` | sí | Tipo de espacio: aula o auditorio. |  |
-| 8 | `piso` | `smallint` | sí | _Por documentar_ |  |
+| 8 | `piso` | `smallint` | sí | Número del piso en que se ubica el aula. Se digita al crear o editar el aula; vacío en los auditorios. |  |
 | 9 | `codigo_cetap` | `character varying(20)` | sí | Código del CETAP (formato CET-XXXX) al que pertenece el aula, según el catálogo academic_work_plan.cetap; las aulas de la Sede Central usan CET-0288. |  |
 | 10 | `origen` | `character varying(60)` | sí | Origen del registro del aula: PROGRAMACION_2026-1 para las aulas cargadas por migración y gestion-manual para las creadas por el administrador. Lo asigna el sistema. |  |
 
@@ -142,7 +142,7 @@ Historial de acciones sobre las concertaciones de docencia. Un registro por acci
 
 ## concertacion_revision
 
-_Por documentar._
+Revisiones de las concertaciones de docencia. Un registro por concertación y tipo de revisión, con el usuario que revisó y la fecha; se relaciona con concertacion_docencia.
 
 - Clave primaria: `id_concertacion`, `tipo`
 - Filas: 0
@@ -183,13 +183,13 @@ Franjas horarias de la programación académica. Un registro por franja de un gr
 | 1 | `id_franja` | `uuid` | no | Identificador único del registro en la tabla franja_horaria. Se genera automáticamente. | PK |
 | 2 | `id_periodo` | `uuid` | sí | Referencia al registro de academic-schedule.periodo_programacion (id_periodo). | FK→academic-schedule.periodo_programacion.id_periodo |
 | 3 | `id_docente` | `uuid` | sí | Identificador del docente (auth.personas.id_person) asignado a la franja. Se propaga desde la asignación del grupo con fn_propagar_docente_a_franjas o se fija cuando el docente toma la franja. Una franja PUBLICADA no puede tener docente. |  |
-| 4 | `sede_codigo` | `character varying(50)` | sí | _Por documentar_ |  |
+| 4 | `sede_codigo` | `character varying(50)` | sí | Código de la sede donde se dicta la franja. Queda vacío mientras no se asigna salón, porque el horario se define antes. |  |
 | 5 | `aula_codigo` | `character varying(50)` | sí | Código del aula donde se dicta la franja. |  |
 | 6 | `dia_semana` | `character varying(15)` | no | Día de la semana de la franja. Valores permitidos: LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO. |  |
 | 7 | `hora_inicio` | `time without time zone` | no | Hora de inicio de la franja, en formato HH:MM o HH:MM:SS; admite horas arbitrarias (por ejemplo, 11:05). Debe ser anterior a hora_fin (AC-03). |  |
 | 8 | `hora_fin` | `time without time zone` | no | Hora de finalización de la franja. Debe ser posterior a hora_inicio. |  |
 | 9 | `jornada` | `character varying(30)` | sí | Jornada de la franja. Valores permitidos: DIURNA, NOCTURNA, FIN_DE_SEMANA, DISTANCIA. Por defecto, DIURNA. |  |
-| 10 | `cupo_maximo` | `integer` | sí | _Por documentar_ |  |
+| 10 | `cupo_maximo` | `integer` | sí | Número máximo de estudiantes de la franja. Por defecto, 30. |  |
 | 11 | `estado` | `character varying(30)` | sí | Estado de la franja horaria: programado, tomada, aprobada, devuelta o publicada. |  |
 | 12 | `created_at` | `timestamp with time zone` | sí | Fecha y hora de creación del registro. |  |
 | 13 | `updated_at` | `timestamp with time zone` | sí | Fecha y hora de la última actualización del registro. |  |
@@ -213,7 +213,7 @@ Instancia independiente de programación de una asignatura (RN-11). El horario y
 | 1 | `id_grupo` | `uuid` | no | Identificador único del registro en la tabla grupo. Se genera automáticamente. | PK |
 | 2 | `id_asignatura` | `bigint` | no | Referencia al registro de academic_work_plan.asignatura (id). | FK→academic_work_plan.asignatura.id |
 | 3 | `id_periodo` | `uuid` | sí | Referencia al registro de academic-schedule.periodo_programacion (id_periodo). | FK→academic-schedule.periodo_programacion.id_periodo |
-| 4 | `numero_grupo` | `smallint` | no | _Por documentar_ |  |
+| 4 | `numero_grupo` | `smallint` | no | Número secuencial del grupo dentro de la asignatura y el periodo, mayor que cero. Hoy se asigna como el siguiente al mayor existente, sin reutilizar huecos. |  |
 | 5 | `id_docente` | `uuid` | sí | Nullable: el grupo se numera antes de asignar docente y horario. Sin UNIQUE contra id_asignatura — un docente puede dictar varios grupos de la misma asignatura (AC-03). |  |
 | 6 | `cupo_maximo` | `integer` | no | Número máximo de estudiantes del grupo. Debe ser mayor que cero; por defecto, 30. |  |
 | 7 | `estado` | `character varying(30)` | no | Estado del grupo de programación. |  |
@@ -271,32 +271,32 @@ Programación 2026-1 y 2026-V1 tal como llegó. Sin FK: cod_asigna es PROGRAMA_P
 |--:|---|---|---|---|---|
 | 1 | `id` | `bigint` | no | Identificador único del registro en la tabla programacion_historica. Se genera automáticamente. | PK |
 | 2 | `periodo` | `character varying(20)` | sí | Periodo académico de la programación (por ejemplo, 2026-1 o 2026-V1), tal como llegó en la programación histórica. |  |
-| 3 | `tipo_oferta` | `character varying(40)` | sí | _Por documentar_ |  |
+| 3 | `tipo_oferta` | `character varying(40)` | sí | Tipo de oferta de la programación, tal como llegó en la programación histórica. |  |
 | 4 | `cod_sede` | `character varying(10)` | sí | Código de la sede, tal como llegó en la programación histórica. |  |
 | 5 | `seccional` | `character varying(80)` | sí | Nombre de la seccional, tal como llegó en la programación histórica. |  |
 | 6 | `sede` | `character varying(80)` | sí | Nombre de la sede, tal como llegó en la programación histórica. |  |
-| 7 | `pensum` | `character varying(10)` | sí | _Por documentar_ |  |
-| 8 | `programa` | `character varying(20)` | sí | _Por documentar_ |  |
+| 7 | `pensum` | `character varying(10)` | sí | Código del pensum (plan de estudios), tal como llegó en la programación histórica. |  |
+| 8 | `programa` | `character varying(20)` | sí | Código del programa académico, tal como llegó en la programación histórica. |  |
 | 9 | `cod_asigna` | `character varying(30)` | sí | Código compuesto PROGRAMA_PENSUM de la asignatura; no es el código de la materia. |  |
 | 10 | `asignatura` | `character varying(200)` | sí | Nombre de la asignatura, tal como llegó en la programación histórica. |  |
-| 11 | `detalle_asignatura` | `text` | sí | _Por documentar_ |  |
+| 11 | `detalle_asignatura` | `text` | sí | Texto adicional que describe la asignatura, tal como llegó en la programación histórica. |  |
 | 12 | `creditos` | `smallint` | sí | Número de créditos académicos de la asignatura. |  |
 | 13 | `semestre` | `smallint` | sí | Semestre del plan de estudios en que se ubica la asignatura. |  |
-| 14 | `horas` | `smallint` | sí | _Por documentar_ |  |
+| 14 | `horas` | `smallint` | sí | Número de horas de la asignatura. |  |
 | 15 | `grupo_original` | `character varying(10)` | sí | Etiqueta de grupo del origen, VERBATIM (A/B/C/I/V). No renombrar. |  |
 | 16 | `jornada` | `character varying(30)` | sí | Jornada del grupo, tal como llegó en la programación histórica. |  |
 | 17 | `cedula_docente` | `character varying(20)` | sí | Número de cédula del docente asignado, tal como llegó en la programación histórica. | Identificación |
 | 18 | `nombre_docente` | `character varying(150)` | sí | Nombre completo del docente asignado, tal como llegó en la programación histórica. |  |
-| 19 | `vinculacion_docente` | `character varying(40)` | sí | _Por documentar_ |  |
+| 19 | `vinculacion_docente` | `character varying(40)` | sí | Tipo de vinculación del docente (por ejemplo, planta u ocasional), tal como llegó en la programación histórica. |  |
 | 20 | `fecha_inicio` | `character varying(20)` | sí | Fecha de inicio de la programación histórica, en el texto en que llegó de la fuente. |  |
 | 21 | `fecha_fin` | `character varying(20)` | sí | Fecha de finalización de la programación histórica, en el texto en que llegó de la fuente. |  |
 | 22 | `dia` | `character varying(15)` | sí | Día de la semana de la sesión, en texto, tal como llegó en la programación histórica. |  |
 | 23 | `hora_inicio` | `character varying(10)` | sí | Hora de inicio de la sesión, en texto, tal como llegó en la programación histórica. |  |
 | 24 | `hora_fin` | `character varying(10)` | sí | Hora de finalización de la sesión, en texto, tal como llegó en la programación histórica. |  |
-| 25 | `hrs_clase` | `character varying(10)` | sí | _Por documentar_ |  |
+| 25 | `hrs_clase` | `character varying(10)` | sí | Duración de la sesión de clase en horas, en texto. |  |
 | 26 | `aula` | `character varying(60)` | sí | Nombre o código del aula, tal como llegó en la programación histórica. |  |
-| 27 | `estado_aula` | `character varying(20)` | sí | _Por documentar_ |  |
-| 28 | `estado_docente` | `character varying(20)` | sí | _Por documentar_ |  |
+| 27 | `estado_aula` | `character varying(20)` | sí | Estado de la asignación del aula en la fuente. |  |
+| 28 | `estado_docente` | `character varying(20)` | sí | Estado de la asignación del docente en la fuente. |  |
 | 29 | `id_asignatura_sugerido` | `bigint` | sí | SUGERENCIA best-effort por nombre normalizado + semestre. Nunca autoritativa. |  |
 | 30 | `importado_en` | `timestamp with time zone` | no | Fecha y hora en que se importó el registro, con zona horaria. |  |
 | 31 | `n_candidatos` | `smallint` | sí | Cuántas asignaturas del catálogo coinciden por nombre normalizado. >1 significa que la sugerencia se dejó en NULL a propósito. |  |

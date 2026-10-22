@@ -17,7 +17,7 @@ academic-schedule;aula;4;capacidad;integer;sí;;"Número máximo de personas que
 academic-schedule;aula;5;provisional;boolean;no;true;Indica si el aula se registró como aprovisionamiento provisional y no como dato oficial.;validada;;;;;;;
 academic-schedule;aula;6;created_at;timestamp with time zone;no;now();Fecha y hora de creación del registro.;validada;;;;;;;
 academic-schedule;aula;7;tipo;character varying(20);sí;;Tipo de espacio: aula o auditorio.;validada;;;;;;;
-academic-schedule;aula;8;piso;smallint;sí;;;;;;;;;;
+academic-schedule;aula;8;piso;smallint;sí;;"Número del piso en que se ubica el aula. Se digita al crear o editar el aula; vacío en los auditorios.";validada;;;;;;;
 academic-schedule;aula;9;codigo_cetap;character varying(20);sí;;"Código del CETAP (formato CET-XXXX) al que pertenece el aula, según el catálogo academic_work_plan.cetap; las aulas de la Sede Central usan CET-0288.";validada;;;;;;;
 academic-schedule;aula;10;origen;character varying(60);sí;;Origen del registro del aula: PROGRAMACION_2026-1 para las aulas cargadas por migración y gestion-manual para las creadas por el administrador. Lo asigna el sistema.;validada;;;;;;;
 academic-schedule;cetap_sin_catalogo;1;id;smallint;no;"nextval('""academic-schedule"".cetap_sin_catalogo_id_seq'::regclass)";Identificador único del registro en la tabla cetap_sin_catalogo. Se genera automáticamente.;validada;sí;;;;;;
@@ -65,13 +65,13 @@ academic-schedule;equivalencia_periodo;4;motivo;text;no;;Justificación de la eq
 academic-schedule;franja_horaria;1;id_franja;uuid;no;gen_random_uuid();Identificador único del registro en la tabla franja_horaria. Se genera automáticamente.;validada;sí;;;;;;
 academic-schedule;franja_horaria;2;id_periodo;uuid;sí;;Referencia al registro de academic-schedule.periodo_programacion (id_periodo).;validada;;;academic-schedule.periodo_programacion.id_periodo;;;;
 academic-schedule;franja_horaria;3;id_docente;uuid;sí;;Identificador del docente (auth.personas.id_person) asignado a la franja. Se propaga desde la asignación del grupo con fn_propagar_docente_a_franjas o se fija cuando el docente toma la franja. Una franja PUBLICADA no puede tener docente.;validada;;;;;;;
-academic-schedule;franja_horaria;4;sede_codigo;character varying(50);sí;;;;;;;;;;
+academic-schedule;franja_horaria;4;sede_codigo;character varying(50);sí;;Código de la sede donde se dicta la franja. Queda vacío mientras no se asigna salón, porque el horario se define antes.;validada;;;;;;;
 academic-schedule;franja_horaria;5;aula_codigo;character varying(50);sí;;Código del aula donde se dicta la franja.;validada;;;;;;;
 academic-schedule;franja_horaria;6;dia_semana;character varying(15);no;;Día de la semana de la franja. Valores permitidos: LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO.;validada;;;;;;;
 academic-schedule;franja_horaria;7;hora_inicio;time without time zone;no;;"Hora de inicio de la franja, en formato HH:MM o HH:MM:SS; admite horas arbitrarias (por ejemplo, 11:05). Debe ser anterior a hora_fin (AC-03).";validada;;;;;;;
 academic-schedule;franja_horaria;8;hora_fin;time without time zone;no;;Hora de finalización de la franja. Debe ser posterior a hora_inicio.;validada;;;;;;;
 academic-schedule;franja_horaria;9;jornada;character varying(30);sí;'DIURNA'::character varying;Jornada de la franja. Valores permitidos: DIURNA, NOCTURNA, FIN_DE_SEMANA, DISTANCIA. Por defecto, DIURNA.;validada;;;;;;;
-academic-schedule;franja_horaria;10;cupo_maximo;integer;sí;30;;;;;;;;;
+academic-schedule;franja_horaria;10;cupo_maximo;integer;sí;30;Número máximo de estudiantes de la franja. Por defecto, 30.;validada;;;;;;;
 academic-schedule;franja_horaria;11;estado;character varying(30);sí;'PROGRAMADO'::character varying;Estado de la franja horaria: programado, tomada, aprobada, devuelta o publicada.;validada;;;;;;;
 academic-schedule;franja_horaria;12;created_at;timestamp with time zone;sí;now();Fecha y hora de creación del registro.;validada;;;;;;;
 academic-schedule;franja_horaria;13;updated_at;timestamp with time zone;sí;now();Fecha y hora de la última actualización del registro.;validada;;;;;;;
@@ -84,7 +84,7 @@ academic-schedule;franja_horaria;19;excepcion;boolean;no;false;Indica si la fran
 academic-schedule;grupo;1;id_grupo;uuid;no;gen_random_uuid();Identificador único del registro en la tabla grupo. Se genera automáticamente.;validada;sí;;;;;;
 academic-schedule;grupo;2;id_asignatura;bigint;no;;Referencia al registro de academic_work_plan.asignatura (id).;validada;;;academic_work_plan.asignatura.id;;;;
 academic-schedule;grupo;3;id_periodo;uuid;sí;;Referencia al registro de academic-schedule.periodo_programacion (id_periodo).;validada;;;academic-schedule.periodo_programacion.id_periodo;;;;
-academic-schedule;grupo;4;numero_grupo;smallint;no;;;;;;;;;;
+academic-schedule;grupo;4;numero_grupo;smallint;no;;Número secuencial del grupo dentro de la asignatura y el periodo, mayor que cero. Hoy se asigna como el siguiente al mayor existente, sin reutilizar huecos.;validada;;;;;;;
 academic-schedule;grupo;5;id_docente;uuid;sí;;Nullable: el grupo se numera antes de asignar docente y horario. Sin UNIQUE contra id_asignatura — un docente puede dictar varios grupos de la misma asignatura (AC-03).;base;;;;;;;
 academic-schedule;grupo;6;cupo_maximo;integer;no;30;"Número máximo de estudiantes del grupo. Debe ser mayor que cero; por defecto, 30.";validada;;;;;;;
 academic-schedule;grupo;7;estado;character varying(30);no;'PROGRAMADO'::character varying;Estado del grupo de programación.;validada;;;;;;;
@@ -111,32 +111,32 @@ academic-schedule;periodo_programacion;8;tipo;character varying(30);sí;;Tipo de
 academic-schedule;periodo_programacion;9;estado;character varying(20);no;'planeacion'::character varying;"Ciclo de vida del periodo (NUEVA-5a): planeacion, activo o cerrado. Reemplaza a is_activo, que no podía expresar el tercer estado. Un periodo cerrado es inmutable (NUEVA-5b). OJO: ""borrador"" pertenece a la publicación de la programación (NUEVA-1), no al periodo: no reintroducir ese nombre aquí.";base;;;;;;;
 academic-schedule;programacion_historica;1;id;bigint;no;"nextval('""academic-schedule"".programacion_historica_id_seq'::regclass)";Identificador único del registro en la tabla programacion_historica. Se genera automáticamente.;validada;sí;;;;0;;
 academic-schedule;programacion_historica;2;periodo;character varying(20);sí;;Periodo académico de la programación (por ejemplo, 2026-1 o 2026-V1), tal como llegó en la programación histórica.;validada;;;;;0;;
-academic-schedule;programacion_historica;3;tipo_oferta;character varying(40);sí;;;;;;;;0;;
+academic-schedule;programacion_historica;3;tipo_oferta;character varying(40);sí;;Tipo de oferta de la programación, tal como llegó en la programación histórica.;validada;;;;;0;;
 academic-schedule;programacion_historica;4;cod_sede;character varying(10);sí;;Código de la sede, tal como llegó en la programación histórica.;validada;;;;;0;;
 academic-schedule;programacion_historica;5;seccional;character varying(80);sí;;Nombre de la seccional, tal como llegó en la programación histórica.;validada;;;;;0;;
 academic-schedule;programacion_historica;6;sede;character varying(80);sí;;Nombre de la sede, tal como llegó en la programación histórica.;validada;;;;;0;;
-academic-schedule;programacion_historica;7;pensum;character varying(10);sí;;;;;;;;0;;
-academic-schedule;programacion_historica;8;programa;character varying(20);sí;;;;;;;;0;;
+academic-schedule;programacion_historica;7;pensum;character varying(10);sí;;Código del pensum (plan de estudios), tal como llegó en la programación histórica.;validada;;;;;0;;
+academic-schedule;programacion_historica;8;programa;character varying(20);sí;;Código del programa académico, tal como llegó en la programación histórica.;validada;;;;;0;;
 academic-schedule;programacion_historica;9;cod_asigna;character varying(30);sí;;"Código compuesto PROGRAMA_PENSUM de la asignatura; no es el código de la materia.";validada;;;;;0;;
 academic-schedule;programacion_historica;10;asignatura;character varying(200);sí;;Nombre de la asignatura, tal como llegó en la programación histórica.;validada;;;;;0;;
-academic-schedule;programacion_historica;11;detalle_asignatura;text;sí;;;;;;;;0.567;;
+academic-schedule;programacion_historica;11;detalle_asignatura;text;sí;;Texto adicional que describe la asignatura, tal como llegó en la programación histórica.;validada;;;;;0.567;;
 academic-schedule;programacion_historica;12;creditos;smallint;sí;;Número de créditos académicos de la asignatura.;validada;;;;;0;;
 academic-schedule;programacion_historica;13;semestre;smallint;sí;;Semestre del plan de estudios en que se ubica la asignatura.;validada;;;;;0;;
-academic-schedule;programacion_historica;14;horas;smallint;sí;;;;;;;;0;;
+academic-schedule;programacion_historica;14;horas;smallint;sí;;Número de horas de la asignatura.;validada;;;;;0;;
 academic-schedule;programacion_historica;15;grupo_original;character varying(10);sí;;Etiqueta de grupo del origen, VERBATIM (A/B/C/I/V). No renombrar.;base;;;;;0.0104;;
 academic-schedule;programacion_historica;16;jornada;character varying(30);sí;;Jornada del grupo, tal como llegó en la programación histórica.;validada;;;;;0;;
 academic-schedule;programacion_historica;17;cedula_docente;character varying(20);sí;;Número de cédula del docente asignado, tal como llegó en la programación histórica.;validada;;;;;0.0017;Identificación;alta
 academic-schedule;programacion_historica;18;nombre_docente;character varying(150);sí;;Nombre completo del docente asignado, tal como llegó en la programación histórica.;validada;;;;;0;;
-academic-schedule;programacion_historica;19;vinculacion_docente;character varying(40);sí;;;;;;;;0;;
+academic-schedule;programacion_historica;19;vinculacion_docente;character varying(40);sí;;Tipo de vinculación del docente (por ejemplo, planta u ocasional), tal como llegó en la programación histórica.;validada;;;;;0;;
 academic-schedule;programacion_historica;20;fecha_inicio;character varying(20);sí;;Fecha de inicio de la programación histórica, en el texto en que llegó de la fuente.;validada;;;;;0;;
 academic-schedule;programacion_historica;21;fecha_fin;character varying(20);sí;;Fecha de finalización de la programación histórica, en el texto en que llegó de la fuente.;validada;;;;;0;;
 academic-schedule;programacion_historica;22;dia;character varying(15);sí;;Día de la semana de la sesión, en texto, tal como llegó en la programación histórica.;validada;;;;;0.0696;;
 academic-schedule;programacion_historica;23;hora_inicio;character varying(10);sí;;Hora de inicio de la sesión, en texto, tal como llegó en la programación histórica.;validada;;;;;0;;
 academic-schedule;programacion_historica;24;hora_fin;character varying(10);sí;;Hora de finalización de la sesión, en texto, tal como llegó en la programación histórica.;validada;;;;;0;;
-academic-schedule;programacion_historica;25;hrs_clase;character varying(10);sí;;;;;;;;0;;
+academic-schedule;programacion_historica;25;hrs_clase;character varying(10);sí;;Duración de la sesión de clase en horas, en texto.;validada;;;;;0;;
 academic-schedule;programacion_historica;26;aula;character varying(60);sí;;Nombre o código del aula, tal como llegó en la programación histórica.;validada;;;;;0;;
-academic-schedule;programacion_historica;27;estado_aula;character varying(20);sí;;;;;;;;0;;
-academic-schedule;programacion_historica;28;estado_docente;character varying(20);sí;;;;;;;;0;;
+academic-schedule;programacion_historica;27;estado_aula;character varying(20);sí;;Estado de la asignación del aula en la fuente.;validada;;;;;0;;
+academic-schedule;programacion_historica;28;estado_docente;character varying(20);sí;;Estado de la asignación del docente en la fuente.;validada;;;;;0;;
 academic-schedule;programacion_historica;29;id_asignatura_sugerido;bigint;sí;;SUGERENCIA best-effort por nombre normalizado + semestre. Nunca autoritativa.;base;;;;;0.8539;;
 academic-schedule;programacion_historica;30;importado_en;timestamp with time zone;no;now();Fecha y hora en que se importó el registro, con zona horaria.;validada;;;;;0;;
 academic-schedule;programacion_historica;31;n_candidatos;smallint;sí;;Cuántas asignaturas del catálogo coinciden por nombre normalizado. >1 significa que la sugerencia se dejó en NULL a propósito.;base;;;;;0;;
@@ -154,30 +154,30 @@ academic_work_plan;Docente;5;dedicacion;text;no;;Código de dedicación del doce
 academic_work_plan;Docente;6;estado;text;no;'ACTIVO'::text;Estado del docente.;validada;;;;;0;;
 academic_work_plan;Docente;7;createdAt;timestamp(3) without time zone;no;CURRENT_TIMESTAMP;Fecha y hora de creación del registro.;validada;;;;;0;;
 academic_work_plan;Docente;8;updatedAt;timestamp(3) without time zone;no;;Fecha y hora de la última actualización del registro.;validada;;;;;0;;
-academic_work_plan;Docente;9;escalafon;text;sí;;;;;;;;0.3346;;
+academic_work_plan;Docente;9;escalafon;text;sí;;Categoría o nivel del docente en el escalafón, en texto, tomada de la carga masiva (CATEGORIA_ESCALAFON) o de la resolución de escalafón.;validada;;;;;0.3346;;
 academic_work_plan;Docente;10;horasAsignables;integer;no;0;Bolsa de horas del PTA del docente para el periodo. Se toma de la columna HORAS_PTA de la carga o se calcula por vinculación y dedicación: 720 para Carrera1, 800 para tiempo completo y 400 para medio tiempo, proporcional si la vinculación dura menos de 20 semanas. Por defecto, 0.;validada;;;;;0;;
 academic_work_plan;Docente;11;sedeId;text;sí;;Identificador de la sede a la que está adscrito el docente.;validada;;;;;1;;
 academic_work_plan;Docente;12;ordenListado;integer;sí;;"Posición del docente en los listados, tomada de la columna ORDEN_LISTADO de la carga masiva; los listados ordenan por este valor de menor a mayor.";validada;;;;;0.9975;;
 academic_work_plan;Docente;13;vinculacionDisplay;text;sí;;Texto de la vinculación del docente para mostrar en pantalla.;validada;;;;;0.6617;;
 academic_work_plan;Docente;14;dedicacionDisplay;text;sí;;Texto de la dedicación del docente para mostrar en pantalla.;validada;;;;;0.6581;;
-academic_work_plan;Docente;15;nucleoTematico;text;sí;;;;;;;;0.3346;;
-academic_work_plan;Docente;16;nivelFormacion;text;sí;;;;;;;;0.3346;;
-academic_work_plan;Docente;17;perfilAcademicoPro;text;sí;;;;;;;;0.9963;;
+academic_work_plan;Docente;15;nucleoTematico;text;sí;;Núcleo temático asignado al docente, en texto, tomado de la carga masiva o del acto de asignación de núcleo.;validada;;;;;0.3346;;
+academic_work_plan;Docente;16;nivelFormacion;text;sí;;"Nivel de formación del docente, en texto, tomado de la columna NIVEL_FORMACION de la carga masiva; no se calcula a partir de los títulos.";validada;;;;;0.3346;;
+academic_work_plan;Docente;17;perfilAcademicoPro;text;sí;;Perfil académico PRO del docente, en texto, tomado de la columna «Perfil académico PRO» de la carga masiva.;validada;;;;;0.9963;;
 academic_work_plan;Docente;18;perfilAcademico;text;sí;;Áreas académicas o de docencia declaradas por el docente, en texto libre (hasta 1000 caracteres), tomadas de la carga masiva o de la hoja de vida PRO.;validada;;;;;0.6581;;
-academic_work_plan;Docente;19;pregrado;text;sí;;;;;;;;0.6581;;
+academic_work_plan;Docente;19;pregrado;text;sí;;Nombre del título profesional de pregrado del docente, en texto, tomado de la carga masiva (TITULO_PREGRADO) o del diploma o acta de grado.;validada;;;;;0.6581;;
 academic_work_plan;Docente;20;especializacion;text;sí;;"Nombre del título de especialización del docente, en texto, tomado de la carga masiva (TITULO_ESPECIALIZACION) o del diploma o acta de grado; no guarda la institución.";validada;;;;;0.7921;;
 academic_work_plan;Docente;21;maestria;text;sí;;"Nombre del título de maestría del docente, en texto, tomado de la carga masiva (TITULO_MAESTRIA) o del diploma o acta de grado; no guarda la institución.";validada;;;;;0.6986;;
 academic_work_plan;Docente;22;doctorado;text;sí;;"Nombre del título de doctorado del docente, en texto, tomado de la carga masiva (TITULO_DOCTORADO) o del diploma o acta de grado; no guarda la institución.";validada;;;;;0.8721;;
 academic_work_plan;Docente;23;posDoctorado;text;sí;;Nombre del programa o estancia posdoctoral del docente, en texto, tomado de la carga masiva (TITULO_POSDOCTORADO) o del certificado posdoctoral.;validada;;;;;0.9951;;
 academic_work_plan;Docente;24;investigacion;text;sí;;Grupo, proyecto, línea o actividad de investigación del docente, en texto, tomado de la carga masiva (INVESTIGACION_ACTIVA) o de la certificación de investigación.;validada;;;;;0.9902;;
-academic_work_plan;Docente;25;origenVinculacion;text;sí;;;;;;;;0.3346;;
+academic_work_plan;Docente;25;origenVinculacion;text;sí;;Fuente o modalidad de ingreso del docente, en texto, tomada de la carga masiva (ORIGEN_VINCULACION) o de la resolución de convocatoria.;validada;;;;;0.3346;;
 academic_work_plan;Docente;26;actoAdministrativoVinculacion;text;sí;;"Tipo, número y año del contrato, resolución o acto administrativo que vincula al docente, en texto; la fecha de inicio se guarda aparte en fechaInicioVinculacion.";validada;;;;;0.3346;;
 academic_work_plan;Docente;27;correoInstitucional;text;sí;;Correo electrónico institucional del docente.;validada;;;;;0;;
 academic_work_plan;Docente;28;ultimaEvaluacion;text;sí;;Periodo o resultado de la última evaluación docente, en texto, tomado de la carga masiva (ULTIMA_EVALUACION) o del acta de evaluación de desempeño.;validada;;;;;0.3346;;
 academic_work_plan;Docente;29;situacionAdministrativa;text;sí;;Situación administrativa del docente, en texto libre (por ejemplo, servicio activo, comisión, licencia o el nombre del cargo directivo), tomada de la carga masiva o del acto administrativo de situación. Si indica retiro, el docente queda INACTIVO.;validada;;;;;0.3346;;
 academic_work_plan;Docente;30;fechaInicioVinculacion;timestamp(3) without time zone;sí;;Fecha de inicio de la vinculación del docente.;validada;;;;;0.3346;;
 academic_work_plan;Docente;31;fechaFinVinculacion;timestamp(3) without time zone;sí;;Fecha de finalización de la vinculación del docente. Vacía si la vinculación no tiene fecha de fin.;validada;;;;;0.631;;
-academic_work_plan;Docente;32;puntajeSalarial;double precision;sí;;;;;;;;0.3346;;
+academic_work_plan;Docente;32;puntajeSalarial;double precision;sí;;Puntaje salarial del docente, numérico, tomado de la carga masiva (PUNTAJE_SALARIAL) o de la resolución de puntaje salarial.;validada;;;;;0.3346;;
 academic_work_plan;Docente;33;edadReferencia;integer;sí;;"Edad del docente en años. Se calcula a partir de la fecha de nacimiento en la fecha de la carga o de la confirmación del dato; si no hay fecha, se toma la columna EDAD de la carga.";validada;;;;;0.6581;Dato personal;media
 academic_work_plan;Docente;34;rangoEdad;text;sí;;Rango de edad del docente: Menor de 35 años, De 36 a 45 años, De 46 a 55 años, De 56 a 65 años o Mayor de 65 años. Se calcula a partir de edadReferencia si la carga no lo trae.;validada;;;;;0.6581;;
 academic_work_plan;Docente;35;regimenNormativo;text;sí;;"Régimen normativo de la vinculación del docente: Acuerdo 009/2004 (Carrera1), Acuerdo 003/2018 (Carrera2), Circular Dispositiva 003/2025 (periodo de prueba, ocasional, especial o visitante) o N/A; la columna REGIMEN_NORMATIVO de la carga lo reemplaza.";validada;;;;;0.3346;;
@@ -192,7 +192,7 @@ academic_work_plan;Docente;43;correoAlternativo;text;sí;;Correo personal o alte
 academic_work_plan;Docente;44;acepta_habeas_data;boolean;sí;false;Indica si el docente aceptó el tratamiento de datos personales (habeas data).;validada;;;;;0;;
 academic_work_plan;Docente;45;fecha_aceptacion_habeas_data;timestamp without time zone;sí;;Fecha y hora en que el docente aceptó el tratamiento de datos personales (habeas data).;validada;;;;;1;;
 academic_work_plan;Docente;46;ip_creacion;character varying(50);sí;;Dirección IP desde la que se creó el registro.;validada;;;;;1;Identificador en línea (IP);media
-academic_work_plan;Docente;47;sexoBiologico;text;sí;;;;;;;;0.6617;Dato personal;media
+academic_work_plan;Docente;47;sexoBiologico;text;sí;;Sexo biológico del docente, en texto, tomado de la carga masiva (SEXO_BIOLOGICO) o del documento de identidad (Mujer u Hombre).;validada;;;;;0.6617;Dato personal;media
 academic_work_plan;Docente;48;dedicacionHorasSemana;integer;sí;;Número de horas semanales de dedicación del docente.;validada;;;;;0.3346;;
 academic_work_plan;Docente;49;situacionCategoria;text;sí;;Categoría de la situación administrativa del docente: Servicio Activo, Año Sabático, Dedicación Exclusiva, Comisión de Estudios, Comisión de Servicios, En Periodo de Prueba, Cargo Directivo u Otra. Se calcula a partir de situacionAdministrativa (texto libre) si la carga no la trae.;validada;;;;;0.3346;;
 academic_work_plan;Docente;50;territorialReportada;text;sí;;"Nombre informativo reportado en RUND; no concede acceso ni asigna una territorial PTA.";base;;;;;;;
@@ -203,8 +203,8 @@ academic_work_plan;Documento;3;nombre;text;no;;Nombre del documento.;validada;;;
 academic_work_plan;Documento;4;url;text;no;;Dirección web (URL) del documento.;validada;;;;;;;
 academic_work_plan;Documento;5;tipo;text;no;;Tipo de documento.;validada;;;;;;;
 academic_work_plan;Documento;6;createdAt;timestamp(3) without time zone;no;CURRENT_TIMESTAMP;Fecha y hora de creación del registro.;validada;;;;;;;
-academic_work_plan;Documento;7;categoria;text;sí;'general'::text;;;;;;;;;
-academic_work_plan;Documento;8;comentarios;text;sí;;;;;;;;;;
+academic_work_plan;Documento;7;categoria;text;sí;'general'::text;Categoría del documento. Por defecto, general.;validada;;;;;;;
+academic_work_plan;Documento;8;comentarios;text;sí;;Comentarios sobre el documento.;validada;;;;;;;
 academic_work_plan;Documento;9;estado;text;no;'pendiente'::text;Estado del documento.;validada;;;;;;;
 academic_work_plan;Documento;10;tamanoBytes;integer;no;0;Tamaño del archivo en bytes.;validada;;;;;;;
 academic_work_plan;Documento;11;tipoDocumentoId;text;sí;;Identificador del tipo de documento.;validada;;;;;;;
@@ -307,7 +307,7 @@ academic_work_plan;RundDocumentoPerfil;20;eliminado_por;text;sí;;Usuario que re
 academic_work_plan;RundDocumentoPerfil;21;eliminado_en;timestamp without time zone;sí;;Fecha y hora de la eliminación.;validada;;;;;;;
 academic_work_plan;RundDocumentoPerfil;22;createdAt;timestamp without time zone;no;now();Fecha y hora de creación del registro.;validada;;;;;;;
 academic_work_plan;RundExtraccionInicio;1;id;boolean;no;true;Identificador único del registro en la tabla RundExtraccionInicio.;validada;sí;;;;;;
-academic_work_plan;RundExtraccionInicio;2;desde;timestamp with time zone;no;now();;;;;;;;;
+academic_work_plan;RundExtraccionInicio;2;desde;timestamp with time zone;no;now();Fecha y hora desde la que se toman los registros para la extracción, con zona horaria.;validada;;;;;;;
 academic_work_plan;RundExtraccionSugerencia;1;id;uuid;no;gen_random_uuid();Identificador único del registro en la tabla RundExtraccionSugerencia. Se genera automáticamente.;validada;sí;;;;;;
 academic_work_plan;RundExtraccionSugerencia;2;trabajo_id;uuid;no;;Referencia al registro de academic_work_plan.RundExtraccionTrabajo (id).;validada;;;academic_work_plan.RundExtraccionTrabajo.id;;;;
 academic_work_plan;RundExtraccionSugerencia;3;campo;text;no;;Nombre del campo del perfil para el que se sugiere un valor (por ejemplo, documentNumber).;validada;;;;;;;
@@ -327,7 +327,7 @@ academic_work_plan;RundExtraccionTrabajo;2;documento_id;uuid;no;;Referencia al r
 academic_work_plan;RundExtraccionTrabajo;3;docente_id;uuid;no;;"Identificador del docente cuyo documento RUND se procesa en este trabajo de extracción. Referencia a academic_work_plan.""Docente"".";validada;;;;;;;
 academic_work_plan;RundExtraccionTrabajo;4;estado;text;no;'PENDIENTE'::text;Estado del trabajo de extracción: pendiente, procesando, completado, error u obsoleto.;validada;;;;;;;
 academic_work_plan;RundExtraccionTrabajo;5;intentos;integer;no;0;"Número de veces que un proceso tomó el trabajo de extracción; se incrementa en cada toma. Con 3 intentos fallidos el trabajo pasa a ERROR.";validada;;;;;;;
-academic_work_plan;RundExtraccionTrabajo;6;disponible_en;timestamp with time zone;no;now();;;;;;;;;
+academic_work_plan;RundExtraccionTrabajo;6;disponible_en;timestamp with time zone;no;now();Fecha y hora a partir de la cual el trabajo queda disponible para que un proceso lo tome de la cola.;validada;;;;;;;
 academic_work_plan;RundExtraccionTrabajo;7;lease_id;uuid;sí;;"Identificador aleatorio de la reserva con la que un proceso toma el trabajo; lo asigna el servicio de extracción al reservarlo y se limpia al terminar, fallar o vencer la reserva.";validada;;;;;;;
 academic_work_plan;RundExtraccionTrabajo;8;lease_hasta;timestamp with time zone;sí;;Fecha y hora en que vence la reserva del trabajo: 90 segundos, renovados cada 20 segundos mientras se procesa. Si vence, el trabajo vuelve a PENDIENTE (o a ERROR con 3 intentos) con código PROCESAMIENTO_INTERRUMPIDO.;validada;;;;;;;
 academic_work_plan;RundExtraccionTrabajo;9;perfil_base;jsonb;no;'{}'::jsonb;"Valores del perfil del docente en los campos de extracción al momento del análisis, en JSON (campo: valor); sirven como valor previo de cada sugerencia.";validada;;;;;;;
@@ -336,7 +336,7 @@ academic_work_plan;RundExtraccionTrabajo;11;error_codigo;text;sí;;Código del e
 academic_work_plan;RundExtraccionTrabajo;12;creado_por;text;no;;Usuario que creó el registro.;validada;;;;;;;
 academic_work_plan;RundExtraccionTrabajo;13;creado_en;timestamp with time zone;no;now();Fecha y hora de creación del registro.;validada;;;;;;;
 academic_work_plan;RundExtraccionTrabajo;14;actualizado_en;timestamp with time zone;no;now();Fecha y hora de la última actualización del registro.;validada;;;;;;;
-academic_work_plan;RundExtraccionTrabajo;15;etapa;text;no;'EN_COLA'::text;;;;;;;;;
+academic_work_plan;RundExtraccionTrabajo;15;etapa;text;no;'EN_COLA'::text;Etapa actual del trabajo de extracción dentro de su procesamiento. Valor inicial: EN_COLA.;validada;;;;;;;
 academic_work_plan;RundExtraccionTrabajo;16;etapa_desde;timestamp with time zone;no;now();Fecha y hora en que el trabajo entró a su etapa actual.;validada;;;;;;;
 academic_work_plan;RundExtraccionTrabajo;17;iniciado_en;timestamp with time zone;sí;;Fecha y hora del inicio.;validada;;;;;;;
 academic_work_plan;RundExtraccionTrabajo;18;notificacion_id;uuid;no;gen_random_uuid();"Clave de idempotencia del aviso de fin de la extracción que se envía al servicio de notificaciones; evita avisos duplicados. Se genera automáticamente.";validada;;;;;;;
@@ -346,16 +346,16 @@ academic_work_plan;RundInvitacionDocente;1;id;uuid;no;gen_random_uuid();Identifi
 academic_work_plan;RundInvitacionDocente;2;correo_institucional;character varying(255);no;;Correo electrónico institucional del docente al que se envía la invitación.;validada;;;;;;;
 academic_work_plan;RundInvitacionDocente;3;documento_identidad;character varying(100);sí;;Número del documento de identidad del docente invitado.;validada;;;;;;Identificación;alta
 academic_work_plan;RundInvitacionDocente;4;token_invitacion;character varying(255);no;;Token único del enlace de invitación enviado al docente.;validada;;sí;;;;Credencial de acceso;alta
-academic_work_plan;RundInvitacionDocente;5;otp_hash;character varying(255);sí;;;;;;;;;;
-academic_work_plan;RundInvitacionDocente;6;estado_invitacion;character varying(50);no;'Enviada'::character varying;;;;;;;;;
+academic_work_plan;RundInvitacionDocente;5;otp_hash;character varying(255);sí;;Hash del código de un solo uso (OTP) enviado al docente para validar el acceso.;validada;;;;;;;
+academic_work_plan;RundInvitacionDocente;6;estado_invitacion;character varying(50);no;'Enviada'::character varying;Estado de la invitación al docente. Valor inicial: Enviada.;validada;;;;;;;
 academic_work_plan;RundInvitacionDocente;7;caducidad_token;timestamp without time zone;no;;Fecha y hora en que vence el token de invitación.;validada;;;;;;;
-academic_work_plan;RundInvitacionDocente;8;intentos_otp;integer;sí;0;;;;;;;;;
-academic_work_plan;RundInvitacionDocente;9;bloqueo_hasta;timestamp without time zone;sí;;;;;;;;;;
+academic_work_plan;RundInvitacionDocente;8;intentos_otp;integer;sí;0;Número de intentos de validación del código OTP. Por defecto, 0.;validada;;;;;;;
+academic_work_plan;RundInvitacionDocente;9;bloqueo_hasta;timestamp without time zone;sí;;Fecha y hora hasta la cual la invitación queda bloqueada para validar el OTP.;validada;;;;;;;
 academic_work_plan;RundInvitacionDocente;10;fecha_envio;timestamp without time zone;sí;now();Fecha y hora de envío de la invitación al docente.;validada;;;;;;;
 academic_work_plan;RundInvitacionDocente;11;fecha_apertura;timestamp without time zone;sí;;Fecha y hora en que el docente abrió la invitación.;validada;;;;;;;
-academic_work_plan;RundInvitacionDocente;12;ultima_actividad;timestamp without time zone;sí;;;;;;;;;;
-academic_work_plan;RundInvitacionDocente;13;docente_id;text;sí;;;;;;;;;;
-academic_work_plan;RundInvitacionDocente;14;operador_id;character varying(255);sí;;;;;;;;;;
+academic_work_plan;RundInvitacionDocente;12;ultima_actividad;timestamp without time zone;sí;;Fecha y hora de la última actividad sobre la invitación.;validada;;;;;;;
+academic_work_plan;RundInvitacionDocente;13;docente_id;text;sí;;Identificador del docente asociado a la invitación, en texto.;validada;;;;;;;
+academic_work_plan;RundInvitacionDocente;14;operador_id;character varying(255);sí;;Identificador del operador que generó la invitación.;validada;;;;;;;
 academic_work_plan;RundInvitacionDocente;15;createdAt;timestamp without time zone;no;now();Fecha y hora de creación del registro.;validada;;;;;;;
 academic_work_plan;RundInvitacionDocente;16;updatedAt;timestamp without time zone;no;now();Fecha y hora de la última actualización del registro.;validada;;;;;;;
 academic_work_plan;RundMacroDocenteConsultaLog;1;id;uuid;no;gen_random_uuid();Identificador único del registro en la tabla RundMacroDocenteConsultaLog. Se genera automáticamente.;validada;sí;;;;;;
@@ -364,7 +364,7 @@ academic_work_plan;RundMacroDocenteConsultaLog;3;actor_id;text;no;;Identificador
 academic_work_plan;RundMacroDocenteConsultaLog;4;roles;text[];sí;;Roles que tenía el usuario al momento de la consulta, como lista de textos.;validada;;;;;;;
 academic_work_plan;RundMacroDocenteConsultaLog;5;acceso_externo_id;uuid;sí;;Referencia al registro de academic_work_plan.RundAccesoExterno (id).;validada;;;academic_work_plan.RundAccesoExterno.id;;;;
 academic_work_plan;RundMacroDocenteConsultaLog;6;docente_id;text;sí;;"Identificador del docente consultado (academic_work_plan.""Docente"".id, el mismo de PlanTrabajoAcademico.docenteId), cuando la consulta se refiere a un docente específico.";validada;;;;;;;
-academic_work_plan;RundMacroDocenteConsultaLog;7;periodo;text;sí;;;;;;;;;;
+academic_work_plan;RundMacroDocenteConsultaLog;7;periodo;text;sí;;"Periodo académico consultado, tal como se envió en el filtro de la consulta; se compara con el periodo del PTA.";validada;;;;;;;
 academic_work_plan;RundMacroDocenteConsultaLog;8;filtros;jsonb;sí;;Filtros aplicados en la consulta, en formato JSON.;validada;;;;;;;
 academic_work_plan;RundMacroDocenteConsultaLog;9;total_resultados;integer;sí;;Número de registros devueltos por la consulta.;validada;;;;;;;
 academic_work_plan;RundMacroDocenteConsultaLog;10;ip;text;sí;;Dirección IP desde la que se hizo la consulta del macro de docentes.;validada;;;;;;Identificador en línea (IP);media
@@ -383,11 +383,11 @@ academic_work_plan;RundSoporteCampo;11;createdAt;timestamp without time zone;no;
 academic_work_plan;RundSoporteCampo;12;documento_perfil_id;uuid;sí;;"Identificador del documento versionado del perfil en academic_work_plan.""RundDocumentoPerfil"" que respalda el soporte.";validada;;;;;;;
 academic_work_plan;RundSoporteCampo;13;revisiones_campos;jsonb;no;'{}'::jsonb;Revisión individual de cada campo del soporte, en JSON: objeto cuya clave es el campo y cuyo valor tiene estado, observacion (solo si es Rechazado), documentoVersionId, revisadoPor y fechaRevision. Se vacía al reemplazar el soporte.;validada;;;;;;;
 chatbot;conversacion;1;id;uuid;no;gen_random_uuid();Identificador único del registro en la tabla conversacion. Se genera automáticamente.;validada;sí;;;;;;
-chatbot;conversacion;2;usuario_id;uuid;sí;;;;;;;;;;
+chatbot;conversacion;2;usuario_id;uuid;sí;;Identificador del usuario que inició la conversación con el asistente virtual, enviado por el cliente al crearla.;validada;;;;;;;
 chatbot;conversacion;3;usuario_email;character varying(255);sí;;Correo electrónico del usuario de la conversación.;validada;;;;;;Contacto;media
 chatbot;conversacion;4;usuario_nombre;character varying(255);sí;;Nombre del usuario de la conversación.;validada;;;;;;;
 chatbot;conversacion;5;titulo;character varying(255);no;'Nueva conversación'::character varying;Título de la conversación. Valor inicial: «Nueva conversación».;validada;;;;;;;
-chatbot;conversacion;6;contexto;character varying(100);sí;'general'::character varying;;;;;;;;;
+chatbot;conversacion;6;contexto;character varying(100);sí;'general'::character varying;Contexto o tema de la conversación con el asistente virtual. Valor inicial: general.;validada;;;;;;;
 chatbot;conversacion;7;metadatos;jsonb;sí;'{}'::jsonb;Metadatos adicionales de la conversación, en formato JSON.;validada;;;;;;;
 chatbot;conversacion;8;is_activo;boolean;no;true;Indica si la conversación está activa.;validada;;;;;;;
 chatbot;conversacion;9;created_at;timestamp with time zone;sí;now();Fecha y hora de creación del registro.;validada;;;;;;;
@@ -396,7 +396,7 @@ chatbot;mensaje;1;id;uuid;no;gen_random_uuid();Identificador único del registro
 chatbot;mensaje;2;conversacion_id;uuid;no;;Referencia al registro de chatbot.conversacion (id).;validada;;;chatbot.conversacion.id;;;;
 chatbot;mensaje;3;rol;character varying(30);no;;Autor del mensaje dentro de la conversación. Valores permitidos: assistant, system, user.;validada;;;;;;;
 chatbot;mensaje;4;contenido;text;no;;Texto del mensaje.;validada;;;;;;;
-chatbot;mensaje;5;tokens;integer;sí;0;;;;;;;;;
+chatbot;mensaje;5;tokens;integer;sí;0;Número de tokens del mensaje.;validada;;;;;;;
 chatbot;mensaje;6;metadatos;jsonb;sí;'{}'::jsonb;Metadatos adicionales del mensaje, en formato JSON.;validada;;;;;;;
 chatbot;mensaje;7;created_at;timestamp with time zone;sí;now();Fecha y hora de creación del registro.;validada;;;;;;;
 chatbot;prompt_template;1;id;uuid;no;gen_random_uuid();Identificador único del registro en la tabla prompt_template. Se genera automáticamente.;validada;sí;;;;;;
@@ -436,7 +436,7 @@ hiring;actas_liquidacion;17;anulado_at;timestamp with time zone;sí;;Fecha y hor
 hiring;actas_liquidacion;18;anulado_por;character varying(200);sí;;Usuario que realizó la anulación.;validada;;;;;;;
 hiring;actas_liquidacion;19;motivo_anulacion;text;sí;;Motivo de la anulación.;validada;;;;;;;
 hiring;actividades;1;numeral;character varying(20);no;;Clave primaria de la tabla actividades: numeral.;validada;sí;;;;0;;
-hiring;actividades;2;etapa;integer;no;;;;;;;;0;;
+hiring;actividades;2;etapa;integer;no;;"Número de la etapa (1 a 10) de la matriz de flujo a la que pertenece la actividad; coincide con el primer número del numeral.";validada;;;;;0;;
 hiring;actividades;3;nombre;character varying(200);no;;Nombre de la actividad de la matriz de flujo.;validada;;;;;0;;
 hiring;actividades;4;descripcion;text;sí;;Descripción de la actividad de la matriz de flujo.;validada;;;;;0;;
 hiring;actividades;5;orden;integer;no;;Posición de la actividad en el orden de presentación dentro de su etapa.;validada;;;;;0;;
@@ -446,7 +446,7 @@ hiring;actividades;8;responsable_cargo;character varying(200);sí;;Cargo que res
 hiring;actividades;9;alerta_dias_antes;integer;sí;;Cuántos días antes del vencimiento avisar. Nulo = sin aviso.;base;;;;;1;;
 hiring;actividades;10;avisos_por_correo;boolean;no;true;Si los avisos de la actividad llegan también al correo institucional de quien los recibe.;base;;;;;;;
 hiring;actividades_con_soporte;1;numeral;character varying(20);no;;Clave primaria de la tabla actividades_con_soporte: numeral.;validada;sí;;;;;;
-hiring;actividades_con_soporte;2;etapa;integer;no;;;;;;;;;;
+hiring;actividades_con_soporte;2;etapa;integer;no;;Número de la etapa de la matriz de flujo a la que pertenece la actividad. Se siembra junto con el numeral y en las filas sembradas coincide con hiring.actividades.;validada;;;;;;;
 hiring;actividades_con_soporte;3;exige_soporte;boolean;no;false;Indica si la actividad exige soporte documental.;validada;;;;;;;
 hiring;actividades_con_soporte;4;confirmado;boolean;no;false;false mientras la exigencia de soporte sea suposición del equipo y no cita de la matriz.;base;;;;;;;
 hiring;actividades_con_soporte;5;nota_fuente;text;sí;;"Texto de la matriz de flujo sobre la actividad (lo que dice la matriz que se hace o se adjunta), del que sale la exigencia de soporte; se muestra en la pantalla del registro.";validada;;;;;;;
@@ -463,7 +463,7 @@ hiring;actos_adjudicacion;3;informe_definitivo_id;uuid;no;;Referencia al registr
 hiring;actos_adjudicacion;4;oferente_id;uuid;no;;Referencia al registro de hiring.oferentes (id).;validada;;;hiring.oferentes.id;;;;
 hiring;actos_adjudicacion;5;numero_acto;character varying(60);no;;Número de la resolución de adjudicación del Ordenador del Gasto, tal como figura en el acto firmado (EFDS-1159).;validada;;;;;;;
 hiring;actos_adjudicacion;6;fecha_acto;date;no;;Fecha del acto administrativo de adjudicación.;validada;;;;;;;
-hiring;actos_adjudicacion;7;valor_adjudicado;numeric(18,2);no;;;;;;;;;;
+hiring;actos_adjudicacion;7;valor_adjudicado;numeric(18,2);no;;"Valor por el que se adjudica según el acto; puede diferir del valor ofertado y del evaluado. Lo digita el usuario y debe ser mayor que cero.";validada;;;;;;;
 hiring;actos_adjudicacion;8;acto_documento_id;uuid;no;;Referencia al registro de hiring.documentos (id).;validada;;;hiring.documentos.id;;;;
 hiring;actos_adjudicacion;9;notificado_at;timestamp with time zone;sí;;"Fecha y hora de notificación del acto de adjudicación; la notificación y la publicación en SECOP II se registran por separado, cada una con su evidencia.";validada;;;;;;;
 hiring;actos_adjudicacion;10;publicado_at;timestamp with time zone;sí;;Fecha y hora de la publicación.;validada;;;;;;;
@@ -486,7 +486,7 @@ hiring;adendas;6;documento_id;uuid;no;;Referencia al registro de hiring.document
 hiring;adendas;7;estado;character varying(20);no;'EMITIDA'::character varying;Estado de la adenda: emitida, publicada o anulada.;validada;;;;;;;
 hiring;adendas;8;emitida_por;character varying(200);sí;;"Usuario que emitió la adenda; se guarda el nombre de usuario de la cuenta autenticada (username del token; si falta, su correo o su identificador; «Sistema» si no hay ninguno).";validada;;;;;;;
 hiring;adendas;9;created_at;timestamp with time zone;no;now();Fecha y hora de creación del registro.;validada;;;;;;;
-hiring;adendas;10;fecha_publicacion;date;sí;;;;;;;;;;
+hiring;adendas;10;fecha_publicacion;date;sí;;Fecha en que se publicó la adenda, en formato YYYY-MM-DD. La digita el usuario al publicar y es obligatoria, junto con el documento de evidencia, cuando el estado es PUBLICADA.;validada;;;;;;;
 hiring;adendas;11;evidencia_documento_id;uuid;sí;;Referencia al registro de hiring.documentos (id).;validada;;;hiring.documentos.id;;;;
 hiring;adendas;12;publicada_por;character varying(200);sí;;Usuario que realizó la publicación.;validada;;;;;;;
 hiring;adendas;13;vencimiento_anterior;date;sí;;Vencimiento del plazo de publicidad antes de aplicar la adenda de cronograma.;base;;;;;;;
@@ -654,7 +654,7 @@ hiring;cierres_contrato;13;motivo_reversion;text;sí;;Motivo de la reversión.;v
 hiring;cierres_financieros;1;id;uuid;no;gen_random_uuid();Identificador único del registro en la tabla cierres_financieros. Se genera automáticamente.;validada;sí;;;;;;
 hiring;cierres_financieros;2;contrato_id;uuid;no;;Referencia al registro de hiring.contratos (id).;validada;;;hiring.contratos.id;;;;
 hiring;cierres_financieros;3;rp_id;uuid;no;;Referencia al registro de hiring.registros_presupuestales (id).;validada;;;hiring.registros_presupuestales.id;;;;
-hiring;cierres_financieros;4;referencia_pago_final;character varying(120);no;;;;;;;;;;
+hiring;cierres_financieros;4;referencia_pago_final;character varying(120);no;;Referencia con la que salió el pago final del contrato (EFDS-1173). La digita el usuario como texto libre de hasta 120 caracteres y es obligatoria.;validada;;;;;;;
 hiring;cierres_financieros;5;fecha_pago_final;date;no;;Fecha del pago final del contrato.;validada;;;;;;;
 hiring;cierres_financieros;6;soporte_documento_id;uuid;sí;;Referencia al registro de hiring.documentos (id).;validada;;;hiring.documentos.id;;;;
 hiring;cierres_financieros;7;valor_rp;numeric(18,2);no;;"Respaldo presupuestal total del contrato al cierre, en pesos: suma de los valores de todos los registros presupuestales expedidos del contrato, incluidos los de las adiciones. Lo calcula el sistema; no se digita.";validada;;;;;;;
@@ -682,7 +682,7 @@ hiring;contratos;2;proceso_id;uuid;no;;Referencia al registro de hiring.procesos
 hiring;contratos;3;tipologia;character varying(60);no;;Referencia al registro de hiring.tipologias_contrato (codigo).;validada;;;hiring.tipologias_contrato.codigo;;;;
 hiring;contratos;4;numero;character varying(60);no;;Número de contrato de la entidad, el que figura en la minuta. Único en el sistema.;validada;;sí;;;;;
 hiring;contratos;5;objeto;text;no;;Qué se contrató. Inmutable desde que el contrato se suscribe (RF-MOD-04): ninguna modificación contractual lo cambia.;base;;;;;;;
-hiring;contratos;6;valor;numeric(18,2);no;;;;;;;;;;
+hiring;contratos;6;valor;numeric(18,2);no;;"Valor total del contrato, en pesos; lo digita el usuario al generar el contrato y debe ser mayor que cero. Cuando se aprueba una adición se le suma el valor adicionado.";validada;;;;;;;
 hiring;contratos;7;plazo_dias;integer;sí;;"Plazo de ejecución del contrato, en días calendario contados desde la fecha del acta de inicio (ese día es el primero). Entero entre 1 y 999; lo actualizan las prórrogas y las suspensiones aprobadas.";validada;;;;;;;
 hiring;contratos;8;contratista_documento;character varying(40);no;;Número del documento de identificación del contratista adjudicatario, copiado al contratar y no referenciado al oferente, para conservar lo que dice la minuta.;validada;;;;;;Identificación;alta
 hiring;contratos;9;contratista_nombre;character varying(300);no;;Nombre o razón social del contratista.;validada;;;;;;;
@@ -839,7 +839,7 @@ hiring;informes_evaluacion;3;numero;integer;no;;"Número consecutivo del informe
 hiring;informes_evaluacion;4;resultado_id;uuid;no;;Referencia al registro de hiring.resultados_evaluacion (id).;validada;;;hiring.resultados_evaluacion.id;;;;
 hiring;informes_evaluacion;5;resultado;jsonb;no;;Resultado de la evaluación tal como estaba al generar el informe, en formato JSON: la oferta ganadora, su valoración, la justificación, las evidencias y las ofertas recibidas. No cambia si el comité rectifica después (EFDS-1158).;validada;;;;;;;
 hiring;informes_evaluacion;6;ofertas_recibidas;integer;no;0;"Número de ofertas recibidas por el proceso al generar el informe; no son las habilitadas. Decide si el proceso sigue o se declara desierto (EFDS-1160).";validada;;;;;;;
-hiring;informes_evaluacion;7;observacion_entidad;text;sí;;;;;;;;;;
+hiring;informes_evaluacion;7;observacion_entidad;text;sí;;Advertencia de la entidad sobre el informe, distinta de lo que reportó el comité (por ejemplo, una modalidad sin puntaje o una oferta retirada). Texto opcional que digita el usuario al generar el informe.;validada;;;;;;;
 hiring;informes_evaluacion;8;estado;character varying(20);no;'BORRADOR'::character varying;Estado del informe de evaluación: borrador, trasladado, cerrado o anulado.;validada;;;;;;;
 hiring;informes_evaluacion;9;informe_documento_id;uuid;sí;;Referencia al registro de hiring.documentos (id).;validada;;;hiring.documentos.id;;;;
 hiring;informes_evaluacion;10;evidencia_documento_id;uuid;sí;;Referencia al registro de hiring.documentos (id).;validada;;;hiring.documentos.id;;;;
@@ -1166,7 +1166,7 @@ hiring;registros_presupuestales;1;id;uuid;no;gen_random_uuid();Identificador ún
 hiring;registros_presupuestales;2;contrato_id;uuid;no;;Referencia al registro de hiring.contratos (id).;validada;;;hiring.contratos.id;;;;
 hiring;registros_presupuestales;3;numero;character varying(60);sí;;"Número del registro presupuestal, que asigna la Dirección Financiera al expedirlo; es nulo mientras el registro está solicitado.";validada;;;;;;;
 hiring;registros_presupuestales;4;valor;numeric(18,2);sí;;"Valor comprometido en el registro presupuestal, en pesos; al solicitar se toma el del contrato si no se indica y se compara con él. Mayor que cero y obligatorio cuando el estado es EXPEDIDO.";validada;;;;;;;
-hiring;registros_presupuestales;5;rubro;character varying(160);sí;;;;;;;;;;
+hiring;registros_presupuestales;5;rubro;character varying(160);sí;;"Rubro presupuestal al que se imputa el registro; texto libre, opcional al solicitar y al expedir.";validada;;;;;;;
 hiring;registros_presupuestales;6;fecha_expedicion;date;sí;;Fecha de expedición del registro presupuestal.;validada;;;;;;;
 hiring;registros_presupuestales;7;vigencia_fiscal;integer;sí;;Año de la vigencia fiscal a la que se imputa el registro presupuestal. Un registro presupuestal no cruza vigencias.;validada;;;;;;;
 hiring;registros_presupuestales;8;estado;character varying(20);no;'SOLICITADO'::character varying;"Estado del registro presupuestal. Flujo: SOLICITADO → VERIFICADO → EXPEDIDO; RECHAZADO cuando no hay disponibilidad para comprometer; ANULADO cuando se deja sin efecto después de expedido.";validada;;;;;;;
@@ -1199,7 +1199,7 @@ hiring;resoluciones_sancionatorias;4;numero;character varying(80);no;;Número de
 hiring;resoluciones_sancionatorias;5;fecha_expedicion;date;no;;Fecha de expedición de la resolución sancionatoria.;validada;;;;;;;
 hiring;resoluciones_sancionatorias;6;documento_id;uuid;no;;Referencia al registro de hiring.documentos (id).;validada;;;hiring.documentos.id;;;;
 hiring;resoluciones_sancionatorias;7;sentido;character varying(30);sí;;DECLARA_CADUCIDAD termina el contrato: es la caducidad como causal contractual que pide el bloque de Presunto Incumplimiento.;base;;;;;;;
-hiring;resoluciones_sancionatorias;8;valor_sancion;numeric(18,2);sí;;;;;;;;;;
+hiring;resoluciones_sancionatorias;8;valor_sancion;numeric(18,2);sí;;"Valor de la multa o de la cláusula penal, cuando la decisión las impone; mayor que cero. Opcional, porque un incumplimiento puede declararse sin sanción pecuniaria; solo se admite con sentido DECLARA_INCUMPLIMIENTO o DECLARA_CADUCIDAD.";validada;;;;;;;
 hiring;resoluciones_sancionatorias;9;estado_contrato_antes;character varying(20);sí;;"Estado que tenía el contrato (EJECUCION o SUSPENDIDO) antes de la declaratoria de caducidad, única decisión que lo termina; al revocar la resolución el contrato vuelve a ese estado.";validada;;;;;;;
 hiring;resoluciones_sancionatorias;10;notificada_el;date;sí;;"Fecha de notificación de la resolución, posterior a su expedición. Se registra; no se usa para calcular términos.";validada;;;;;;;
 hiring;resoluciones_sancionatorias;11;firme_el;date;sí;;Fecha en que la resolución quedó en firme. Requiere fecha de notificación y no puede ser anterior a ella.;validada;;;;;;;
@@ -1214,7 +1214,7 @@ hiring;resultados_evaluacion;3;oferente_id;uuid;no;;Referencia al registro de hi
 hiring;resultados_evaluacion;4;informe_documento_id;uuid;no;;Referencia al registro de hiring.documentos (id).;validada;;;hiring.documentos.id;;;;
 hiring;resultados_evaluacion;5;puntaje_obtenido;numeric(6,2);sí;;Puntaje obtenido por la oferta ganadora, tal como lo reporta el comité evaluador. Se registra junto con puntaje_maximo, no puede ser negativo y es nulo cuando la modalidad no asigna puntaje (por ejemplo, mínima cuantía).;validada;;;;;;;
 hiring;resultados_evaluacion;6;puntaje_maximo;numeric(6,2);sí;;Puntaje máximo posible en la evaluación. Se registra junto con puntaje_obtenido y debe ser mayor que cero.;validada;;;;;;;
-hiring;resultados_evaluacion;7;valor_evaluado;numeric(18,2);sí;;;;;;;;;;
+hiring;resultados_evaluacion;7;valor_evaluado;numeric(18,2);sí;;"Valor por el que se evalúa la oferta ganadora; debe ser mayor que cero. Suele coincidir con el valor ofertado, pero puede diferir por una corrección aritmética del comité.";validada;;;;;;;
 hiring;resultados_evaluacion;8;justificacion;text;no;;"Justificación del comité evaluador para elegir la oferta ganadora; se muestra a los demás oferentes en el traslado del informe (actividad 6.4).";validada;;;;;;;
 hiring;resultados_evaluacion;9;estado;character varying(20);no;'VIGENTE'::character varying;Estado del resultado de la evaluación: vigente o rectificado.;validada;;;;;;;
 hiring;resultados_evaluacion;10;registrado_por;character varying(200);sí;;Usuario que realizó el registro.;validada;;;;;;;
@@ -1265,7 +1265,7 @@ hiring;smmlv;5;updated_at;timestamp with time zone;no;now();Fecha y hora de la �
 hiring;sobres_economicos;1;id;uuid;no;gen_random_uuid();Identificador único del registro en la tabla sobres_economicos. Se genera automáticamente.;validada;sí;;;;;;
 hiring;sobres_economicos;2;audiencia_id;uuid;no;;Referencia al registro de hiring.audiencias_adjudicacion (id).;validada;;;hiring.audiencias_adjudicacion.id;;;;
 hiring;sobres_economicos;3;oferente_id;uuid;no;;Referencia al registro de hiring.oferentes (id).;validada;;;hiring.oferentes.id;;;;
-hiring;sobres_economicos;4;valor_ofertado;numeric(18,2);no;;;;;;;;;;
+hiring;sobres_economicos;4;valor_ofertado;numeric(18,2);no;;"Valor que traía el sobre económico al abrirse en audiencia; debe ser mayor que cero. Se guarda aparte del valor declarado en oferentes.valor_ofertado para poder comparar ambos.";validada;;;;;;;
 hiring;sobres_economicos;5;evidencia_documento_id;uuid;sí;;Referencia al registro de hiring.documentos (id).;validada;;;hiring.documentos.id;;;;
 hiring;sobres_economicos;6;observacion;text;sí;;Observación sobre la apertura del sobre económico.;validada;;;;;;;
 hiring;sobres_economicos;7;abierto_por;character varying(200);sí;;"Nombre de usuario (username) de la cuenta autenticada que registró la apertura del sobre económico en la audiencia; si el token no lo trae, se guarda el correo o el identificador.";validada;;;;;;;
@@ -1437,7 +1437,7 @@ infrastructure-management;solicitud_mantenimiento;11;fecha_programada;date;sí;;
 infrastructure-management;solicitud_mantenimiento;12;fecha_ejecucion;date;sí;;Fecha de ejecución del mantenimiento.;validada;;;;;;;
 infrastructure-management;solicitud_mantenimiento;13;estado;character varying(30);no;'RECIBIDA'::character varying;Estado formal de la solicitud (EFDS-1728). Válidos: RECIBIDA, EN_ANALISIS, PENDIENTE_CLASIFICACION, PENDIENTE_COTIZACION, PENDIENTE_APROBACION, EN_VALORACION, EN_PROCESO, ASIGNADA, EN_CAMPO_VALORACION, EN_ESPERA_DE_INSUMOS, EN_PROGRESO, EN_EJECUCION, PENDIENTE_RECURSO, COMPLETADA, CERRADA, CERRADA_SIN_ATENCION, RECHAZADA, REMITIDA_TI.;base;;;;;;;
 infrastructure-management;solicitud_mantenimiento;14;observaciones;text;sí;;Observaciones sobre la solicitud de mantenimiento.;validada;;;;;;;
-infrastructure-management;solicitud_mantenimiento;15;costo_estimado;numeric(14,2);sí;0;;;;;;;;;
+infrastructure-management;solicitud_mantenimiento;15;costo_estimado;numeric(14,2);sí;0;Costo estimado de la atención de la solicitud. Por defecto, 0.;validada;;;;;;;
 infrastructure-management;solicitud_mantenimiento;16;created_at;timestamp with time zone;sí;now();Fecha y hora de creación del registro.;validada;;;;;;;
 infrastructure-management;solicitud_mantenimiento;17;updated_at;timestamp with time zone;sí;now();Fecha y hora de la última actualización del registro.;validada;;;;;;;
 infrastructure-management;solicitud_mantenimiento;18;id_area_solicitante;uuid;sí;;FK (opcional por ahora) a la dependencia/area solicitante en auth.dependencias;base;;;;;;;
@@ -1491,11 +1491,11 @@ infrastructure-management;solicitud_valoracion;13;evidencias;jsonb;no;'[]'::json
 infrastructure-management;solicitud_valoracion;14;fecha_inicio_valoracion;timestamp with time zone;no;now();Fecha y hora de inicio de la visita de valoración.;validada;;;;;;;
 infrastructure-management;solicitud_valoracion;15;fecha_fin_valoracion;timestamp with time zone;no;now();Fecha y hora de finalización de la visita de valoración.;validada;;;;;;;
 infrastructure-management;solicitud_valoracion;16;es_version_corregida_por_encargado;boolean;no;false;Indica si la valoración es una versión corregida por el encargado.;validada;;;;;;;
-infrastructure-management;solicitud_valoracion;17;id_usuario_corrector;uuid;sí;;;;;;;;;;
+infrastructure-management;solicitud_valoracion;17;id_usuario_corrector;uuid;sí;;Identificador del usuario que corrigió la valoración, cuando es una versión corregida por el encargado.;validada;;;;;;;
 infrastructure-management;solicitud_valoracion;18;created_at;timestamp with time zone;no;now();Fecha y hora de creación del registro.;validada;;;;;;;
 infrastructure-management;solicitud_valoracion_insumo;1;id_insumo;uuid;no;uuid_generate_v4();Identificador único del registro en la tabla solicitud_valoracion_insumo. Se genera automáticamente.;validada;sí;;;;;;
 infrastructure-management;solicitud_valoracion_insumo;2;id_valoracion;uuid;no;;Referencia al registro de infrastructure-management.solicitud_valoracion (id_valoracion).;validada;;;infrastructure-management.solicitud_valoracion.id_valoracion;;;;
-infrastructure-management;solicitud_valoracion_insumo;3;codigo_insumo;character varying(50);sí;;;;;;;;;;
+infrastructure-management;solicitud_valoracion_insumo;3;codigo_insumo;character varying(50);sí;;Código opcional del material o repuesto, digitado por el técnico en la valoración.;validada;;;;;;;
 infrastructure-management;solicitud_valoracion_insumo;4;nombre;character varying(255);no;;Nombre del insumo requerido para la valoración.;validada;;;;;;;
 infrastructure-management;solicitud_valoracion_insumo;5;cantidad;numeric(12,3);no;;Cantidad requerida del insumo, expresada en la unidad de medida de la fila. Debe ser mayor que cero.;validada;;;;;;;
 infrastructure-management;solicitud_valoracion_insumo;6;unidad_medida;character varying(4);no;;Unidad de medida del insumo. Valores permitidos: L, cj, glb, kg, m, m2, otro, paq, rol, un.;validada;;;;;;;
@@ -1513,7 +1513,7 @@ travel_expenses;analistas_viaticos;5;nombre_completo;character varying(255);no;;
 travel_expenses;analistas_viaticos;6;username;character varying(100);no;;Usuario de acceso del analista;base;;;;;;;
 travel_expenses;analistas_viaticos;7;email;character varying(255);sí;;Correo electrónico del analista de viáticos.;validada;;;;;;Contacto;media
 travel_expenses;analistas_viaticos;8;telefono;character varying(50);sí;;Número de teléfono del analista de viáticos.;validada;;;;;;Contacto;media
-travel_expenses;analistas_viaticos;9;cargo;character varying(255);sí;;;;;;;;;;
+travel_expenses;analistas_viaticos;9;cargo;character varying(255);sí;;Cargo del analista del Grupo de Viáticos, en texto.;validada;;;;;;;
 travel_expenses;analistas_viaticos;10;activo;boolean;sí;true;Indica si el analista esta activo para recibir asignaciones;base;;;;;;;
 travel_expenses;analistas_viaticos;11;created_at;timestamp without time zone;sí;now();Fecha y hora de creación del registro.;validada;;;;;;;
 travel_expenses;analistas_viaticos;12;updated_at;timestamp without time zone;sí;now();Fecha y hora de la última actualización del registro.;validada;;;;;;;
@@ -1525,7 +1525,7 @@ travel_expenses;comisionados;4;segundo_nombre;character varying(100);sí;;Segund
 travel_expenses;comisionados;5;primer_apellido;character varying(100);no;;Primer apellido del comisionado.;validada;;;;;;Nombre de persona;media
 travel_expenses;comisionados;6;segundo_apellido;character varying(100);sí;;Segundo apellido del comisionado.;validada;;;;;;Nombre de persona;media
 travel_expenses;comisionados;7;email;character varying(150);no;;Correo electrónico del comisionado.;validada;;;;;;Contacto;media
-travel_expenses;comisionados;8;telefono_contacto;character varying(150);no;;;;;;;;;Contacto;media
+travel_expenses;comisionados;8;telefono_contacto;character varying(150);no;;"Teléfono de contacto del comisionado. Se toma del teléfono reportado por Talento Humano o de auth.personas.tel_celular; si no hay dato se guarda 0000000000.";validada;;;;;;Contacto;media
 travel_expenses;comisionados;9;tipo_comisionado;character varying(50);no;;Tipo de vinculación del comisionado con la ESAP. Valores permitidos: CONTRATISTA, DOCENTE, ESTUDIANTE, FUNCIONARIO, INVESTIGADOR.;validada;;;;;;;
 travel_expenses;comisionados;10;origen_datos;character varying(50);no;;Fuente de la que se obtuvieron los datos del comisionado: HUMANO (API de Talento Humano), ESAP (auth.personas) o SECOP.;validada;;;;;;;
 travel_expenses;comisionados;11;autorizacion_habeas_data;boolean;no;false;Indica si el comisionado autorizó el tratamiento de datos personales (habeas data).;validada;;;;;;;
@@ -1584,7 +1584,7 @@ travel_expenses;config_legalizacion_documentos;8;creado_en;timestamp with time z
 travel_expenses;config_legalizacion_documentos;9;actualizado_en;timestamp with time zone;no;now();Fecha y hora de la última actualización del registro.;validada;;;;;0;;
 travel_expenses;config_tipo_comisionado;1;id;uuid;no;gen_random_uuid();Identificador único del registro en la tabla config_tipo_comisionado. Se genera automáticamente.;validada;sí;;;;;;
 travel_expenses;config_tipo_comisionado;2;tipo_comisionado;character varying(50);no;;Tipo de comisionado al que aplica la configuración. Es único.;validada;;sí;;;;;
-travel_expenses;config_tipo_comisionado;3;codigo_formulario;character varying(50);no;;;;;;;;;;
+travel_expenses;config_tipo_comisionado;3;codigo_formulario;character varying(50);no;;"Código del formulario de solicitud que usa el tipo de comisionado; permite consultar la parametrización por código de formulario.";validada;;;;;;;
 travel_expenses;config_tipo_comisionado;4;campos_obligatorios;jsonb;no;'[]'::jsonb;"Lista JSON de claves de campos obligatorios para el tipo de comisionado. Las claves coinciden con config_campos_formulario.clave y con las propiedades de la solicitud; un campo que también figure como opcional u oculto no se exige.";validada;;;;;;;
 travel_expenses;config_tipo_comisionado;5;campos_opcionales;jsonb;no;'[]'::jsonb;Lista JSON de claves de campos opcionales para el tipo de comisionado, con las mismas claves de config_campos_formulario.clave. Un campo opcional no se exige aunque esté en campos_obligatorios.;validada;;;;;;;
 travel_expenses;config_tipo_comisionado;6;campos_ocultos;jsonb;no;'[]'::jsonb;Lista JSON de claves de campos que no se muestran en el formulario para el tipo de comisionado, con las mismas claves de config_campos_formulario.clave. Un campo oculto no se exige.;validada;;;;;;;
@@ -1622,7 +1622,7 @@ travel_expenses;excepciones_autorizadas_tiquetes;1;id;uuid;no;gen_random_uuid();
 travel_expenses;excepciones_autorizadas_tiquetes;2;solicitud_id;uuid;no;;Identificador de la solicitud de comisión a la que aplica la excepción.;validada;;;;;;;
 travel_expenses;excepciones_autorizadas_tiquetes;3;tipo_excepcion;character varying(50);no;;Restricción de tiquetes que se exceptúa: RUTA_CORTA o PRESUPUESTO_AGOTADO (RF-LIQ-003, RF-LIQ-004).;validada;;;;;;;
 travel_expenses;excepciones_autorizadas_tiquetes;4;autorizado_por;character varying(150);no;;Instancia que autoriza la excepción de tiquetes: DIRECTOR_NACIONAL o SINDICATO.;validada;;;;;;;
-travel_expenses;excepciones_autorizadas_tiquetes;5;numero_documento_soporte;character varying(100);no;;;;;;;;;;
+travel_expenses;excepciones_autorizadas_tiquetes;5;numero_documento_soporte;character varying(100);no;;Número del documento firmado por la Dirección Nacional o el Sindicato que soporta la excepción de ruta corta o de presupuesto agotado.;validada;;;;;;;
 travel_expenses;excepciones_autorizadas_tiquetes;6;documento_soporte_url;character varying(500);sí;;URL o ruta del documento que soporta la excepción.;validada;;;;;;;
 travel_expenses;excepciones_autorizadas_tiquetes;7;comentarios;text;sí;;Comentarios sobre la excepción autorizada.;validada;;;;;;;
 travel_expenses;excepciones_autorizadas_tiquetes;8;creado_en;timestamp without time zone;no;now();Fecha y hora de creación del registro.;validada;;;;;;;
@@ -1732,8 +1732,8 @@ travel_expenses;reintegros_comision;3;origen;character varying(30);no;;COMISION_
 travel_expenses;reintegros_comision;4;estado;character varying(20);no;'PENDIENTE'::character varying;Estado del reintegro de la comisión: pendiente o registrado.;validada;;;;;;;
 travel_expenses;reintegros_comision;5;valor_pagado;numeric(14,2);no;;Valor pagado por la comisión, en pesos colombianos, copiado de solicitudes_comision.valor_pagado al generar el reintegro.;validada;;;;;;;
 travel_expenses;reintegros_comision;6;valor_a_reintegrar;numeric(14,2);no;;Valor calculado según los días efectivamente ejecutados.;base;;;;;;;
-travel_expenses;reintegros_comision;7;dias_comision;numeric(6,2);sí;;;;;;;;;;
-travel_expenses;reintegros_comision;8;dias_ejecutados;numeric(6,2);sí;;;;;;;;;;
+travel_expenses;reintegros_comision;7;dias_comision;numeric(6,2);sí;;Días de la comisión, copiados de solicitudes_comision.dias_comision al generar el reintegro. Admite decimales.;validada;;;;;;;
+travel_expenses;reintegros_comision;8;dias_ejecutados;numeric(6,2);sí;;"Días ejecutados de la comisión: en viaje menor, los días reales registrados en la legalización; en comisión no realizada, 0.";validada;;;;;;;
 travel_expenses;reintegros_comision;9;valor_reintegrado;numeric(14,2);sí;;Valor efectivamente reintegrado por el comisionado, en pesos colombianos. Debe ser igual a valor_a_reintegrar.;validada;;;;;;;
 travel_expenses;reintegros_comision;10;fecha_reintegro;date;sí;;Fecha del reintegro de la comisión.;validada;;;;;;;
 travel_expenses;reintegros_comision;11;soporte_path;character varying(255);sí;;Ruta del soporte de la consignación del reintegro.;base;;;;;;;
@@ -1751,7 +1751,7 @@ travel_expenses;rutas_restringidas;6;creado_en;timestamp without time zone;no;no
 travel_expenses;saldos_tiquetes;1;id;uuid;no;gen_random_uuid();Identificador único del registro en la tabla saldos_tiquetes. Se genera automáticamente.;validada;sí;;;;;;
 travel_expenses;saldos_tiquetes;2;dependencia_id;character varying(100);no;;Código (auth.dependencias.cod_dependencia) o identificador (auth.dependencias.id_dependencia) de la dependencia dueña del cupo de tiquetes, guardado como texto. Es único.;validada;;sí;;;;;
 travel_expenses;saldos_tiquetes;3;nombre_dependencia;character varying(150);no;;Nombre de la dependencia.;validada;;;;;;;
-travel_expenses;saldos_tiquetes;4;presupuesto_inicial;numeric(12,2);no;;;;;;;;;;
+travel_expenses;saldos_tiquetes;4;presupuesto_inicial;numeric(12,2);no;;"Presupuesto inicial asignado a la dependencia para tiquetes, en pesos colombianos. No puede ser negativo; al cambiarlo, el disponible se ajusta por la diferencia.";validada;;;;;;;
 travel_expenses;saldos_tiquetes;5;presupuesto_reservado;numeric(12,2);no;0;Presupuesto reservado para tiquetes de solicitudes en trámite, en pesos colombianos: se suma al reservar el valor estimado del tiquete más la holgura y se resta al liberar la reserva cuando la solicitud se rechaza, anula o cancela. No puede ser negativo.;validada;;;;;;;
 travel_expenses;saldos_tiquetes;6;presupuesto_disponible;numeric(12,2);no;;Presupuesto disponible para tiquetes, en pesos colombianos. Lo actualiza la aplicación: inicial al crear, menos cada reserva, más cada liberación y más la diferencia si cambia el presupuesto inicial.;validada;;;;;;;
 travel_expenses;saldos_tiquetes;7;holgura_porcentaje;numeric(5,2);no;15.00;Porcentaje que se suma al valor estimado del tiquete al reservar presupuesto, para cubrir la variación del precio entre la radicación y la emisión del pasaje. Por defecto, el parámetro HOLGURA_TIQUETES_PORCENTAJE (15).;validada;;;;;;;
@@ -1839,7 +1839,7 @@ travel_expenses;solicitudes_comision;78;pagado_por_id;uuid;sí;;Referencia al re
 travel_expenses;solicitudes_comision;79;fecha_registro_pago;timestamp with time zone;sí;;Fecha y hora en que se registró el pago de la comisión.;validada;;;;;;;
 travel_expenses;solicitudes_comision;80;campos_adicionales;jsonb;no;'{}'::jsonb;Metadatos y campos dinámicos configurables gobernados por travel_expenses.config_campos_formulario (JSONB).;base;;;;;;;
 travel_expenses;solicitudes_comision;81;itinerario;jsonb;no;'[]'::jsonb;Arreglo de tramos/rutas de la comisión (RutaItinerario[]) con origen, destino, trayecto, fechas, días y horario militar estimado.;base;;;;;;;
-travel_expenses;solicitudes_comision;82;dias_pernoctados;numeric(5,2);sí;0;;;;;;;;;
+travel_expenses;solicitudes_comision;82;dias_pernoctados;numeric(5,2);sí;0;Noches con pernocta de la comisión, usadas en la autoliquidación del formato GF-FO-023 (Decreto 314 de 2026). Admite decimales.;validada;;;;;;;
 travel_expenses;solicitudes_comision;83;tarifa_dia_pernoctado;numeric(14,2);sí;0;Tarifa diaria aplicada a las noches con pernocta, en pesos colombianos: tarifa diaria base por el factor del comisionado.;validada;;;;;;;
 travel_expenses;solicitudes_comision;84;total_pernoctados;numeric(14,2);sí;0;Valor total de las noches con pernocta, en pesos colombianos: días pernoctados por la tarifa del día pernoctado.;validada;;;;;;;
 travel_expenses;solicitudes_comision;85;dias_no_pernoctados;numeric(5,2);sí;0;Días de la comisión sin pernocta.;validada;;;;;;;
@@ -1852,7 +1852,7 @@ travel_expenses;solicitudes_comision;91;tarifa_final_aplicada_dia;numeric(14,2);
 travel_expenses;solicitudes_comision;92;salario_base_aplicado;numeric(14,2);sí;0;"Valor base usado en la liquidación para ubicar la escala de viáticos: la mayor asignación básica del comisionado; para ESTUDIANTE, el SMMLV; para INVESTIGADOR, la tarifa diaria de la categoría. A diferencia de salario_basico, que guarda el salario del comisionado.";validada;;;;;;;
 travel_expenses;solicitudes_comision;93;decreto_aplicado;character varying(100);sí;'Decreto 314 de 2026'::character varying;Decreto de escala de viáticos aplicado en la liquidación. Valor por defecto: Decreto 314 de 2026.;validada;;;;;;;
 travel_expenses;solicitudes_comision;94;numero_cdp;text;sí;;Número del certificado de disponibilidad presupuestal (CDP).;validada;;;;;;;
-travel_expenses;solicitudes_comision;95;fecha_cdp;text;sí;;;;;;;;;;
+travel_expenses;solicitudes_comision;95;fecha_cdp;text;sí;;Fecha del certificado de disponibilidad presupuestal (CDP), guardada como texto.;validada;;;;;;;
 travel_expenses;solicitudes_comision;96;fecha_radicacion;timestamp without time zone;sí;;Marca temporal en la que la solicitud se radicó e ingresó por primera vez a la bandeja del Grupo de Viáticos.;base;;;;;;;
 travel_expenses;solicitudes_comision;97;cargo;text;sí;;Cargo institucional asignado a la comisión GF-FO-023 para trazabilidad, liquidación y KPIs de analítica.;base;;;;;;;
 travel_expenses;solicitudes_comision;98;id_cargo;bigint;sí;;Identificador referencial del cargo institucional (auth.cargos).;base;;;;;;;
@@ -1885,13 +1885,13 @@ travel_expenses;tarifas_referencia_tiquetes;14;actualizado_en;timestamp without 
 travel_expenses;tarifas_regionales_excepcion;1;id;integer;no;nextval('travel_expenses.tarifas_regionales_excepcion_id_seq'::regclass);Identificador único del registro en la tabla tarifas_regionales_excepcion. Se genera automáticamente.;validada;sí;;;;;;
 travel_expenses;tarifas_regionales_excepcion;2;departamento;character varying(100);no;;Departamento al que aplica la tarifa de excepción. Es único.;validada;;sí;;;;;
 travel_expenses;tarifas_regionales_excepcion;3;es_nuevo_departamento;boolean;no;true;Indica si la tarifa regional de excepción corresponde a un nuevo departamento.;validada;;;;;;;
-travel_expenses;tarifas_regionales_excepcion;4;tarifa_diaria;numeric(12,2);no;;;;;;;;;;
+travel_expenses;tarifas_regionales_excepcion;4;tarifa_diaria;numeric(12,2);no;;Valor diario de viáticos de excepción para el departamento (artículo 5 del Decreto 314 de 2026, nuevos departamentos).;validada;;;;;;;
 travel_expenses;tarifas_regionales_excepcion;5;decreto_referencia;character varying(100);sí;;Decreto que establece la tarifa de excepción.;validada;;;;;;;
 travel_expenses;tarifas_regionales_excepcion;6;activo;boolean;no;true;Indica si la tarifa regional de excepción está activa.;validada;;;;;;;
 travel_expenses;tarifas_regionales_excepcion;7;creado_en;timestamp without time zone;sí;CURRENT_TIMESTAMP;Fecha y hora de creación del registro.;validada;;;;;;;
 travel_expenses;tarifas_transporte_terminal;1;id;integer;no;nextval('travel_expenses.tarifas_transporte_terminal_id_seq'::regclass);Identificador único del registro en la tabla tarifas_transporte_terminal. Se genera automáticamente.;validada;sí;;;;;;
 travel_expenses;tarifas_transporte_terminal;2;departamento;character varying(100);no;''::character varying;Nombre del departamento al que aplica la tarifa de transporte.;validada;;;;;;;
-travel_expenses;tarifas_transporte_terminal;3;departamento_id;integer;sí;;;;;;;;;;
+travel_expenses;tarifas_transporte_terminal;3;departamento_id;integer;sí;;Código numérico del departamento.;validada;;;;;;;
 travel_expenses;tarifas_transporte_terminal;4;ciudad;character varying(100);sí;;Ciudad a la que aplica la tarifa de transporte.;validada;;;;;;;
 travel_expenses;tarifas_transporte_terminal;5;ciudad_aeropuerto;character varying(150);no;;Nombre del departamento con el municipio del aeropuerto entre paréntesis, por ejemplo ANTIOQUIA (Rionegro).;validada;;;;;;;
 travel_expenses;tarifas_transporte_terminal;6;valor_maximo;numeric(12,2);no;;Valor máximo reconocido por trayecto de transporte a la terminal aérea, en pesos colombianos. Para tramos de ida y regreso la liquidación lo multiplica por dos.;validada;;;;;;;

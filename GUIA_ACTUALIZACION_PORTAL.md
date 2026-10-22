@@ -27,13 +27,21 @@ Los comandos son para **PowerShell en Windows**, desde el clon del repositorio e
    ```
    El commit que muestra `git log` debe ser el mismo que el último de GitHub (`main`). Si `git pull` muestra un error (cambios locales, conflicto, credenciales), resuélvalo antes de seguir. De lo contrario, el portal se genera con la versión anterior de las herramientas o de las descripciones.
 
-2. **Elegir la versión nueva.** Cada cambio del portal es una versión nueva (`v1.3` → `v1.4`). No se sobrescriben versiones ya entregadas. Versiones vigentes:
+2. **Elegir la versión nueva.** Cada cambio del portal es una versión nueva (`v1.4` → `v1.5`). No se sobrescriben versiones ya entregadas. Versiones vigentes:
    | Portal | Última versión | Carpeta |
    |---|---|---|
-   | Fase 2 | v1.3 | `portal\fase2\` |
+   | Fase 2 | v1.4 | `portal\fase2\` |
    | Base completa | v1.1 | `portal\` |
 
 3. **Conexión a QA (solo para extraer).** Tailscale activo y la contraseña del usuario de la base a mano. La contraseña se escribe cada vez que `psql` la pide y **no se guarda** en ningún archivo ni variable.
+
+---
+
+### Estado actual (v1.4 de Fase 2)
+
+- **Fase 2:** 154 de 154 tablas y 1.905 de 1.905 columnas con descripción. 95 tablas y 170 columnas la tienen registrada en la base; las demás están validadas en `config/descripciones.csv` y pendientes de registrarse con un lote `COMMENT ON` (sección 3).
+- **Base completa:** las columnas que no son de Fase 2 siguen en `Matriz_Validacion_Descripciones_Completa.xlsx`.
+- Las preguntas que quedaron abiertas al validar Fase 2 están en `fase2_decisiones.csv` (columna `observaciones`) y en `fase2_tablas.csv` (columna `pregunta`), como referencia para desarrollo. No bloquean la entrega.
 
 ---
 
@@ -155,8 +163,10 @@ Matrices vigentes, en `config\propuestas\` y en Drive `Interno\Matrices`:
 
 | Matriz | Contiene |
 |---|---|
-| `Matriz_Validacion_Descripciones_Fase2.xlsx` | Las columnas de Fase 2 que siguen pendientes (las aprobadas ya no aparecen) |
-| `Matriz_Validacion_Descripciones_Completa.xlsx` | Las columnas pendientes de toda la base |
+| `Matriz_Validacion_Descripciones_Fase2.xlsx` | Última revisión de Fase 2. Desde la v1.4, **todas las tablas y columnas de Fase 2 tienen descripción** (registrada o validada); la matriz solo se vuelve a generar si una extracción trae columnas nuevas |
+| `Matriz_Validacion_Descripciones_Completa.xlsx` | Las columnas pendientes del resto de la base |
+
+Si no hay columnas pendientes, `matriz` lo informa y conserva la matriz anterior.
 
 **Revisar.** En la hoja «Matriz», filtre por la columna «Decisión»:
 - Las filas en **«Requiere aclaración»** traen una **pregunta para desarrollo**. Una vez resuelta, cambie la decisión a «Aprobada» o, si el texto debe cambiar, a «Aprobada con ajuste», y escriba el texto en «Descripción final».
@@ -190,7 +200,7 @@ La redacción de las propuestas (`config/propuestas/<alcance>_semanticas.csv`, `
 
 Las de Fase 2 están en `config\propuestas\fase2_tablas.csv` (Excel, separador `;`), una fila por tabla, con propuesta, confianza, fundamento, pregunta y decisión.
 
-1. Para cada tabla en «Requiere aclaración», resuelva la pregunta y cambie `decision` a `Aprobada`. Si el texto cambia, corríjalo en `propuesta`.
+1. Para cada tabla nueva o pendiente, revise la propuesta y cambie `decision` a `Aprobada`. Si el texto cambia, corríjalo en `propuesta`. (En la v1.4 las 59 tablas de Fase 2 sin comentario en la base quedaron aprobadas.)
 2. Incorpore:
    ```powershell
    python herramientas/matriz_descripciones.py incorporar --tablas config/propuestas/fase2_tablas.csv
@@ -270,6 +280,6 @@ Solo con **autorización explícita** para escribir en QA. El lote toca únicame
 | `config/alcances/fase2.json` | Esquemas y tablas de la Fase 2 |
 | `config/propuestas/Matriz_Validacion_Descripciones_*.xlsx` | Matrices de validación de columnas |
 | `config/propuestas/fase2_tablas.csv` | Propuestas y decisiones de las descripciones de tabla de Fase 2 |
-| `config/propuestas/fase2_decisiones.csv` | Registro de las decisiones sobre columnas (quién, cuándo, criterio) |
+| `config/propuestas/fase2_decisiones.csv` | Registro de las decisiones sobre columnas (quién, cuándo, criterio y, si la hubo, la pregunta que quedó registrada para desarrollo) |
 | `sql/metadatos/` | Lotes `COMMENT ON` y su reversa |
 | `CLAUDE.md` | Reglas de trabajo y contexto completo del proyecto |

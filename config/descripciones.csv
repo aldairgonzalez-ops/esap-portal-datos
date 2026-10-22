@@ -13,6 +13,7 @@ academic-schedule;aula;codigo_cetap;"Código del CETAP (formato CET-XXXX) al que
 academic-schedule;aula;created_at;Fecha y hora de creación del registro.;validada
 academic-schedule;aula;nombre;Nombre del aula.;validada
 academic-schedule;aula;origen;Origen del registro del aula: PROGRAMACION_2026-1 para las aulas cargadas por migración y gestion-manual para las creadas por el administrador. Lo asigna el sistema.;validada
+academic-schedule;aula;piso;"Número del piso en que se ubica el aula. Se digita al crear o editar el aula; vacío en los auditorios.";validada
 academic-schedule;aula;provisional;Indica si el aula se registró como aprovisionamiento provisional y no como dato oficial.;validada
 academic-schedule;aula;sede_codigo;Código de la sede donde se ubica el aula.;validada
 academic-schedule;aula;tipo;Tipo de espacio: aula o auditorio.;validada
@@ -53,6 +54,7 @@ academic-schedule;concertacion_historial;estado_nuevo;Estado de la concertación
 academic-schedule;concertacion_historial;id;Identificador único del registro en la tabla concertacion_historial. Se genera automáticamente.;validada
 academic-schedule;concertacion_historial;id_concertacion;Referencia al registro de academic-schedule.concertacion_docencia (id_concertacion).;validada
 academic-schedule;concertacion_historial;id_user;Identificador del usuario que realizó la acción.;validada
+academic-schedule;concertacion_revision;;"Revisiones de las concertaciones de docencia. Un registro por concertación y tipo de revisión, con el usuario que revisó y la fecha; se relaciona con concertacion_docencia.";validada
 academic-schedule;concertacion_revision;id_concertacion;Identificador único del registro en la tabla concertacion_revision.;validada
 academic-schedule;concertacion_revision;id_user;Identificador del usuario que hizo la revisión.;validada
 academic-schedule;concertacion_revision;revisado_en;Fecha y hora de la revisión.;validada
@@ -66,6 +68,7 @@ academic-schedule;franja_horaria;;"Franjas horarias de la programación académi
 academic-schedule;franja_horaria;aula_codigo;Código del aula donde se dicta la franja.;validada
 academic-schedule;franja_horaria;comentario_jefatura;Comentario con el que la jefatura territorial o el revisor de la concertación devuelve la franja al docente. Se registra al pasar la franja a DEVUELTA y se borra al aprobarla o cuando el docente la vuelve a tomar.;validada
 academic-schedule;franja_horaria;created_at;Fecha y hora de creación del registro.;validada
+academic-schedule;franja_horaria;cupo_maximo;Número máximo de estudiantes de la franja. Por defecto, 30.;validada
 academic-schedule;franja_horaria;dia_semana;Día de la semana de la franja. Valores permitidos: LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO.;validada
 academic-schedule;franja_horaria;estado;Estado de la franja horaria: programado, tomada, aprobada, devuelta o publicada.;validada
 academic-schedule;franja_horaria;excepcion;Indica si la franja horaria se registró como excepción.;validada
@@ -75,6 +78,7 @@ academic-schedule;franja_horaria;id_docente;Identificador del docente (auth.pers
 academic-schedule;franja_horaria;id_franja;Identificador único del registro en la tabla franja_horaria. Se genera automáticamente.;validada
 academic-schedule;franja_horaria;id_periodo;Referencia al registro de academic-schedule.periodo_programacion (id_periodo).;validada
 academic-schedule;franja_horaria;jornada;Jornada de la franja. Valores permitidos: DIURNA, NOCTURNA, FIN_DE_SEMANA, DISTANCIA. Por defecto, DIURNA.;validada
+academic-schedule;franja_horaria;sede_codigo;Código de la sede donde se dicta la franja. Queda vacío mientras no se asigna salón, porque el horario se define antes.;validada
 academic-schedule;franja_horaria;updated_at;Fecha y hora de la última actualización del registro.;validada
 academic-schedule;grupo;created_at;Fecha y hora de creación del registro.;validada
 academic-schedule;grupo;cupo_maximo;"Número máximo de estudiantes del grupo. Debe ser mayor que cero; por defecto, 30.";validada
@@ -85,6 +89,7 @@ academic-schedule;grupo;id_grupo;Identificador único del registro en la tabla g
 academic-schedule;grupo;id_oferta_cetap;Referencia al registro de academic_work_plan.oferta_cetap_programa (id).;validada
 academic-schedule;grupo;id_periodo;Referencia al registro de academic-schedule.periodo_programacion (id_periodo).;validada
 academic-schedule;grupo;id_periodo_academico;Referencia al registro de academic_work_plan.periodo_academico (id).;validada
+academic-schedule;grupo;numero_grupo;Número secuencial del grupo dentro de la asignatura y el periodo, mayor que cero. Hoy se asigna como el siguiente al mayor existente, sin reutilizar huecos.;validada
 academic-schedule;grupo;observaciones;Observaciones sobre el grupo de programación.;validada
 academic-schedule;grupo;tipo_oferta;Tipo de oferta del grupo dentro del periodo de plataforma. Valores permitidos: periodo_regular, interperiodo, creditos_virtual.;validada
 academic-schedule;grupo;updated_at;Fecha y hora de la última actualización del registro.;validada
@@ -105,19 +110,28 @@ academic-schedule;programacion_historica;cedula_docente;Número de cédula del d
 academic-schedule;programacion_historica;cod_asigna;"Código compuesto PROGRAMA_PENSUM de la asignatura; no es el código de la materia.";validada
 academic-schedule;programacion_historica;cod_sede;Código de la sede, tal como llegó en la programación histórica.;validada
 academic-schedule;programacion_historica;creditos;Número de créditos académicos de la asignatura.;validada
+academic-schedule;programacion_historica;detalle_asignatura;Texto adicional que describe la asignatura, tal como llegó en la programación histórica.;validada
 academic-schedule;programacion_historica;dia;Día de la semana de la sesión, en texto, tal como llegó en la programación histórica.;validada
+academic-schedule;programacion_historica;estado_aula;Estado de la asignación del aula en la fuente.;validada
+academic-schedule;programacion_historica;estado_docente;Estado de la asignación del docente en la fuente.;validada
 academic-schedule;programacion_historica;fecha_fin;Fecha de finalización de la programación histórica, en el texto en que llegó de la fuente.;validada
 academic-schedule;programacion_historica;fecha_inicio;Fecha de inicio de la programación histórica, en el texto en que llegó de la fuente.;validada
 academic-schedule;programacion_historica;hora_fin;Hora de finalización de la sesión, en texto, tal como llegó en la programación histórica.;validada
 academic-schedule;programacion_historica;hora_inicio;Hora de inicio de la sesión, en texto, tal como llegó en la programación histórica.;validada
+academic-schedule;programacion_historica;horas;Número de horas de la asignatura.;validada
+academic-schedule;programacion_historica;hrs_clase;Duración de la sesión de clase en horas, en texto.;validada
 academic-schedule;programacion_historica;id;Identificador único del registro en la tabla programacion_historica. Se genera automáticamente.;validada
 academic-schedule;programacion_historica;importado_en;Fecha y hora en que se importó el registro, con zona horaria.;validada
 academic-schedule;programacion_historica;jornada;Jornada del grupo, tal como llegó en la programación histórica.;validada
 academic-schedule;programacion_historica;nombre_docente;Nombre completo del docente asignado, tal como llegó en la programación histórica.;validada
+academic-schedule;programacion_historica;pensum;Código del pensum (plan de estudios), tal como llegó en la programación histórica.;validada
 academic-schedule;programacion_historica;periodo;Periodo académico de la programación (por ejemplo, 2026-1 o 2026-V1), tal como llegó en la programación histórica.;validada
+academic-schedule;programacion_historica;programa;Código del programa académico, tal como llegó en la programación histórica.;validada
 academic-schedule;programacion_historica;seccional;Nombre de la seccional, tal como llegó en la programación histórica.;validada
 academic-schedule;programacion_historica;sede;Nombre de la sede, tal como llegó en la programación histórica.;validada
 academic-schedule;programacion_historica;semestre;Semestre del plan de estudios en que se ubica la asignatura.;validada
+academic-schedule;programacion_historica;tipo_oferta;Tipo de oferta de la programación, tal como llegó en la programación histórica.;validada
+academic-schedule;programacion_historica;vinculacion_docente;Tipo de vinculación del docente (por ejemplo, planta u ocasional), tal como llegó en la programación histórica.;validada
 academic-schedule;programacion_periodo;;Estado de la programación de cada periodo académico de la plataforma. Un registro por periodo académico (relación uno a uno con academic_work_plan.periodo_academico), con el estado abierta o cerrada, la fecha de cierre y el usuario que la cerró.;validada
 academic-schedule;programacion_periodo;cerrada_en;Fecha y hora del cierre.;validada
 academic-schedule;programacion_periodo;cerrada_por;Usuario que realizó el cierre.;validada
@@ -195,6 +209,7 @@ academic_work_plan;Docente;dedicacionDisplay;Texto de la dedicación del docente
 academic_work_plan;Docente;dedicacionHorasSemana;Número de horas semanales de dedicación del docente.;validada
 academic_work_plan;Docente;doctorado;"Nombre del título de doctorado del docente, en texto, tomado de la carga masiva (TITULO_DOCTORADO) o del diploma o acta de grado; no guarda la institución.";validada
 academic_work_plan;Docente;edadReferencia;"Edad del docente en años. Se calcula a partir de la fecha de nacimiento en la fecha de la carga o de la confirmación del dato; si no hay fecha, se toma la columna EDAD de la carga.";validada
+academic_work_plan;Docente;escalafon;Categoría o nivel del docente en el escalafón, en texto, tomada de la carga masiva (CATEGORIA_ESCALAFON) o de la resolución de escalafón.;validada
 academic_work_plan;Docente;especializacion;"Nombre del título de especialización del docente, en texto, tomado de la carga masiva (TITULO_ESPECIALIZACION) o del diploma o acta de grado; no guarda la institución.";validada
 academic_work_plan;Docente;estado;Estado del docente.;validada
 academic_work_plan;Docente;estadoAprobacion;Estado de aprobación global del registro del docente en el RUND: PENDIENTE_APROBACION (por defecto), ACTIVO_RUND o DEVUELTO. Pasa a activo solo cuando todos los bloques obligatorios están aprobados (BR-047).;validada
@@ -207,15 +222,22 @@ academic_work_plan;Docente;idRund;Identificador del docente en el RUND. Se toma 
 academic_work_plan;Docente;investigacion;Grupo, proyecto, línea o actividad de investigación del docente, en texto, tomado de la carga masiva (INVESTIGACION_ACTIVA) o de la certificación de investigación.;validada
 academic_work_plan;Docente;ip_creacion;Dirección IP desde la que se creó el registro.;validada
 academic_work_plan;Docente;maestria;"Nombre del título de maestría del docente, en texto, tomado de la carga masiva (TITULO_MAESTRIA) o del diploma o acta de grado; no guarda la institución.";validada
+academic_work_plan;Docente;nivelFormacion;"Nivel de formación del docente, en texto, tomado de la columna NIVEL_FORMACION de la carga masiva; no se calcula a partir de los títulos.";validada
+academic_work_plan;Docente;nucleoTematico;Núcleo temático asignado al docente, en texto, tomado de la carga masiva o del acto de asignación de núcleo.;validada
 academic_work_plan;Docente;observaciones;Observaciones sobre el docente.;validada
 academic_work_plan;Docente;ordenListado;"Posición del docente en los listados, tomada de la columna ORDEN_LISTADO de la carga masiva; los listados ordenan por este valor de menor a mayor.";validada
+academic_work_plan;Docente;origenVinculacion;Fuente o modalidad de ingreso del docente, en texto, tomada de la carga masiva (ORIGEN_VINCULACION) o de la resolución de convocatoria.;validada
 academic_work_plan;Docente;perfilAcademico;Áreas académicas o de docencia declaradas por el docente, en texto libre (hasta 1000 caracteres), tomadas de la carga masiva o de la hoja de vida PRO.;validada
+academic_work_plan;Docente;perfilAcademicoPro;Perfil académico PRO del docente, en texto, tomado de la columna «Perfil académico PRO» de la carga masiva.;validada
 academic_work_plan;Docente;periodoCarga;"Periodo académico al que corresponde el registro del docente, tomado de la columna PERIODO_CARGA de la carga masiva; el mismo profesor tiene una fila por periodo.";validada
 academic_work_plan;Docente;personaId;Referencia al registro de auth.personas (id_person).;validada
 academic_work_plan;Docente;posDoctorado;Nombre del programa o estancia posdoctoral del docente, en texto, tomado de la carga masiva (TITULO_POSDOCTORADO) o del certificado posdoctoral.;validada
+academic_work_plan;Docente;pregrado;Nombre del título profesional de pregrado del docente, en texto, tomado de la carga masiva (TITULO_PREGRADO) o del diploma o acta de grado.;validada
+academic_work_plan;Docente;puntajeSalarial;Puntaje salarial del docente, numérico, tomado de la carga masiva (PUNTAJE_SALARIAL) o de la resolución de puntaje salarial.;validada
 academic_work_plan;Docente;rangoEdad;Rango de edad del docente: Menor de 35 años, De 36 a 45 años, De 46 a 55 años, De 56 a 65 años o Mayor de 65 años. Se calcula a partir de edadReferencia si la carga no lo trae.;validada
 academic_work_plan;Docente;regimenNormativo;"Régimen normativo de la vinculación del docente: Acuerdo 009/2004 (Carrera1), Acuerdo 003/2018 (Carrera2), Circular Dispositiva 003/2025 (periodo de prueba, ocasional, especial o visitante) o N/A; la columna REGIMEN_NORMATIVO de la carga lo reemplaza.";validada
 academic_work_plan;Docente;sedeId;Identificador de la sede a la que está adscrito el docente.;validada
+academic_work_plan;Docente;sexoBiologico;Sexo biológico del docente, en texto, tomado de la carga masiva (SEXO_BIOLOGICO) o del documento de identidad (Mujer u Hombre).;validada
 academic_work_plan;Docente;situacionAdministrativa;Situación administrativa del docente, en texto libre (por ejemplo, servicio activo, comisión, licencia o el nombre del cargo directivo), tomada de la carga masiva o del acto administrativo de situación. Si indica retiro, el docente queda INACTIVO.;validada
 academic_work_plan;Docente;situacionCategoria;Categoría de la situación administrativa del docente: Servicio Activo, Año Sabático, Dedicación Exclusiva, Comisión de Estudios, Comisión de Servicios, En Periodo de Prueba, Cargo Directivo u Otra. Se calcula a partir de situacionAdministrativa (texto libre) si la carga no la trae.;validada
 academic_work_plan;Docente;territorialId;Identificador de la dirección territorial a la que pertenece el docente.;validada
@@ -223,8 +245,11 @@ academic_work_plan;Docente;tipoVinculacion;"Código del tipo de vinculación del
 academic_work_plan;Docente;ultimaEvaluacion;Periodo o resultado de la última evaluación docente, en texto, tomado de la carga masiva (ULTIMA_EVALUACION) o del acta de evaluación de desempeño.;validada
 academic_work_plan;Docente;updatedAt;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;Docente;vinculacionDisplay;Texto de la vinculación del docente para mostrar en pantalla.;validada
+academic_work_plan;Documento;;"Documentos asociados a una persona del plan de trabajo académico. Un registro por documento, con su nombre, tipo, categoría, URL, tamaño, versión vigente, estado y el usuario que lo aprobó; se relaciona con academic_work_plan.Persona.";validada
 academic_work_plan;Documento;aprobadoPorId;Identificador del usuario que aprobó el documento.;validada
 academic_work_plan;Documento;aprobadoPorNombre;Nombre del usuario que aprobó el documento.;validada
+academic_work_plan;Documento;categoria;Categoría del documento. Por defecto, general.;validada
+academic_work_plan;Documento;comentarios;Comentarios sobre el documento.;validada
 academic_work_plan;Documento;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;Documento;estado;Estado del documento.;validada
 academic_work_plan;Documento;id;Identificador único del registro en la tabla Documento. Se genera automáticamente.;validada
@@ -386,6 +411,8 @@ academic_work_plan;RundDocumentoPerfil;rund_soporte_id;"Identificador del soport
 academic_work_plan;RundDocumentoPerfil;tamano_bytes;Tamaño en bytes del archivo del documento del perfil docente.;validada
 academic_work_plan;RundDocumentoPerfil;tipo_soporte;Tipo de soporte que acredita el documento, de la lista definida por bloque en el código (por ejemplo, documento_identidad, diploma_pregrado, contrato, resolucion_escalafon, autorizacion_habeas_data).;validada
 academic_work_plan;RundDocumentoPerfil;version;Número de versión del documento del perfil docente.;validada
+academic_work_plan;RundExtraccionInicio;;Parámetro de inicio de la extracción de datos de documentos del RUND (REQ-RUND-F014). Guarda la fecha y hora desde la que aplica la extracción.;validada
+academic_work_plan;RundExtraccionInicio;desde;Fecha y hora desde la que se toman los registros para la extracción, con zona horaria.;validada
 academic_work_plan;RundExtraccionInicio;id;Identificador único del registro en la tabla RundExtraccionInicio.;validada
 academic_work_plan;RundExtraccionSugerencia;;"Sugerencias de valores extraídos de documentos del perfil RUND (REQ-RUND-F014). Un registro por campo sugerido en un trabajo de extracción, con el valor sugerido, el valor previo, la página y el fragmento de evidencia, la confianza y la decisión del revisor; se relaciona con RundExtraccionTrabajo. Ciclo: pendiente, aprobada, corregida o descartada.";validada
 academic_work_plan;RundExtraccionSugerencia;baja_confianza;Indica si la sugerencia extraída tiene baja confianza.;validada
@@ -406,10 +433,12 @@ academic_work_plan;RundExtraccionTrabajo;;"Trabajos de extracción de datos de l
 academic_work_plan;RundExtraccionTrabajo;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;RundExtraccionTrabajo;creado_en;Fecha y hora de creación del registro.;validada
 academic_work_plan;RundExtraccionTrabajo;creado_por;Usuario que creó el registro.;validada
+academic_work_plan;RundExtraccionTrabajo;disponible_en;Fecha y hora a partir de la cual el trabajo queda disponible para que un proceso lo tome de la cola.;validada
 academic_work_plan;RundExtraccionTrabajo;docente_id;"Identificador del docente cuyo documento RUND se procesa en este trabajo de extracción. Referencia a academic_work_plan.""Docente"".";validada
 academic_work_plan;RundExtraccionTrabajo;documento_id;Referencia al registro de academic_work_plan.RundDocumentoPerfil (id).;validada
 academic_work_plan;RundExtraccionTrabajo;error_codigo;Código del error del último intento, si lo hubo, de una lista fija (por ejemplo, OCR_NO_DISPONIBLE, MODELO_TIMEOUT, PDF_INVALIDO, DOCUMENTO_MODIFICADO, PROCESAMIENTO_INTERRUMPIDO o EXTRACCION_NO_DISPONIBLE). Se borra al completar.;validada
 academic_work_plan;RundExtraccionTrabajo;estado;Estado del trabajo de extracción: pendiente, procesando, completado, error u obsoleto.;validada
+academic_work_plan;RundExtraccionTrabajo;etapa;Etapa actual del trabajo de extracción dentro de su procesamiento. Valor inicial: EN_COLA.;validada
 academic_work_plan;RundExtraccionTrabajo;etapa_desde;Fecha y hora en que el trabajo entró a su etapa actual.;validada
 academic_work_plan;RundExtraccionTrabajo;id;Identificador único del registro en la tabla RundExtraccionTrabajo. Se genera automáticamente.;validada
 academic_work_plan;RundExtraccionTrabajo;iniciado_en;Fecha y hora del inicio.;validada
@@ -421,14 +450,22 @@ academic_work_plan;RundExtraccionTrabajo;notificacion_id;"Clave de idempotencia 
 academic_work_plan;RundExtraccionTrabajo;notificacion_proxima;"Fecha y hora programada para el próximo intento de aviso de fin de la extracción a quien la solicitó o cargó el soporte; se reprograma un minuto después en cada intento y un día después si no se encuentra el usuario.";validada
 academic_work_plan;RundExtraccionTrabajo;notificado_en;Fecha y hora de la notificación.;validada
 academic_work_plan;RundExtraccionTrabajo;perfil_base;"Valores del perfil del docente en los campos de extracción al momento del análisis, en JSON (campo: valor); sirven como valor previo de cada sugerencia.";validada
+academic_work_plan;RundInvitacionDocente;;Invitaciones enviadas a docentes para ingresar al RUND con verificación por código de un solo uso (OTP). Un registro por invitación, con el correo institucional y el documento del docente, el token y su vencimiento, los intentos de OTP, el bloqueo y las fechas de envío, apertura y última actividad.;validada
+academic_work_plan;RundInvitacionDocente;bloqueo_hasta;Fecha y hora hasta la cual la invitación queda bloqueada para validar el OTP.;validada
 academic_work_plan;RundInvitacionDocente;caducidad_token;Fecha y hora en que vence el token de invitación.;validada
 academic_work_plan;RundInvitacionDocente;correo_institucional;Correo electrónico institucional del docente al que se envía la invitación.;validada
 academic_work_plan;RundInvitacionDocente;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;RundInvitacionDocente;docente_id;Identificador del docente asociado a la invitación, en texto.;validada
 academic_work_plan;RundInvitacionDocente;documento_identidad;Número del documento de identidad del docente invitado.;validada
+academic_work_plan;RundInvitacionDocente;estado_invitacion;Estado de la invitación al docente. Valor inicial: Enviada.;validada
 academic_work_plan;RundInvitacionDocente;fecha_apertura;Fecha y hora en que el docente abrió la invitación.;validada
 academic_work_plan;RundInvitacionDocente;fecha_envio;Fecha y hora de envío de la invitación al docente.;validada
 academic_work_plan;RundInvitacionDocente;id;Identificador único del registro en la tabla RundInvitacionDocente. Se genera automáticamente.;validada
+academic_work_plan;RundInvitacionDocente;intentos_otp;Número de intentos de validación del código OTP. Por defecto, 0.;validada
+academic_work_plan;RundInvitacionDocente;operador_id;Identificador del operador que generó la invitación.;validada
+academic_work_plan;RundInvitacionDocente;otp_hash;Hash del código de un solo uso (OTP) enviado al docente para validar el acceso.;validada
 academic_work_plan;RundInvitacionDocente;token_invitacion;Token único del enlace de invitación enviado al docente.;validada
+academic_work_plan;RundInvitacionDocente;ultima_actividad;Fecha y hora de la última actividad sobre la invitación.;validada
 academic_work_plan;RundInvitacionDocente;updatedAt;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;RundMacroDocenteConsultaLog;;"Bitácora de consultas al Macro Docente (REQ-RUND-F020/F022). Un registro por consulta, con su tipo (macro docente, consulta puntual o externa), quién la hizo y con qué roles, los filtros, el docente y periodo consultados, el número de resultados y la IP; se relaciona con RundAccesoExterno cuando la consulta se hace con un acceso externo. Solo admite inserciones.";validada
 academic_work_plan;RundMacroDocenteConsultaLog;acceso_externo_id;Referencia al registro de academic_work_plan.RundAccesoExterno (id).;validada
@@ -438,6 +475,7 @@ academic_work_plan;RundMacroDocenteConsultaLog;docente_id;"Identificador del doc
 academic_work_plan;RundMacroDocenteConsultaLog;filtros;Filtros aplicados en la consulta, en formato JSON.;validada
 academic_work_plan;RundMacroDocenteConsultaLog;id;Identificador único del registro en la tabla RundMacroDocenteConsultaLog. Se genera automáticamente.;validada
 academic_work_plan;RundMacroDocenteConsultaLog;ip;Dirección IP desde la que se hizo la consulta del macro de docentes.;validada
+academic_work_plan;RundMacroDocenteConsultaLog;periodo;"Periodo académico consultado, tal como se envió en el filtro de la consulta; se compara con el periodo del PTA.";validada
 academic_work_plan;RundMacroDocenteConsultaLog;roles;Roles que tenía el usuario al momento de la consulta, como lista de textos.;validada
 academic_work_plan;RundMacroDocenteConsultaLog;tipo_consulta;Tipo de consulta realizada sobre el Macro Docente: MACRO_DOCENTE, CONSULTA_PUNTUAL o EXTERNA.;validada
 academic_work_plan;RundMacroDocenteConsultaLog;total_resultados;Número de registros devueltos por la consulta.;validada
@@ -676,6 +714,7 @@ certification;template_signers;created_at;Fecha y hora de creación del registro
 certification;template_signers;id;Identificador único del registro en la tabla template_signers. Se genera automáticamente.;validada
 certification;template_signers;updated_at;Fecha y hora de la última actualización del registro.;validada
 chatbot;conversacion;;"Conversaciones del asistente virtual. Un registro por conversación de un usuario, con su correo, nombre, título, contexto, metadatos y si está activa; sus mensajes están en chatbot.mensaje.";validada
+chatbot;conversacion;contexto;Contexto o tema de la conversación con el asistente virtual. Valor inicial: general.;validada
 chatbot;conversacion;created_at;Fecha y hora de creación del registro.;validada
 chatbot;conversacion;id;Identificador único del registro en la tabla conversacion. Se genera automáticamente.;validada
 chatbot;conversacion;is_activo;Indica si la conversación está activa.;validada
@@ -683,6 +722,7 @@ chatbot;conversacion;metadatos;Metadatos adicionales de la conversación, en for
 chatbot;conversacion;titulo;Título de la conversación. Valor inicial: «Nueva conversación».;validada
 chatbot;conversacion;updated_at;Fecha y hora de la última actualización del registro.;validada
 chatbot;conversacion;usuario_email;Correo electrónico del usuario de la conversación.;validada
+chatbot;conversacion;usuario_id;Identificador del usuario que inició la conversación con el asistente virtual, enviado por el cliente al crearla.;validada
 chatbot;conversacion;usuario_nombre;Nombre del usuario de la conversación.;validada
 chatbot;mensaje;;"Mensajes de las conversaciones del asistente virtual. Un registro por mensaje, con el autor (usuario, asistente o sistema), el texto, los tokens y los metadatos; se relaciona con chatbot.conversacion.";validada
 chatbot;mensaje;contenido;Texto del mensaje.;validada
@@ -691,6 +731,7 @@ chatbot;mensaje;created_at;Fecha y hora de creación del registro.;validada
 chatbot;mensaje;id;Identificador único del registro en la tabla mensaje. Se genera automáticamente.;validada
 chatbot;mensaje;metadatos;Metadatos adicionales del mensaje, en formato JSON.;validada
 chatbot;mensaje;rol;Autor del mensaje dentro de la conversación. Valores permitidos: assistant, system, user.;validada
+chatbot;mensaje;tokens;Número de tokens del mensaje.;validada
 chatbot;prompt_template;;Catálogo de plantillas de instrucciones (prompts) de sistema del asistente virtual. Un registro por plantilla, con su código, nombre, descripción, el texto de instrucciones que se envía al modelo de lenguaje y si está activa.;validada
 chatbot;prompt_template;codigo;Código único de la plantilla de instrucciones (prompt).;validada
 chatbot;prompt_template;created_at;Fecha y hora de creación del registro.;validada
@@ -1047,9 +1088,11 @@ hiring;actas_liquidacion;tipo;"Tipo de liquidación del contrato: BILATERAL (de 
 hiring;actas_liquidacion;unilateral_hasta;Fecha límite para liquidar el contrato de forma unilateral.;validada
 hiring;actividades;activa;"Indica si la actividad de la matriz de flujo está activa; es falso cuando la actividad no aplica a alguna modalidad. El detalle por modalidad está en actividades_modalidad.";validada
 hiring;actividades;descripcion;Descripción de la actividad de la matriz de flujo.;validada
+hiring;actividades;etapa;"Número de la etapa (1 a 10) de la matriz de flujo a la que pertenece la actividad; coincide con el primer número del numeral.";validada
 hiring;actividades;nombre;Nombre de la actividad de la matriz de flujo.;validada
 hiring;actividades;numeral;Clave primaria de la tabla actividades: numeral.;validada
 hiring;actividades;orden;Posición de la actividad en el orden de presentación dentro de su etapa.;validada
+hiring;actividades_con_soporte;etapa;Número de la etapa de la matriz de flujo a la que pertenece la actividad. Se siembra junto con el numeral y en las filas sembradas coincide con hiring.actividades.;validada
 hiring;actividades_con_soporte;exige_soporte;Indica si la actividad exige soporte documental.;validada
 hiring;actividades_con_soporte;nota_fuente;"Texto de la matriz de flujo sobre la actividad (lo que dice la matriz que se hace o se adjunta), del que sale la exigencia de soporte; se muestra en la pantalla del registro.";validada
 hiring;actividades_con_soporte;numeral;Clave primaria de la tabla actividades_con_soporte: numeral.;validada
@@ -1078,6 +1121,7 @@ hiring;actos_adjudicacion;publicado_at;Fecha y hora de la publicación.;validada
 hiring;actos_adjudicacion;revocado_at;Fecha y hora de revocación del acto de adjudicación. Revocar no borra el registro.;validada
 hiring;actos_adjudicacion;revocado_por;Usuario que realizó la revocación.;validada
 hiring;actos_adjudicacion;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;actos_adjudicacion;valor_adjudicado;"Valor por el que se adjudica según el acto; puede diferir del valor ofertado y del evaluado. Lo digita el usuario y debe ser mayor que cero.";validada
 hiring;adendas;anulada_at;Fecha y hora de la anulación.;validada
 hiring;adendas;anulada_por;Usuario que realizó la anulación.;validada
 hiring;adendas;created_at;Fecha y hora de creación del registro.;validada
@@ -1085,6 +1129,7 @@ hiring;adendas;documento_id;Referencia al registro de hiring.documentos (id).;va
 hiring;adendas;emitida_por;"Usuario que emitió la adenda; se guarda el nombre de usuario de la cuenta autenticada (username del token; si falta, su correo o su identificador; «Sistema» si no hay ninguno).";validada
 hiring;adendas;estado;Estado de la adenda: emitida, publicada o anulada.;validada
 hiring;adendas;evidencia_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;adendas;fecha_publicacion;Fecha en que se publicó la adenda, en formato YYYY-MM-DD. La digita el usuario al publicar y es obligatoria, junto con el documento de evidencia, cuando el estado es PUBLICADA.;validada
 hiring;adendas;id;Identificador único del registro en la tabla adendas. Se genera automáticamente.;validada
 hiring;adendas;motivo_anulacion;Motivo de la anulación.;validada
 hiring;adendas;numero;"Número consecutivo de la adenda dentro del proceso, con el que se cita (por ejemplo, «adenda 2»); no es global.";validada
@@ -1247,6 +1292,7 @@ hiring;cierres_financieros;fecha_pago_final;Fecha del pago final del contrato.;v
 hiring;cierres_financieros;id;Identificador único del registro en la tabla cierres_financieros. Se genera automáticamente.;validada
 hiring;cierres_financieros;motivo_reversion;Motivo de la reversión.;validada
 hiring;cierres_financieros;observaciones;Observaciones sobre el cierre financiero del contrato.;validada
+hiring;cierres_financieros;referencia_pago_final;Referencia con la que salió el pago final del contrato (EFDS-1173). La digita el usuario como texto libre de hasta 120 caracteres y es obligatoria.;validada
 hiring;cierres_financieros;revertido_at;Fecha y hora en que se revirtió el cierre financiero.;validada
 hiring;cierres_financieros;revertido_por;"Usuario que revirtió el cierre financiero; se guarda el nombre de usuario de la cuenta autenticada (username del token; si falta, su correo o su identificador; «Sistema» si no hay ninguno).";validada
 hiring;cierres_financieros;rp_id;Referencia al registro de hiring.registros_presupuestales (id).;validada
@@ -1287,6 +1333,7 @@ hiring;contratos;rechazado_at;Fecha y hora del rechazo.;validada
 hiring;contratos;rechazado_por;Usuario que realizó el rechazo.;validada
 hiring;contratos;tipologia;Referencia al registro de hiring.tipologias_contrato (codigo).;validada
 hiring;contratos;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;contratos;valor;"Valor total del contrato, en pesos; lo digita el usuario al generar el contrato y debe ser mayor que cero. Cuando se aprueba una adición se le suma el valor adicionado.";validada
 hiring;declaratorias_desiertas;acto_documento_id;Referencia al registro de hiring.documentos (id).;validada
 hiring;declaratorias_desiertas;causal;Causal de la declaratoria desierta: SIN_OFERTAS (la recepción cerró sin ofertas) o SIN_OFERTAS_HABILITADAS (el comité no habilitó ninguna de las presentadas) (EFDS-1160).;validada
 hiring;declaratorias_desiertas;created_at;Fecha y hora de creación del registro.;validada
@@ -1425,6 +1472,7 @@ hiring;informes_evaluacion;informe_documento_id;Referencia al registro de hiring
 hiring;informes_evaluacion;motivo_anulacion;Motivo de la anulación.;validada
 hiring;informes_evaluacion;nota_cierre;Nota del cierre del traslado con lo que no cabe en las respuestas, por ejemplo, que nadie presentó subsanaciones o que el comité rectificó a raíz de una subsanación aceptada.;validada
 hiring;informes_evaluacion;numero;"Número consecutivo del informe de evaluación dentro del proceso; distingue un informe anulado de su reemplazo.";validada
+hiring;informes_evaluacion;observacion_entidad;Advertencia de la entidad sobre el informe, distinta de lo que reportó el comité (por ejemplo, una modalidad sin puntaje o una oferta retirada). Texto opcional que digita el usuario al generar el informe.;validada
 hiring;informes_evaluacion;ofertas_recibidas;"Número de ofertas recibidas por el proceso al generar el informe; no son las habilitadas. Decide si el proceso sigue o se declara desierto (EFDS-1160).";validada
 hiring;informes_evaluacion;plazo_dias_habiles;"Plazo de traslado aplicado, en días hábiles, fijado al trasladar el informe; no cambia si después se corrige el plazo de la modalidad.";validada
 hiring;informes_evaluacion;proceso_id;Referencia al registro de hiring.procesos (id).;validada
@@ -1734,6 +1782,7 @@ hiring;registros_presupuestales;fecha_expedicion;Fecha de expedición del regist
 hiring;registros_presupuestales;id;Identificador único del registro en la tabla registros_presupuestales. Se genera automáticamente.;validada
 hiring;registros_presupuestales;numero;"Número del registro presupuestal, que asigna la Dirección Financiera al expedirlo; es nulo mientras el registro está solicitado.";validada
 hiring;registros_presupuestales;observaciones;Motivo por el que la Dirección Financiera rechazó el registro presupuestal.;validada
+hiring;registros_presupuestales;rubro;"Rubro presupuestal al que se imputa el registro; texto libre, opcional al solicitar y al expedir.";validada
 hiring;registros_presupuestales;solicitado_at;Fecha y hora de la solicitud.;validada
 hiring;registros_presupuestales;solicitado_por;Usuario que realizó la solicitud.;validada
 hiring;registros_presupuestales;updated_at;Fecha y hora de la última actualización del registro.;validada
@@ -1766,6 +1815,7 @@ hiring;resoluciones_sancionatorias;numero;Número de la resolución sancionatori
 hiring;resoluciones_sancionatorias;revocada_at;Fecha y hora de la revocación.;validada
 hiring;resoluciones_sancionatorias;revocada_por;Usuario que realizó la revocación.;validada
 hiring;resoluciones_sancionatorias;tipo;Tipo de resolución sancionatoria: de apertura o de decisión.;validada
+hiring;resoluciones_sancionatorias;valor_sancion;"Valor de la multa o de la cláusula penal, cuando la decisión las impone; mayor que cero. Opcional, porque un incumplimiento puede declararse sin sanción pecuniaria; solo se admite con sentido DECLARA_INCUMPLIMIENTO o DECLARA_CADUCIDAD.";validada
 hiring;resultados_evaluacion;created_at;Fecha y hora de creación del registro.;validada
 hiring;resultados_evaluacion;estado;Estado del resultado de la evaluación: vigente o rectificado.;validada
 hiring;resultados_evaluacion;id;Identificador único del registro en la tabla resultados_evaluacion. Se genera automáticamente.;validada
@@ -1781,6 +1831,7 @@ hiring;resultados_evaluacion;rectificado_por;"Nombre de usuario (username) de la
 hiring;resultados_evaluacion;registrado_at;Fecha y hora del registro.;validada
 hiring;resultados_evaluacion;registrado_por;Usuario que realizó el registro.;validada
 hiring;resultados_evaluacion;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;resultados_evaluacion;valor_evaluado;"Valor por el que se evalúa la oferta ganadora; debe ser mayor que cero. Suele coincidir con el valor ofertado, pero puede diferir por una corrección aritmética del comité.";validada
 hiring;revisiones;;Historial de revisiones de las actividades de un proceso de contratación (numeral 3.4 de la matriz). Un registro por decisión del revisor (aprobado, devuelto o negado), con las observaciones, la versión revisada, el revisor y los soportes de la devolución. Se relaciona con hiring.proceso_actividades.;validada
 hiring;revisiones;created_at;Fecha y hora de creación del registro.;validada
 hiring;revisiones;decision;Decisión de la revisión de la actividad. Valores permitidos: APROBADO, DEVUELTO, NEGADO.;validada
@@ -1823,6 +1874,7 @@ hiring;sobres_economicos;evidencia_documento_id;Referencia al registro de hiring
 hiring;sobres_economicos;id;Identificador único del registro en la tabla sobres_economicos. Se genera automáticamente.;validada
 hiring;sobres_economicos;observacion;Observación sobre la apertura del sobre económico.;validada
 hiring;sobres_economicos;oferente_id;Referencia al registro de hiring.oferentes (id).;validada
+hiring;sobres_economicos;valor_ofertado;"Valor que traía el sobre económico al abrirse en audiencia; debe ser mayor que cero. Se guarda aparte del valor declarado en oferentes.valor_ofertado para poder comparar ambos.";validada
 hiring;soportes_pago;cargado_por;Usuario que realizó la carga.;validada
 hiring;soportes_pago;created_at;Fecha y hora de creación del registro.;validada
 hiring;soportes_pago;descripcion;Descripción del soporte de la cuenta de cobro.;validada
@@ -1974,6 +2026,7 @@ infrastructure-management;solicitud_evidencia;usuario_que_subio_email;Correo ele
 infrastructure-management;solicitud_evidencia;usuario_que_subio_id;"Identificador del usuario que subió el archivo (auth.""user"".id_user, tomado del token).";validada
 infrastructure-management;solicitud_mantenimiento;;"Solicitudes y órdenes de mantenimiento de la infraestructura física y tecnológica de las sedes. Un registro por solicitud, con su consecutivo, sede, espacio y ubicación, tipo de mantenimiento, prioridad, solicitante, clasificación, técnico asignado, valoración técnica, cierre técnico y costos. Su ciclo se registra en el estado (EFDS-1728), con valores como RECIBIDA, EN_ANALISIS, EN_VALORACION, COMPLETADA o RECHAZADA; se relaciona con sede, espacio_fisico, solicitud_evidencia y solicitud_valoracion.";validada
 infrastructure-management;solicitud_mantenimiento;consecutivo;Consecutivo único de la solicitud de mantenimiento.;validada
+infrastructure-management;solicitud_mantenimiento;costo_estimado;Costo estimado de la atención de la solicitud. Por defecto, 0.;validada
 infrastructure-management;solicitud_mantenimiento;created_at;Fecha y hora de creación del registro.;validada
 infrastructure-management;solicitud_mantenimiento;descripcion;Descripción de la solicitud de mantenimiento.;validada
 infrastructure-management;solicitud_mantenimiento;dias_extendidos_por_insumos;"Días calendario en que se extendió la fecha límite de atención por insumos no disponibles; corresponde al mayor tiempo de adquisición de los insumos. Por defecto, 0.";validada
@@ -2008,6 +2061,7 @@ infrastructure-management;solicitud_valoracion;fecha_fin_valoracion;Fecha y hora
 infrastructure-management;solicitud_valoracion;fecha_inicio_valoracion;Fecha y hora de inicio de la visita de valoración.;validada
 infrastructure-management;solicitud_valoracion;id_solicitud_mantenimiento;Referencia al registro de infrastructure-management.solicitud_mantenimiento (id_solicitud).;validada
 infrastructure-management;solicitud_valoracion;id_tecnico_valorador;"Identificador del usuario (auth.""user"".id_user) del técnico que hizo la visita de valoración.";validada
+infrastructure-management;solicitud_valoracion;id_usuario_corrector;Identificador del usuario que corrigió la valoración, cuando es una versión corregida por el encargado.;validada
 infrastructure-management;solicitud_valoracion;id_valoracion;Identificador único del registro en la tabla solicitud_valoracion. Se genera automáticamente.;validada
 infrastructure-management;solicitud_valoracion;nivel_riesgo;Nivel de riesgo identificado en la valoración. Valores permitidos: ALTO, BAJO, MEDIO.;validada
 infrastructure-management;solicitud_valoracion;observaciones;Observaciones de la visita de valoración.;validada
@@ -2016,6 +2070,7 @@ infrastructure-management;solicitud_valoracion;tecnico_codigo;Código del técni
 infrastructure-management;solicitud_valoracion;tecnico_nombre;Nombre del técnico que hizo la valoración.;validada
 infrastructure-management;solicitud_valoracion;tiempo_estimado_horas;Tiempo estimado del trabajo, en horas. Entre 0,25 y 240.;validada
 infrastructure-management;solicitud_valoracion_insumo;cantidad;Cantidad requerida del insumo, expresada en la unidad de medida de la fila. Debe ser mayor que cero.;validada
+infrastructure-management;solicitud_valoracion_insumo;codigo_insumo;Código opcional del material o repuesto, digitado por el técnico en la valoración.;validada
 infrastructure-management;solicitud_valoracion_insumo;costo_unitario_cop;Costo por unidad del insumo, en pesos colombianos. No puede ser negativo.;validada
 infrastructure-management;solicitud_valoracion_insumo;created_at;Fecha y hora de creación del registro.;validada
 infrastructure-management;solicitud_valoracion_insumo;disponibilidad;Disponibilidad del insumo para la visita. Valores permitidos: DISPONIBLE_EN_BODEGA, NO_DISPONIBLE_A_SOLICITAR.;validada
@@ -2308,6 +2363,7 @@ requerimientos_oc;solicitudes_insumos;created_at;Fecha y hora de creación del r
 requerimientos_oc;solicitudes_insumos;id;Identificador único del registro en la tabla solicitudes_insumos. Se genera automáticamente.;validada
 requerimientos_oc;solicitudes_insumos;requerimiento_id;Referencia al registro de requerimientos_oc.requerimientos (id).;validada
 requerimientos_oc;solicitudes_insumos;updated_at;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;analistas_viaticos;cargo;Cargo del analista del Grupo de Viáticos, en texto.;validada
 travel_expenses;analistas_viaticos;created_at;Fecha y hora de creación del registro.;validada
 travel_expenses;analistas_viaticos;email;Correo electrónico del analista de viáticos.;validada
 travel_expenses;analistas_viaticos;id;Identificador único del registro en la tabla analistas_viaticos. Se genera automáticamente.;validada
@@ -2327,6 +2383,7 @@ travel_expenses;comisionados;primer_apellido;Primer apellido del comisionado.;va
 travel_expenses;comisionados;primer_nombre;Primer nombre del comisionado.;validada
 travel_expenses;comisionados;segundo_apellido;Segundo apellido del comisionado.;validada
 travel_expenses;comisionados;segundo_nombre;Segundo nombre del comisionado.;validada
+travel_expenses;comisionados;telefono_contacto;"Teléfono de contacto del comisionado. Se toma del teléfono reportado por Talento Humano o de auth.personas.tel_celular; si no hay dato se guarda 0000000000.";validada
 travel_expenses;comisionados;tipo_comisionado;Tipo de vinculación del comisionado con la ESAP. Valores permitidos: CONTRATISTA, DOCENTE, ESTUDIANTE, FUNCIONARIO, INVESTIGADOR.;validada
 travel_expenses;config_campos_formulario;;Catálogo de los campos configurables del formulario de solicitud de comisión. Un registro por campo, con su clave, etiqueta, tipo de control, opciones, sección (comisionado, comisión, valores o soportes), orden y límite de caracteres. Sus claves se usan en config_tipo_comisionado y en los campos adicionales de solicitudes_comision.;validada
 travel_expenses;config_campos_formulario;activo;Indica si el campo de formulario está activo.;validada
@@ -2340,6 +2397,7 @@ travel_expenses;config_campos_formulario;opciones;Opciones de los campos de sele
 travel_expenses;config_campos_formulario;orden;Posición del campo en el orden de presentación del formulario.;validada
 travel_expenses;config_campos_formulario;placeholder;Texto de ayuda que se muestra dentro del campo vacío.;validada
 travel_expenses;config_campos_formulario;tipo_campo;Tipo de control del campo en el formulario: TEXT, TEXTAREA, SELECT, DATE, NUMBER, BOOLEAN, CURRENCY o DOCUMENT.;validada
+travel_expenses;config_jornada_laboral;;Configuración de la jornada laboral que se aplica en el trámite de comisiones. Un registro por jornada, con hora de inicio y fin, días hábiles de la semana, días mínimos de anticipación para radicar una comisión ordinaria (RF-EXT-001) y umbral de días hábiles para definir la modalidad de pago al expedir el registro presupuestal. La diligencia el administrador del módulo.;validada
 travel_expenses;config_jornada_laboral;activo;Indica si la configuración de jornada laboral está activa.;validada
 travel_expenses;config_jornada_laboral;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 travel_expenses;config_jornada_laboral;actualizado_por;Usuario que realizó la última actualización del registro.;validada
@@ -2374,6 +2432,7 @@ travel_expenses;config_tipo_comisionado;actualizado_en;Fecha y hora de la últim
 travel_expenses;config_tipo_comisionado;campos_obligatorios;"Lista JSON de claves de campos obligatorios para el tipo de comisionado. Las claves coinciden con config_campos_formulario.clave y con las propiedades de la solicitud; un campo que también figure como opcional u oculto no se exige.";validada
 travel_expenses;config_tipo_comisionado;campos_ocultos;Lista JSON de claves de campos que no se muestran en el formulario para el tipo de comisionado, con las mismas claves de config_campos_formulario.clave. Un campo oculto no se exige.;validada
 travel_expenses;config_tipo_comisionado;campos_opcionales;Lista JSON de claves de campos opcionales para el tipo de comisionado, con las mismas claves de config_campos_formulario.clave. Un campo opcional no se exige aunque esté en campos_obligatorios.;validada
+travel_expenses;config_tipo_comisionado;codigo_formulario;"Código del formulario de solicitud que usa el tipo de comisionado; permite consultar la parametrización por código de formulario.";validada
 travel_expenses;config_tipo_comisionado;creado_en;Fecha y hora de creación del registro.;validada
 travel_expenses;config_tipo_comisionado;id;Identificador único del registro en la tabla config_tipo_comisionado. Se genera automáticamente.;validada
 travel_expenses;config_tipo_comisionado;tipo_comisionado;Tipo de comisionado al que aplica la configuración. Es único.;validada
@@ -2414,6 +2473,7 @@ travel_expenses;excepciones_autorizadas_tiquetes;comentarios;Comentarios sobre l
 travel_expenses;excepciones_autorizadas_tiquetes;creado_en;Fecha y hora de creación del registro.;validada
 travel_expenses;excepciones_autorizadas_tiquetes;documento_soporte_url;URL o ruta del documento que soporta la excepción.;validada
 travel_expenses;excepciones_autorizadas_tiquetes;id;Identificador único del registro en la tabla excepciones_autorizadas_tiquetes. Se genera automáticamente.;validada
+travel_expenses;excepciones_autorizadas_tiquetes;numero_documento_soporte;Número del documento firmado por la Dirección Nacional o el Sindicato que soporta la excepción de ruta corta o de presupuesto agotado.;validada
 travel_expenses;excepciones_autorizadas_tiquetes;solicitud_id;Identificador de la solicitud de comisión a la que aplica la excepción.;validada
 travel_expenses;excepciones_autorizadas_tiquetes;tipo_excepcion;Restricción de tiquetes que se exceptúa: RUTA_CORTA o PRESUPUESTO_AGOTADO (RF-LIQ-003, RF-LIQ-004).;validada
 travel_expenses;legalizacion_reversiones;estado;Estado de la solicitud de reversión: pendiente, aprobada o rechazada.;validada
@@ -2499,6 +2559,7 @@ travel_expenses;paz_y_salvo_eventos;detalle;"Información adicional del evento, 
 travel_expenses;paz_y_salvo_eventos;id;Identificador único del registro en la tabla paz_y_salvo_eventos. Se genera automáticamente.;validada
 travel_expenses;paz_y_salvo_eventos;paz_y_salvo_id;Referencia al registro de travel_expenses.paz_y_salvos (id).;validada
 travel_expenses;paz_y_salvo_eventos;usuario_id;"Identificador (auth.""user"".id_user) del usuario autenticado que realizó la acción sobre el paz y salvo.";validada
+travel_expenses;paz_y_salvos;;Paz y salvos de los comisionados, emitidos como documentos de la persona fuera del expediente de comisiones (EFDS-1311). Un registro por paz y salvo, con su contenido, la huella SHA-256, el usuario que lo solicitó y los datos de la firma electrónica por código OTP enviado al correo. Se relaciona con travel_expenses.comisionados, y sus eventos quedan en paz_y_salvo_eventos.;validada
 travel_expenses;paz_y_salvos;archivo_sha256;Huella SHA-256 del archivo firmado del paz y salvo, en hexadecimal. Se registra junto con la firma.;validada
 travel_expenses;paz_y_salvos;comisionado_id;Referencia al registro de travel_expenses.comisionados (id).;validada
 travel_expenses;paz_y_salvos;contenido;Contenido del paz y salvo, en JSON: id, comisionadoId, nombre, documento, coordinadoraId, coordinadoraNombre, territorialId, cargoFirmante y solicitadoEn. Se guarda con su hash en contenido_sha256.;validada
@@ -2510,6 +2571,8 @@ travel_expenses;paz_y_salvos;id;Identificador único del registro en la tabla pa
 travel_expenses;paz_y_salvos;solicitado_por_id;"Identificador (auth.""user"".id_user) del usuario autenticado que solicitó el paz y salvo. Solo esa persona puede firmarlo.";validada
 travel_expenses;reintegros_comision;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 travel_expenses;reintegros_comision;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;reintegros_comision;dias_comision;Días de la comisión, copiados de solicitudes_comision.dias_comision al generar el reintegro. Admite decimales.;validada
+travel_expenses;reintegros_comision;dias_ejecutados;"Días ejecutados de la comisión: en viaje menor, los días reales registrados en la legalización; en comisión no realizada, 0.";validada
 travel_expenses;reintegros_comision;estado;Estado del reintegro de la comisión: pendiente o registrado.;validada
 travel_expenses;reintegros_comision;fecha_registro;Fecha y hora de creación del registro.;validada
 travel_expenses;reintegros_comision;fecha_reintegro;Fecha del reintegro de la comisión.;validada
@@ -2535,6 +2598,7 @@ travel_expenses;saldos_tiquetes;holgura_porcentaje;Porcentaje que se suma al val
 travel_expenses;saldos_tiquetes;id;Identificador único del registro en la tabla saldos_tiquetes. Se genera automáticamente.;validada
 travel_expenses;saldos_tiquetes;nombre_dependencia;Nombre de la dependencia.;validada
 travel_expenses;saldos_tiquetes;presupuesto_disponible;Presupuesto disponible para tiquetes, en pesos colombianos. Lo actualiza la aplicación: inicial al crear, menos cada reserva, más cada liberación y más la diferencia si cambia el presupuesto inicial.;validada
+travel_expenses;saldos_tiquetes;presupuesto_inicial;"Presupuesto inicial asignado a la dependencia para tiquetes, en pesos colombianos. No puede ser negativo; al cambiarlo, el disponible se ajusta por la diferencia.";validada
 travel_expenses;saldos_tiquetes;presupuesto_reservado;Presupuesto reservado para tiquetes de solicitudes en trámite, en pesos colombianos: se suma al reservar el valor estimado del tiquete más la holgura y se resta al liberar la reserva cuando la solicitud se rechaza, anula o cancela. No puede ser negativo.;validada
 travel_expenses;solicitudes_comision;;"Solicitudes de comisión de servicio de los comisionados de la ESAP. Un registro por solicitud, con destino, fechas, objeto, itinerario, liquidación de viáticos y gastos de viaje, y los datos de cada etapa del trámite: revisión, autorización, registro presupuestal, obligación, pago o cancelación. Su ciclo se registra en estado_solicitud (BORRADOR, RADICADA, EN_VERIFICACION, DEVUELTA, PAGADA, entre otros); se relaciona con comisionados, auth.user, documentos_soporte, legalizaciones_comision, reintegros_comision y solicitudes_historial_estados.";validada
 travel_expenses;solicitudes_comision;actualizado_en;Fecha y hora de la última actualización del registro.;validada
@@ -2547,6 +2611,7 @@ travel_expenses;solicitudes_comision;destino_ciudad;Ciudad de destino de la comi
 travel_expenses;solicitudes_comision;destino_departamento;Departamento de destino de la comisión.;validada
 travel_expenses;solicitudes_comision;dias_habiles_previos;Días hábiles entre la fecha del registro presupuestal y el inicio de la comisión (sin contar ninguna de las dos fechas, ni sábados, domingos o festivos). Se calcula al expedir el RP y define la modalidad de pago.;validada
 travel_expenses;solicitudes_comision;dias_no_pernoctados;Días de la comisión sin pernocta.;validada
+travel_expenses;solicitudes_comision;dias_pernoctados;Noches con pernocta de la comisión, usadas en la autoliquidación del formato GF-FO-023 (Decreto 314 de 2026). Admite decimales.;validada
 travel_expenses;solicitudes_comision;enviado_presupuesto;"Indica si la solicitud autorizada se envió al Grupo de Presupuesto para expedir el registro presupuestal (etapa 7, RF-PRE-001). Se marca al enviar el paquete; la solicitud sigue en AUTORIZADA.";validada
 travel_expenses;solicitudes_comision;enviado_presupuesto_por_id;Referencia al registro de auth.user (id_user).;validada
 travel_expenses;solicitudes_comision;es_internacional;Indica si la comisión es internacional.;validada
@@ -2556,6 +2621,7 @@ travel_expenses;solicitudes_comision;extemporanea;Indica si la solicitud de comi
 travel_expenses;solicitudes_comision;factor_comisionado;"Factor multiplicador de la tarifa según el tipo de comisionado: para CONTRATISTA, el parámetro FACTOR_CONTRATISTA de liquidation_params (por defecto 0,8); para los demás tipos, 1,0.";validada
 travel_expenses;solicitudes_comision;factor_pernocta;"Factor de la tarifa según haya o no pernocta: 1,0 con pernocta; sin pernocta, el parámetro FACTOR_SIN_PERNOCTA de liquidation_params (por defecto 0,5).";validada
 travel_expenses;solicitudes_comision;fecha_calculo_modalidad;Fecha y hora en que se calculó la modalidad de pago de la comisión.;validada
+travel_expenses;solicitudes_comision;fecha_cdp;Fecha del certificado de disponibilidad presupuestal (CDP), guardada como texto.;validada
 travel_expenses;solicitudes_comision;fecha_envio_presupuesto;Fecha y hora en que la solicitud de comisión se envió a presupuesto.;validada
 travel_expenses;solicitudes_comision;fecha_expedicion_rp;Fecha y hora de expedición del registro presupuestal (RP) de la comisión.;validada
 travel_expenses;solicitudes_comision;fecha_fin;Fecha y hora de finalización de la comisión.;validada
@@ -2635,6 +2701,7 @@ travel_expenses;tarifas_regionales_excepcion;decreto_referencia;Decreto que esta
 travel_expenses;tarifas_regionales_excepcion;departamento;Departamento al que aplica la tarifa de excepción. Es único.;validada
 travel_expenses;tarifas_regionales_excepcion;es_nuevo_departamento;Indica si la tarifa regional de excepción corresponde a un nuevo departamento.;validada
 travel_expenses;tarifas_regionales_excepcion;id;Identificador único del registro en la tabla tarifas_regionales_excepcion. Se genera automáticamente.;validada
+travel_expenses;tarifas_regionales_excepcion;tarifa_diaria;Valor diario de viáticos de excepción para el departamento (artículo 5 del Decreto 314 de 2026, nuevos departamentos).;validada
 travel_expenses;tarifas_transporte_terminal;;Valores máximos reconocidos por trayecto para el desplazamiento a terminales aéreos. Un registro por departamento y ciudad del aeropuerto, con el valor máximo por trayecto que se usa en la liquidación de los gastos de viaje de la comisión.;validada
 travel_expenses;tarifas_transporte_terminal;activo;Indica si la tarifa de transporte a terminal está activa.;validada
 travel_expenses;tarifas_transporte_terminal;actualizado_en;Fecha y hora de la última actualización del registro.;validada
@@ -2642,6 +2709,7 @@ travel_expenses;tarifas_transporte_terminal;ciudad;Ciudad a la que aplica la tar
 travel_expenses;tarifas_transporte_terminal;ciudad_aeropuerto;Nombre del departamento con el municipio del aeropuerto entre paréntesis, por ejemplo ANTIOQUIA (Rionegro).;validada
 travel_expenses;tarifas_transporte_terminal;creado_en;Fecha y hora de creación del registro.;validada
 travel_expenses;tarifas_transporte_terminal;departamento;Nombre del departamento al que aplica la tarifa de transporte.;validada
+travel_expenses;tarifas_transporte_terminal;departamento_id;Código numérico del departamento.;validada
 travel_expenses;tarifas_transporte_terminal;id;Identificador único del registro en la tabla tarifas_transporte_terminal. Se genera automáticamente.;validada
 travel_expenses;tarifas_transporte_terminal;valor_maximo;Valor máximo reconocido por trayecto de transporte a la terminal aérea, en pesos colombianos. Para tramos de ida y regreso la liquidación lo multiplica por dos.;validada
 travel_expenses;tipos_documento_soporte;;Catálogo de tipos de documento de soporte del trámite de comisiones. Un registro por tipo, con su código, nombre, descripción, instrucciones de validación para quien revisa y campos del formulario que se cotejan con el documento. Se usa en la configuración de documentos por tipo de comisionado, en la de legalización y en los soportes de legalización.;validada

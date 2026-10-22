@@ -165,6 +165,9 @@ def cmd_matriz(a):
     m, filas = contexto(os.path.abspath(a.extraccion), alcance)
     sufijo = alcance["id"].lower() if alcance else "completa"
     etiqueta = alcance["nombre"] if alcance else "Base completa"
+    if not filas:
+        print(f"No hay columnas pendientes de descripción en {etiqueta}: no se genera la matriz (se conserva la anterior, si existe).")
+        return
     sem = leer_semanticas(sufijo)
     cod = leer_semanticas(sufijo, "codigo")        # propuestas afinadas con el código de la aplicación
     aju = leer_semanticas(sufijo, "ajustes")       # propuestas reescritas o verificadas contra el código (tienen prioridad)

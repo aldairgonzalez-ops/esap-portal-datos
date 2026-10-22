@@ -152,7 +152,7 @@ Catálogo de actividades de la matriz de flujo, por etapa y numeral.
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
 | 1 | `numeral` | `character varying(20)` | no | Clave primaria de la tabla actividades: numeral. | PK |
-| 2 | `etapa` | `integer` | no | _Por documentar_ |  |
+| 2 | `etapa` | `integer` | no | Número de la etapa (1 a 10) de la matriz de flujo a la que pertenece la actividad; coincide con el primer número del numeral. |  |
 | 3 | `nombre` | `character varying(200)` | no | Nombre de la actividad de la matriz de flujo. |  |
 | 4 | `descripcion` | `text` | sí | Descripción de la actividad de la matriz de flujo. |  |
 | 5 | `orden` | `integer` | no | Posición de la actividad en el orden de presentación dentro de su etapa. |  |
@@ -172,7 +172,7 @@ Las actividades de la matriz que se cumplen registrando lo que pasó afuera, y s
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
 | 1 | `numeral` | `character varying(20)` | no | Clave primaria de la tabla actividades_con_soporte: numeral. | PK |
-| 2 | `etapa` | `integer` | no | _Por documentar_ |  |
+| 2 | `etapa` | `integer` | no | Número de la etapa de la matriz de flujo a la que pertenece la actividad. Se siembra junto con el numeral y en las filas sembradas coincide con hiring.actividades. |  |
 | 3 | `exige_soporte` | `boolean` | no | Indica si la actividad exige soporte documental. |  |
 | 4 | `confirmado` | `boolean` | no | false mientras la exigencia de soporte sea suposición del equipo y no cita de la matriz. |  |
 | 5 | `nota_fuente` | `text` | sí | Texto de la matriz de flujo sobre la actividad (lo que dice la matriz que se hace o se adjunta), del que sale la exigencia de soporte; se muestra en la pantalla del registro. |  |
@@ -222,7 +222,7 @@ Acto administrativo de adjudicación del Ordenador del Gasto, con su notificaci�
 | 4 | `oferente_id` | `uuid` | no | Referencia al registro de hiring.oferentes (id). | FK→hiring.oferentes.id |
 | 5 | `numero_acto` | `character varying(60)` | no | Número de la resolución de adjudicación del Ordenador del Gasto, tal como figura en el acto firmado (EFDS-1159). |  |
 | 6 | `fecha_acto` | `date` | no | Fecha del acto administrativo de adjudicación. |  |
-| 7 | `valor_adjudicado` | `numeric(18,2)` | no | _Por documentar_ |  |
+| 7 | `valor_adjudicado` | `numeric(18,2)` | no | Valor por el que se adjudica según el acto; puede diferir del valor ofertado y del evaluado. Lo digita el usuario y debe ser mayor que cero. |  |
 | 8 | `acto_documento_id` | `uuid` | no | Referencia al registro de hiring.documentos (id). | FK→hiring.documentos.id |
 | 9 | `notificado_at` | `timestamp with time zone` | sí | Fecha y hora de notificación del acto de adjudicación; la notificación y la publicación en SECOP II se registran por separado, cada una con su evidencia. |  |
 | 10 | `publicado_at` | `timestamp with time zone` | sí | Fecha y hora de la publicación. |  |
@@ -256,7 +256,7 @@ Adendas de fondo y de cronograma del proceso, con su emisión y su publicación 
 | 7 | `estado` | `character varying(20)` | no | Estado de la adenda: emitida, publicada o anulada. |  |
 | 8 | `emitida_por` | `character varying(200)` | sí | Usuario que emitió la adenda; se guarda el nombre de usuario de la cuenta autenticada (username del token; si falta, su correo o su identificador; «Sistema» si no hay ninguno). |  |
 | 9 | `created_at` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
-| 10 | `fecha_publicacion` | `date` | sí | _Por documentar_ |  |
+| 10 | `fecha_publicacion` | `date` | sí | Fecha en que se publicó la adenda, en formato YYYY-MM-DD. La digita el usuario al publicar y es obligatoria, junto con el documento de evidencia, cuando el estado es PUBLICADA. |  |
 | 11 | `evidencia_documento_id` | `uuid` | sí | Referencia al registro de hiring.documentos (id). | FK→hiring.documentos.id |
 | 12 | `publicada_por` | `character varying(200)` | sí | Usuario que realizó la publicación. |  |
 | 13 | `vencimiento_anterior` | `date` | sí | Vencimiento del plazo de publicidad antes de aplicar la adenda de cronograma. |  |
@@ -599,7 +599,7 @@ Pago final y liberación del saldo no comprometido del RP (EFDS-1173).
 | 1 | `id` | `uuid` | no | Identificador único del registro en la tabla cierres_financieros. Se genera automáticamente. | PK |
 | 2 | `contrato_id` | `uuid` | no | Referencia al registro de hiring.contratos (id). | FK→hiring.contratos.id |
 | 3 | `rp_id` | `uuid` | no | Referencia al registro de hiring.registros_presupuestales (id). | FK→hiring.registros_presupuestales.id |
-| 4 | `referencia_pago_final` | `character varying(120)` | no | _Por documentar_ |  |
+| 4 | `referencia_pago_final` | `character varying(120)` | no | Referencia con la que salió el pago final del contrato (EFDS-1173). La digita el usuario como texto libre de hasta 120 caracteres y es obligatoria. |  |
 | 5 | `fecha_pago_final` | `date` | no | Fecha del pago final del contrato. |  |
 | 6 | `soporte_documento_id` | `uuid` | sí | Referencia al registro de hiring.documentos (id). | FK→hiring.documentos.id |
 | 7 | `valor_rp` | `numeric(18,2)` | no | Respaldo presupuestal total del contrato al cierre, en pesos: suma de los valores de todos los registros presupuestales expedidos del contrato, incluidos los de las adiciones. Lo calcula el sistema; no se digita. |  |
@@ -649,7 +649,7 @@ Contratos generados a partir del formato de su tipología, con la aceptación de
 | 3 | `tipologia` | `character varying(60)` | no | Referencia al registro de hiring.tipologias_contrato (codigo). | FK→hiring.tipologias_contrato.codigo |
 | 4 | `numero` | `character varying(60)` | no | Número de contrato de la entidad, el que figura en la minuta. Único en el sistema. | única |
 | 5 | `objeto` | `text` | no | Qué se contrató. Inmutable desde que el contrato se suscribe (RF-MOD-04): ninguna modificación contractual lo cambia. |  |
-| 6 | `valor` | `numeric(18,2)` | no | _Por documentar_ |  |
+| 6 | `valor` | `numeric(18,2)` | no | Valor total del contrato, en pesos; lo digita el usuario al generar el contrato y debe ser mayor que cero. Cuando se aprueba una adición se le suma el valor adicionado. |  |
 | 7 | `plazo_dias` | `integer` | sí | Plazo de ejecución del contrato, en días calendario contados desde la fecha del acta de inicio (ese día es el primero). Entero entre 1 y 999; lo actualizan las prórrogas y las suspensiones aprobadas. |  |
 | 8 | `contratista_documento` | `character varying(40)` | no | Número del documento de identificación del contratista adjudicatario, copiado al contratar y no referenciado al oferente, para conservar lo que dice la minuta. | Identificación |
 | 9 | `contratista_nombre` | `character varying(300)` | no | Nombre o razón social del contratista. |  |
@@ -936,7 +936,7 @@ Informe de evaluación del proceso, con el resultado del comité congelado al mo
 | 4 | `resultado_id` | `uuid` | no | Referencia al registro de hiring.resultados_evaluacion (id). | FK→hiring.resultados_evaluacion.id |
 | 5 | `resultado` | `jsonb` | no | Resultado de la evaluación tal como estaba al generar el informe, en formato JSON: la oferta ganadora, su valoración, la justificación, las evidencias y las ofertas recibidas. No cambia si el comité rectifica después (EFDS-1158). |  |
 | 6 | `ofertas_recibidas` | `integer` | no | Número de ofertas recibidas por el proceso al generar el informe; no son las habilitadas. Decide si el proceso sigue o se declara desierto (EFDS-1160). |  |
-| 7 | `observacion_entidad` | `text` | sí | _Por documentar_ |  |
+| 7 | `observacion_entidad` | `text` | sí | Advertencia de la entidad sobre el informe, distinta de lo que reportó el comité (por ejemplo, una modalidad sin puntaje o una oferta retirada). Texto opcional que digita el usuario al generar el informe. |  |
 | 8 | `estado` | `character varying(20)` | no | Estado del informe de evaluación: borrador, trasladado, cerrado o anulado. |  |
 | 9 | `informe_documento_id` | `uuid` | sí | Referencia al registro de hiring.documentos (id). | FK→hiring.documentos.id |
 | 10 | `evidencia_documento_id` | `uuid` | sí | Referencia al registro de hiring.documentos (id). | FK→hiring.documentos.id |
@@ -1567,7 +1567,7 @@ Registros presupuestales que comprometen los recursos del contrato (EFDS-1163).
 | 2 | `contrato_id` | `uuid` | no | Referencia al registro de hiring.contratos (id). | FK→hiring.contratos.id |
 | 3 | `numero` | `character varying(60)` | sí | Número del registro presupuestal, que asigna la Dirección Financiera al expedirlo; es nulo mientras el registro está solicitado. |  |
 | 4 | `valor` | `numeric(18,2)` | sí | Valor comprometido en el registro presupuestal, en pesos; al solicitar se toma el del contrato si no se indica y se compara con él. Mayor que cero y obligatorio cuando el estado es EXPEDIDO. |  |
-| 5 | `rubro` | `character varying(160)` | sí | _Por documentar_ |  |
+| 5 | `rubro` | `character varying(160)` | sí | Rubro presupuestal al que se imputa el registro; texto libre, opcional al solicitar y al expedir. |  |
 | 6 | `fecha_expedicion` | `date` | sí | Fecha de expedición del registro presupuestal. |  |
 | 7 | `vigencia_fiscal` | `integer` | sí | Año de la vigencia fiscal a la que se imputa el registro presupuestal. Un registro presupuestal no cruza vigencias. |  |
 | 8 | `estado` | `character varying(20)` | no | Estado del registro presupuestal. Flujo: SOLICITADO → VERIFICADO → EXPEDIDO; RECHAZADO cuando no hay disponibilidad para comprometer; ANULADO cuando se deja sin efecto después de expedido. |  |
@@ -1622,7 +1622,7 @@ Actos administrativos del trámite sancionatorio (EFDS-1181, RF-INC-02): el que 
 | 5 | `fecha_expedicion` | `date` | no | Fecha de expedición de la resolución sancionatoria. |  |
 | 6 | `documento_id` | `uuid` | no | Referencia al registro de hiring.documentos (id). | FK→hiring.documentos.id |
 | 7 | `sentido` | `character varying(30)` | sí | DECLARA_CADUCIDAD termina el contrato: es la caducidad como causal contractual que pide el bloque de Presunto Incumplimiento. |  |
-| 8 | `valor_sancion` | `numeric(18,2)` | sí | _Por documentar_ |  |
+| 8 | `valor_sancion` | `numeric(18,2)` | sí | Valor de la multa o de la cláusula penal, cuando la decisión las impone; mayor que cero. Opcional, porque un incumplimiento puede declararse sin sanción pecuniaria; solo se admite con sentido DECLARA_INCUMPLIMIENTO o DECLARA_CADUCIDAD. |  |
 | 9 | `estado_contrato_antes` | `character varying(20)` | sí | Estado que tenía el contrato (EJECUCION o SUSPENDIDO) antes de la declaratoria de caducidad, única decisión que lo termina; al revocar la resolución el contrato vuelve a ese estado. |  |
 | 10 | `notificada_el` | `date` | sí | Fecha de notificación de la resolución, posterior a su expedición. Se registra; no se usa para calcular términos. |  |
 | 11 | `firme_el` | `date` | sí | Fecha en que la resolución quedó en firme. Requiere fecha de notificación y no puede ser anterior a ella. |  |
@@ -1648,7 +1648,7 @@ Resultado de la evaluación hecha por el comité fuera de la plataforma: oferta 
 | 4 | `informe_documento_id` | `uuid` | no | Referencia al registro de hiring.documentos (id). | FK→hiring.documentos.id |
 | 5 | `puntaje_obtenido` | `numeric(6,2)` | sí | Puntaje obtenido por la oferta ganadora, tal como lo reporta el comité evaluador. Se registra junto con puntaje_maximo, no puede ser negativo y es nulo cuando la modalidad no asigna puntaje (por ejemplo, mínima cuantía). |  |
 | 6 | `puntaje_maximo` | `numeric(6,2)` | sí | Puntaje máximo posible en la evaluación. Se registra junto con puntaje_obtenido y debe ser mayor que cero. |  |
-| 7 | `valor_evaluado` | `numeric(18,2)` | sí | _Por documentar_ |  |
+| 7 | `valor_evaluado` | `numeric(18,2)` | sí | Valor por el que se evalúa la oferta ganadora; debe ser mayor que cero. Suele coincidir con el valor ofertado, pero puede diferir por una corrección aritmética del comité. |  |
 | 8 | `justificacion` | `text` | no | Justificación del comité evaluador para elegir la oferta ganadora; se muestra a los demás oferentes en el traslado del informe (actividad 6.4). |  |
 | 9 | `estado` | `character varying(20)` | no | Estado del resultado de la evaluación: vigente o rectificado. |  |
 | 10 | `registrado_por` | `character varying(200)` | sí | Usuario que realizó el registro. |  |
@@ -1764,7 +1764,7 @@ Apertura del sobre económico en la audiencia de adjudicación, donde la modalid
 | 1 | `id` | `uuid` | no | Identificador único del registro en la tabla sobres_economicos. Se genera automáticamente. | PK |
 | 2 | `audiencia_id` | `uuid` | no | Referencia al registro de hiring.audiencias_adjudicacion (id). | FK→hiring.audiencias_adjudicacion.id |
 | 3 | `oferente_id` | `uuid` | no | Referencia al registro de hiring.oferentes (id). | FK→hiring.oferentes.id |
-| 4 | `valor_ofertado` | `numeric(18,2)` | no | _Por documentar_ |  |
+| 4 | `valor_ofertado` | `numeric(18,2)` | no | Valor que traía el sobre económico al abrirse en audiencia; debe ser mayor que cero. Se guarda aparte del valor declarado en oferentes.valor_ofertado para poder comparar ambos. |  |
 | 5 | `evidencia_documento_id` | `uuid` | sí | Referencia al registro de hiring.documentos (id). | FK→hiring.documentos.id |
 | 6 | `observacion` | `text` | sí | Observación sobre la apertura del sobre económico. |  |
 | 7 | `abierto_por` | `character varying(200)` | sí | Nombre de usuario (username) de la cuenta autenticada que registró la apertura del sobre económico en la audiencia; si el token no lo trae, se guarda el correo o el identificador. |  |

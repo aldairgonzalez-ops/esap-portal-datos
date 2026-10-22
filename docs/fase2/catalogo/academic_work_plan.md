@@ -7,7 +7,7 @@ Registro de docentes (RUND): datos del docente, aprobación de sus bloques de in
 | Tabla | Tipo | Filas | Descripción |
 |---|---|--:|---|
 | [`Docente`](#docente) | Tabla | 814 | Registro de docentes del RUND. Un registro por docente y periodo de carga, con su vinculación, dedicación, sede, territorial, formación, situación administrativa, bolsa de horas del PTA y estado de aprobación (PENDIENTE_APROBACION, ACTIVO_RUND o DEVUELTO); se relaciona con auth.personas. Se diligencia por carga masiva, registro individual o autogestión del docente. |
-| [`Documento`](#documento) | Tabla | 2 | _Por documentar_ |
+| [`Documento`](#documento) | Tabla | 2 | Documentos asociados a una persona del plan de trabajo académico. Un registro por documento, con su nombre, tipo, categoría, URL, tamaño, versión vigente, estado y el usuario que lo aprobó; se relaciona con academic_work_plan.Persona. |
 | [`RundAccesoDatosLog`](#rundaccesodatoslog) | Tabla | 9141 | Bitácora de accesos a los datos de docentes del RUND. Un registro por consulta, con el usuario y sus roles, el servicio consultado, el recurso, los docentes y campos consultados, el resultado del control de acceso (completo, enmascarado o denegado) y la IP de origen. |
 | [`RundAccesoExterno`](#rundaccesoexterno) | Tabla | 0 | Accesos temporales de entidades externas al Macro Docente (REQ-RUND-F022). Un registro por acceso otorgado, con la entidad, su contacto, el token, el docente que puede consultar, el motivo, la vigencia y quién lo otorgó o revocó; el acceso lo otorga GGP o la Dirección y las consultas hechas con él se registran en RundMacroDocenteConsultaLog. |
 | [`RundAprobacionLog`](#rundaprobacionlog) | Tabla | 6760 | Log de auditoría inmutable del RUND (BR-056). Sólo INSERT: registra crear/aprobar/devolver/editar/vincular soporte. |
@@ -15,10 +15,10 @@ Registro de docentes (RUND): datos del docente, aprobación de sus bloques de in
 | [`RundCargaMasiva`](#rundcargamasiva) | Tabla | 0 | Soporte documental inmutable de cada importación masiva de perfiles RUND. |
 | [`RundDocumentoCategoria`](#runddocumentocategoria) | Tabla | 10 | Catálogo de categorías de documento del RUND. Un registro por categoría, con su código, nombre, descripción, tipos MIME permitidos, tamaño máximo de archivo, orden y si está activa; lo referencian los documentos del perfil (RundDocumentoPerfil). |
 | [`RundDocumentoPerfil`](#runddocumentoperfil) | Tabla | 11 | REQ-RUND-F010: documentos PDF versionados del perfil docente, almacenados en OpenKM o proveedor local de desarrollo. |
-| [`RundExtraccionInicio`](#rundextraccioninicio) | Tabla | 0 | _Por documentar_ |
+| [`RundExtraccionInicio`](#rundextraccioninicio) | Tabla | 0 | Parámetro de inicio de la extracción de datos de documentos del RUND (REQ-RUND-F014). Guarda la fecha y hora desde la que aplica la extracción. |
 | [`RundExtraccionSugerencia`](#rundextraccionsugerencia) | Tabla | 0 | Sugerencias de valores extraídos de documentos del perfil RUND (REQ-RUND-F014). Un registro por campo sugerido en un trabajo de extracción, con el valor sugerido, el valor previo, la página y el fragmento de evidencia, la confianza y la decisión del revisor; se relaciona con RundExtraccionTrabajo. Ciclo: pendiente, aprobada, corregida o descartada. |
 | [`RundExtraccionTrabajo`](#rundextracciontrabajo) | Tabla | 0 | Trabajos de extracción de datos de los documentos del perfil RUND. Un registro por documento procesado de un docente, con el estado, los intentos, la reserva del proceso que lo toma, el perfil base, el motor de procesamiento, el error y el aviso de fin; se relaciona con RundDocumentoPerfil y sus sugerencias están en RundExtraccionSugerencia. Ciclo: pendiente, procesando, completado, error u obsoleto. |
-| [`RundInvitacionDocente`](#rundinvitaciondocente) | Tabla | 0 | _Por documentar_ |
+| [`RundInvitacionDocente`](#rundinvitaciondocente) | Tabla | 0 | Invitaciones enviadas a docentes para ingresar al RUND con verificación por código de un solo uso (OTP). Un registro por invitación, con el correo institucional y el documento del docente, el token y su vencimiento, los intentos de OTP, el bloqueo y las fechas de envío, apertura y última actividad. |
 | [`RundMacroDocenteConsultaLog`](#rundmacrodocenteconsultalog) | Tabla | 0 | Bitácora de consultas al Macro Docente (REQ-RUND-F020/F022). Un registro por consulta, con su tipo (macro docente, consulta puntual o externa), quién la hizo y con qué roles, los filtros, el docente y periodo consultados, el número de resultados y la IP; se relaciona con RundAccesoExterno cuando la consulta se hace con un acceso externo. Solo admite inserciones. |
 | [`RundSoporteCampo`](#rundsoportecampo) | Tabla | 12 | Soportes de los bloques de campos del perfil RUND (BR-038, BR-039, BR-041). Un registro por soporte de un docente y bloque, con el tipo de soporte, la referencia al documento en la Carpeta Digital o en RundDocumentoPerfil, el estado (Pendiente, Aprobado o Rechazado), la observación del revisor, la fecha de vencimiento y la revisión de cada campo. |
 
@@ -40,30 +40,30 @@ Registro de docentes del RUND. Un registro por docente y periodo de carga, con s
 | 6 | `estado` | `text` | no | Estado del docente. |  |
 | 7 | `createdAt` | `timestamp(3) without time zone` | no | Fecha y hora de creación del registro. |  |
 | 8 | `updatedAt` | `timestamp(3) without time zone` | no | Fecha y hora de la última actualización del registro. |  |
-| 9 | `escalafon` | `text` | sí | _Por documentar_ |  |
+| 9 | `escalafon` | `text` | sí | Categoría o nivel del docente en el escalafón, en texto, tomada de la carga masiva (CATEGORIA_ESCALAFON) o de la resolución de escalafón. |  |
 | 10 | `horasAsignables` | `integer` | no | Bolsa de horas del PTA del docente para el periodo. Se toma de la columna HORAS_PTA de la carga o se calcula por vinculación y dedicación: 720 para Carrera1, 800 para tiempo completo y 400 para medio tiempo, proporcional si la vinculación dura menos de 20 semanas. Por defecto, 0. |  |
 | 11 | `sedeId` | `text` | sí | Identificador de la sede a la que está adscrito el docente. |  |
 | 12 | `ordenListado` | `integer` | sí | Posición del docente en los listados, tomada de la columna ORDEN_LISTADO de la carga masiva; los listados ordenan por este valor de menor a mayor. |  |
 | 13 | `vinculacionDisplay` | `text` | sí | Texto de la vinculación del docente para mostrar en pantalla. |  |
 | 14 | `dedicacionDisplay` | `text` | sí | Texto de la dedicación del docente para mostrar en pantalla. |  |
-| 15 | `nucleoTematico` | `text` | sí | _Por documentar_ |  |
-| 16 | `nivelFormacion` | `text` | sí | _Por documentar_ |  |
-| 17 | `perfilAcademicoPro` | `text` | sí | _Por documentar_ |  |
+| 15 | `nucleoTematico` | `text` | sí | Núcleo temático asignado al docente, en texto, tomado de la carga masiva o del acto de asignación de núcleo. |  |
+| 16 | `nivelFormacion` | `text` | sí | Nivel de formación del docente, en texto, tomado de la columna NIVEL_FORMACION de la carga masiva; no se calcula a partir de los títulos. |  |
+| 17 | `perfilAcademicoPro` | `text` | sí | Perfil académico PRO del docente, en texto, tomado de la columna «Perfil académico PRO» de la carga masiva. |  |
 | 18 | `perfilAcademico` | `text` | sí | Áreas académicas o de docencia declaradas por el docente, en texto libre (hasta 1000 caracteres), tomadas de la carga masiva o de la hoja de vida PRO. |  |
-| 19 | `pregrado` | `text` | sí | _Por documentar_ |  |
+| 19 | `pregrado` | `text` | sí | Nombre del título profesional de pregrado del docente, en texto, tomado de la carga masiva (TITULO_PREGRADO) o del diploma o acta de grado. |  |
 | 20 | `especializacion` | `text` | sí | Nombre del título de especialización del docente, en texto, tomado de la carga masiva (TITULO_ESPECIALIZACION) o del diploma o acta de grado; no guarda la institución. |  |
 | 21 | `maestria` | `text` | sí | Nombre del título de maestría del docente, en texto, tomado de la carga masiva (TITULO_MAESTRIA) o del diploma o acta de grado; no guarda la institución. |  |
 | 22 | `doctorado` | `text` | sí | Nombre del título de doctorado del docente, en texto, tomado de la carga masiva (TITULO_DOCTORADO) o del diploma o acta de grado; no guarda la institución. |  |
 | 23 | `posDoctorado` | `text` | sí | Nombre del programa o estancia posdoctoral del docente, en texto, tomado de la carga masiva (TITULO_POSDOCTORADO) o del certificado posdoctoral. |  |
 | 24 | `investigacion` | `text` | sí | Grupo, proyecto, línea o actividad de investigación del docente, en texto, tomado de la carga masiva (INVESTIGACION_ACTIVA) o de la certificación de investigación. |  |
-| 25 | `origenVinculacion` | `text` | sí | _Por documentar_ |  |
+| 25 | `origenVinculacion` | `text` | sí | Fuente o modalidad de ingreso del docente, en texto, tomada de la carga masiva (ORIGEN_VINCULACION) o de la resolución de convocatoria. |  |
 | 26 | `actoAdministrativoVinculacion` | `text` | sí | Tipo, número y año del contrato, resolución o acto administrativo que vincula al docente, en texto; la fecha de inicio se guarda aparte en fechaInicioVinculacion. |  |
 | 27 | `correoInstitucional` | `text` | sí | Correo electrónico institucional del docente. |  |
 | 28 | `ultimaEvaluacion` | `text` | sí | Periodo o resultado de la última evaluación docente, en texto, tomado de la carga masiva (ULTIMA_EVALUACION) o del acta de evaluación de desempeño. |  |
 | 29 | `situacionAdministrativa` | `text` | sí | Situación administrativa del docente, en texto libre (por ejemplo, servicio activo, comisión, licencia o el nombre del cargo directivo), tomada de la carga masiva o del acto administrativo de situación. Si indica retiro, el docente queda INACTIVO. |  |
 | 30 | `fechaInicioVinculacion` | `timestamp(3) without time zone` | sí | Fecha de inicio de la vinculación del docente. |  |
 | 31 | `fechaFinVinculacion` | `timestamp(3) without time zone` | sí | Fecha de finalización de la vinculación del docente. Vacía si la vinculación no tiene fecha de fin. |  |
-| 32 | `puntajeSalarial` | `double precision` | sí | _Por documentar_ |  |
+| 32 | `puntajeSalarial` | `double precision` | sí | Puntaje salarial del docente, numérico, tomado de la carga masiva (PUNTAJE_SALARIAL) o de la resolución de puntaje salarial. |  |
 | 33 | `edadReferencia` | `integer` | sí | Edad del docente en años. Se calcula a partir de la fecha de nacimiento en la fecha de la carga o de la confirmación del dato; si no hay fecha, se toma la columna EDAD de la carga. | Dato personal |
 | 34 | `rangoEdad` | `text` | sí | Rango de edad del docente: Menor de 35 años, De 36 a 45 años, De 46 a 55 años, De 56 a 65 años o Mayor de 65 años. Se calcula a partir de edadReferencia si la carga no lo trae. |  |
 | 35 | `regimenNormativo` | `text` | sí | Régimen normativo de la vinculación del docente: Acuerdo 009/2004 (Carrera1), Acuerdo 003/2018 (Carrera2), Circular Dispositiva 003/2025 (periodo de prueba, ocasional, especial o visitante) o N/A; la columna REGIMEN_NORMATIVO de la carga lo reemplaza. |  |
@@ -78,7 +78,7 @@ Registro de docentes del RUND. Un registro por docente y periodo de carga, con s
 | 44 | `acepta_habeas_data` | `boolean` | sí | Indica si el docente aceptó el tratamiento de datos personales (habeas data). |  |
 | 45 | `fecha_aceptacion_habeas_data` | `timestamp without time zone` | sí | Fecha y hora en que el docente aceptó el tratamiento de datos personales (habeas data). |  |
 | 46 | `ip_creacion` | `character varying(50)` | sí | Dirección IP desde la que se creó el registro. | Identificador en línea (IP) |
-| 47 | `sexoBiologico` | `text` | sí | _Por documentar_ | Dato personal |
+| 47 | `sexoBiologico` | `text` | sí | Sexo biológico del docente, en texto, tomado de la carga masiva (SEXO_BIOLOGICO) o del documento de identidad (Mujer u Hombre). | Dato personal |
 | 48 | `dedicacionHorasSemana` | `integer` | sí | Número de horas semanales de dedicación del docente. |  |
 | 49 | `situacionCategoria` | `text` | sí | Categoría de la situación administrativa del docente: Servicio Activo, Año Sabático, Dedicación Exclusiva, Comisión de Estudios, Comisión de Servicios, En Periodo de Prueba, Cargo Directivo u Otra. Se calcula a partir de situacionAdministrativa (texto libre) si la carga no la trae. |  |
 | 50 | `territorialReportada` | `text` | sí | Nombre informativo reportado en RUND; no concede acceso ni asigna una territorial PTA. |  |
@@ -86,7 +86,7 @@ Registro de docentes del RUND. Un registro por docente y periodo de carga, con s
 
 ## Documento
 
-_Por documentar._
+Documentos asociados a una persona del plan de trabajo académico. Un registro por documento, con su nombre, tipo, categoría, URL, tamaño, versión vigente, estado y el usuario que lo aprobó; se relaciona con academic_work_plan.Persona.
 
 - Clave primaria: `id`
 - Filas: 2
@@ -100,8 +100,8 @@ _Por documentar._
 | 4 | `url` | `text` | no | Dirección web (URL) del documento. |  |
 | 5 | `tipo` | `text` | no | Tipo de documento. |  |
 | 6 | `createdAt` | `timestamp(3) without time zone` | no | Fecha y hora de creación del registro. |  |
-| 7 | `categoria` | `text` | sí | _Por documentar_ |  |
-| 8 | `comentarios` | `text` | sí | _Por documentar_ |  |
+| 7 | `categoria` | `text` | sí | Categoría del documento. Por defecto, general. |  |
+| 8 | `comentarios` | `text` | sí | Comentarios sobre el documento. |  |
 | 9 | `estado` | `text` | no | Estado del documento. |  |
 | 10 | `tamanoBytes` | `integer` | no | Tamaño del archivo en bytes. |  |
 | 11 | `tipoDocumentoId` | `text` | sí | Identificador del tipo de documento. |  |
@@ -277,7 +277,7 @@ REQ-RUND-F010: documentos PDF versionados del perfil docente, almacenados en Ope
 
 ## RundExtraccionInicio
 
-_Por documentar._
+Parámetro de inicio de la extracción de datos de documentos del RUND (REQ-RUND-F014). Guarda la fecha y hora desde la que aplica la extracción.
 
 - Clave primaria: `id`
 - Filas: 0
@@ -285,7 +285,7 @@ _Por documentar._
 | # | Columna | Tipo | Nulos | Descripción | Marcas |
 |--:|---|---|---|---|---|
 | 1 | `id` | `boolean` | no | Identificador único del registro en la tabla RundExtraccionInicio. | PK |
-| 2 | `desde` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 2 | `desde` | `timestamp with time zone` | no | Fecha y hora desde la que se toman los registros para la extracción, con zona horaria. |  |
 
 ## RundExtraccionSugerencia
 
@@ -327,7 +327,7 @@ Trabajos de extracción de datos de los documentos del perfil RUND. Un registro 
 | 3 | `docente_id` | `uuid` | no | Identificador del docente cuyo documento RUND se procesa en este trabajo de extracción. Referencia a academic_work_plan."Docente". |  |
 | 4 | `estado` | `text` | no | Estado del trabajo de extracción: pendiente, procesando, completado, error u obsoleto. |  |
 | 5 | `intentos` | `integer` | no | Número de veces que un proceso tomó el trabajo de extracción; se incrementa en cada toma. Con 3 intentos fallidos el trabajo pasa a ERROR. |  |
-| 6 | `disponible_en` | `timestamp with time zone` | no | _Por documentar_ |  |
+| 6 | `disponible_en` | `timestamp with time zone` | no | Fecha y hora a partir de la cual el trabajo queda disponible para que un proceso lo tome de la cola. |  |
 | 7 | `lease_id` | `uuid` | sí | Identificador aleatorio de la reserva con la que un proceso toma el trabajo; lo asigna el servicio de extracción al reservarlo y se limpia al terminar, fallar o vencer la reserva. |  |
 | 8 | `lease_hasta` | `timestamp with time zone` | sí | Fecha y hora en que vence la reserva del trabajo: 90 segundos, renovados cada 20 segundos mientras se procesa. Si vence, el trabajo vuelve a PENDIENTE (o a ERROR con 3 intentos) con código PROCESAMIENTO_INTERRUMPIDO. |  |
 | 9 | `perfil_base` | `jsonb` | no | Valores del perfil del docente en los campos de extracción al momento del análisis, en JSON (campo: valor); sirven como valor previo de cada sugerencia. |  |
@@ -336,7 +336,7 @@ Trabajos de extracción de datos de los documentos del perfil RUND. Un registro 
 | 12 | `creado_por` | `text` | no | Usuario que creó el registro. |  |
 | 13 | `creado_en` | `timestamp with time zone` | no | Fecha y hora de creación del registro. |  |
 | 14 | `actualizado_en` | `timestamp with time zone` | no | Fecha y hora de la última actualización del registro. |  |
-| 15 | `etapa` | `text` | no | _Por documentar_ |  |
+| 15 | `etapa` | `text` | no | Etapa actual del trabajo de extracción dentro de su procesamiento. Valor inicial: EN_COLA. |  |
 | 16 | `etapa_desde` | `timestamp with time zone` | no | Fecha y hora en que el trabajo entró a su etapa actual. |  |
 | 17 | `iniciado_en` | `timestamp with time zone` | sí | Fecha y hora del inicio. |  |
 | 18 | `notificacion_id` | `uuid` | no | Clave de idempotencia del aviso de fin de la extracción que se envía al servicio de notificaciones; evita avisos duplicados. Se genera automáticamente. |  |
@@ -345,7 +345,7 @@ Trabajos de extracción de datos de los documentos del perfil RUND. Un registro 
 
 ## RundInvitacionDocente
 
-_Por documentar._
+Invitaciones enviadas a docentes para ingresar al RUND con verificación por código de un solo uso (OTP). Un registro por invitación, con el correo institucional y el documento del docente, el token y su vencimiento, los intentos de OTP, el bloqueo y las fechas de envío, apertura y última actividad.
 
 - Clave primaria: `id`
 - Filas: 0
@@ -356,16 +356,16 @@ _Por documentar._
 | 2 | `correo_institucional` | `character varying(255)` | no | Correo electrónico institucional del docente al que se envía la invitación. |  |
 | 3 | `documento_identidad` | `character varying(100)` | sí | Número del documento de identidad del docente invitado. | Identificación |
 | 4 | `token_invitacion` | `character varying(255)` | no | Token único del enlace de invitación enviado al docente. | única Credencial de acceso |
-| 5 | `otp_hash` | `character varying(255)` | sí | _Por documentar_ |  |
-| 6 | `estado_invitacion` | `character varying(50)` | no | _Por documentar_ |  |
+| 5 | `otp_hash` | `character varying(255)` | sí | Hash del código de un solo uso (OTP) enviado al docente para validar el acceso. |  |
+| 6 | `estado_invitacion` | `character varying(50)` | no | Estado de la invitación al docente. Valor inicial: Enviada. |  |
 | 7 | `caducidad_token` | `timestamp without time zone` | no | Fecha y hora en que vence el token de invitación. |  |
-| 8 | `intentos_otp` | `integer` | sí | _Por documentar_ |  |
-| 9 | `bloqueo_hasta` | `timestamp without time zone` | sí | _Por documentar_ |  |
+| 8 | `intentos_otp` | `integer` | sí | Número de intentos de validación del código OTP. Por defecto, 0. |  |
+| 9 | `bloqueo_hasta` | `timestamp without time zone` | sí | Fecha y hora hasta la cual la invitación queda bloqueada para validar el OTP. |  |
 | 10 | `fecha_envio` | `timestamp without time zone` | sí | Fecha y hora de envío de la invitación al docente. |  |
 | 11 | `fecha_apertura` | `timestamp without time zone` | sí | Fecha y hora en que el docente abrió la invitación. |  |
-| 12 | `ultima_actividad` | `timestamp without time zone` | sí | _Por documentar_ |  |
-| 13 | `docente_id` | `text` | sí | _Por documentar_ |  |
-| 14 | `operador_id` | `character varying(255)` | sí | _Por documentar_ |  |
+| 12 | `ultima_actividad` | `timestamp without time zone` | sí | Fecha y hora de la última actividad sobre la invitación. |  |
+| 13 | `docente_id` | `text` | sí | Identificador del docente asociado a la invitación, en texto. |  |
+| 14 | `operador_id` | `character varying(255)` | sí | Identificador del operador que generó la invitación. |  |
 | 15 | `createdAt` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
 | 16 | `updatedAt` | `timestamp without time zone` | no | Fecha y hora de la última actualización del registro. |  |
 
@@ -385,7 +385,7 @@ Bitácora de consultas al Macro Docente (REQ-RUND-F020/F022). Un registro por co
 | 4 | `roles` | `text[]` | sí | Roles que tenía el usuario al momento de la consulta, como lista de textos. |  |
 | 5 | `acceso_externo_id` | `uuid` | sí | Referencia al registro de academic_work_plan.RundAccesoExterno (id). | FK→academic_work_plan.RundAccesoExterno.id |
 | 6 | `docente_id` | `text` | sí | Identificador del docente consultado (academic_work_plan."Docente".id, el mismo de PlanTrabajoAcademico.docenteId), cuando la consulta se refiere a un docente específico. |  |
-| 7 | `periodo` | `text` | sí | _Por documentar_ |  |
+| 7 | `periodo` | `text` | sí | Periodo académico consultado, tal como se envió en el filtro de la consulta; se compara con el periodo del PTA. |  |
 | 8 | `filtros` | `jsonb` | sí | Filtros aplicados en la consulta, en formato JSON. |  |
 | 9 | `total_resultados` | `integer` | sí | Número de registros devueltos por la consulta. |  |
 | 10 | `ip` | `text` | sí | Dirección IP desde la que se hizo la consulta del macro de docentes. | Identificador en línea (IP) |

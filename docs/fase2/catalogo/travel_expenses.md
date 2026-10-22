@@ -9,7 +9,7 @@ Trámite de comisiones de servicio: solicitudes de contratistas, docentes, estud
 | [`analistas_viaticos`](#analistas_viaticos) | Tabla | 0 | Catalogo de analistas del Grupo de Viaticos para asignacion de comisiones y calculo de carga laboral |
 | [`comisionados`](#comisionados) | Tabla | 4 | Personas que pueden recibir una comisión de servicio de la ESAP: contratistas, docentes, estudiantes, funcionarios e investigadores. Un registro por persona, identificada por su número de documento, con nombres, contacto, tipo de vinculación, origen de los datos, autorización de tratamiento de datos personales, vigencia del contrato, cuentas bancarias y cargos. Es referenciada por las solicitudes de comisión y los paz y salvos. |
 | [`config_campos_formulario`](#config_campos_formulario) | Tabla | 19 | Catálogo de los campos configurables del formulario de solicitud de comisión. Un registro por campo, con su clave, etiqueta, tipo de control, opciones, sección (comisionado, comisión, valores o soportes), orden y límite de caracteres. Sus claves se usan en config_tipo_comisionado y en los campos adicionales de solicitudes_comision. |
-| [`config_jornada_laboral`](#config_jornada_laboral) | Tabla | 1 | _Por documentar_ |
+| [`config_jornada_laboral`](#config_jornada_laboral) | Tabla | 1 | Configuración de la jornada laboral que se aplica en el trámite de comisiones. Un registro por jornada, con hora de inicio y fin, días hábiles de la semana, días mínimos de anticipación para radicar una comisión ordinaria (RF-EXT-001) y umbral de días hábiles para definir la modalidad de pago al expedir el registro presupuestal. La diligencia el administrador del módulo. |
 | [`config_legalizacion`](#config_legalizacion) | Tabla | 2 | EFDS-1309 — Disparador, plazo (días hábiles) y aviso de la legalización por modalidad de pago. |
 | [`config_legalizacion_documentos`](#config_legalizacion_documentos) | Tabla | 42 | EFDS-1309 — Soportes exigidos para legalizar, por tipo de comisionado. Configuración, no código (D-2). |
 | [`config_tipo_comisionado`](#config_tipo_comisionado) | Tabla | 7 | Configuración del formulario de solicitud de comisión por tipo de comisionado. Un registro por tipo, con el código del formulario y las listas de campos obligatorios, opcionales y ocultos (claves de config_campos_formulario). Se relaciona con los documentos de soporte exigidos (config_tipo_comisionado_documentos) y con config_legalizacion_documentos. |
@@ -25,7 +25,7 @@ Trámite de comisiones de servicio: solicitudes de contratistas, docentes, estud
 | [`liquidation_params`](#liquidation_params) | Tabla | 5 | Parámetros configurables de la autoliquidación de viáticos, como los factores por tipo de comisionado y por pernocta. Un registro por parámetro, con su clave, valor guardado como texto, tipo de dato (NUMBER o STRING) y descripción. |
 | [`parametros_globales`](#parametros_globales) | Tabla | 1 | Parametros globales configurables del modulo de viaticos y comisiones |
 | [`paz_y_salvo_eventos`](#paz_y_salvo_eventos) | Tabla | 0 | Historial de eventos sobre los paz y salvos de los comisionados. Un registro por acción (solicitado, OTP solicitado, firma verificada, consultado o descargado), con el usuario que la realizó, la fecha y el detalle. Se relaciona con travel_expenses.paz_y_salvos. |
-| [`paz_y_salvos`](#paz_y_salvos) | Tabla | 0 | _Por documentar_ |
+| [`paz_y_salvos`](#paz_y_salvos) | Tabla | 0 | Paz y salvos de los comisionados, emitidos como documentos de la persona fuera del expediente de comisiones (EFDS-1311). Un registro por paz y salvo, con su contenido, la huella SHA-256, el usuario que lo solicitó y los datos de la firma electrónica por código OTP enviado al correo. Se relaciona con travel_expenses.comisionados, y sus eventos quedan en paz_y_salvo_eventos. |
 | [`reintegros_comision`](#reintegros_comision) | Tabla | 0 | Reintegros de comisiones pagadas por avance no realizadas o ejecutadas por menos días (RF-PAG-004). |
 | [`rutas_restringidas`](#rutas_restringidas) | Tabla | 4 | Catálogo de rutas entre ciudades cuya conexión aérea está restringida (RF-LIQ-003), como las rutas cortas que requieren autorización del Director Nacional o del Sindicato. Un registro por ruta de origen y destino, con la descripción de la restricción y su estado activo. Se consulta al validar los tiquetes de una solicitud de comisión. |
 | [`saldos_tiquetes`](#saldos_tiquetes) | Tabla | 0 | Cupo presupuestal de cada dependencia para la compra de tiquetes aéreos. Un registro por dependencia, con el presupuesto inicial, reservado y disponible, y el porcentaje de holgura que se suma al reservar para cubrir la variación del precio del tiquete entre la radicación y la emisión (RF-LIQ-004). |
@@ -55,7 +55,7 @@ Catalogo de analistas del Grupo de Viaticos para asignacion de comisiones y calc
 | 6 | `username` | `character varying(100)` | no | Usuario de acceso del analista |  |
 | 7 | `email` | `character varying(255)` | sí | Correo electrónico del analista de viáticos. | Contacto |
 | 8 | `telefono` | `character varying(50)` | sí | Número de teléfono del analista de viáticos. | Contacto |
-| 9 | `cargo` | `character varying(255)` | sí | _Por documentar_ |  |
+| 9 | `cargo` | `character varying(255)` | sí | Cargo del analista del Grupo de Viáticos, en texto. |  |
 | 10 | `activo` | `boolean` | sí | Indica si el analista esta activo para recibir asignaciones |  |
 | 11 | `created_at` | `timestamp without time zone` | sí | Fecha y hora de creación del registro. |  |
 | 12 | `updated_at` | `timestamp without time zone` | sí | Fecha y hora de la última actualización del registro. |  |
@@ -77,7 +77,7 @@ Personas que pueden recibir una comisión de servicio de la ESAP: contratistas, 
 | 5 | `primer_apellido` | `character varying(100)` | no | Primer apellido del comisionado. | Nombre de persona |
 | 6 | `segundo_apellido` | `character varying(100)` | sí | Segundo apellido del comisionado. | Nombre de persona |
 | 7 | `email` | `character varying(150)` | no | Correo electrónico del comisionado. | Contacto |
-| 8 | `telefono_contacto` | `character varying(150)` | no | _Por documentar_ | Contacto |
+| 8 | `telefono_contacto` | `character varying(150)` | no | Teléfono de contacto del comisionado. Se toma del teléfono reportado por Talento Humano o de auth.personas.tel_celular; si no hay dato se guarda 0000000000. | Contacto |
 | 9 | `tipo_comisionado` | `character varying(50)` | no | Tipo de vinculación del comisionado con la ESAP. Valores permitidos: CONTRATISTA, DOCENTE, ESTUDIANTE, FUNCIONARIO, INVESTIGADOR. |  |
 | 10 | `origen_datos` | `character varying(50)` | no | Fuente de la que se obtuvieron los datos del comisionado: HUMANO (API de Talento Humano), ESAP (auth.personas) o SECOP. |  |
 | 11 | `autorizacion_habeas_data` | `boolean` | no | Indica si el comisionado autorizó el tratamiento de datos personales (habeas data). |  |
@@ -116,7 +116,7 @@ Catálogo de los campos configurables del formulario de solicitud de comisión. 
 
 ## config_jornada_laboral
 
-_Por documentar._
+Configuración de la jornada laboral que se aplica en el trámite de comisiones. Un registro por jornada, con hora de inicio y fin, días hábiles de la semana, días mínimos de anticipación para radicar una comisión ordinaria (RF-EXT-001) y umbral de días hábiles para definir la modalidad de pago al expedir el registro presupuestal. La diligencia el administrador del módulo.
 
 - Clave primaria: `id`
 - Filas: 1
@@ -187,7 +187,7 @@ Configuración del formulario de solicitud de comisión por tipo de comisionado.
 |--:|---|---|---|---|---|
 | 1 | `id` | `uuid` | no | Identificador único del registro en la tabla config_tipo_comisionado. Se genera automáticamente. | PK |
 | 2 | `tipo_comisionado` | `character varying(50)` | no | Tipo de comisionado al que aplica la configuración. Es único. | única |
-| 3 | `codigo_formulario` | `character varying(50)` | no | _Por documentar_ |  |
+| 3 | `codigo_formulario` | `character varying(50)` | no | Código del formulario de solicitud que usa el tipo de comisionado; permite consultar la parametrización por código de formulario. |  |
 | 4 | `campos_obligatorios` | `jsonb` | no | Lista JSON de claves de campos obligatorios para el tipo de comisionado. Las claves coinciden con config_campos_formulario.clave y con las propiedades de la solicitud; un campo que también figure como opcional u oculto no se exige. |  |
 | 5 | `campos_opcionales` | `jsonb` | no | Lista JSON de claves de campos opcionales para el tipo de comisionado, con las mismas claves de config_campos_formulario.clave. Un campo opcional no se exige aunque esté en campos_obligatorios. |  |
 | 6 | `campos_ocultos` | `jsonb` | no | Lista JSON de claves de campos que no se muestran en el formulario para el tipo de comisionado, con las mismas claves de config_campos_formulario.clave. Un campo oculto no se exige. |  |
@@ -277,7 +277,7 @@ Excepciones autorizadas por la Dirección Nacional o el Sindicato para omitir la
 | 2 | `solicitud_id` | `uuid` | no | Identificador de la solicitud de comisión a la que aplica la excepción. |  |
 | 3 | `tipo_excepcion` | `character varying(50)` | no | Restricción de tiquetes que se exceptúa: RUTA_CORTA o PRESUPUESTO_AGOTADO (RF-LIQ-003, RF-LIQ-004). |  |
 | 4 | `autorizado_por` | `character varying(150)` | no | Instancia que autoriza la excepción de tiquetes: DIRECTOR_NACIONAL o SINDICATO. |  |
-| 5 | `numero_documento_soporte` | `character varying(100)` | no | _Por documentar_ |  |
+| 5 | `numero_documento_soporte` | `character varying(100)` | no | Número del documento firmado por la Dirección Nacional o el Sindicato que soporta la excepción de ruta corta o de presupuesto agotado. |  |
 | 6 | `documento_soporte_url` | `character varying(500)` | sí | URL o ruta del documento que soporta la excepción. |  |
 | 7 | `comentarios` | `text` | sí | Comentarios sobre la excepción autorizada. |  |
 | 8 | `creado_en` | `timestamp without time zone` | no | Fecha y hora de creación del registro. |  |
@@ -450,7 +450,7 @@ Historial de eventos sobre los paz y salvos de los comisionados. Un registro por
 
 ## paz_y_salvos
 
-_Por documentar._
+Paz y salvos de los comisionados, emitidos como documentos de la persona fuera del expediente de comisiones (EFDS-1311). Un registro por paz y salvo, con su contenido, la huella SHA-256, el usuario que lo solicitó y los datos de la firma electrónica por código OTP enviado al correo. Se relaciona con travel_expenses.comisionados, y sus eventos quedan en paz_y_salvo_eventos.
 
 - Clave primaria: `id`
 - Filas: 0
@@ -484,8 +484,8 @@ Reintegros de comisiones pagadas por avance no realizadas o ejecutadas por menos
 | 4 | `estado` | `character varying(20)` | no | Estado del reintegro de la comisión: pendiente o registrado. |  |
 | 5 | `valor_pagado` | `numeric(14,2)` | no | Valor pagado por la comisión, en pesos colombianos, copiado de solicitudes_comision.valor_pagado al generar el reintegro. |  |
 | 6 | `valor_a_reintegrar` | `numeric(14,2)` | no | Valor calculado según los días efectivamente ejecutados. |  |
-| 7 | `dias_comision` | `numeric(6,2)` | sí | _Por documentar_ |  |
-| 8 | `dias_ejecutados` | `numeric(6,2)` | sí | _Por documentar_ |  |
+| 7 | `dias_comision` | `numeric(6,2)` | sí | Días de la comisión, copiados de solicitudes_comision.dias_comision al generar el reintegro. Admite decimales. |  |
+| 8 | `dias_ejecutados` | `numeric(6,2)` | sí | Días ejecutados de la comisión: en viaje menor, los días reales registrados en la legalización; en comisión no realizada, 0. |  |
 | 9 | `valor_reintegrado` | `numeric(14,2)` | sí | Valor efectivamente reintegrado por el comisionado, en pesos colombianos. Debe ser igual a valor_a_reintegrar. |  |
 | 10 | `fecha_reintegro` | `date` | sí | Fecha del reintegro de la comisión. |  |
 | 11 | `soporte_path` | `character varying(255)` | sí | Ruta del soporte de la consignación del reintegro. |  |
@@ -523,7 +523,7 @@ Cupo presupuestal de cada dependencia para la compra de tiquetes aéreos. Un reg
 | 1 | `id` | `uuid` | no | Identificador único del registro en la tabla saldos_tiquetes. Se genera automáticamente. | PK |
 | 2 | `dependencia_id` | `character varying(100)` | no | Código (auth.dependencias.cod_dependencia) o identificador (auth.dependencias.id_dependencia) de la dependencia dueña del cupo de tiquetes, guardado como texto. Es único. | única |
 | 3 | `nombre_dependencia` | `character varying(150)` | no | Nombre de la dependencia. |  |
-| 4 | `presupuesto_inicial` | `numeric(12,2)` | no | _Por documentar_ |  |
+| 4 | `presupuesto_inicial` | `numeric(12,2)` | no | Presupuesto inicial asignado a la dependencia para tiquetes, en pesos colombianos. No puede ser negativo; al cambiarlo, el disponible se ajusta por la diferencia. |  |
 | 5 | `presupuesto_reservado` | `numeric(12,2)` | no | Presupuesto reservado para tiquetes de solicitudes en trámite, en pesos colombianos: se suma al reservar el valor estimado del tiquete más la holgura y se resta al liberar la reserva cuando la solicitud se rechaza, anula o cancela. No puede ser negativo. |  |
 | 6 | `presupuesto_disponible` | `numeric(12,2)` | no | Presupuesto disponible para tiquetes, en pesos colombianos. Lo actualiza la aplicación: inicial al crear, menos cada reserva, más cada liberación y más la diferencia si cambia el presupuesto inicial. |  |
 | 7 | `holgura_porcentaje` | `numeric(5,2)` | no | Porcentaje que se suma al valor estimado del tiquete al reservar presupuesto, para cubrir la variación del precio entre la radicación y la emisión del pasaje. Por defecto, el parámetro HOLGURA_TIQUETES_PORCENTAJE (15). |  |
@@ -622,7 +622,7 @@ Solicitudes de comisión de servicio de los comisionados de la ESAP. Un registro
 | 79 | `fecha_registro_pago` | `timestamp with time zone` | sí | Fecha y hora en que se registró el pago de la comisión. |  |
 | 80 | `campos_adicionales` | `jsonb` | no | Metadatos y campos dinámicos configurables gobernados por travel_expenses.config_campos_formulario (JSONB). |  |
 | 81 | `itinerario` | `jsonb` | no | Arreglo de tramos/rutas de la comisión (RutaItinerario[]) con origen, destino, trayecto, fechas, días y horario militar estimado. |  |
-| 82 | `dias_pernoctados` | `numeric(5,2)` | sí | _Por documentar_ |  |
+| 82 | `dias_pernoctados` | `numeric(5,2)` | sí | Noches con pernocta de la comisión, usadas en la autoliquidación del formato GF-FO-023 (Decreto 314 de 2026). Admite decimales. |  |
 | 83 | `tarifa_dia_pernoctado` | `numeric(14,2)` | sí | Tarifa diaria aplicada a las noches con pernocta, en pesos colombianos: tarifa diaria base por el factor del comisionado. |  |
 | 84 | `total_pernoctados` | `numeric(14,2)` | sí | Valor total de las noches con pernocta, en pesos colombianos: días pernoctados por la tarifa del día pernoctado. |  |
 | 85 | `dias_no_pernoctados` | `numeric(5,2)` | sí | Días de la comisión sin pernocta. |  |
@@ -635,7 +635,7 @@ Solicitudes de comisión de servicio de los comisionados de la ESAP. Un registro
 | 92 | `salario_base_aplicado` | `numeric(14,2)` | sí | Valor base usado en la liquidación para ubicar la escala de viáticos: la mayor asignación básica del comisionado; para ESTUDIANTE, el SMMLV; para INVESTIGADOR, la tarifa diaria de la categoría. A diferencia de salario_basico, que guarda el salario del comisionado. |  |
 | 93 | `decreto_aplicado` | `character varying(100)` | sí | Decreto de escala de viáticos aplicado en la liquidación. Valor por defecto: Decreto 314 de 2026. |  |
 | 94 | `numero_cdp` | `text` | sí | Número del certificado de disponibilidad presupuestal (CDP). |  |
-| 95 | `fecha_cdp` | `text` | sí | _Por documentar_ |  |
+| 95 | `fecha_cdp` | `text` | sí | Fecha del certificado de disponibilidad presupuestal (CDP), guardada como texto. |  |
 | 96 | `fecha_radicacion` | `timestamp without time zone` | sí | Marca temporal en la que la solicitud se radicó e ingresó por primera vez a la bandeja del Grupo de Viáticos. |  |
 | 97 | `cargo` | `text` | sí | Cargo institucional asignado a la comisión GF-FO-023 para trazabilidad, liquidación y KPIs de analítica. |  |
 | 98 | `id_cargo` | `bigint` | sí | Identificador referencial del cargo institucional (auth.cargos). |  |
@@ -709,7 +709,7 @@ Tarifas de viáticos de excepción por departamento, según el artículo 5 del D
 | 1 | `id` | `integer` | no | Identificador único del registro en la tabla tarifas_regionales_excepcion. Se genera automáticamente. | PK |
 | 2 | `departamento` | `character varying(100)` | no | Departamento al que aplica la tarifa de excepción. Es único. | única |
 | 3 | `es_nuevo_departamento` | `boolean` | no | Indica si la tarifa regional de excepción corresponde a un nuevo departamento. |  |
-| 4 | `tarifa_diaria` | `numeric(12,2)` | no | _Por documentar_ |  |
+| 4 | `tarifa_diaria` | `numeric(12,2)` | no | Valor diario de viáticos de excepción para el departamento (artículo 5 del Decreto 314 de 2026, nuevos departamentos). |  |
 | 5 | `decreto_referencia` | `character varying(100)` | sí | Decreto que establece la tarifa de excepción. |  |
 | 6 | `activo` | `boolean` | no | Indica si la tarifa regional de excepción está activa. |  |
 | 7 | `creado_en` | `timestamp without time zone` | sí | Fecha y hora de creación del registro. |  |
@@ -725,7 +725,7 @@ Valores máximos reconocidos por trayecto para el desplazamiento a terminales a�
 |--:|---|---|---|---|---|
 | 1 | `id` | `integer` | no | Identificador único del registro en la tabla tarifas_transporte_terminal. Se genera automáticamente. | PK |
 | 2 | `departamento` | `character varying(100)` | no | Nombre del departamento al que aplica la tarifa de transporte. |  |
-| 3 | `departamento_id` | `integer` | sí | _Por documentar_ |  |
+| 3 | `departamento_id` | `integer` | sí | Código numérico del departamento. |  |
 | 4 | `ciudad` | `character varying(100)` | sí | Ciudad a la que aplica la tarifa de transporte. |  |
 | 5 | `ciudad_aeropuerto` | `character varying(150)` | no | Nombre del departamento con el municipio del aeropuerto entre paréntesis, por ejemplo ANTIOQUIA (Rionegro). |  |
 | 6 | `valor_maximo` | `numeric(12,2)` | no | Valor máximo reconocido por trayecto de transporte a la terminal aérea, en pesos colombianos. Para tramos de ida y regreso la liquidación lo multiplica por dos. |  |

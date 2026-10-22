@@ -72,12 +72,17 @@ def construir_doc(m, version, url_portal, repo, entorno):
     tabla(doc, ["Dominio", "Esquema", "Tablas", "Columnas", "Filas"],
           [[e["nombre"], e["s"], n(e["tablas"]), n(e["columnas"]), n(e["filas"])] for e in m["esquemas"]],
           anchos=[5.4, 4.6, 1.8, 2, 2.6], derecha=(2, 3, 4))
+    for e in m["esquemas"]:
+        texto = e["d"].strip().rstrip(".") if e["d"] else ""
+        vineta(doc, (f" {texto}" + (" (descripción propuesta, por validar con la ESAP)." if e.get("de") == "propuesta" else "."))
+               if texto else " Descripción del dominio por documentar.", f"{e['nombre']}:")
 
     doc.add_heading("4. Contenido del modelo", level=1)
     con_desc_t = sum(1 for t in op if t["de"] == "base")
     con_desc_c = sum(1 for c in cols if c["de"] == "base")
     val_t = sum(1 for t in op if t["de"] == "validada")
     val_c = sum(1 for c in cols if c["de"] == "validada")
+    pct = lambda a, b: f"{100 * a / b:.1f} %".replace(".", ",") if b else "0 %"
     tabla(doc, ["Componente", "Cantidad", "Dónde se consulta"], [
         ["Relaciones declaradas (llaves foráneas)", n(len(m["fks"])), "Portal › Modelo ER y ficha de cada tabla"],
         ["Relaciones lógicas sin FK, confirmadas con los datos", n(len(m["implicitas"])), "Portal › Modelo ER (relaciones lógicas) y ficha de tabla"],
@@ -88,8 +93,16 @@ def construir_doc(m, version, url_portal, repo, entorno):
         ["Tablas con descripción registrada en la base", f"{n(con_desc_t)} de {n(len(op))}", "Portal › Inicio (indicadores) y ficha de tabla"],
         ["Columnas con descripción registrada en la base", f"{n(con_desc_c)} de {n(len(cols))}", "Portal › ficha de tabla"],
     ] + ([["Tablas con descripción validada, por registrar en la base", n(val_t), "Portal › ficha de tabla (etiqueta «validada»)"]] if val_t else []) + (
-        [["Columnas con descripción validada, por registrar en la base", n(val_c), "Portal › ficha de tabla (etiqueta «validada»)"]] if val_c else []) + [
+        [["Columnas con descripción validada, por registrar en la base", n(val_c), "Portal › ficha de tabla (etiqueta «validada»)"]] if val_c else []) + (
+        [["Tablas con descripción (registrada o validada)", f"{n(con_desc_t + val_t)} de {n(len(op))} ({pct(con_desc_t + val_t, len(op))})", "Portal › Inicio (indicadores)"],
+         ["Columnas con descripción (registrada o validada)", f"{n(con_desc_c + val_c)} de {n(len(cols))} ({pct(con_desc_c + val_c, len(cols))})", "Portal › Inicio (indicadores)"]]
+        if val_t or val_c else []) + [
     ], anchos=[7.5, 2.8, 5.7], derecha=(1,))
+    if val_t or val_c:
+        doc.add_paragraph(
+            "Las descripciones con la etiqueta «validada» se redactaron a partir de la estructura de la base y del código de la aplicación, "
+            "y las aprobó el responsable de la base de datos del proyecto. Se muestran en el portal y quedan pendientes de registrarse en la "
+            "base como comentarios (COMMENT ON).")
     doc.add_paragraph(
         "Las relaciones se documentan con su multiplicidad UML (por ejemplo, 0..* → 1), medida con los datos del entorno. "
         "El modelo entidad-relación se presenta por dominio y muestra también las relaciones con tablas de otros dominios.")
