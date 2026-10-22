@@ -140,7 +140,7 @@ def bloques(m, version, entorno):
             if c["gen"]:
                 partes.append("Calculada")
             partes.append("Null" if c["nul"] else "Not Null")
-            estado = c["de"] if c["de"] in ("propuesta", "validada") else ""
+            estado = ""   # el entregable no muestra si la descripción está validada o propuesta
             lista.append([c["n"], c["ty"], ", ".join(partes), c["d"], estado])
             sc = {"n": c["n"], "t": c["ty"], "nn": not c["nul"], "pk": c["pk"]}
             if c["ident"]:
@@ -201,7 +201,7 @@ def tarjetas_dominios(esquemas):
         desc = H.escape(e["d"]) if e["d"] else "Descripción del dominio por documentar."
         marca = (' <span class="ml-1.5 px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-semibold '
                  'text-[9px] not-italic border border-amber-500/20" title="Descripción propuesta; pendiente de validar con el equipo funcional">'
-                 'propuesta</span>') if e["d"] and e.get("de") == "propuesta" else ""
+                 'propuesta</span>') if False else ""   # sin etiqueta de estado en el entregable
         filas.append(f'''              <div class="space-y-1">
                 <h4 class="font-semibold text-slate-800 dark:text-slate-200">{H.escape(e["nombre"])}</h4>
                 <p class="text-slate-500">Esquema <code class="text-indigo-400">{H.escape(e["s"])}</code> · {e["tablas"]} tablas. {desc}{marca}</p>
@@ -238,7 +238,7 @@ def construir_html(m, version, entorno):
         (">SIPAE Data Portal</h1>", ">ESAP Data Portal</h1>"),
         (">v2.3 · Modelo ER + Inventario</p>", f">{etiqueta} · Modelo ER + Inventario</p>"),
         ('font-semibold">sqldb-sipae-pprd</span> <span class="ml-1 px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-500 text-[10px]">QA</span>',
-         f'font-semibold">{H.escape(ctx["db"])}</span> <span class="ml-1 px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-500 text-[10px]">{H.escape(entorno)}</span>'),
+         f'font-semibold">{H.escape(ctx["db"])}</span>'),   # sin etiqueta de entorno en la barra superior
         ("Sistema de Información de Alimentación Escolar (SIPAE)",
          f"SuperApp ESAP · {alc['nombre']}" if alc else "SuperApp ESAP · Escuela Superior de Administración Pública"),
         ("Arquitectura Conceptual de Módulos (SIPAE)", f"Arquitectura Conceptual de Módulos (ESAP · {alc['nombre']})" if alc else "Arquitectura Conceptual de Módulos (ESAP)"),

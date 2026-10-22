@@ -44,8 +44,7 @@ def construir_doc(m, version, url_portal, repo, entorno):
     doc.add_heading("1. Propósito", level=1)
     doc.add_paragraph(
         "Este documento presenta la base de datos de la SuperApp ESAP: su alcance, su organización por dominios y el contenido "
-        "de su modelo. El detalle de cada tabla, columna y relación se consulta en el Portal de Datos ESAP. Las consultas, los archivos "
-        "CSV y la documentación en Markdown que respaldan el portal están en el repositorio técnico (sección 6).")
+        "de su modelo. El detalle de cada tabla, columna y relación se consulta en el Portal de Datos ESAP (sección 6).")
     if alc:
         doc.add_paragraph(f"Esta versión cubre solo la {alc['nombre']} del proyecto. {alc['descripcion']} Las cifras de este documento "
                           "se limitan a esas tablas. Las tablas de otros dominios a las que hacen referencia se muestran en el Modelo ER del portal "
@@ -74,8 +73,7 @@ def construir_doc(m, version, url_portal, repo, entorno):
           anchos=[5.4, 4.6, 1.8, 2, 2.6], derecha=(2, 3, 4))
     for e in m["esquemas"]:
         texto = e["d"].strip().rstrip(".") if e["d"] else ""
-        vineta(doc, (f" {texto}" + (" (descripción propuesta, por validar con la ESAP)." if e.get("de") == "propuesta" else "."))
-               if texto else " Descripción del dominio por documentar.", f"{e['nombre']}:")
+        vineta(doc, f" {texto}." if texto else " Descripción del dominio por documentar.", f"{e['nombre']}:")
 
     doc.add_heading("4. Contenido del modelo", level=1)
     con_desc_t = sum(1 for t in op if t["de"] == "base")
@@ -89,20 +87,10 @@ def construir_doc(m, version, url_portal, repo, entorno):
         ["Funciones y procedimientos", n(len(m["programables"])), "Portal › Inventario de programables"],
         ["Triggers", n(len(m["triggers"])), "Portal › Inventario de programables"],
         ["Vistas", n(vistas), "Portal › Inventario de programables"],
-        ["Tipos enumerados", n(len(m["tipos"])), "Repositorio › docs/csv"],
-        ["Tablas con descripción registrada en la base", f"{n(con_desc_t)} de {n(len(op))}", "Portal › Inicio (indicadores) y ficha de tabla"],
-        ["Columnas con descripción registrada en la base", f"{n(con_desc_c)} de {n(len(cols))}", "Portal › ficha de tabla"],
-    ] + ([["Tablas con descripción validada, por registrar en la base", n(val_t), "Portal › ficha de tabla (etiqueta «validada»)"]] if val_t else []) + (
-        [["Columnas con descripción validada, por registrar en la base", n(val_c), "Portal › ficha de tabla (etiqueta «validada»)"]] if val_c else []) + (
-        [["Tablas con descripción (registrada o validada)", f"{n(con_desc_t + val_t)} de {n(len(op))} ({pct(con_desc_t + val_t, len(op))})", "Portal › Inicio (indicadores)"],
-         ["Columnas con descripción (registrada o validada)", f"{n(con_desc_c + val_c)} de {n(len(cols))} ({pct(con_desc_c + val_c, len(cols))})", "Portal › Inicio (indicadores)"]]
-        if val_t or val_c else []) + [
+        ["Tipos enumerados", n(len(m["tipos"])), "Detalle técnico (CSV)"],
+        ["Tablas con descripción", f"{n(con_desc_t + val_t)} de {n(len(op))} ({pct(con_desc_t + val_t, len(op))})", "Portal › Inicio (indicadores) y ficha de tabla"],
+        ["Columnas con descripción", f"{n(con_desc_c + val_c)} de {n(len(cols))} ({pct(con_desc_c + val_c, len(cols))})", "Portal › ficha de tabla"],
     ], anchos=[7.5, 2.8, 5.7], derecha=(1,))
-    if val_t or val_c:
-        doc.add_paragraph(
-            "Las descripciones con la etiqueta «validada» se redactaron a partir de la estructura de la base y del código de la aplicación, "
-            "y las aprobó el responsable de la base de datos del proyecto. Se muestran en el portal y quedan pendientes de registrarse en la "
-            "base como comentarios (COMMENT ON).")
     doc.add_paragraph(
         "Las relaciones se documentan con su multiplicidad UML (por ejemplo, 0..* → 1), medida con los datos del entorno. "
         "El modelo entidad-relación se presenta por dominio y muestra también las relaciones con tablas de otros dominios.")
@@ -118,31 +106,27 @@ def construir_doc(m, version, url_portal, repo, entorno):
         tabla(doc, ["Categoría", "Columnas"], [[k, n(v)] for k, v in por_cat.most_common()], anchos=[8, 3], derecha=(1,))
 
     doc.add_heading("6. Dónde consultar el detalle", level=1)
-    p = doc.add_paragraph(f"Portal de Datos ESAP{nombre_alc} {version}: ")
+    p = doc.add_paragraph(f"Portal de Datos ESAP{nombre_alc} {version}")
     if url_portal:
+        p.add_run(": ")
         hipervinculo(p, url_portal, url_portal)
     else:
-        p.add_run(f"portal/{sub}Portal_de_Datos_ESAP{sufijo}_{version}.html. Es un archivo HTML autónomo que se abre en cualquier navegador, sin conexión.")
+        p.add_run(". Es un archivo HTML autónomo que se abre en cualquier navegador, sin conexión.")
     secciones = [("Inicio", "welcome", "Cifras del catálogo, indicadores del modelo de datos (ISO/IEC 25012) y dominios funcionales"),
-                 ("Buscador y fichas de tabla", "auth.personas" if not alc else next(iter(sorted(m["tablas"]))), "Menú por esquema y buscador de tablas, columnas y programables. Cada ficha muestra "
+                 ("Buscador y fichas de tabla", "", "Menú por esquema y buscador de tablas, columnas y programables. Cada ficha muestra "
                   "propósito, campos, restricciones, datos personales, relaciones, vista enfocada del Modelo ER y lógica relacionada"),
                  ("Modelo ER", "modelo", "Diagrama entidad-relación por dominio, con cardinalidad UML y relaciones lógicas; exportable a SVG y PNG"),
                  ("Inventario de programables", "inventario", "Funciones, procedimientos, vistas y triggers, con las tablas que usan, a quién invocan y quién los invoca")]
-    t = tabla(doc, ["Sección del portal", "Contenido", "Enlace"],
-              [[s, d, "" if url_portal else f"#{v}"] for s, v, d in secciones], anchos=[3.3, 9.7, 3])
     if url_portal:
+        t = tabla(doc, ["Sección del portal", "Contenido", "Enlace"], [[s, d, ""] for s, v, d in secciones], anchos=[3.3, 9.7, 3])
         for fila, (s, v, d) in zip(t.rows[1:], secciones):
-            hipervinculo(fila.cells[2].paragraphs[0], enlace(v), "Abrir sección")
-    p = doc.add_paragraph("Repositorio técnico: ")
-    if repo:
-        hipervinculo(p, repo, repo)
+            if v:
+                hipervinculo(fila.cells[2].paragraphs[0], enlace(v), "Abrir sección")
     else:
-        p.add_run("(ubicación por definir)")
-    for ruta, d in [(f"docs/{sub}csv/", "catálogo, columnas, relaciones, programables y datos personales en formato CSV"),
-                    (f"docs/{sub}catalogo/", "un documento Markdown por dominio con todas sus tablas y columnas"),
-                    (f"docs/{sub}informe_extraccion{sufijo}_{version}.md", "cifras de la extracción y cambios frente al corte anterior"),
-                    ("sql/extraccion/", "consultas de solo lectura que producen esta información y permiten regenerarla")]:
-        vineta(doc, f" {d}.", ruta)
+        tabla(doc, ["Sección del portal", "Contenido"], [[s, d] for s, v, d in secciones], anchos=[4, 12])
+    doc.add_paragraph("El detalle técnico que acompaña el portal incluye el catálogo, las columnas, las relaciones, los programables y los datos "
+                      "personales en formato CSV, un documento por dominio con todas sus tablas y columnas, el informe de la extracción y las "
+                      "consultas de solo lectura que permiten regenerar esta información.")
 
     doc.add_heading("Anexo · Términos", level=1)
     for a, b in [("Llave foránea (FK): ", "restricción que obliga a que un valor exista en la tabla referenciada."),
@@ -151,7 +135,7 @@ def construir_doc(m, version, url_portal, repo, entorno):
                  ("Tabla de apoyo: ", "tabla de respaldo, copia, migración o temporal, identificada por su nombre."),
                  ("Fuente maestra: ", "tabla de referencia de un dato, como los datos de identificación de una persona.")]:
         vineta(doc, b, a)
-    pie(doc, f"Generado el {datetime.date.today():%Y-%m-%d} con herramientas/generar_resumen.py a partir de la extracción del {ctx['fecha'][:10]}.")
+    pie(doc, f"Generado el {datetime.date.today():%Y-%m-%d} a partir de la extracción del {ctx['fecha'][:10]}.")
     return doc
 
 
