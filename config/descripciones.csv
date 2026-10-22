@@ -1,1 +1,1472 @@
 esquema;tabla;columna;descripcion;estado
+academic-schedule;asignacion_docente;created_at;Fecha y hora de creación del registro.;validada
+academic-schedule;asignacion_docente;id_asignacion;Identificador único del registro en la tabla asignacion_docente. Se genera automáticamente.;validada
+academic-schedule;asignacion_docente;id_docente;Referencia al registro de auth.personas (id_person).;validada
+academic-schedule;asignacion_docente;id_grupo;Referencia al registro de academic-schedule.grupo (id_grupo).;validada
+academic-schedule;asignacion_docente;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic-schedule;aula;codigo;Clave primaria de la tabla aula: código.;validada
+academic-schedule;aula;created_at;Fecha y hora de creación del registro.;validada
+academic-schedule;cetap_sin_catalogo;id;Identificador único del registro en la tabla cetap_sin_catalogo. Se genera automáticamente.;validada
+academic-schedule;concertacion_docencia;created_at;Fecha y hora de creación del registro.;validada
+academic-schedule;concertacion_docencia;id_concertacion;Identificador único del registro en la tabla concertacion_docencia. Se genera automáticamente.;validada
+academic-schedule;concertacion_docencia;id_docente;Referencia al registro de auth.personas (id_person).;validada
+academic-schedule;concertacion_docencia;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic-schedule;concertacion_firma;id_concertacion;Referencia al registro de academic-schedule.concertacion_docencia (id_concertacion).;validada
+academic-schedule;concertacion_firma;id_firma;Identificador único del registro en la tabla concertacion_firma. Se genera automáticamente.;validada
+academic-schedule;concertacion_historial;id;Identificador único del registro en la tabla concertacion_historial. Se genera automáticamente.;validada
+academic-schedule;concertacion_historial;id_concertacion;Referencia al registro de academic-schedule.concertacion_docencia (id_concertacion).;validada
+academic-schedule;concertacion_revision;id_concertacion;Identificador único del registro en la tabla concertacion_revision.;validada
+academic-schedule;concertacion_revision;tipo;Clave primaria de la tabla concertacion_revision: tipo.;validada
+academic-schedule;equivalencia_periodo;codigo_programacion;Clave primaria de la tabla equivalencia_periodo: código programación.;validada
+academic-schedule;franja_horaria;created_at;Fecha y hora de creación del registro.;validada
+academic-schedule;franja_horaria;id_franja;Identificador único del registro en la tabla franja_horaria. Se genera automáticamente.;validada
+academic-schedule;franja_horaria;id_periodo;Referencia al registro de academic-schedule.periodo_programacion (id_periodo).;validada
+academic-schedule;franja_horaria;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic-schedule;grupo;created_at;Fecha y hora de creación del registro.;validada
+academic-schedule;grupo;id_asignatura;Referencia al registro de academic_work_plan.asignatura (id).;validada
+academic-schedule;grupo;id_grupo;Identificador único del registro en la tabla grupo. Se genera automáticamente.;validada
+academic-schedule;grupo;id_oferta_cetap;Referencia al registro de academic_work_plan.oferta_cetap_programa (id).;validada
+academic-schedule;grupo;id_periodo;Referencia al registro de academic-schedule.periodo_programacion (id_periodo).;validada
+academic-schedule;grupo;id_periodo_academico;Referencia al registro de academic_work_plan.periodo_academico (id).;validada
+academic-schedule;grupo;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic-schedule;jefatura_territorial;id_direccion_territorial;Identificador único del registro en la tabla jefatura_territorial.;validada
+academic-schedule;jefatura_territorial;id_user;Identificador único del registro en la tabla jefatura_territorial.;validada
+academic-schedule;periodo_programacion;created_at;Fecha y hora de creación del registro.;validada
+academic-schedule;periodo_programacion;id_periodo;Identificador único del registro en la tabla periodo_programacion. Se genera automáticamente.;validada
+academic-schedule;periodo_programacion;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic-schedule;programacion_historica;id;Identificador único del registro en la tabla programacion_historica. Se genera automáticamente.;validada
+academic-schedule;programacion_periodo;created_at;Fecha y hora de creación del registro.;validada
+academic-schedule;programacion_periodo;id_periodo_academico;Identificador único del registro en la tabla programacion_periodo.;validada
+academic-schedule;programacion_periodo;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_registration;certificate_template_config;created_at;Fecha y hora de creación del registro.;validada
+academic_registration;certificate_template_config;created_by;Usuario que creó el registro.;validada
+academic_registration;certificate_template_config;id;Identificador único del registro en la tabla certificate_template_config. Se genera automáticamente.;validada
+academic_registration;certificate_template_config;signer_id;Referencia al registro de academic_registration.signers (id).;validada
+academic_registration;certificate_template_config;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_registration;certificate_template_config;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_registration;certificate_validations;certificate_id;Referencia al registro de academic_registration.graduation_certificates (id).;validada
+academic_registration;certificate_validations;created_at;Fecha y hora de creación del registro.;validada
+academic_registration;certificate_validations;id;Identificador único del registro en la tabla certificate_validations. Se genera automáticamente.;validada
+academic_registration;graduate_files;graduate_id;Referencia al registro de academic_registration.graduates (id).;validada
+academic_registration;graduate_files;id;Identificador único del registro en la tabla graduate_files. Se genera automáticamente.;validada
+academic_registration;graduate_program_catalog;created_at;Fecha y hora de creación del registro.;validada
+academic_registration;graduate_program_catalog;created_by;Usuario que creó el registro.;validada
+academic_registration;graduate_program_catalog;id;Identificador único del registro en la tabla graduate_program_catalog. Se genera automáticamente.;validada
+academic_registration;graduates;created_at;Fecha y hora de creación del registro.;validada
+academic_registration;graduates;created_by;Usuario que creó el registro.;validada
+academic_registration;graduates;id;Identificador único del registro en la tabla graduates. Se genera automáticamente.;validada
+academic_registration;graduates;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_registration;graduates;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_registration;graduation_certificate_requests;created_at;Fecha y hora de creación del registro.;validada
+academic_registration;graduation_certificate_requests;id;Identificador único del registro en la tabla graduation_certificate_requests. Se genera automáticamente.;validada
+academic_registration;graduation_certificate_requests;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_registration;graduation_certificates;created_at;Fecha y hora de creación del registro.;validada
+academic_registration;graduation_certificates;created_by;Usuario que creó el registro.;validada
+academic_registration;graduation_certificates;graduate_id;Referencia al registro de academic_registration.graduates (id).;validada
+academic_registration;graduation_certificates;id;Identificador único del registro en la tabla graduation_certificates. Se genera automáticamente.;validada
+academic_registration;graduation_certificates;request_id;Referencia al registro de academic_registration.graduation_certificate_requests (id).;validada
+academic_registration;graduation_certificates;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_registration;graduation_request_review_files;id;Identificador único del registro en la tabla graduation_request_review_files. Se genera automáticamente.;validada
+academic_registration;graduation_request_review_files;request_id;Referencia al registro de academic_registration.graduation_certificate_requests (id).;validada
+academic_registration;signers;created_at;Fecha y hora de creación del registro.;validada
+academic_registration;signers;id;Identificador único del registro en la tabla signers. Se genera automáticamente.;validada
+academic_registration;signers;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_registration;template_config_changes;id;Identificador único del registro en la tabla template_config_changes. Se genera automáticamente.;validada
+academic_registration;template_config_changes;template_config_id;Referencia al registro de academic_registration.certificate_template_config (id).;validada
+academic_work_plan;AprobacionJefatura;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;AprobacionJefatura;id;Identificador único del registro en la tabla AprobacionJefatura. Se genera automáticamente.;validada
+academic_work_plan;AprobacionJefatura;ptaId;Referencia al registro de academic_work_plan.PlanTrabajoAcademico (id).;validada
+academic_work_plan;AprobacionJefatura;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;AuditLog;id;Identificador único del registro en la tabla AuditLog. Se genera automáticamente.;validada
+academic_work_plan;BancoDocentesInvitaciones;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;BancoDocentesInvitaciones;id;Identificador único del registro en la tabla BancoDocentesInvitaciones. Se genera automáticamente.;validada
+academic_work_plan;BancoDocentesInvitaciones;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;CarpetaDigital;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;CarpetaDigital;id;Identificador único del registro en la tabla CarpetaDigital. Se genera automáticamente.;validada
+academic_work_plan;CarpetaDigital;personaId;Referencia al registro de academic_work_plan.Persona (id).;validada
+academic_work_plan;CarpetaDigital;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;Certificado;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;Certificado;id;Identificador único del registro en la tabla Certificado. Se genera automáticamente.;validada
+academic_work_plan;Certificado;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;Concertacion;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;Concertacion;id;Identificador único del registro en la tabla Concertacion. Se genera automáticamente.;validada
+academic_work_plan;Concertacion;ptaId;Referencia al registro de academic_work_plan.PlanTrabajoAcademico (id).;validada
+academic_work_plan;ConfiguracionSistema;clave;Clave primaria de la tabla ConfiguracionSistema: clave.;validada
+academic_work_plan;ConfiguracionSistema;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;DetallesPta;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;DetallesPta;id;Identificador único del registro en la tabla DetallesPta. Se genera automáticamente.;validada
+academic_work_plan;DetallesPta;ptaId;Referencia al registro de academic_work_plan.PlanTrabajoAcademico (id).;validada
+academic_work_plan;Docente;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;Docente;id;Identificador único del registro en la tabla Docente. Se genera automáticamente.;validada
+academic_work_plan;Docente;personaId;Referencia al registro de auth.personas (id_person).;validada
+academic_work_plan;Docente;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;Documento;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;Documento;id;Identificador único del registro en la tabla Documento. Se genera automáticamente.;validada
+academic_work_plan;Documento;personaId;Referencia al registro de academic_work_plan.Persona (id).;validada
+academic_work_plan;Documento;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;DocumentoVersion;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;DocumentoVersion;documentoId;Referencia al registro de academic_work_plan.Documento (id).;validada
+academic_work_plan;DocumentoVersion;id;Identificador único del registro en la tabla DocumentoVersion. Se genera automáticamente.;validada
+academic_work_plan;HistorialEstadoPTA;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;HistorialEstadoPTA;id;Identificador único del registro en la tabla HistorialEstadoPTA. Se genera automáticamente.;validada
+academic_work_plan;HistorialEstadoPTA;ptaId;Referencia al registro de academic_work_plan.PlanTrabajoAcademico (id).;validada
+academic_work_plan;PTAUserData;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;PTAUserData;id;Identificador único del registro en la tabla PTAUserData. Se genera automáticamente.;validada
+academic_work_plan;PTAUserData;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;Permiso;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;Permiso;id;Identificador único del registro en la tabla Permiso. Se genera automáticamente.;validada
+academic_work_plan;Persona;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;Persona;id;Identificador único del registro en la tabla Persona. Se genera automáticamente.;validada
+academic_work_plan;Persona;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;Persona;usuarioId;Referencia al registro de academic_work_plan.Usuario (id).;validada
+academic_work_plan;PersonaPrograma;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;PersonaPrograma;id;Identificador único del registro en la tabla PersonaPrograma. Se genera automáticamente.;validada
+academic_work_plan;PersonaPrograma;personaId;Referencia al registro de academic_work_plan.Persona (id).;validada
+academic_work_plan;PlanTrabajoAcademico;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;PlanTrabajoAcademico;docenteId;Referencia al registro de academic_work_plan.Docente (id).;validada
+academic_work_plan;PlanTrabajoAcademico;id;Identificador único del registro en la tabla PlanTrabajoAcademico. Se genera automáticamente.;validada
+academic_work_plan;PlanTrabajoAcademico;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;PtaComponentApproval;created_at;Fecha y hora de creación del registro.;validada
+academic_work_plan;PtaComponentApproval;id;Identificador único del registro en la tabla PtaComponentApproval. Se genera automáticamente.;validada
+academic_work_plan;PtaComponentApproval;pta_id;Referencia al registro de academic_work_plan.PlanTrabajoAcademico (id).;validada
+academic_work_plan;PtaComponentApproval;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;PtaComponentReview;created_at;Fecha y hora de creación del registro.;validada
+academic_work_plan;PtaComponentReview;id;Identificador único del registro en la tabla PtaComponentReview. Se genera automáticamente.;validada
+academic_work_plan;PtaComponentReview;pta_id;Referencia al registro de academic_work_plan.PlanTrabajoAcademico (id).;validada
+academic_work_plan;PtaComponentReview;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;PtaEvento;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;PtaEvento;id;Identificador único del registro en la tabla PtaEvento. Se genera automáticamente.;validada
+academic_work_plan;PtaEvento;ptaId;Referencia al registro de academic_work_plan.PlanTrabajoAcademico (id).;validada
+academic_work_plan;PtaEvidencia;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;PtaEvidencia;id;Identificador único del registro en la tabla PtaEvidencia. Se genera automáticamente.;validada
+academic_work_plan;PtaEvidencia;ptaId;Referencia al registro de academic_work_plan.PlanTrabajoAcademico (id).;validada
+academic_work_plan;PtaEvidencia;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;PtaTerritorialApproval;created_at;Fecha y hora de creación del registro.;validada
+academic_work_plan;PtaTerritorialApproval;id;Identificador único del registro en la tabla PtaTerritorialApproval. Se genera automáticamente.;validada
+academic_work_plan;PtaTerritorialApproval;pta_id;Referencia al registro de academic_work_plan.PlanTrabajoAcademico (id).;validada
+academic_work_plan;PtaTerritorialApproval;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;PtaTerritorialReview;created_at;Fecha y hora de creación del registro.;validada
+academic_work_plan;PtaTerritorialReview;id;Identificador único del registro en la tabla PtaTerritorialReview. Se genera automáticamente.;validada
+academic_work_plan;PtaTerritorialReview;pta_id;Referencia al registro de academic_work_plan.PlanTrabajoAcademico (id).;validada
+academic_work_plan;PtaTerritorialReview;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;Rol;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;Rol;id;Identificador único del registro en la tabla Rol. Se genera automáticamente.;validada
+academic_work_plan;Rol;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;RolPermiso;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;RolPermiso;id;Identificador único del registro en la tabla RolPermiso. Se genera automáticamente.;validada
+academic_work_plan;RolPermiso;permisoId;Referencia al registro de academic_work_plan.Permiso (id).;validada
+academic_work_plan;RolPermiso;rolId;Referencia al registro de academic_work_plan.Rol (id).;validada
+academic_work_plan;RundAccesoDatosLog;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;RundAccesoDatosLog;id;Identificador único del registro en la tabla RundAccesoDatosLog.;validada
+academic_work_plan;RundAccesoExterno;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;RundAccesoExterno;id;Identificador único del registro en la tabla RundAccesoExterno. Se genera automáticamente.;validada
+academic_work_plan;RundAprobacionLog;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;RundAprobacionLog;id;Identificador único del registro en la tabla RundAprobacionLog. Se genera automáticamente.;validada
+academic_work_plan;RundCampoEstado;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;RundCampoEstado;id;Identificador único del registro en la tabla RundCampoEstado. Se genera automáticamente.;validada
+academic_work_plan;RundCampoEstado;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;RundCargaMasiva;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;RundCargaMasiva;id;Identificador único del registro en la tabla RundCargaMasiva. Se genera automáticamente.;validada
+academic_work_plan;RundCargaMasiva;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;RundDocumentoCategoria;codigo;Clave primaria de la tabla RundDocumentoCategoria: código.;validada
+academic_work_plan;RundDocumentoCategoria;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;RundDocumentoCategoria;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;RundDocumentoPerfil;categoria_codigo;Referencia al registro de academic_work_plan.RundDocumentoCategoria (codigo).;validada
+academic_work_plan;RundDocumentoPerfil;creado_por;Usuario que creó el registro.;validada
+academic_work_plan;RundDocumentoPerfil;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;RundDocumentoPerfil;id;Identificador único del registro en la tabla RundDocumentoPerfil. Se genera automáticamente.;validada
+academic_work_plan;RundDocumentoPerfil;reemplaza_id;Referencia al registro de academic_work_plan.RundDocumentoPerfil (id).;validada
+academic_work_plan;RundExtraccionInicio;id;Identificador único del registro en la tabla RundExtraccionInicio.;validada
+academic_work_plan;RundExtraccionSugerencia;id;Identificador único del registro en la tabla RundExtraccionSugerencia. Se genera automáticamente.;validada
+academic_work_plan;RundExtraccionSugerencia;trabajo_id;Referencia al registro de academic_work_plan.RundExtraccionTrabajo (id).;validada
+academic_work_plan;RundExtraccionTrabajo;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;RundExtraccionTrabajo;creado_en;Fecha y hora de creación del registro.;validada
+academic_work_plan;RundExtraccionTrabajo;creado_por;Usuario que creó el registro.;validada
+academic_work_plan;RundExtraccionTrabajo;documento_id;Referencia al registro de academic_work_plan.RundDocumentoPerfil (id).;validada
+academic_work_plan;RundExtraccionTrabajo;id;Identificador único del registro en la tabla RundExtraccionTrabajo. Se genera automáticamente.;validada
+academic_work_plan;RundInvitacionDocente;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;RundInvitacionDocente;id;Identificador único del registro en la tabla RundInvitacionDocente. Se genera automáticamente.;validada
+academic_work_plan;RundInvitacionDocente;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;RundMacroDocenteConsultaLog;acceso_externo_id;Referencia al registro de academic_work_plan.RundAccesoExterno (id).;validada
+academic_work_plan;RundMacroDocenteConsultaLog;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;RundMacroDocenteConsultaLog;id;Identificador único del registro en la tabla RundMacroDocenteConsultaLog. Se genera automáticamente.;validada
+academic_work_plan;RundSoporteCampo;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;RundSoporteCampo;id;Identificador único del registro en la tabla RundSoporteCampo. Se genera automáticamente.;validada
+academic_work_plan;Sede;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;Sede;id;Identificador único del registro en la tabla Sede. Se genera automáticamente.;validada
+academic_work_plan;Sede;territorialId;Referencia al registro de academic_work_plan.Territorial (id).;validada
+academic_work_plan;Sede;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;SistemaAlerta;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;SistemaAlerta;id;Identificador único del registro en la tabla SistemaAlerta. Se genera automáticamente.;validada
+academic_work_plan;SistemaAlerta;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;SolicitudPTA;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;SolicitudPTA;docenteId;Referencia al registro de academic_work_plan.Docente (id).;validada
+academic_work_plan;SolicitudPTA;id;Identificador único del registro en la tabla SolicitudPTA. Se genera automáticamente.;validada
+academic_work_plan;SolicitudPTA;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;Territorial;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;Territorial;id;Identificador único del registro en la tabla Territorial. Se genera automáticamente.;validada
+academic_work_plan;Territorial;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;Usuario;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;Usuario;id;Identificador único del registro en la tabla Usuario. Se genera automáticamente.;validada
+academic_work_plan;Usuario;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;UsuarioRol;createdAt;Fecha y hora de creación del registro.;validada
+academic_work_plan;UsuarioRol;id;Identificador único del registro en la tabla UsuarioRol. Se genera automáticamente.;validada
+academic_work_plan;UsuarioRol;rolId;Referencia al registro de academic_work_plan.Rol (id).;validada
+academic_work_plan;UsuarioRol;usuarioId;Referencia al registro de academic_work_plan.Usuario (id).;validada
+academic_work_plan;asignatura;created_at;Fecha y hora de creación del registro.;validada
+academic_work_plan;asignatura;created_by;Usuario que creó el registro.;validada
+academic_work_plan;asignatura;id;Identificador único del registro en la tabla asignatura. Se genera automáticamente.;validada
+academic_work_plan;asignatura;id_facultad;Referencia al registro de academic_work_plan.facultad (id).;validada
+academic_work_plan;asignatura;id_nucleo_tematico;Referencia al registro de academic_work_plan.nucleo_tematico (id).;validada
+academic_work_plan;asignatura;id_programa;Referencia al registro de academic_work_plan.programa (id).;validada
+academic_work_plan;asignatura;id_ubicacion_semestral;Referencia al registro de academic_work_plan.ubicacion_semestral (id).;validada
+academic_work_plan;asignatura;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;asignatura;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;cetap;created_at;Fecha y hora de creación del registro.;validada
+academic_work_plan;cetap;created_by;Usuario que creó el registro.;validada
+academic_work_plan;cetap;id;Identificador único del registro en la tabla cetap. Se genera automáticamente.;validada
+academic_work_plan;cetap;id_direccion_territorial;Referencia al registro de academic_work_plan.direccion_territorial (id).;validada
+academic_work_plan;cetap;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;cetap;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;cetap_alias;created_at;Fecha y hora de creación del registro.;validada
+academic_work_plan;cetap_alias;created_by;Usuario que creó el registro.;validada
+academic_work_plan;cetap_alias;id;Identificador único del registro en la tabla cetap_alias. Se genera automáticamente.;validada
+academic_work_plan;cetap_alias;id_cetap;Referencia al registro de academic_work_plan.cetap (id).;validada
+academic_work_plan;direccion_territorial;created_at;Fecha y hora de creación del registro.;validada
+academic_work_plan;direccion_territorial;created_by;Usuario que creó el registro.;validada
+academic_work_plan;direccion_territorial;id;Identificador único del registro en la tabla direccion_territorial. Se genera automáticamente.;validada
+academic_work_plan;direccion_territorial;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;direccion_territorial;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;docencia_concertada;id_concertacion;Identificador único del registro en la tabla docencia_concertada.;validada
+academic_work_plan;facultad;created_at;Fecha y hora de creación del registro.;validada
+academic_work_plan;facultad;created_by;Usuario que creó el registro.;validada
+academic_work_plan;facultad;id;Identificador único del registro en la tabla facultad. Se genera automáticamente.;validada
+academic_work_plan;facultad;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;facultad;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;nucleo_tematico;created_at;Fecha y hora de creación del registro.;validada
+academic_work_plan;nucleo_tematico;created_by;Usuario que creó el registro.;validada
+academic_work_plan;nucleo_tematico;id;Identificador único del registro en la tabla nucleo_tematico. Se genera automáticamente.;validada
+academic_work_plan;nucleo_tematico;id_programa;Referencia al registro de academic_work_plan.programa (id).;validada
+academic_work_plan;nucleo_tematico;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;nucleo_tematico;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;oferta_cetap_programa;created_at;Fecha y hora de creación del registro.;validada
+academic_work_plan;oferta_cetap_programa;created_by;Usuario que creó el registro.;validada
+academic_work_plan;oferta_cetap_programa;id;Identificador único del registro en la tabla oferta_cetap_programa. Se genera automáticamente.;validada
+academic_work_plan;oferta_cetap_programa;id_cetap;Referencia al registro de academic_work_plan.cetap (id).;validada
+academic_work_plan;oferta_cetap_programa;id_periodo_academico;Referencia al registro de academic_work_plan.periodo_academico (id).;validada
+academic_work_plan;oferta_cetap_programa;id_programa;Referencia al registro de academic_work_plan.programa (id).;validada
+academic_work_plan;oferta_cetap_programa;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;oferta_cetap_programa;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;periodo_academico;created_at;Fecha y hora de creación del registro.;validada
+academic_work_plan;periodo_academico;created_by;Usuario que creó el registro.;validada
+academic_work_plan;periodo_academico;id;Identificador único del registro en la tabla periodo_academico. Se genera automáticamente.;validada
+academic_work_plan;periodo_academico;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;periodo_academico;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;periodo_cetap;created_at;Fecha y hora de creación del registro.;validada
+academic_work_plan;periodo_cetap;id;Identificador único del registro en la tabla periodo_cetap. Se genera automáticamente.;validada
+academic_work_plan;periodo_cetap;id_cetap;Referencia al registro de academic_work_plan.cetap (id).;validada
+academic_work_plan;periodo_cetap;id_periodo_academico;Referencia al registro de academic_work_plan.periodo_academico (id).;validada
+academic_work_plan;periodo_cetap;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;programa;created_at;Fecha y hora de creación del registro.;validada
+academic_work_plan;programa;created_by;Usuario que creó el registro.;validada
+academic_work_plan;programa;id;Identificador único del registro en la tabla programa. Se genera automáticamente.;validada
+academic_work_plan;programa;id_facultad;Referencia al registro de academic_work_plan.facultad (id).;validada
+academic_work_plan;programa;id_periodo_academico;Referencia al registro de academic_work_plan.periodo_academico (id).;validada
+academic_work_plan;programa;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;programa;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;ubicacion_semestral;id;Identificador único del registro en la tabla ubicacion_semestral. Se genera automáticamente.;validada
+academic_work_plan;validacion_documental;created_at;Fecha y hora de creación del registro.;validada
+academic_work_plan;validacion_documental;docente_id;Referencia al registro de academic_work_plan.Docente (id).;validada
+academic_work_plan;validacion_documental;id;Identificador único del registro en la tabla validacion_documental. Se genera automáticamente.;validada
+academic_work_plan;validacion_documental;updated_at;Fecha y hora de la última actualización del registro.;validada
+audit;request_logs;created_at;Fecha y hora de creación del registro.;validada
+audit;request_logs;id;Identificador único del registro en la tabla request_logs. Se genera automáticamente.;validada
+audit;request_logs;timestamp;Clave primaria de la tabla request_logs: timestamp.;validada
+auth;acreditaciones_programa;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+auth;acreditaciones_programa;creado_en;Fecha y hora de creación del registro.;validada
+auth;acreditaciones_programa;id;Identificador único del registro en la tabla acreditaciones_programa. Se genera automáticamente.;validada
+auth;acreditaciones_programa;programa_id;Referencia al registro de auth.programas_academicos (id).;validada
+auth;cargos;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+auth;cargos;creado_en;Fecha y hora de creación del registro.;validada
+auth;cargos;id_cargo;Identificador único del registro en la tabla cargos. Se genera automáticamente.;validada
+auth;carpeta_digital;created_at;Fecha y hora de creación del registro.;validada
+auth;carpeta_digital;id_carpeta_digital;Identificador único del registro en la tabla carpeta_digital. Se genera automáticamente.;validada
+auth;carpeta_digital;persona_id;Referencia al registro de auth.personas (id_person).;validada
+auth;carpeta_digital;updated_at;Fecha y hora de la última actualización del registro.;validada
+auth;dependencias;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+auth;dependencias;creado_en;Fecha y hora de creación del registro.;validada
+auth;dependencias;id_dependencia;Identificador único del registro en la tabla dependencias.;validada
+auth;dependencias_cargos;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+auth;dependencias_cargos;creado_en;Fecha y hora de creación del registro.;validada
+auth;dependencias_cargos;id_cargo;Referencia al registro de auth.cargos (id_cargo).;validada
+auth;dependencias_cargos;id_dependencia;Referencia al registro de auth.dependencias (id_dependencia).;validada
+auth;dependencias_cargos;id_dependencia_cargo;Identificador único del registro en la tabla dependencias_cargos. Se genera automáticamente.;validada
+auth;documento_carpeta_digital;carpeta_digital_id;Referencia al registro de auth.carpeta_digital (id_carpeta_digital).;validada
+auth;documento_carpeta_digital;created_at;Fecha y hora de creación del registro.;validada
+auth;documento_carpeta_digital;id_documento;Identificador único del registro en la tabla documento_carpeta_digital. Se genera automáticamente.;validada
+auth;documento_carpeta_digital;tipo_documento_id;Referencia al registro de auth.tipo_documento (id_tipo_documento).;validada
+auth;documento_carpeta_digital;updated_at;Fecha y hora de la última actualización del registro.;validada
+auth;festivos_colombia;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+auth;festivos_colombia;creado_en;Fecha y hora de creación del registro.;validada
+auth;festivos_colombia;id;Identificador único del registro en la tabla festivos_colombia. Se genera automáticamente.;validada
+auth;geopolitica;id_geopolitica;Identificador único del registro en la tabla geopolitica.;validada
+auth;geopolitica;id_padre;Referencia al registro de auth.geopolitica (id_geopolitica).;validada
+auth;migrations_db_log;filename;Clave primaria de la tabla migrations_db_log: filename.;validada
+auth;module;created_at;Fecha y hora de creación del registro.;validada
+auth;module;id_module;Identificador único del registro en la tabla module. Se genera automáticamente.;validada
+auth;module;updated_at;Fecha y hora de la última actualización del registro.;validada
+auth;permission;created_at;Fecha y hora de creación del registro.;validada
+auth;permission;id_module;Referencia al registro de auth.module (id_module).;validada
+auth;permission;id_permission;Identificador único del registro en la tabla permission. Se genera automáticamente.;validada
+auth;permission;updated_at;Fecha y hora de la última actualización del registro.;validada
+auth;personas;id_cargo;Referencia al registro de auth.cargos (id_cargo).;validada
+auth;personas;id_dependencia;Referencia al registro de auth.dependencias (id_dependencia).;validada
+auth;personas;id_seccional;Referencia al registro de auth.seccionales (id_seccional).;validada
+auth;personas;id_sede;Referencia al registro de auth.sedes (id_sede).;validada
+auth;programas_academicos;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+auth;programas_academicos;creado_en;Fecha y hora de creación del registro.;validada
+auth;programas_academicos;fecha_creacion;Fecha y hora de creación del registro.;validada
+auth;programas_academicos;id;Identificador único del registro en la tabla programas_academicos. Se genera automáticamente.;validada
+auth;programas_academicos;sede_id;Referencia al registro de auth.sedes (id_sede).;validada
+auth;registros_calificados;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+auth;registros_calificados;creado_en;Fecha y hora de creación del registro.;validada
+auth;registros_calificados;id;Identificador único del registro en la tabla registros_calificados. Se genera automáticamente.;validada
+auth;registros_calificados;programa_id;Referencia al registro de auth.programas_academicos (id).;validada
+auth;role;created_at;Fecha y hora de creación del registro.;validada
+auth;role;created_by;Usuario que creó el registro.;validada
+auth;role;id;Identificador único del registro en la tabla role.;validada
+auth;role;updated_at;Fecha y hora de la última actualización del registro.;validada
+auth;role;updated_by;Usuario que realizó la última actualización del registro.;validada
+auth;role_permissions;created_at;Fecha y hora de creación del registro.;validada
+auth;role_permissions;id_permission;Identificador único del registro en la tabla role_permissions.;validada
+auth;role_permissions;id_rol;Identificador único del registro en la tabla role_permissions.;validada
+auth;role_permissions;updated_at;Fecha y hora de la última actualización del registro.;validada
+auth;seccionales;id_seccional;Identificador único del registro en la tabla seccionales.;validada
+auth;seccionales;id_ubi_seccional;Referencia al registro de auth.geopolitica (id_geopolitica).;validada
+auth;sede_cetap_mapping;created_at;Fecha y hora de creación del registro.;validada
+auth;sede_cetap_mapping;id_cetap;Referencia al registro de academic_work_plan.cetap (id).;validada
+auth;sede_cetap_mapping;id_sede;Identificador único del registro en la tabla sede_cetap_mapping.;validada
+auth;sede_cetap_mapping;updated_at;Fecha y hora de la última actualización del registro.;validada
+auth;sedes;id_geopolitica;Referencia al registro de auth.geopolitica (id_geopolitica).;validada
+auth;sedes;id_seccional;Referencia al registro de auth.seccionales (id_seccional).;validada
+auth;sedes;id_sede;Identificador único del registro en la tabla sedes.;validada
+auth;system_settings;key;Clave primaria de la tabla system_settings: key.;validada
+auth;system_settings;updated_at;Fecha y hora de la última actualización del registro.;validada
+auth;tipo_documento;carpeta_digital_id;Referencia al registro de auth.carpeta_digital (id_carpeta_digital).;validada
+auth;tipo_documento;created_at;Fecha y hora de creación del registro.;validada
+auth;tipo_documento;id_tipo_documento;Identificador único del registro en la tabla tipo_documento. Se genera automáticamente.;validada
+auth;tipo_documento;updated_at;Fecha y hora de la última actualización del registro.;validada
+auth;user;created_at;Fecha y hora de creación del registro.;validada
+auth;user;id_person;Referencia al registro de auth.personas (id_person).;validada
+auth;user;id_user;Identificador único del registro en la tabla user.;validada
+auth;user;updated_at;Fecha y hora de la última actualización del registro.;validada
+auth;user_roles;created_at;Fecha y hora de creación del registro.;validada
+auth;user_roles;id_rol;Identificador único del registro en la tabla user_roles.;validada
+auth;user_roles;id_user;Identificador único del registro en la tabla user_roles.;validada
+auth;user_roles;updated_at;Fecha y hora de la última actualización del registro.;validada
+certification;certificate_correction_requests;certificate_id;Referencia al registro de certification.certificates (id).;validada
+certification;certificate_correction_requests;created_at;Fecha y hora de creación del registro.;validada
+certification;certificate_correction_requests;id;Identificador único del registro en la tabla certificate_correction_requests. Se genera automáticamente.;validada
+certification;certificate_correction_requests;updated_at;Fecha y hora de la última actualización del registro.;validada
+certification;certificate_requests;created_at;Fecha y hora de creación del registro.;validada
+certification;certificate_requests;id;Identificador único del registro en la tabla certificate_requests. Se genera automáticamente.;validada
+certification;certificate_requests;updated_at;Fecha y hora de la última actualización del registro.;validada
+certification;certificate_template_config;created_at;Fecha y hora de creación del registro.;validada
+certification;certificate_template_config;created_by;Usuario que creó el registro.;validada
+certification;certificate_template_config;id;Identificador único del registro en la tabla certificate_template_config. Se genera automáticamente.;validada
+certification;certificate_template_config;updated_at;Fecha y hora de la última actualización del registro.;validada
+certification;certificate_template_config;updated_by;Usuario que realizó la última actualización del registro.;validada
+certification;certificate_templates;created_at;Fecha y hora de creación del registro.;validada
+certification;certificate_templates;id;Identificador único del registro en la tabla certificate_templates. Se genera automáticamente.;validada
+certification;certificate_templates;updated_at;Fecha y hora de la última actualización del registro.;validada
+certification;certificate_validations;created_at;Fecha y hora de creación del registro.;validada
+certification;certificate_validations;id;Identificador único del registro en la tabla certificate_validations. Se genera automáticamente.;validada
+certification;certificates;created_at;Fecha y hora de creación del registro.;validada
+certification;certificates;id;Identificador único del registro en la tabla certificates. Se genera automáticamente.;validada
+certification;certificates;request_id;Referencia al registro de certification.certificate_requests (id).;validada
+certification;certificates;updated_at;Fecha y hora de la última actualización del registro.;validada
+certification;labor_function_profiles;created_at;Fecha y hora de creación del registro.;validada
+certification;labor_function_profiles;created_by;Usuario que creó el registro.;validada
+certification;labor_function_profiles;id;Identificador único del registro en la tabla labor_function_profiles. Se genera automáticamente.;validada
+certification;labor_function_profiles;updated_at;Fecha y hora de la última actualización del registro.;validada
+certification;labor_function_profiles;updated_by;Usuario que realizó la última actualización del registro.;validada
+certification;labor_functions;created_at;Fecha y hora de creación del registro.;validada
+certification;labor_functions;id;Identificador único del registro en la tabla labor_functions. Se genera automáticamente.;validada
+certification;labor_functions;profile_id;Referencia al registro de certification.labor_function_profiles (id).;validada
+certification;labor_functions;updated_at;Fecha y hora de la última actualización del registro.;validada
+certification;signers;created_at;Fecha y hora de creación del registro.;validada
+certification;signers;id;Identificador único del registro en la tabla signers. Se genera automáticamente.;validada
+certification;signers;updated_at;Fecha y hora de la última actualización del registro.;validada
+certification;technical_bonus_assignments;created_at;Fecha y hora de creación del registro.;validada
+certification;technical_bonus_assignments;created_by;Usuario que creó el registro.;validada
+certification;technical_bonus_assignments;id;Identificador único del registro en la tabla technical_bonus_assignments. Se genera automáticamente.;validada
+certification;technical_bonus_assignments;request_id;Referencia al registro de certification.certificate_requests (id).;validada
+certification;technical_bonus_assignments;updated_at;Fecha y hora de la última actualización del registro.;validada
+certification;technical_bonus_assignments;updated_by;Usuario que realizó la última actualización del registro.;validada
+certification;technical_bonus_templates;created_at;Fecha y hora de creación del registro.;validada
+certification;technical_bonus_templates;id;Identificador único del registro en la tabla technical_bonus_templates. Se genera automáticamente.;validada
+certification;technical_bonus_templates;updated_at;Fecha y hora de la última actualización del registro.;validada
+certification;technical_bonus_templates;updated_by;Usuario que realizó la última actualización del registro.;validada
+certification;template_config_changes;id;Identificador único del registro en la tabla template_config_changes. Se genera automáticamente.;validada
+certification;template_config_changes;template_config_id;Referencia al registro de certification.certificate_template_config (id).;validada
+certification;template_signers;created_at;Fecha y hora de creación del registro.;validada
+certification;template_signers;id;Identificador único del registro en la tabla template_signers. Se genera automáticamente.;validada
+certification;template_signers;updated_at;Fecha y hora de la última actualización del registro.;validada
+chatbot;conversacion;created_at;Fecha y hora de creación del registro.;validada
+chatbot;conversacion;id;Identificador único del registro en la tabla conversacion. Se genera automáticamente.;validada
+chatbot;conversacion;updated_at;Fecha y hora de la última actualización del registro.;validada
+chatbot;mensaje;conversacion_id;Referencia al registro de chatbot.conversacion (id).;validada
+chatbot;mensaje;created_at;Fecha y hora de creación del registro.;validada
+chatbot;mensaje;id;Identificador único del registro en la tabla mensaje. Se genera automáticamente.;validada
+chatbot;prompt_template;created_at;Fecha y hora de creación del registro.;validada
+chatbot;prompt_template;id;Identificador único del registro en la tabla prompt_template. Se genera automáticamente.;validada
+chatbot;prompt_template;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;accion_correctiva;created_at;Fecha y hora de creación del registro.;validada
+control_interno;accion_correctiva;id;Identificador único del registro en la tabla accion_correctiva. Se genera automáticamente.;validada
+control_interno;accion_correctiva;plan_id;Referencia al registro de control_interno.plan_mejoramiento (id).;validada
+control_interno;accion_correctiva;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;accion_mejora;created_at;Fecha y hora de creación del registro.;validada
+control_interno;accion_mejora;id;Identificador único del registro en la tabla accion_mejora. Se genera automáticamente.;validada
+control_interno;accion_mejora;plan_mejoramiento_id;Referencia al registro de control_interno.plan_mejoramiento (id).;validada
+control_interno;accion_mejora;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;actividad_etapa_auditoria;created_at;Fecha y hora de creación del registro.;validada
+control_interno;actividad_etapa_auditoria;etapa_id;Referencia al registro de control_interno.etapa_auditoria (id).;validada
+control_interno;actividad_etapa_auditoria;id;Identificador único del registro en la tabla actividad_etapa_auditoria. Se genera automáticamente.;validada
+control_interno;actividad_etapa_auditoria;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;actividad_plan_anual_5;created_at;Fecha y hora de creación del registro.;validada
+control_interno;actividad_plan_anual_5;id;Identificador único del registro en la tabla actividad_plan_anual_5. Se genera automáticamente.;validada
+control_interno;actividad_plan_anual_5;rol_id;Referencia al registro de control_interno.rol_plan_anual_5 (id).;validada
+control_interno;actividad_plan_anual_5;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;actividad_proceso_auditoria;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;actividad_proceso_auditoria;completada_por_id;Referencia al registro de auth.personas (id_person).;validada
+control_interno;actividad_proceso_auditoria;created_at;Fecha y hora de creación del registro.;validada
+control_interno;actividad_proceso_auditoria;id;Identificador único del registro en la tabla actividad_proceso_auditoria. Se genera automáticamente.;validada
+control_interno;actividad_proceso_auditoria;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;actividad_rol;created_at;Fecha y hora de creación del registro.;validada
+control_interno;actividad_rol;id;Identificador único del registro en la tabla actividad_rol. Se genera automáticamente.;validada
+control_interno;actividad_rol;rol_id;Referencia al registro de control_interno.rol_decreto_648 (id).;validada
+control_interno;actividad_rol;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;adjunto_actividad_plan_anual_5;created_at;Fecha y hora de creación del registro.;validada
+control_interno;adjunto_actividad_plan_anual_5;id;Identificador único del registro en la tabla adjunto_actividad_plan_anual_5. Se genera automáticamente.;validada
+control_interno;adjunto_actividad_plan_anual_5;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;alerta_plan;accion_id;Referencia al registro de control_interno.accion_correctiva (id).;validada
+control_interno;alerta_plan;id;Identificador único del registro en la tabla alerta_plan. Se genera automáticamente.;validada
+control_interno;alerta_plan;plan_id;Referencia al registro de control_interno.plan_mejoramiento (id).;validada
+control_interno;ampliacion_plazo;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;ampliacion_plazo;created_at;Fecha y hora de creación del registro.;validada
+control_interno;ampliacion_plazo;id;Identificador único del registro en la tabla ampliacion_plazo. Se genera automáticamente.;validada
+control_interno;ampliacion_plazo;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;aprobacion;created_at;Fecha y hora de creación del registro.;validada
+control_interno;aprobacion;id;Identificador único del registro en la tabla aprobacion. Se genera automáticamente.;validada
+control_interno;aprobacion;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;auditor_perfil;created_at;Fecha y hora de creación del registro.;validada
+control_interno;auditor_perfil;id;Identificador único del registro en la tabla auditor_perfil. Se genera automáticamente.;validada
+control_interno;auditor_perfil;persona_id;Referencia al registro de auth.personas (id_person).;validada
+control_interno;auditor_perfil;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;auditoria;actividad_plan_anual_id;Referencia al registro de control_interno.actividad_plan_anual_5 (id).;validada
+control_interno;auditoria;created_at;Fecha y hora de creación del registro.;validada
+control_interno;auditoria;id;Identificador único del registro en la tabla auditoria. Se genera automáticamente.;validada
+control_interno;auditoria;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;auditoria_especial_info;aprobado_por_id;Referencia al registro de auth.personas (id_person).;validada
+control_interno;auditoria_especial_info;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;auditoria_especial_info;created_at;Fecha y hora de creación del registro.;validada
+control_interno;auditoria_especial_info;id;Identificador único del registro en la tabla auditoria_especial_info. Se genera automáticamente.;validada
+control_interno;auditoria_especial_info;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;auditoria_gestion;auditoria_programada_id;Referencia al registro de control_interno.auditoria_programada (id).;validada
+control_interno;auditoria_gestion;created_at;Fecha y hora de creación del registro.;validada
+control_interno;auditoria_gestion;id;Identificador único del registro en la tabla auditoria_gestion. Se genera automáticamente.;validada
+control_interno;auditoria_gestion;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;auditoria_programada;created_at;Fecha y hora de creación del registro.;validada
+control_interno;auditoria_programada;id;Identificador único del registro en la tabla auditoria_programada. Se genera automáticamente.;validada
+control_interno;auditoria_programada;proceso_id;Referencia al registro de control_interno.proceso_auditable (id).;validada
+control_interno;auditoria_programada;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;auditoria_territorial_info;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;auditoria_territorial_info;created_at;Fecha y hora de creación del registro.;validada
+control_interno;auditoria_territorial_info;id;Identificador único del registro en la tabla auditoria_territorial_info. Se genera automáticamente.;validada
+control_interno;auditoria_territorial_info;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;cache_esap;created_at;Fecha y hora de creación del registro.;validada
+control_interno;cache_esap;id;Identificador único del registro en la tabla cache_esap. Se genera automáticamente.;validada
+control_interno;cache_esap;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;cierre_plan;id;Identificador único del registro en la tabla cierre_plan. Se genera automáticamente.;validada
+control_interno;cierre_plan;plan_id;Referencia al registro de control_interno.plan_mejoramiento (id).;validada
+control_interno;cierre_plan;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;condicion_disparo_notificacion;created_at;Fecha y hora de creación del registro.;validada
+control_interno;condicion_disparo_notificacion;id;Identificador único del registro en la tabla condicion_disparo_notificacion. Se genera automáticamente.;validada
+control_interno;condicion_disparo_notificacion;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;configuracion_esap;created_at;Fecha y hora de creación del registro.;validada
+control_interno;configuracion_esap;id;Identificador único del registro en la tabla configuracion_esap. Se genera automáticamente.;validada
+control_interno;configuracion_esap;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;configuracion_profesionales_ocig;created_at;Fecha y hora de creación del registro.;validada
+control_interno;configuracion_profesionales_ocig;created_by;Usuario que creó el registro.;validada
+control_interno;configuracion_profesionales_ocig;id;Identificador único del registro en la tabla configuracion_profesionales_ocig. Se genera automáticamente.;validada
+control_interno;configuracion_profesionales_ocig;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;configuracion_profesionales_ocig;updated_by;Usuario que realizó la última actualización del registro.;validada
+control_interno;criterio_auditoria;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;criterio_auditoria;created_at;Fecha y hora de creación del registro.;validada
+control_interno;criterio_auditoria;id;Identificador único del registro en la tabla criterio_auditoria. Se genera automáticamente.;validada
+control_interno;criterio_auditoria;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;cronograma_auditoria;created_at;Fecha y hora de creación del registro.;validada
+control_interno;cronograma_auditoria;id;Identificador único del registro en la tabla cronograma_auditoria. Se genera automáticamente.;validada
+control_interno;cronograma_auditoria;plan_id;Referencia al registro de control_interno.plan_anual (id).;validada
+control_interno;cronograma_auditoria;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;cronograma_fase_auditoria;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;cronograma_fase_auditoria;created_at;Fecha y hora de creación del registro.;validada
+control_interno;cronograma_fase_auditoria;id;Identificador único del registro en la tabla cronograma_fase_auditoria. Se genera automáticamente.;validada
+control_interno;cronograma_fase_auditoria;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;datos_automaticos_informe;created_at;Fecha y hora de creación del registro.;validada
+control_interno;datos_automaticos_informe;entrega_id;Referencia al registro de control_interno.entrega_informe_ley (id).;validada
+control_interno;datos_automaticos_informe;id;Identificador único del registro en la tabla datos_automaticos_informe. Se genera automáticamente.;validada
+control_interno;datos_automaticos_informe;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;documento;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;documento;created_at;Fecha y hora de creación del registro.;validada
+control_interno;documento;documento_biblioteca_id;Referencia al registro de control_interno.documento (id).;validada
+control_interno;documento;id;Identificador único del registro en la tabla documento. Se genera automáticamente.;validada
+control_interno;documento;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;documento;version_anterior_id;Referencia al registro de control_interno.documento (id).;validada
+control_interno;documento_aprobacion;aprobacion_id;Referencia al registro de control_interno.aprobacion (id).;validada
+control_interno;documento_aprobacion;created_at;Fecha y hora de creación del registro.;validada
+control_interno;documento_aprobacion;documento_id;Referencia al registro de control_interno.documento (id).;validada
+control_interno;documento_aprobacion;id;Identificador único del registro en la tabla documento_aprobacion. Se genera automáticamente.;validada
+control_interno;documento_plan_mejoramiento;accion_id;Referencia al registro de control_interno.accion_correctiva (id).;validada
+control_interno;documento_plan_mejoramiento;created_at;Fecha y hora de creación del registro.;validada
+control_interno;documento_plan_mejoramiento;id;Identificador único del registro en la tabla documento_plan_mejoramiento. Se genera automáticamente.;validada
+control_interno;documento_plan_mejoramiento;plan_mejoramiento_id;Referencia al registro de control_interno.plan_mejoramiento (id).;validada
+control_interno;documento_plan_mejoramiento;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;entrega_informe_ley;created_at;Fecha y hora de creación del registro.;validada
+control_interno;entrega_informe_ley;id;Identificador único del registro en la tabla entrega_informe_ley. Se genera automáticamente.;validada
+control_interno;entrega_informe_ley;informe_id;Referencia al registro de control_interno.informe_ley (id).;validada
+control_interno;entrega_informe_ley;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;equipo_auditor;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;equipo_auditor;created_at;Fecha y hora de creación del registro.;validada
+control_interno;equipo_auditor;id;Identificador único del registro en la tabla equipo_auditor. Se genera automáticamente.;validada
+control_interno;equipo_auditor;persona_id;Referencia al registro de auth.personas (id_person).;validada
+control_interno;equipo_auditor;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;especialidades_ocig;created_at;Fecha y hora de creación del registro.;validada
+control_interno;especialidades_ocig;id;Identificador único del registro en la tabla especialidades_ocig. Se genera automáticamente.;validada
+control_interno;especialidades_ocig;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;etapa_auditoria;auditoria_id;Referencia al registro de control_interno.auditoria_programada (id).;validada
+control_interno;etapa_auditoria;created_at;Fecha y hora de creación del registro.;validada
+control_interno;etapa_auditoria;id;Identificador único del registro en la tabla etapa_auditoria. Se genera automáticamente.;validada
+control_interno;etapa_auditoria;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;etapa_kanban;created_at;Fecha y hora de creación del registro.;validada
+control_interno;etapa_kanban;id;Identificador único del registro en la tabla etapa_kanban. Se genera automáticamente.;validada
+control_interno;etapa_kanban;tablero_kanban_id;Referencia al registro de control_interno.tablero_kanban (id).;validada
+control_interno;etapa_kanban;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;evaluacion_proceso;creado_por;Usuario que creó el registro.;validada
+control_interno;evaluacion_proceso;created_at;Fecha y hora de creación del registro.;validada
+control_interno;evaluacion_proceso;id;Identificador único del registro en la tabla evaluacion_proceso. Se genera automáticamente.;validada
+control_interno;evaluacion_proceso;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;eventos_timeline;created_at;Fecha y hora de creación del registro.;validada
+control_interno;eventos_timeline;id;Identificador único del registro en la tabla eventos_timeline. Se genera automáticamente.;validada
+control_interno;evidencia_accion;accion_id;Referencia al registro de control_interno.accion_correctiva (id).;validada
+control_interno;evidencia_accion;id;Identificador único del registro en la tabla evidencia_accion. Se genera automáticamente.;validada
+control_interno;evidencia_documento;accion_correctiva_id;Referencia al registro de control_interno.accion_correctiva (id).;validada
+control_interno;evidencia_documento;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;evidencia_documento;created_at;Fecha y hora de creación del registro.;validada
+control_interno;evidencia_documento;hallazgo_id;Referencia al registro de control_interno.hallazgo (id).;validada
+control_interno;evidencia_documento;id;Identificador único del registro en la tabla evidencia_documento. Se genera automáticamente.;validada
+control_interno;evidencia_documento;plan_mejoramiento_id;Referencia al registro de control_interno.plan_mejoramiento (id).;validada
+control_interno;evidencia_documento;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;hallazgo;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;hallazgo;created_at;Fecha y hora de creación del registro.;validada
+control_interno;hallazgo;id;Identificador único del registro en la tabla hallazgo. Se genera automáticamente.;validada
+control_interno;hallazgo;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;historial_auditoria;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;historial_auditoria;created_at;Fecha y hora de creación del registro.;validada
+control_interno;historial_auditoria;id;Identificador único del registro en la tabla historial_auditoria. Se genera automáticamente.;validada
+control_interno;historial_generacion_informe;created_at;Fecha y hora de creación del registro.;validada
+control_interno;historial_generacion_informe;entrega_id;Referencia al registro de control_interno.entrega_informe_ley (id).;validada
+control_interno;historial_generacion_informe;id;Identificador único del registro en la tabla historial_generacion_informe. Se genera automáticamente.;validada
+control_interno;historial_plan_anual;created_at;Fecha y hora de creación del registro.;validada
+control_interno;historial_plan_anual;id;Identificador único del registro en la tabla historial_plan_anual. Se genera automáticamente.;validada
+control_interno;historial_plan_anual;plan_id;Referencia al registro de control_interno.plan_anual_5_roles (id).;validada
+control_interno;informe_ley;created_at;Fecha y hora de creación del registro.;validada
+control_interno;informe_ley;id;Identificador único del registro en la tabla informe_ley. Se genera automáticamente.;validada
+control_interno;informe_ley;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;integraciones_esap;created_at;Fecha y hora de creación del registro.;validada
+control_interno;integraciones_esap;id;Identificador único del registro en la tabla integraciones_esap. Se genera automáticamente.;validada
+control_interno;integraciones_esap;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;item_lista_chequeo;created_at;Fecha y hora de creación del registro.;validada
+control_interno;item_lista_chequeo;id;Identificador único del registro en la tabla item_lista_chequeo. Se genera automáticamente.;validada
+control_interno;item_lista_chequeo;lista_chequeo_id;Referencia al registro de control_interno.lista_chequeo (id).;validada
+control_interno;item_lista_chequeo;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;lista_aplicada;created_at;Fecha y hora de creación del registro.;validada
+control_interno;lista_aplicada;id;Identificador único del registro en la tabla lista_aplicada. Se genera automáticamente.;validada
+control_interno;lista_aplicada;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;lista_chequeo;created_at;Fecha y hora de creación del registro.;validada
+control_interno;lista_chequeo;created_by;Usuario que creó el registro.;validada
+control_interno;lista_chequeo;id;Identificador único del registro en la tabla lista_chequeo. Se genera automáticamente.;validada
+control_interno;lista_chequeo;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;logs_auditoria_esap;created_at;Fecha y hora de creación del registro.;validada
+control_interno;logs_auditoria_esap;id;Identificador único del registro en la tabla logs_auditoria_esap. Se genera automáticamente.;validada
+control_interno;logs_auditoria_esap;usuario_id;Referencia al registro de control_interno.usuarios_esap (id).;validada
+control_interno;normatividad_aplicable;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;normatividad_aplicable;created_at;Fecha y hora de creación del registro.;validada
+control_interno;normatividad_aplicable;id;Identificador único del registro en la tabla normatividad_aplicable. Se genera automáticamente.;validada
+control_interno;normatividad_aplicable;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;nota_auditoria;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;nota_auditoria;autor_id;Referencia al registro de auth.personas (id_person).;validada
+control_interno;nota_auditoria;created_at;Fecha y hora de creación del registro.;validada
+control_interno;nota_auditoria;editor_id;Referencia al registro de auth.personas (id_person).;validada
+control_interno;nota_auditoria;id;Identificador único del registro en la tabla nota_auditoria. Se genera automáticamente.;validada
+control_interno;nota_auditoria;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;notificacion;created_at;Fecha y hora de creación del registro.;validada
+control_interno;notificacion;id;Identificador único del registro en la tabla notificacion. Se genera automáticamente.;validada
+control_interno;notificacion;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;objetivo_auditoria;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;objetivo_auditoria;created_at;Fecha y hora de creación del registro.;validada
+control_interno;objetivo_auditoria;id;Identificador único del registro en la tabla objetivo_auditoria. Se genera automáticamente.;validada
+control_interno;objetivo_auditoria;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;parametro_sistema;created_at;Fecha y hora de creación del registro.;validada
+control_interno;parametro_sistema;id;Identificador único del registro en la tabla parametro_sistema. Se genera automáticamente.;validada
+control_interno;parametro_sistema;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;paso_workflow_informe;created_at;Fecha y hora de creación del registro.;validada
+control_interno;paso_workflow_informe;id;Identificador único del registro en la tabla paso_workflow_informe. Se genera automáticamente.;validada
+control_interno;paso_workflow_informe;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;paso_workflow_informe;workflow_id;Referencia al registro de control_interno.workflow_aprobacion_informe (id).;validada
+control_interno;plan_anual;creado_por;Usuario que creó el registro.;validada
+control_interno;plan_anual;created_at;Fecha y hora de creación del registro.;validada
+control_interno;plan_anual;fecha_creacion;Fecha y hora de creación del registro.;validada
+control_interno;plan_anual;id;Identificador único del registro en la tabla plan_anual. Se genera automáticamente.;validada
+control_interno;plan_anual;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;plan_anual_5_roles;created_at;Fecha y hora de creación del registro.;validada
+control_interno;plan_anual_5_roles;fecha_creacion;Fecha y hora de creación del registro.;validada
+control_interno;plan_anual_5_roles;id;Identificador único del registro en la tabla plan_anual_5_roles. Se genera automáticamente.;validada
+control_interno;plan_anual_5_roles;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;plan_anual_wizard_borrador;created_at;Fecha y hora de creación del registro.;validada
+control_interno;plan_anual_wizard_borrador;id;Identificador único del registro en la tabla plan_anual_wizard_borrador. Se genera automáticamente.;validada
+control_interno;plan_anual_wizard_borrador;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;plan_individual;auditoria_id;Referencia al registro de control_interno.auditoria_programada (id).;validada
+control_interno;plan_individual;created_at;Fecha y hora de creación del registro.;validada
+control_interno;plan_individual;fecha_creacion;Fecha y hora de creación del registro.;validada
+control_interno;plan_individual;id;Identificador único del registro en la tabla plan_individual. Se genera automáticamente.;validada
+control_interno;plan_individual;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;plan_mejoramiento;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;plan_mejoramiento;created_at;Fecha y hora de creación del registro.;validada
+control_interno;plan_mejoramiento;fecha_creacion;Fecha y hora de creación del registro.;validada
+control_interno;plan_mejoramiento;hallazgo_id;Referencia al registro de control_interno.hallazgo (id).;validada
+control_interno;plan_mejoramiento;id;Identificador único del registro en la tabla plan_mejoramiento. Se genera automáticamente.;validada
+control_interno;plan_mejoramiento;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;plantilla_email;created_at;Fecha y hora de creación del registro.;validada
+control_interno;plantilla_email;id;Identificador único del registro en la tabla plantilla_email. Se genera automáticamente.;validada
+control_interno;plantilla_email;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;plantilla_informe_ley;actualizado_por;Usuario que realizó la última actualización del registro.;validada
+control_interno;plantilla_informe_ley;creado_por;Usuario que creó el registro.;validada
+control_interno;plantilla_informe_ley;created_at;Fecha y hora de creación del registro.;validada
+control_interno;plantilla_informe_ley;id;Identificador único del registro en la tabla plantilla_informe_ley. Se genera automáticamente.;validada
+control_interno;plantilla_informe_ley;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;plantilla_reporte;created_at;Fecha y hora de creación del registro.;validada
+control_interno;plantilla_reporte;id;Identificador único del registro en la tabla plantilla_reporte. Se genera automáticamente.;validada
+control_interno;plantilla_reporte;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;plantillas_documentos_esap;created_at;Fecha y hora de creación del registro.;validada
+control_interno;plantillas_documentos_esap;id;Identificador único del registro en la tabla plantillas_documentos_esap. Se genera automáticamente.;validada
+control_interno;plantillas_documentos_esap;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;preferencia_notificacion;created_at;Fecha y hora de creación del registro.;validada
+control_interno;preferencia_notificacion;id;Identificador único del registro en la tabla preferencia_notificacion. Se genera automáticamente.;validada
+control_interno;preferencia_notificacion;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;proceso_auditable;created_at;Fecha y hora de creación del registro.;validada
+control_interno;proceso_auditable;id;Identificador único del registro en la tabla proceso_auditable. Se genera automáticamente.;validada
+control_interno;proceso_auditable;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;programa_anual_ajuste;id;Identificador único del registro en la tabla programa_anual_ajuste. Se genera automáticamente.;validada
+control_interno;registro_seguimiento;accion_id;Referencia al registro de control_interno.accion_correctiva (id).;validada
+control_interno;registro_seguimiento;created_at;Fecha y hora de creación del registro.;validada
+control_interno;registro_seguimiento;id;Identificador único del registro en la tabla registro_seguimiento. Se genera automáticamente.;validada
+control_interno;registro_seguimiento;seguimiento_id;Referencia al registro de control_interno.seguimiento_trimestral (id).;validada
+control_interno;registro_seguimiento;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;reunion_apertura;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;reunion_apertura;created_at;Fecha y hora de creación del registro.;validada
+control_interno;reunion_apertura;documento_biblioteca_id;Referencia al registro de control_interno.documento (id).;validada
+control_interno;reunion_apertura;id;Identificador único del registro en la tabla reunion_apertura. Se genera automáticamente.;validada
+control_interno;reunion_apertura;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;reunion_cierre;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;reunion_cierre;created_at;Fecha y hora de creación del registro.;validada
+control_interno;reunion_cierre;documento_biblioteca_id;Referencia al registro de control_interno.documento (id).;validada
+control_interno;reunion_cierre;id;Identificador único del registro en la tabla reunion_cierre. Se genera automáticamente.;validada
+control_interno;reunion_cierre;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;rol_decreto_648;created_at;Fecha y hora de creación del registro.;validada
+control_interno;rol_decreto_648;id;Identificador único del registro en la tabla rol_decreto_648. Se genera automáticamente.;validada
+control_interno;rol_decreto_648;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;rol_decreto_648_template;created_at;Fecha y hora de creación del registro.;validada
+control_interno;rol_decreto_648_template;id;Identificador único del registro en la tabla rol_decreto_648_template. Se genera automáticamente.;validada
+control_interno;rol_decreto_648_template;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;rol_plan_anual;created_at;Fecha y hora de creación del registro.;validada
+control_interno;rol_plan_anual;id;Identificador único del registro en la tabla rol_plan_anual. Se genera automáticamente.;validada
+control_interno;rol_plan_anual;plan_id;Referencia al registro de control_interno.plan_anual (id).;validada
+control_interno;rol_plan_anual;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;rol_plan_anual_5;created_at;Fecha y hora de creación del registro.;validada
+control_interno;rol_plan_anual_5;id;Identificador único del registro en la tabla rol_plan_anual_5. Se genera automáticamente.;validada
+control_interno;rol_plan_anual_5;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;seccion_lista_chequeo;created_at;Fecha y hora de creación del registro.;validada
+control_interno;seccion_lista_chequeo;id;Identificador único del registro en la tabla seccion_lista_chequeo. Se genera automáticamente.;validada
+control_interno;seccion_lista_chequeo;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;seguimiento_plan;created_at;Fecha y hora de creación del registro.;validada
+control_interno;seguimiento_plan;id;Identificador único del registro en la tabla seguimiento_plan. Se genera automáticamente.;validada
+control_interno;seguimiento_plan;plan_id;Referencia al registro de control_interno.plan_mejoramiento (id).;validada
+control_interno;seguimiento_plan_mejoramiento;created_at;Fecha y hora de creación del registro.;validada
+control_interno;seguimiento_plan_mejoramiento;id;Identificador único del registro en la tabla seguimiento_plan_mejoramiento. Se genera automáticamente.;validada
+control_interno;seguimiento_plan_mejoramiento;plan_id;Referencia al registro de control_interno.plan_mejoramiento (id).;validada
+control_interno;seguimiento_plan_mejoramiento;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;seguimiento_trimestral;created_at;Fecha y hora de creación del registro.;validada
+control_interno;seguimiento_trimestral;id;Identificador único del registro en la tabla seguimiento_trimestral. Se genera automáticamente.;validada
+control_interno;seguimiento_trimestral;plan_id;Referencia al registro de control_interno.plan_mejoramiento (id).;validada
+control_interno;seguimiento_trimestral;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;sesiones_esap;created_at;Fecha y hora de creación del registro.;validada
+control_interno;sesiones_esap;id;Identificador único del registro en la tabla sesiones_esap. Se genera automáticamente.;validada
+control_interno;sesiones_esap;usuario_id;Referencia al registro de control_interno.usuarios_esap (id).;validada
+control_interno;tablero_kanban;created_at;Fecha y hora de creación del registro.;validada
+control_interno;tablero_kanban;id;Identificador único del registro en la tabla tablero_kanban. Se genera automáticamente.;validada
+control_interno;tablero_kanban;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;tareas_auditoria;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
+control_interno;tareas_auditoria;created_at;Fecha y hora de creación del registro.;validada
+control_interno;tareas_auditoria;id;Identificador único del registro en la tabla tareas_auditoria. Se genera automáticamente.;validada
+control_interno;tareas_auditoria;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;tipo_auditoria;created_at;Fecha y hora de creación del registro.;validada
+control_interno;tipo_auditoria;id;Identificador único del registro en la tabla tipo_auditoria. Se genera automáticamente.;validada
+control_interno;tipo_auditoria;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;tipo_proceso;created_at;Fecha y hora de creación del registro.;validada
+control_interno;tipo_proceso;id;Identificador único del registro en la tabla tipo_proceso. Se genera automáticamente.;validada
+control_interno;tipo_proceso;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;usuarios_esap;created_at;Fecha y hora de creación del registro.;validada
+control_interno;usuarios_esap;id;Identificador único del registro en la tabla usuarios_esap. Se genera automáticamente.;validada
+control_interno;usuarios_esap;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;version_lista_chequeo;created_at;Fecha y hora de creación del registro.;validada
+control_interno;version_lista_chequeo;id;Identificador único del registro en la tabla version_lista_chequeo. Se genera automáticamente.;validada
+control_interno;version_programa_anual;created_at;Fecha y hora de creación del registro.;validada
+control_interno;version_programa_anual;id;Identificador único del registro en la tabla version_programa_anual. Se genera automáticamente.;validada
+control_interno;workflow_aprobacion_informe;creado_por;Usuario que creó el registro.;validada
+control_interno;workflow_aprobacion_informe;created_at;Fecha y hora de creación del registro.;validada
+control_interno;workflow_aprobacion_informe;entrega_id;Referencia al registro de control_interno.entrega_informe_ley (id).;validada
+control_interno;workflow_aprobacion_informe;id;Identificador único del registro en la tabla workflow_aprobacion_informe. Se genera automáticamente.;validada
+control_interno;workflow_aprobacion_informe;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;actas_inicio;acta_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;actas_inicio;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;actas_inicio;created_at;Fecha y hora de creación del registro.;validada
+hiring;actas_inicio;id;Identificador único del registro en la tabla actas_inicio. Se genera automáticamente.;validada
+hiring;actas_liquidacion;acta_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;actas_liquidacion;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;actas_liquidacion;created_at;Fecha y hora de creación del registro.;validada
+hiring;actas_liquidacion;id;Identificador único del registro en la tabla actas_liquidacion. Se genera automáticamente.;validada
+hiring;actas_liquidacion;paz_y_salvo_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;actividades;numeral;Clave primaria de la tabla actividades: numeral.;validada
+hiring;actividades_con_soporte;numeral;Clave primaria de la tabla actividades_con_soporte: numeral.;validada
+hiring;actividades_excluidas;modalidad;Clave primaria de la tabla actividades_excluidas: modalidad.;validada
+hiring;actividades_excluidas;numeral;Clave primaria de la tabla actividades_excluidas: numeral.;validada
+hiring;actividades_salvedad;modalidad;Clave primaria de la tabla actividades_salvedad: modalidad.;validada
+hiring;actividades_salvedad;numeral;Clave primaria de la tabla actividades_salvedad: numeral.;validada
+hiring;actos_adjudicacion;acto_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;actos_adjudicacion;created_at;Fecha y hora de creación del registro.;validada
+hiring;actos_adjudicacion;evidencia_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;actos_adjudicacion;id;Identificador único del registro en la tabla actos_adjudicacion. Se genera automáticamente.;validada
+hiring;actos_adjudicacion;informe_definitivo_id;Referencia al registro de hiring.informes_definitivos (id).;validada
+hiring;actos_adjudicacion;oferente_id;Referencia al registro de hiring.oferentes (id).;validada
+hiring;actos_adjudicacion;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;actos_adjudicacion;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;adendas;created_at;Fecha y hora de creación del registro.;validada
+hiring;adendas;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;adendas;evidencia_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;adendas;id;Identificador único del registro en la tabla adendas. Se genera automáticamente.;validada
+hiring;adendas;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;afiliaciones_arl;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;afiliaciones_arl;created_at;Fecha y hora de creación del registro.;validada
+hiring;afiliaciones_arl;id;Identificador único del registro en la tabla afiliaciones_arl. Se genera automáticamente.;validada
+hiring;afiliaciones_arl;soporte_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;alcances_permiso;created_at;Fecha y hora de creación del registro.;validada
+hiring;alcances_permiso;created_by;Usuario que creó el registro.;validada
+hiring;alcances_permiso;id;Identificador único del registro en la tabla alcances_permiso. Se genera automáticamente.;validada
+hiring;alcances_permiso;numeral;Referencia al registro de hiring.actividades (numeral).;validada
+hiring;alcances_permiso;rol_id;Referencia al registro de auth.role (id).;validada
+hiring;alcances_permiso;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;amparos;created_at;Fecha y hora de creación del registro.;validada
+hiring;amparos;garantia_id;Referencia al registro de hiring.garantias (id).;validada
+hiring;amparos;id;Identificador único del registro en la tabla amparos. Se genera automáticamente.;validada
+hiring;amparos;tipo;Referencia al registro de hiring.tipos_amparo (codigo).;validada
+hiring;aperturas_proceso;created_at;Fecha y hora de creación del registro.;validada
+hiring;aperturas_proceso;id;Identificador único del registro en la tabla aperturas_proceso. Se genera automáticamente.;validada
+hiring;aperturas_proceso;pliego_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;aperturas_proceso;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;aperturas_proceso;resolucion_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;audiencia_riesgos_config;modalidad;Clave primaria de la tabla audiencia_riesgos_config: modalidad.;validada
+hiring;audiencia_riesgos_config;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;audiencia_riesgos_config;updated_by;Usuario que realizó la última actualización del registro.;validada
+hiring;audiencias_adjudicacion;acta_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;audiencias_adjudicacion;created_at;Fecha y hora de creación del registro.;validada
+hiring;audiencias_adjudicacion;id;Identificador único del registro en la tabla audiencias_adjudicacion. Se genera automáticamente.;validada
+hiring;audiencias_adjudicacion;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;audiencias_adjudicacion;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;audiencias_riesgos;acta_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;audiencias_riesgos;created_at;Fecha y hora de creación del registro.;validada
+hiring;audiencias_riesgos;id;Identificador único del registro en la tabla audiencias_riesgos. Se genera automáticamente.;validada
+hiring;audiencias_riesgos;matriz_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;audiencias_riesgos;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;audiencias_sancionatorias;acta_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;audiencias_sancionatorias;caso_id;Referencia al registro de hiring.casos_incumplimiento (id).;validada
+hiring;audiencias_sancionatorias;citacion_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;audiencias_sancionatorias;created_at;Fecha y hora de creación del registro.;validada
+hiring;audiencias_sancionatorias;id;Identificador único del registro en la tabla audiencias_sancionatorias. Se genera automáticamente.;validada
+hiring;avisos;evento;Clave primaria de la tabla avisos: evento.;validada
+hiring;avisos;numeral;Clave primaria de la tabla avisos: numeral.;validada
+hiring;avisos;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;avisos;updated_by;Usuario que realizó la última actualización del registro.;validada
+hiring;avisos_habilitacion;numeral;Clave primaria de la tabla avisos_habilitacion: numeral.;validada
+hiring;avisos_habilitacion;proceso_id;Identificador único del registro en la tabla avisos_habilitacion.;validada
+hiring;campos_formulario;created_at;Fecha y hora de creación del registro.;validada
+hiring;campos_formulario;id;Identificador único del registro en la tabla campos_formulario. Se genera automáticamente.;validada
+hiring;campos_formulario;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;casos_incumplimiento;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;casos_incumplimiento;created_at;Fecha y hora de creación del registro.;validada
+hiring;casos_incumplimiento;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;casos_incumplimiento;id;Identificador único del registro en la tabla casos_incumplimiento. Se genera automáticamente.;validada
+hiring;casos_incumplimiento;supervision_id;Referencia al registro de hiring.supervisiones_contrato (id).;validada
+hiring;causales_contratacion;codigo;Clave primaria de la tabla causales_contratacion: código.;validada
+hiring;causales_contratacion;created_at;Fecha y hora de creación del registro.;validada
+hiring;causales_contratacion;modalidad;Referencia al registro de hiring.modalidades (codigo).;validada
+hiring;cdp;created_at;Fecha y hora de creación del registro.;validada
+hiring;cdp;id;Identificador único del registro en la tabla cdp. Se genera automáticamente.;validada
+hiring;cdp;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;cdp;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;cierres_contrato;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;cierres_contrato;created_at;Fecha y hora de creación del registro.;validada
+hiring;cierres_contrato;id;Identificador único del registro en la tabla cierres_contrato. Se genera automáticamente.;validada
+hiring;cierres_contrato;soporte_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;cierres_financieros;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;cierres_financieros;created_at;Fecha y hora de creación del registro.;validada
+hiring;cierres_financieros;id;Identificador único del registro en la tabla cierres_financieros. Se genera automáticamente.;validada
+hiring;cierres_financieros;rp_id;Referencia al registro de hiring.registros_presupuestales (id).;validada
+hiring;cierres_financieros;soporte_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;comites_evaluadores;created_at;Fecha y hora de creación del registro.;validada
+hiring;comites_evaluadores;id;Identificador único del registro en la tabla comites_evaluadores. Se genera automáticamente.;validada
+hiring;comites_evaluadores;memorando_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;comites_evaluadores;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;contratos;contrato_firmado_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;contratos;created_at;Fecha y hora de creación del registro.;validada
+hiring;contratos;id;Identificador único del registro en la tabla contratos. Se genera automáticamente.;validada
+hiring;contratos;minuta_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;contratos;plantilla_id;Referencia al registro de hiring.plantillas (id).;validada
+hiring;contratos;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;contratos;tipologia;Referencia al registro de hiring.tipologias_contrato (codigo).;validada
+hiring;contratos;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;declaratorias_desiertas;acto_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;declaratorias_desiertas;created_at;Fecha y hora de creación del registro.;validada
+hiring;declaratorias_desiertas;evidencia_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;declaratorias_desiertas;id;Identificador único del registro en la tabla declaratorias_desiertas. Se genera automáticamente.;validada
+hiring;declaratorias_desiertas;informe_comite_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;declaratorias_desiertas;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;declaratorias_desiertas;resultado_contradicho_id;Referencia al registro de hiring.resultados_evaluacion (id).;validada
+hiring;declaratorias_desiertas;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;dias_no_habiles;created_at;Fecha y hora de creación del registro.;validada
+hiring;dias_no_habiles;fecha;Clave primaria de la tabla dias_no_habiles: fecha.;validada
+hiring;documentos;created_at;Fecha y hora de creación del registro.;validada
+hiring;documentos;expediente_id;Referencia al registro de hiring.expedientes (id).;validada
+hiring;documentos;id;Identificador único del registro en la tabla documentos. Se genera automáticamente.;validada
+hiring;documentos_proceso;created_at;Fecha y hora de creación del registro.;validada
+hiring;documentos_proceso;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;documentos_proceso;id;Identificador único del registro en la tabla documentos_proceso. Se genera automáticamente.;validada
+hiring;documentos_proceso;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;documentos_requeridos;created_at;Fecha y hora de creación del registro.;validada
+hiring;documentos_requeridos;id;Identificador único del registro en la tabla documentos_requeridos. Se genera automáticamente.;validada
+hiring;documentos_requeridos;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;entregables_informe;created_at;Fecha y hora de creación del registro.;validada
+hiring;entregables_informe;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;entregables_informe;id;Identificador único del registro en la tabla entregables_informe. Se genera automáticamente.;validada
+hiring;entregables_informe;informe_id;Referencia al registro de hiring.informes_finales (id).;validada
+hiring;evidencias_evaluacion;created_at;Fecha y hora de creación del registro.;validada
+hiring;evidencias_evaluacion;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;evidencias_evaluacion;id;Identificador único del registro en la tabla evidencias_evaluacion. Se genera automáticamente.;validada
+hiring;evidencias_evaluacion;resultado_id;Referencia al registro de hiring.resultados_evaluacion (id).;validada
+hiring;expedientes;id;Identificador único del registro en la tabla expedientes. Se genera automáticamente.;validada
+hiring;expedientes;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;firmas_contrato;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;firmas_contrato;created_at;Fecha y hora de creación del registro.;validada
+hiring;firmas_contrato;evidencia_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;firmas_contrato;id;Identificador único del registro en la tabla firmas_contrato. Se genera automáticamente.;validada
+hiring;garantias;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;garantias;created_at;Fecha y hora de creación del registro.;validada
+hiring;garantias;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;garantias;id;Identificador único del registro en la tabla garantias. Se genera automáticamente.;validada
+hiring;informes_definitivos;created_at;Fecha y hora de creación del registro.;validada
+hiring;informes_definitivos;evidencia_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;informes_definitivos;id;Identificador único del registro en la tabla informes_definitivos. Se genera automáticamente.;validada
+hiring;informes_definitivos;informe_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;informes_definitivos;informe_preliminar_id;Referencia al registro de hiring.informes_evaluacion (id).;validada
+hiring;informes_definitivos;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;informes_definitivos;resultado_id;Referencia al registro de hiring.resultados_evaluacion (id).;validada
+hiring;informes_definitivos;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;informes_evaluacion;created_at;Fecha y hora de creación del registro.;validada
+hiring;informes_evaluacion;evidencia_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;informes_evaluacion;id;Identificador único del registro en la tabla informes_evaluacion. Se genera automáticamente.;validada
+hiring;informes_evaluacion;informe_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;informes_evaluacion;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;informes_evaluacion;resultado_id;Referencia al registro de hiring.resultados_evaluacion (id).;validada
+hiring;informes_evaluacion;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;informes_finales;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;informes_finales;created_at;Fecha y hora de creación del registro.;validada
+hiring;informes_finales;id;Identificador único del registro en la tabla informes_finales. Se genera automáticamente.;validada
+hiring;informes_finales;informe_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;limitaciones_mipyme;created_at;Fecha y hora de creación del registro.;validada
+hiring;limitaciones_mipyme;id;Identificador único del registro en la tabla limitaciones_mipyme. Se genera automáticamente.;validada
+hiring;limitaciones_mipyme;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;limitaciones_mipyme;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;manifestaciones_mipyme;created_at;Fecha y hora de creación del registro.;validada
+hiring;manifestaciones_mipyme;id;Identificador único del registro en la tabla manifestaciones_mipyme. Se genera automáticamente.;validada
+hiring;manifestaciones_mipyme;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;miembros_comite;comite_id;Referencia al registro de hiring.comites_evaluadores (id).;validada
+hiring;miembros_comite;created_at;Fecha y hora de creación del registro.;validada
+hiring;miembros_comite;id;Identificador único del registro en la tabla miembros_comite. Se genera automáticamente.;validada
+hiring;modalidades;codigo;Clave primaria de la tabla modalidades: código.;validada
+hiring;modalidades;created_at;Fecha y hora de creación del registro.;validada
+hiring;modificaciones_contrato;cdp_id;Referencia al registro de hiring.cdp (id).;validada
+hiring;modificaciones_contrato;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;modificaciones_contrato;created_at;Fecha y hora de creación del registro.;validada
+hiring;modificaciones_contrato;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;modificaciones_contrato;id;Identificador único del registro en la tabla modificaciones_contrato. Se genera automáticamente.;validada
+hiring;modificaciones_contrato;reanuda_modificacion_id;Referencia al registro de hiring.modificaciones_contrato (id).;validada
+hiring;modificaciones_contrato;rp_id;Referencia al registro de hiring.registros_presupuestales (id).;validada
+hiring;observaciones_pliego;created_at;Fecha y hora de creación del registro.;validada
+hiring;observaciones_pliego;id;Identificador único del registro en la tabla observaciones_pliego. Se genera automáticamente.;validada
+hiring;observaciones_pliego;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;observaciones_pliego;publicacion_id;Referencia al registro de hiring.publicaciones_pliego (id).;validada
+hiring;observaciones_pliego;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;oferentes;created_at;Fecha y hora de creación del registro.;validada
+hiring;oferentes;id;Identificador único del registro en la tabla oferentes. Se genera automáticamente.;validada
+hiring;oferentes;recepcion_id;Referencia al registro de hiring.recepciones_ofertas (id).;validada
+hiring;oferentes;soporte_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;pagos_contrato;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;pagos_contrato;created_at;Fecha y hora de creación del registro.;validada
+hiring;pagos_contrato;factura_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;pagos_contrato;id;Identificador único del registro en la tabla pagos_contrato. Se genera automáticamente.;validada
+hiring;pagos_contrato;informe_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;parametros_alerta;clave;Clave primaria de la tabla parametros_alerta: clave.;validada
+hiring;parametros_alerta;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;parametros_alerta;updated_by;Usuario que realizó la última actualización del registro.;validada
+hiring;parametros_mipyme;clave;Clave primaria de la tabla parametros_mipyme: clave.;validada
+hiring;parametros_mipyme;created_at;Fecha y hora de creación del registro.;validada
+hiring;parametros_mipyme;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;participaciones_proceso;created_at;Fecha y hora de creación del registro.;validada
+hiring;participaciones_proceso;id;Identificador único del registro en la tabla participaciones_proceso. Se genera automáticamente.;validada
+hiring;participaciones_proceso;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;piezas_audiencia;audiencia_id;Referencia al registro de hiring.audiencias_adjudicacion (id).;validada
+hiring;piezas_audiencia;created_at;Fecha y hora de creación del registro.;validada
+hiring;piezas_audiencia;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;piezas_audiencia;id;Identificador único del registro en la tabla piezas_audiencia. Se genera automáticamente.;validada
+hiring;plantillas;created_at;Fecha y hora de creación del registro.;validada
+hiring;plantillas;id;Identificador único del registro en la tabla plantillas. Se genera automáticamente.;validada
+hiring;plazo_publicacion_acta;id;Identificador único del registro en la tabla plazo_publicacion_acta.;validada
+hiring;plazo_publicacion_contrato;id;Identificador único del registro en la tabla plazo_publicacion_contrato.;validada
+hiring;plazos_ofertas;created_at;Fecha y hora de creación del registro.;validada
+hiring;plazos_ofertas;modalidad;Clave primaria de la tabla plazos_ofertas: modalidad.;validada
+hiring;plazos_ofertas;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;plazos_publicacion;created_at;Fecha y hora de creación del registro.;validada
+hiring;plazos_publicacion;modalidad;Clave primaria de la tabla plazos_publicacion: modalidad.;validada
+hiring;plazos_publicacion;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;plazos_traslado;created_at;Fecha y hora de creación del registro.;validada
+hiring;plazos_traslado;modalidad;Clave primaria de la tabla plazos_traslado: modalidad.;validada
+hiring;plazos_traslado;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;proceso_actividades;created_at;Fecha y hora de creación del registro.;validada
+hiring;proceso_actividades;id;Identificador único del registro en la tabla proceso_actividades. Se genera automáticamente.;validada
+hiring;proceso_actividades;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;proceso_actividades;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;procesos;created_at;Fecha y hora de creación del registro.;validada
+hiring;procesos;created_by;Usuario que creó el registro.;validada
+hiring;procesos;id;Identificador único del registro en la tabla procesos. Se genera automáticamente.;validada
+hiring;procesos;modalidad;Referencia al registro de hiring.modalidades (codigo).;validada
+hiring;procesos;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;publicaciones_acta;acta_id;Referencia al registro de hiring.actas_liquidacion (id).;validada
+hiring;publicaciones_acta;created_at;Fecha y hora de creación del registro.;validada
+hiring;publicaciones_acta;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;publicaciones_acta;id;Identificador único del registro en la tabla publicaciones_acta. Se genera automáticamente.;validada
+hiring;publicaciones_contrato;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;publicaciones_contrato;created_at;Fecha y hora de creación del registro.;validada
+hiring;publicaciones_contrato;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;publicaciones_contrato;id;Identificador único del registro en la tabla publicaciones_contrato. Se genera automáticamente.;validada
+hiring;publicaciones_modificacion;created_at;Fecha y hora de creación del registro.;validada
+hiring;publicaciones_modificacion;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;publicaciones_modificacion;id;Identificador único del registro en la tabla publicaciones_modificacion. Se genera automáticamente.;validada
+hiring;publicaciones_modificacion;modificacion_id;Referencia al registro de hiring.modificaciones_contrato (id).;validada
+hiring;publicaciones_pliego;created_at;Fecha y hora de creación del registro.;validada
+hiring;publicaciones_pliego;id;Identificador único del registro en la tabla publicaciones_pliego. Se genera automáticamente.;validada
+hiring;publicaciones_pliego;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;publicaciones_pliego;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;recepciones_ofertas;created_at;Fecha y hora de creación del registro.;validada
+hiring;recepciones_ofertas;id;Identificador único del registro en la tabla recepciones_ofertas. Se genera automáticamente.;validada
+hiring;recepciones_ofertas;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;registros_actividad;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;registros_actividad;id;Identificador único del registro en la tabla registros_actividad. Se genera automáticamente.;validada
+hiring;registros_actividad;numeral;Referencia al registro de hiring.actividades_con_soporte (numeral).;validada
+hiring;registros_actividad;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;registros_presupuestales;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;registros_presupuestales;created_at;Fecha y hora de creación del registro.;validada
+hiring;registros_presupuestales;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;registros_presupuestales;id;Identificador único del registro en la tabla registros_presupuestales. Se genera automáticamente.;validada
+hiring;registros_presupuestales;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;reglas_actividad;created_at;Fecha y hora de creación del registro.;validada
+hiring;reglas_actividad;id;Identificador único del registro en la tabla reglas_actividad. Se genera automáticamente.;validada
+hiring;reglas_actividad;modalidad;Referencia al registro de hiring.modalidades (codigo).;validada
+hiring;reglas_actividad;numeral;Referencia al registro de hiring.actividades (numeral).;validada
+hiring;reglas_actividad;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;resoluciones_sancionatorias;caso_id;Referencia al registro de hiring.casos_incumplimiento (id).;validada
+hiring;resoluciones_sancionatorias;created_at;Fecha y hora de creación del registro.;validada
+hiring;resoluciones_sancionatorias;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;resoluciones_sancionatorias;id;Identificador único del registro en la tabla resoluciones_sancionatorias. Se genera automáticamente.;validada
+hiring;resultados_evaluacion;created_at;Fecha y hora de creación del registro.;validada
+hiring;resultados_evaluacion;id;Identificador único del registro en la tabla resultados_evaluacion. Se genera automáticamente.;validada
+hiring;resultados_evaluacion;informe_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;resultados_evaluacion;oferente_id;Referencia al registro de hiring.oferentes (id).;validada
+hiring;resultados_evaluacion;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;resultados_evaluacion;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;revisiones;created_at;Fecha y hora de creación del registro.;validada
+hiring;revisiones;id;Identificador único del registro en la tabla revisiones. Se genera automáticamente.;validada
+hiring;revisiones;proceso_actividad_id;Referencia al registro de hiring.proceso_actividades (id).;validada
+hiring;seguimientos_contrato;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;seguimientos_contrato;created_at;Fecha y hora de creación del registro.;validada
+hiring;seguimientos_contrato;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;seguimientos_contrato;id;Identificador único del registro en la tabla seguimientos_contrato. Se genera automáticamente.;validada
+hiring;seguimientos_contrato;supervision_id;Referencia al registro de hiring.supervisiones_contrato (id).;validada
+hiring;sesiones_comite_contratacion;acta_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;sesiones_comite_contratacion;created_at;Fecha y hora de creación del registro.;validada
+hiring;sesiones_comite_contratacion;id;Identificador único del registro en la tabla sesiones_comite_contratacion. Se genera automáticamente.;validada
+hiring;sesiones_comite_contratacion;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;smmlv;anio;Clave primaria de la tabla smmlv: año.;validada
+hiring;smmlv;created_at;Fecha y hora de creación del registro.;validada
+hiring;smmlv;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;sobres_economicos;audiencia_id;Referencia al registro de hiring.audiencias_adjudicacion (id).;validada
+hiring;sobres_economicos;created_at;Fecha y hora de creación del registro.;validada
+hiring;sobres_economicos;evidencia_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;sobres_economicos;id;Identificador único del registro en la tabla sobres_economicos. Se genera automáticamente.;validada
+hiring;sobres_economicos;oferente_id;Referencia al registro de hiring.oferentes (id).;validada
+hiring;soportes_pago;created_at;Fecha y hora de creación del registro.;validada
+hiring;soportes_pago;documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;soportes_pago;id;Identificador único del registro en la tabla soportes_pago. Se genera automáticamente.;validada
+hiring;soportes_pago;pago_id;Referencia al registro de hiring.pagos_contrato (id).;validada
+hiring;subsanaciones;created_at;Fecha y hora de creación del registro.;validada
+hiring;subsanaciones;id;Identificador único del registro en la tabla subsanaciones. Se genera automáticamente.;validada
+hiring;subsanaciones;informe_id;Referencia al registro de hiring.informes_evaluacion (id).;validada
+hiring;subsanaciones;oferente_id;Referencia al registro de hiring.oferentes (id).;validada
+hiring;subsanaciones;respuesta_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;subsanaciones;soporte_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;subsanaciones;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;supervisiones_contrato;acto_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;supervisiones_contrato;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;supervisiones_contrato;created_at;Fecha y hora de creación del registro.;validada
+hiring;supervisiones_contrato;id;Identificador único del registro en la tabla supervisiones_contrato. Se genera automáticamente.;validada
+hiring;suscripciones_acta_inicio;acta_documento_id;Referencia al registro de hiring.documentos (id).;validada
+hiring;suscripciones_acta_inicio;contrato_id;Referencia al registro de hiring.contratos (id).;validada
+hiring;suscripciones_acta_inicio;created_at;Fecha y hora de creación del registro.;validada
+hiring;suscripciones_acta_inicio;id;Identificador único del registro en la tabla suscripciones_acta_inicio. Se genera automáticamente.;validada
+hiring;tipologias_contrato;codigo;Clave primaria de la tabla tipologias_contrato: código.;validada
+hiring;tipos_amparo;codigo;Clave primaria de la tabla tipos_amparo: código.;validada
+hiring;tope_adicion;id;Identificador único del registro en la tabla tope_adicion.;validada
+hiring;trazabilidad;created_at;Fecha y hora de creación del registro.;validada
+hiring;trazabilidad;id;Identificador único del registro en la tabla trazabilidad. Se genera automáticamente.;validada
+hiring;trazabilidad;proceso_id;Referencia al registro de hiring.procesos (id).;validada
+hiring;umbrales_comite_contratacion;created_at;Fecha y hora de creación del registro.;validada
+hiring;umbrales_comite_contratacion;modalidad;Clave primaria de la tabla umbrales_comite_contratacion: modalidad.;validada
+hiring;umbrales_comite_contratacion;updated_at;Fecha y hora de la última actualización del registro.;validada
+hiring;umbrales_modalidad;created_at;Fecha y hora de creación del registro.;validada
+hiring;umbrales_modalidad;created_by;Usuario que creó el registro.;validada
+hiring;umbrales_modalidad;id;Identificador único del registro en la tabla umbrales_modalidad. Se genera automáticamente.;validada
+hiring;umbrales_modalidad;modalidad;Referencia al registro de hiring.modalidades (codigo).;validada
+hiring;umbrales_modalidad;updated_at;Fecha y hora de la última actualización del registro.;validada
+infrastructure-management;bloque_edificio;created_at;Fecha y hora de creación del registro.;validada
+infrastructure-management;bloque_edificio;id_bloque;Identificador único del registro en la tabla bloque_edificio. Se genera automáticamente.;validada
+infrastructure-management;bloque_edificio;id_sede;Referencia al registro de infrastructure-management.sede (id_sede).;validada
+infrastructure-management;bloque_edificio;updated_at;Fecha y hora de la última actualización del registro.;validada
+infrastructure-management;catalogo_item;id_catalogo;Identificador único del registro en la tabla catalogo_item. Se genera automáticamente.;validada
+infrastructure-management;espacio_fisico;created_at;Fecha y hora de creación del registro.;validada
+infrastructure-management;espacio_fisico;id_bloque;Referencia al registro de infrastructure-management.bloque_edificio (id_bloque).;validada
+infrastructure-management;espacio_fisico;id_espacio;Identificador único del registro en la tabla espacio_fisico. Se genera automáticamente.;validada
+infrastructure-management;espacio_fisico;updated_at;Fecha y hora de la última actualización del registro.;validada
+infrastructure-management;sede;created_at;Fecha y hora de creación del registro.;validada
+infrastructure-management;sede;id_sede;Identificador único del registro en la tabla sede. Se genera automáticamente.;validada
+infrastructure-management;sede;updated_at;Fecha y hora de la última actualización del registro.;validada
+infrastructure-management;solicitud_evidencia;id_evidencia;Identificador único del registro en la tabla solicitud_evidencia. Se genera automáticamente.;validada
+infrastructure-management;solicitud_mantenimiento;created_at;Fecha y hora de creación del registro.;validada
+infrastructure-management;solicitud_mantenimiento;id_espacio;Referencia al registro de infrastructure-management.espacio_fisico (id_espacio).;validada
+infrastructure-management;solicitud_mantenimiento;id_sede;Referencia al registro de infrastructure-management.sede (id_sede).;validada
+infrastructure-management;solicitud_mantenimiento;id_solicitud;Identificador único del registro en la tabla solicitud_mantenimiento. Se genera automáticamente.;validada
+infrastructure-management;solicitud_mantenimiento;updated_at;Fecha y hora de la última actualización del registro.;validada
+infrastructure-management;solicitud_valoracion;created_at;Fecha y hora de creación del registro.;validada
+infrastructure-management;solicitud_valoracion;id_solicitud_mantenimiento;Referencia al registro de infrastructure-management.solicitud_mantenimiento (id_solicitud).;validada
+infrastructure-management;solicitud_valoracion;id_valoracion;Identificador único del registro en la tabla solicitud_valoracion. Se genera automáticamente.;validada
+infrastructure-management;solicitud_valoracion_insumo;created_at;Fecha y hora de creación del registro.;validada
+infrastructure-management;solicitud_valoracion_insumo;id_insumo;Identificador único del registro en la tabla solicitud_valoracion_insumo. Se genera automáticamente.;validada
+infrastructure-management;solicitud_valoracion_insumo;id_valoracion;Referencia al registro de infrastructure-management.solicitud_valoracion (id_valoracion).;validada
+internal_disciplinary_control;actas_configuration;createdat;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;actas_configuration;id;Identificador único del registro en la tabla actas_configuration. Se genera automáticamente.;validada
+internal_disciplinary_control;actas_configuration;updatedat;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;alertas_enviadas;auto_id;Referencia al registro de internal_disciplinary_control.legal_autos (id).;validada
+internal_disciplinary_control;alertas_enviadas;fecha_creacion;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;alertas_enviadas;id;Identificador único del registro en la tabla alertas_enviadas. Se genera automáticamente.;validada
+internal_disciplinary_control;alertas_enviadas;regla_alerta_id;Referencia al registro de internal_disciplinary_control.reglas_alerta (id).;validada
+internal_disciplinary_control;alertas_enviadas;termino_id;Referencia al registro de internal_disciplinary_control.terminos_procesales (id).;validada
+internal_disciplinary_control;auto_versions;createdAt;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;auto_versions;createdBy;Usuario que creó el registro.;validada
+internal_disciplinary_control;auto_versions;id;Identificador único del registro en la tabla auto_versions. Se genera automáticamente.;validada
+internal_disciplinary_control;autos_configuration;createdAt;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;autos_configuration;updatedAt;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;dias_festivos;fecha_actualizacion;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;dias_festivos;fecha_creacion;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;dias_festivos;id;Identificador único del registro en la tabla dias_festivos. Se genera automáticamente.;validada
+internal_disciplinary_control;disciplinary_news;created_at;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;disciplinary_news;id;Identificador único del registro en la tabla disciplinary_news. Se genera automáticamente.;validada
+internal_disciplinary_control;disciplinary_news;updatedAt;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;disciplinary_news_processes;id;Identificador único del registro en la tabla disciplinary_news_processes. Se genera automáticamente.;validada
+internal_disciplinary_control;disciplinary_process_actuaciones;createdAt;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;disciplinary_process_actuaciones;id;Identificador único del registro en la tabla disciplinary_process_actuaciones. Se genera automáticamente.;validada
+internal_disciplinary_control;disciplinary_process_actuaciones;newsId;Referencia al registro de internal_disciplinary_control.disciplinary_news (id).;validada
+internal_disciplinary_control;disciplinary_process_actuaciones;processId;Referencia al registro de internal_disciplinary_control.disciplinary_processes (id).;validada
+internal_disciplinary_control;disciplinary_process_actuaciones;updatedAt;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;disciplinary_process_notes;createdAt;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;disciplinary_process_notes;id;Identificador único del registro en la tabla disciplinary_process_notes. Se genera automáticamente.;validada
+internal_disciplinary_control;disciplinary_process_notes;processId;Referencia al registro de internal_disciplinary_control.disciplinary_processes (id).;validada
+internal_disciplinary_control;disciplinary_process_notes;updatedAt;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;disciplinary_process_reassignment_requests;id;Identificador único del registro en la tabla disciplinary_process_reassignment_requests. Se genera automáticamente.;validada
+internal_disciplinary_control;disciplinary_process_tasks;createdAt;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;disciplinary_process_tasks;id;Identificador único del registro en la tabla disciplinary_process_tasks. Se genera automáticamente.;validada
+internal_disciplinary_control;disciplinary_process_tasks;processId;Referencia al registro de internal_disciplinary_control.disciplinary_processes (id).;validada
+internal_disciplinary_control;disciplinary_process_tasks;updatedAt;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;disciplinary_processes;abogado_asignado_id;Referencia al registro de internal_disciplinary_control.disciplinary_professional (id).;validada
+internal_disciplinary_control;disciplinary_processes;createdAt;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;disciplinary_processes;id;Identificador único del registro en la tabla disciplinary_processes. Se genera automáticamente.;validada
+internal_disciplinary_control;disciplinary_processes;updatedAt;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;disciplinary_professional;created_at;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;disciplinary_professional;id;Identificador único del registro en la tabla disciplinary_professional. Se genera automáticamente.;validada
+internal_disciplinary_control;disciplinary_professional;updated_at;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;entidades_remision;id;Identificador único del registro en la tabla entidades_remision. Se genera automáticamente.;validada
+internal_disciplinary_control;evidence;createdAt;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;evidence;id;Identificador único del registro en la tabla evidence. Se genera automáticamente.;validada
+internal_disciplinary_control;evidence;processId;Referencia al registro de internal_disciplinary_control.disciplinary_processes (id).;validada
+internal_disciplinary_control;expediente_compartido;creado_por;Usuario que creó el registro.;validada
+internal_disciplinary_control;expediente_compartido;created_at;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;expediente_compartido;id;Identificador único del registro en la tabla expediente_compartido. Se genera automáticamente.;validada
+internal_disciplinary_control;expediente_compartido;updated_at;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;legal_autos;createdAt;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;legal_autos;id;Identificador único del registro en la tabla legal_autos. Se genera automáticamente.;validada
+internal_disciplinary_control;legal_autos;processId;Referencia al registro de internal_disciplinary_control.disciplinary_processes (id).;validada
+internal_disciplinary_control;legal_autos;updatedAt;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;oficios_configuration;createdAt;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;oficios_configuration;id;Identificador único del registro en la tabla oficios_configuration. Se genera automáticamente.;validada
+internal_disciplinary_control;oficios_configuration;updatedAt;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;plantilla_auto;createdAt;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;plantilla_auto;id;Identificador único del registro en la tabla plantilla_auto. Se genera automáticamente.;validada
+internal_disciplinary_control;plantilla_auto;updatedAt;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;reglas_alerta;fecha_actualizacion;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;reglas_alerta;fecha_creacion;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;reglas_alerta;id;Identificador único del registro en la tabla reglas_alerta. Se genera automáticamente.;validada
+internal_disciplinary_control;sequences;name;Clave primaria de la tabla sequences: name.;validada
+internal_disciplinary_control;sequences;updatedAt;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;stage_configuration;id;Identificador único del registro en la tabla stage_configuration. Se genera automáticamente.;validada
+internal_disciplinary_control;system_configuration;id;Identificador único del registro en la tabla system_configuration. Se genera automáticamente.;validada
+internal_disciplinary_control;terminos_procesales;fecha_actualizacion;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;terminos_procesales;fecha_creacion;Fecha y hora de creación del registro.;validada
+internal_disciplinary_control;terminos_procesales;id;Identificador único del registro en la tabla terminos_procesales. Se genera automáticamente.;validada
+internal_disciplinary_control;tipos_remision;id;Identificador único del registro en la tabla tipos_remision. Se genera automáticamente.;validada
+legal_management;actas;created_at;Fecha y hora de creación del registro.;validada
+legal_management;actas;expediente_id;Referencia al registro de legal_management.expedientes (id).;validada
+legal_management;actas;id;Identificador único del registro en la tabla actas. Se genera automáticamente.;validada
+legal_management;actas;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;actors;created_at;Fecha y hora de creación del registro.;validada
+legal_management;actors;expediente_id;Referencia al registro de legal_management.expedientes (id).;validada
+legal_management;actors;id;Identificador único del registro en la tabla actors. Se genera automáticamente.;validada
+legal_management;actors;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;actuaciones;created_at;Fecha y hora de creación del registro.;validada
+legal_management;actuaciones;id;Identificador único del registro en la tabla actuaciones. Se genera automáticamente.;validada
+legal_management;adjuntos_correo;correo_id;Referencia al registro de legal_management.correos_juridicos (id).;validada
+legal_management;adjuntos_correo;created_at;Fecha y hora de creación del registro.;validada
+legal_management;adjuntos_correo;id;Identificador único del registro en la tabla adjuntos_correo. Se genera automáticamente.;validada
+legal_management;audiencias;created_at;Fecha y hora de creación del registro.;validada
+legal_management;audiencias;expediente_id;Referencia al registro de legal_management.expedientes (id).;validada
+legal_management;audiencias;id;Identificador único del registro en la tabla audiencias. Se genera automáticamente.;validada
+legal_management;autos;created_at;Fecha y hora de creación del registro.;validada
+legal_management;autos;expediente_id;Referencia al registro de legal_management.expedientes (id).;validada
+legal_management;autos;id;Identificador único del registro en la tabla autos. Se genera automáticamente.;validada
+legal_management;autos;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;borradores_correos;created_at;Fecha y hora de creación del registro.;validada
+legal_management;borradores_correos;id;Identificador único del registro en la tabla borradores_correos. Se genera automáticamente.;validada
+legal_management;borradores_correos;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;cat_tipos_requerimiento;created_at;Fecha y hora de creación del registro.;validada
+legal_management;cat_tipos_requerimiento;id;Identificador único del registro en la tabla cat_tipos_requerimiento.;validada
+legal_management;cat_tipos_requerimiento;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;coactivos_historial;id;Identificador único del registro en la tabla coactivos_historial. Se genera automáticamente.;validada
+legal_management;coactivos_historial;proceso_id;Referencia al registro de legal_management.procesos_coactivos (id).;validada
+legal_management;comentarios;created_at;Fecha y hora de creación del registro.;validada
+legal_management;comentarios;expediente_id;Referencia al registro de legal_management.expedientes (id).;validada
+legal_management;comentarios;id;Identificador único del registro en la tabla comentarios. Se genera automáticamente.;validada
+legal_management;comentarios;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;comentarios_consulta;consulta_id;Referencia al registro de legal_management.consultas_juridicas (id).;validada
+legal_management;comentarios_consulta;id;Identificador único del registro en la tabla comentarios_consulta. Se genera automáticamente.;validada
+legal_management;comentarios_correo;correo_id;Referencia al registro de legal_management.correos_juridicos (id).;validada
+legal_management;comentarios_correo;id;Identificador único del registro en la tabla comentarios_correo. Se genera automáticamente.;validada
+legal_management;comentarios_oc;created_at;Fecha y hora de creación del registro.;validada
+legal_management;comentarios_oc;id;Identificador único del registro en la tabla comentarios_oc. Se genera automáticamente.;validada
+legal_management;comentarios_oc;requerimiento_id;Referencia al registro de legal_management.requerimientos_oc (id).;validada
+legal_management;comentarios_oc;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;conceptos_juridicos;consulta_id;Referencia al registro de legal_management.consultas_juridicas (id).;validada
+legal_management;conceptos_juridicos;created_at;Fecha y hora de creación del registro.;validada
+legal_management;conceptos_juridicos;id;Identificador único del registro en la tabla conceptos_juridicos. Se genera automáticamente.;validada
+legal_management;conceptos_juridicos;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;consulta_juridica_historial;consulta_id;Referencia al registro de legal_management.consultas_juridicas (id).;validada
+legal_management;consulta_juridica_historial;id;Identificador único del registro en la tabla consulta_juridica_historial. Se genera automáticamente.;validada
+legal_management;consultas_juridicas;created_at;Fecha y hora de creación del registro.;validada
+legal_management;consultas_juridicas;created_by;Usuario que creó el registro.;validada
+legal_management;consultas_juridicas;id;Identificador único del registro en la tabla consultas_juridicas. Se genera automáticamente.;validada
+legal_management;consultas_juridicas;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;consultas_juridicas;updated_by;Usuario que realizó la última actualización del registro.;validada
+legal_management;correo_juridico_historial;correo_juridico_id;Referencia al registro de legal_management.correos_juridicos (id).;validada
+legal_management;correo_juridico_historial;fecha_creacion;Fecha y hora de creación del registro.;validada
+legal_management;correo_juridico_historial;id;Identificador único del registro en la tabla correo_juridico_historial. Se genera automáticamente.;validada
+legal_management;correo_tracking_tokens;adjunto_id;Referencia al registro de legal_management.adjuntos_correo (id).;validada
+legal_management;correo_tracking_tokens;correo_id;Referencia al registro de legal_management.correos_juridicos (id).;validada
+legal_management;correo_tracking_tokens;created_at;Fecha y hora de creación del registro.;validada
+legal_management;correo_tracking_tokens;id;Identificador único del registro en la tabla correo_tracking_tokens. Se genera automáticamente.;validada
+legal_management;correos_juridicos;created_at;Fecha y hora de creación del registro.;validada
+legal_management;correos_juridicos;id;Identificador único del registro en la tabla correos_juridicos. Se genera automáticamente.;validada
+legal_management;correos_juridicos;parent_email_id;Referencia al registro de legal_management.correos_juridicos (id).;validada
+legal_management;correos_juridicos;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;decisiones_disciplinarias;created_at;Fecha y hora de creación del registro.;validada
+legal_management;decisiones_disciplinarias;expediente_id;Referencia al registro de legal_management.expedientes (id).;validada
+legal_management;decisiones_disciplinarias;id;Identificador único del registro en la tabla decisiones_disciplinarias. Se genera automáticamente.;validada
+legal_management;documentos;created_at;Fecha y hora de creación del registro.;validada
+legal_management;documentos;expediente_id;Referencia al registro de legal_management.expedientes (id).;validada
+legal_management;documentos;id;Identificador único del registro en la tabla documentos. Se genera automáticamente.;validada
+legal_management;documentos;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;documentos_consulta;created_at;Fecha y hora de creación del registro.;validada
+legal_management;documentos_consulta;id;Identificador único del registro en la tabla documentos_consulta. Se genera automáticamente.;validada
+legal_management;documentos_consulta;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;documentos_oc;created_at;Fecha y hora de creación del registro.;validada
+legal_management;documentos_oc;id;Identificador único del registro en la tabla documentos_oc. Se genera automáticamente.;validada
+legal_management;documentos_oc;requerimiento_id;Referencia al registro de legal_management.requerimientos_oc (id).;validada
+legal_management;documentos_oc;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;evidencias;created_at;Fecha y hora de creación del registro.;validada
+legal_management;evidencias;expediente_id;Referencia al registro de legal_management.expedientes (id).;validada
+legal_management;evidencias;id;Identificador único del registro en la tabla evidencias. Se genera automáticamente.;validada
+legal_management;evidencias;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;excepciones_procesales;created_at;Fecha y hora de creación del registro.;validada
+legal_management;excepciones_procesales;expediente_id;Referencia al registro de legal_management.expedientes (id).;validada
+legal_management;excepciones_procesales;id;Identificador único del registro en la tabla excepciones_procesales. Se genera automáticamente.;validada
+legal_management;excepciones_procesales;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;expedientes;created_at;Fecha y hora de creación del registro.;validada
+legal_management;expedientes;id;Identificador único del registro en la tabla expedientes. Se genera automáticamente.;validada
+legal_management;expedientes;proceso_principal_id;Referencia al registro de legal_management.expedientes (id).;validada
+legal_management;expedientes;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;hallazgos;created_at;Fecha y hora de creación del registro.;validada
+legal_management;hallazgos;created_by;Usuario que creó el registro.;validada
+legal_management;hallazgos;id;Identificador único del registro en la tabla hallazgos. Se genera automáticamente.;validada
+legal_management;hallazgos;requerimiento_id;Referencia al registro de legal_management.requerimientos_oc (id).;validada
+legal_management;hallazgos;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;historial_consultas;consulta_id;Referencia al registro de legal_management.consultas_juridicas (id).;validada
+legal_management;historial_consultas;id;Identificador único del registro en la tabla historial_consultas. Se genera automáticamente.;validada
+legal_management;notas_expediente;created_at;Fecha y hora de creación del registro.;validada
+legal_management;notas_expediente;expediente_id;Referencia al registro de legal_management.expedientes (id).;validada
+legal_management;notas_expediente;id;Identificador único del registro en la tabla notas_expediente. Se genera automáticamente.;validada
+legal_management;notas_expediente;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;oficios_enviados;created_at;Fecha y hora de creación del registro.;validada
+legal_management;oficios_enviados;id;Identificador único del registro en la tabla oficios_enviados. Se genera automáticamente.;validada
+legal_management;oficios_enviados;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;organismos_control;created_at;Fecha y hora de creación del registro.;validada
+legal_management;organismos_control;id;Identificador único del registro en la tabla organismos_control. Se genera automáticamente.;validada
+legal_management;organismos_control;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;pagos_coactivos;created_at;Fecha y hora de creación del registro.;validada
+legal_management;pagos_coactivos;id;Identificador único del registro en la tabla pagos_coactivos. Se genera automáticamente.;validada
+legal_management;pagos_coactivos;proceso_id;Referencia al registro de legal_management.procesos_coactivos (id).;validada
+legal_management;pagos_coactivos;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;pei_indicadores;created_at;Fecha y hora de creación del registro.;validada
+legal_management;pei_indicadores;id;Identificador único del registro en la tabla pei_indicadores. Se genera automáticamente.;validada
+legal_management;pei_indicadores;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;pei_registros_avance;fecha_registro;Fecha y hora de creación del registro.;validada
+legal_management;pei_registros_avance;id;Identificador único del registro en la tabla pei_registros_avance. Se genera automáticamente.;validada
+legal_management;pei_registros_avance;indicador_id;Referencia al registro de legal_management.pei_indicadores (id).;validada
+legal_management;planes_comentarios;created_at;Fecha y hora de creación del registro.;validada
+legal_management;planes_comentarios;id;Identificador único del registro en la tabla planes_comentarios. Se genera automáticamente.;validada
+legal_management;planes_comentarios;plan_id;Referencia al registro de legal_management.planes_mejoramiento (id).;validada
+legal_management;planes_evidencias;created_at;Fecha y hora de creación del registro.;validada
+legal_management;planes_evidencias;id;Identificador único del registro en la tabla planes_evidencias. Se genera automáticamente.;validada
+legal_management;planes_evidencias;plan_id;Referencia al registro de legal_management.planes_mejoramiento (id).;validada
+legal_management;planes_hallazgos;created_at;Fecha y hora de creación del registro.;validada
+legal_management;planes_hallazgos;created_by;Usuario que creó el registro.;validada
+legal_management;planes_hallazgos;id;Identificador único del registro en la tabla planes_hallazgos. Se genera automáticamente.;validada
+legal_management;planes_hallazgos;plan_id;Referencia al registro de legal_management.planes_mejoramiento (id).;validada
+legal_management;planes_hallazgos;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;planes_mejoramiento;created_at;Fecha y hora de creación del registro.;validada
+legal_management;planes_mejoramiento;id;Identificador único del registro en la tabla planes_mejoramiento. Se genera automáticamente.;validada
+legal_management;planes_mejoramiento;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;planes_seguimientos;id;Identificador único del registro en la tabla planes_seguimientos. Se genera automáticamente.;validada
+legal_management;planes_seguimientos;plan_id;Referencia al registro de legal_management.planes_mejoramiento (id).;validada
+legal_management;plantillas_documentos;created_at;Fecha y hora de creación del registro.;validada
+legal_management;plantillas_documentos;id;Identificador único del registro en la tabla plantillas_documentos. Se genera automáticamente.;validada
+legal_management;plantillas_documentos;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;procesos_coactivos;fecha_creacion;Fecha y hora de creación del registro.;validada
+legal_management;procesos_coactivos;id;Identificador único del registro en la tabla procesos_coactivos. Se genera automáticamente.;validada
+legal_management;procesos_coactivos;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;procesos_coactivos_adjuntos;fecha_creacion;Fecha y hora de creación del registro.;validada
+legal_management;procesos_coactivos_adjuntos;id;Identificador único del registro en la tabla procesos_coactivos_adjuntos. Se genera automáticamente.;validada
+legal_management;procesos_coactivos_adjuntos;proceso_id;Referencia al registro de legal_management.procesos_coactivos (id).;validada
+legal_management;requerimientos_oc;created_at;Fecha y hora de creación del registro.;validada
+legal_management;requerimientos_oc;created_by;Usuario que creó el registro.;validada
+legal_management;requerimientos_oc;id;Identificador único del registro en la tabla requerimientos_oc. Se genera automáticamente.;validada
+legal_management;requerimientos_oc;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;respuesta_borrador_oc;created_at;Fecha y hora de creación del registro.;validada
+legal_management;respuesta_borrador_oc;id;Identificador único del registro en la tabla respuesta_borrador_oc. Se genera automáticamente.;validada
+legal_management;respuesta_borrador_oc;requerimiento_id;Referencia al registro de legal_management.requerimientos_oc (id).;validada
+legal_management;respuesta_borrador_oc;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;riesgo_historial;created_at;Fecha y hora de creación del registro.;validada
+legal_management;riesgo_historial;id;Identificador único del registro en la tabla riesgo_historial. Se genera automáticamente.;validada
+legal_management;riesgo_historial;riesgo_id;Referencia al registro de legal_management.riesgos (id).;validada
+legal_management;riesgos;created_at;Fecha y hora de creación del registro.;validada
+legal_management;riesgos;created_by;Usuario que creó el registro.;validada
+legal_management;riesgos;id;Identificador único del registro en la tabla riesgos. Se genera automáticamente.;validada
+legal_management;riesgos;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;sequences;name;Clave primaria de la tabla sequences: name.;validada
+legal_management;sequences;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;solicitudes_insumos;created_at;Fecha y hora de creación del registro.;validada
+legal_management;solicitudes_insumos;id;Identificador único del registro en la tabla solicitudes_insumos. Se genera automáticamente.;validada
+legal_management;solicitudes_insumos;requerimiento_id;Referencia al registro de legal_management.requerimientos_oc (id).;validada
+legal_management;solicitudes_insumos;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;system_configurations;created_at;Fecha y hora de creación del registro.;validada
+legal_management;system_configurations;key;Clave primaria de la tabla system_configurations: key.;validada
+legal_management;system_configurations;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;tareas_expediente;creado_por;Usuario que creó el registro.;validada
+legal_management;tareas_expediente;created_at;Fecha y hora de creación del registro.;validada
+legal_management;tareas_expediente;expediente_id;Referencia al registro de legal_management.expedientes (id).;validada
+legal_management;tareas_expediente;fecha_creacion;Fecha y hora de creación del registro.;validada
+legal_management;tareas_expediente;id;Identificador único del registro en la tabla tareas_expediente. Se genera automáticamente.;validada
+legal_management;tareas_expediente;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;tasas_referencia;created_at;Fecha y hora de creación del registro.;validada
+legal_management;tasas_referencia;id;Identificador único del registro en la tabla tasas_referencia. Se genera automáticamente.;validada
+legal_management;tasas_referencia;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;terminos_alertas_enviadas;id;Identificador único del registro en la tabla terminos_alertas_enviadas. Se genera automáticamente.;validada
+legal_management;terminos_alertas_enviadas;regla_id;Referencia al registro de legal_management.terminos_reglas_alerta (id).;validada
+legal_management;terminos_alertas_enviadas;termino_id;Referencia al registro de legal_management.terminos_procesales (id).;validada
+legal_management;terminos_procesales;created_at;Fecha y hora de creación del registro.;validada
+legal_management;terminos_procesales;id;Identificador único del registro en la tabla terminos_procesales. Se genera automáticamente.;validada
+legal_management;terminos_procesales;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;terminos_reglas_alerta;created_at;Fecha y hora de creación del registro.;validada
+legal_management;terminos_reglas_alerta;id;Identificador único del registro en la tabla terminos_reglas_alerta. Se genera automáticamente.;validada
+legal_management;terminos_reglas_alerta;updated_at;Fecha y hora de la última actualización del registro.;validada
+notifications;notificacion;fecha_creacion;Fecha y hora de creación del registro.;validada
+notifications;notificacion;id_notificacion;Identificador único del registro en la tabla notificacion. Se genera automáticamente.;validada
+public;config_entes_control;created_at;Fecha y hora de creación del registro.;validada
+public;config_entes_control;id;Identificador único del registro en la tabla config_entes_control. Se genera automáticamente.;validada
+public;config_entes_control;updated_at;Fecha y hora de la última actualización del registro.;validada
+public;stage_configuration;createdAt;Fecha y hora de creación del registro.;validada
+public;stage_configuration;id;Identificador único del registro en la tabla stage_configuration. Se genera automáticamente.;validada
+public;stage_configuration;updatedAt;Fecha y hora de la última actualización del registro.;validada
+public;system_configuration;id;Identificador único del registro en la tabla system_configuration. Se genera automáticamente.;validada
+requerimientos_oc;avances_hallazgo;created_at;Fecha y hora de creación del registro.;validada
+requerimientos_oc;avances_hallazgo;hallazgo_id;Referencia al registro de requerimientos_oc.hallazgos (id).;validada
+requerimientos_oc;avances_hallazgo;id;Identificador único del registro en la tabla avances_hallazgo. Se genera automáticamente.;validada
+requerimientos_oc;cat_organismos_control;created_at;Fecha y hora de creación del registro.;validada
+requerimientos_oc;cat_organismos_control;id;Identificador único del registro en la tabla cat_organismos_control. Se genera automáticamente.;validada
+requerimientos_oc;cat_organismos_control;updated_at;Fecha y hora de la última actualización del registro.;validada
+requerimientos_oc;hallazgos;created_at;Fecha y hora de creación del registro.;validada
+requerimientos_oc;hallazgos;created_by;Usuario que creó el registro.;validada
+requerimientos_oc;hallazgos;id;Identificador único del registro en la tabla hallazgos. Se genera automáticamente.;validada
+requerimientos_oc;hallazgos;requerimiento_id;Referencia al registro de requerimientos_oc.requerimientos (id).;validada
+requerimientos_oc;hallazgos;updated_at;Fecha y hora de la última actualización del registro.;validada
+requerimientos_oc;historial_requerimientos;id;Identificador único del registro en la tabla historial_requerimientos. Se genera automáticamente.;validada
+requerimientos_oc;historial_requerimientos;requerimiento_id;Referencia al registro de requerimientos_oc.requerimientos (id).;validada
+requerimientos_oc;requerimientos;created_by;Usuario que creó el registro.;validada
+requerimientos_oc;requerimientos;entidad_id;Referencia al registro de requerimientos_oc.cat_organismos_control (id).;validada
+requerimientos_oc;requerimientos;id;Identificador único del registro en la tabla requerimientos. Se genera automáticamente.;validada
+requerimientos_oc;requerimientos;updated_at;Fecha y hora de la última actualización del registro.;validada
+requerimientos_oc;solicitudes_insumos;created_at;Fecha y hora de creación del registro.;validada
+requerimientos_oc;solicitudes_insumos;id;Identificador único del registro en la tabla solicitudes_insumos. Se genera automáticamente.;validada
+requerimientos_oc;solicitudes_insumos;requerimiento_id;Referencia al registro de requerimientos_oc.requerimientos (id).;validada
+requerimientos_oc;solicitudes_insumos;updated_at;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;analistas_viaticos;created_at;Fecha y hora de creación del registro.;validada
+travel_expenses;analistas_viaticos;id;Identificador único del registro en la tabla analistas_viaticos. Se genera automáticamente.;validada
+travel_expenses;analistas_viaticos;updated_at;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;comisionados;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;comisionados;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;comisionados;id;Identificador único del registro en la tabla comisionados. Se genera automáticamente.;validada
+travel_expenses;config_campos_formulario;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;config_campos_formulario;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;config_campos_formulario;id;Identificador único del registro en la tabla config_campos_formulario. Se genera automáticamente.;validada
+travel_expenses;config_jornada_laboral;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;config_jornada_laboral;actualizado_por;Usuario que realizó la última actualización del registro.;validada
+travel_expenses;config_jornada_laboral;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;config_jornada_laboral;id;Identificador único del registro en la tabla config_jornada_laboral. Se genera automáticamente.;validada
+travel_expenses;config_legalizacion;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;config_legalizacion;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;config_legalizacion;modalidad_pago;Clave primaria de la tabla config_legalizacion: modalidad pago.;validada
+travel_expenses;config_legalizacion_documentos;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;config_legalizacion_documentos;config_tipo_comisionado_id;Referencia al registro de travel_expenses.config_tipo_comisionado (id).;validada
+travel_expenses;config_legalizacion_documentos;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;config_legalizacion_documentos;id;Identificador único del registro en la tabla config_legalizacion_documentos. Se genera automáticamente.;validada
+travel_expenses;config_legalizacion_documentos;tipo_documento_soporte_id;Referencia al registro de travel_expenses.tipos_documento_soporte (id).;validada
+travel_expenses;config_tipo_comisionado;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;config_tipo_comisionado;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;config_tipo_comisionado;id;Identificador único del registro en la tabla config_tipo_comisionado. Se genera automáticamente.;validada
+travel_expenses;config_tipo_comisionado_documentos;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;config_tipo_comisionado_documentos;config_tipo_comisionado_id;Referencia al registro de travel_expenses.config_tipo_comisionado (id).;validada
+travel_expenses;config_tipo_comisionado_documentos;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;config_tipo_comisionado_documentos;id;Identificador único del registro en la tabla config_tipo_comisionado_documentos. Se genera automáticamente.;validada
+travel_expenses;config_tipo_comisionado_documentos;tipo_documento_soporte_id;Referencia al registro de travel_expenses.tipos_documento_soporte (id).;validada
+travel_expenses;configuraciones_globales;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;configuraciones_globales;clave;Clave primaria de la tabla configuraciones_globales: clave.;validada
+travel_expenses;configuraciones_globales;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;documentos_soporte;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;documentos_soporte;id;Identificador único del registro en la tabla documentos_soporte. Se genera automáticamente.;validada
+travel_expenses;documentos_soporte;solicitud_id;Referencia al registro de travel_expenses.solicitudes_comision (id).;validada
+travel_expenses;escalas_viaticos;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;escalas_viaticos;id;Identificador único del registro en la tabla escalas_viaticos. Se genera automáticamente.;validada
+travel_expenses;excepciones_autorizadas_tiquetes;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;excepciones_autorizadas_tiquetes;id;Identificador único del registro en la tabla excepciones_autorizadas_tiquetes. Se genera automáticamente.;validada
+travel_expenses;legalizacion_reversiones;id;Identificador único del registro en la tabla legalizacion_reversiones. Se genera automáticamente.;validada
+travel_expenses;legalizacion_reversiones;legalizacion_id;Referencia al registro de travel_expenses.legalizaciones_comision (id).;validada
+travel_expenses;legalizacion_revisiones;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;legalizacion_revisiones;id;Identificador único del registro en la tabla legalizacion_revisiones. Se genera automáticamente.;validada
+travel_expenses;legalizacion_revisiones;legalizacion_id;Referencia al registro de travel_expenses.legalizaciones_comision (id).;validada
+travel_expenses;legalizacion_soportes;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;legalizacion_soportes;id;Identificador único del registro en la tabla legalizacion_soportes. Se genera automáticamente.;validada
+travel_expenses;legalizacion_soportes;legalizacion_id;Referencia al registro de travel_expenses.legalizaciones_comision (id).;validada
+travel_expenses;legalizacion_soportes;tipo_documento_soporte_id;Referencia al registro de travel_expenses.tipos_documento_soporte (id).;validada
+travel_expenses;legalizaciones_comision;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;legalizaciones_comision;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;legalizaciones_comision;id;Identificador único del registro en la tabla legalizaciones_comision. Se genera automáticamente.;validada
+travel_expenses;legalizaciones_comision;solicitud_id;Referencia al registro de travel_expenses.solicitudes_comision (id).;validada
+travel_expenses;liquidation_params;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;liquidation_params;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;liquidation_params;id;Identificador único del registro en la tabla liquidation_params. Se genera automáticamente.;validada
+travel_expenses;parametros_globales;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;parametros_globales;clave;Clave primaria de la tabla parametros_globales: clave.;validada
+travel_expenses;parametros_globales;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;paz_y_salvo_eventos;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;paz_y_salvo_eventos;id;Identificador único del registro en la tabla paz_y_salvo_eventos. Se genera automáticamente.;validada
+travel_expenses;paz_y_salvo_eventos;paz_y_salvo_id;Referencia al registro de travel_expenses.paz_y_salvos (id).;validada
+travel_expenses;paz_y_salvos;comisionado_id;Referencia al registro de travel_expenses.comisionados (id).;validada
+travel_expenses;paz_y_salvos;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;paz_y_salvos;id;Identificador único del registro en la tabla paz_y_salvos.;validada
+travel_expenses;reintegros_comision;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;reintegros_comision;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;reintegros_comision;fecha_registro;Fecha y hora de creación del registro.;validada
+travel_expenses;reintegros_comision;id;Identificador único del registro en la tabla reintegros_comision. Se genera automáticamente.;validada
+travel_expenses;reintegros_comision;solicitud_id;Referencia al registro de travel_expenses.solicitudes_comision (id).;validada
+travel_expenses;rutas_restringidas;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;rutas_restringidas;id;Identificador único del registro en la tabla rutas_restringidas. Se genera automáticamente.;validada
+travel_expenses;saldos_tiquetes;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;saldos_tiquetes;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;saldos_tiquetes;id;Identificador único del registro en la tabla saldos_tiquetes. Se genera automáticamente.;validada
+travel_expenses;solicitudes_comision;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;solicitudes_comision;comisionado_id;Referencia al registro de travel_expenses.comisionados (id).;validada
+travel_expenses;solicitudes_comision;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;solicitudes_comision;enviado_presupuesto_por_id;Referencia al registro de auth.user (id_user).;validada
+travel_expenses;solicitudes_comision;expedido_rp_por_id;Referencia al registro de auth.user (id_user).;validada
+travel_expenses;solicitudes_comision;id;Identificador único del registro en la tabla solicitudes_comision. Se genera automáticamente.;validada
+travel_expenses;solicitudes_comision;obligado_por_id;Referencia al registro de auth.user (id_user).;validada
+travel_expenses;solicitudes_comision;pagado_por_id;Referencia al registro de auth.user (id_user).;validada
+travel_expenses;solicitudes_historial_estados;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;solicitudes_historial_estados;id;Identificador único del registro en la tabla solicitudes_historial_estados. Se genera automáticamente.;validada
+travel_expenses;solicitudes_historial_estados;solicitud_id;Referencia al registro de travel_expenses.solicitudes_comision (id).;validada
+travel_expenses;tarifas_investigadores;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;tarifas_investigadores;id;Identificador único del registro en la tabla tarifas_investigadores. Se genera automáticamente.;validada
+travel_expenses;tarifas_referencia_tiquetes;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;tarifas_referencia_tiquetes;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;tarifas_referencia_tiquetes;id;Identificador único del registro en la tabla tarifas_referencia_tiquetes. Se genera automáticamente.;validada
+travel_expenses;tarifas_regionales_excepcion;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;tarifas_regionales_excepcion;id;Identificador único del registro en la tabla tarifas_regionales_excepcion. Se genera automáticamente.;validada
+travel_expenses;tarifas_transporte_terminal;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;tarifas_transporte_terminal;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;tarifas_transporte_terminal;id;Identificador único del registro en la tabla tarifas_transporte_terminal. Se genera automáticamente.;validada
+travel_expenses;tipos_documento_soporte;actualizado_en;Fecha y hora de la última actualización del registro.;validada
+travel_expenses;tipos_documento_soporte;creado_en;Fecha y hora de creación del registro.;validada
+travel_expenses;tipos_documento_soporte;id;Identificador único del registro en la tabla tipos_documento_soporte. Se genera automáticamente.;validada

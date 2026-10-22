@@ -181,6 +181,7 @@ def generar(a):
         if len(f["cols"]) == 1:
             fk_col[(f["c"], f["cols"][0])] = (f["p"], f["pcols"][0])
     imp_col = {(i["c"], i["col"]): (i["p"], i["pcol"]) for i in m["implicitas"] if i["estado"] == "confirmada por datos"}
+    validar = {x.strip() for x in (a.validar_reglas or "").split(",") if x.strip()}
     filas, cuenta = [], {}
     for k, t in m["tablas"].items():
         if t["k"] not in "rp" or t["particion"]:
@@ -189,17 +190,30 @@ def generar(a):
             if c["de"] == "base":
                 continue
             if c["de"] in ("propuesta", "validada"):       # ya está en config/descripciones.csv
-                d, regla, estado = c["d"], "config/descripciones.csv", c["de"]
+                d, estado = c["d"], c["de"]
+                sug, r = proponer(t, c, fk_col, imp_col)
+                regla = r if sug == d else "config/descripciones.csv"
             else:
                 d, regla = proponer(t, c, fk_col, imp_col)
                 estado = "propuesta" if d else "por documentar"
                 regla = regla or "sin regla"
             cuenta[regla or "por documentar"] = cuenta.get(regla or "por documentar", 0) + 1
+            if estado == "propuesta" and regla in validar:
+                estado = "validada"
             filas.append({"esquema": t["s"], "tabla": t["t"], "columna": c["n"], "tipo": c["ty"],
                           "restricciones": restricciones(t, c, fk_col), "descripcion": d, "estado": estado, "regla": regla})
     sufijo = alcance["id"].lower() if alcance else "completa"
     destino = a.salida or os.path.join(M.CONFIG, "propuestas", f"{sufijo}_columnas.csv")
     os.makedirs(os.path.dirname(destino), exist_ok=True)
+    if os.path.exists(destino) and not a.sobrescribir:
+        # la hoja puede tener revisiones del equipo que aún no se incorporaron: se conservan
+        with open(destino, encoding="utf-8-sig", newline="") as f:
+            previas = {(r["esquema"], r["tabla"], r["columna"]): r for r in csv.DictReader(f, delimiter=";")}
+        for r in filas:
+            p = previas.get((r["esquema"], r["tabla"], r["columna"]))
+            editada = p and (p["estado"] not in ("propuesta", "por documentar") or p["descripcion"] != r["descripcion"])
+            if editada and r["estado"] not in ("validada",):
+                r["descripcion"], r["estado"] = p["descripcion"], p["estado"]
     with open(destino, "w", encoding="utf-8-sig", newline="") as f:
         w = csv.DictWriter(f, CAMPOS, delimiter=";")
         w.writeheader()
@@ -245,6 +259,8 @@ def main():
     ap.add_argument("--extraccion")
     ap.add_argument("--alcance", help="JSON de config/alcances/ (versión Lite)")
     ap.add_argument("--salida")
+    ap.add_argument("--sobrescribir", action="store_true", help="regenera la hoja sin conservar las revisiones que tenga")
+    ap.add_argument("--validar-reglas", help="marca como validadas las propuestas de estas reglas (separadas por coma)")
     ap.add_argument("--incorporar", help="hoja de trabajo revisada que se lleva a config/descripciones.csv")
     ap.add_argument("--estados", default="validada", help="estados de la hoja que se incorporan (separados por coma)")
     a = ap.parse_args()
