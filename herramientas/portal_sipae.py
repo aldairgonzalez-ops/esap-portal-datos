@@ -185,7 +185,7 @@ def bloques(m, version, entorno):
                  for i in m["implicitas"] if i["c"] in T]
     tablas_por_nombre = {f["n"]: f for f in m["fks"]}
     cardinalidad = [{"fk": f["n"], "c": f["c"], "opt": 0 if f["oblig"] else 1, "uni": 1 if f["unica"] else 0} for f in m["fks"] if f["c"] in T]
-    rel = {"generado": ctx["fecha"][:10], "fuente": f"{ctx['db']} ({entorno})", "inferidas": inferidas, "cardinalidad": cardinalidad}
+    rel = {"generado": ctx["fecha"][:10], "fuente": ctx["db"], "inferidas": inferidas, "cardinalidad": cardinalidad}
 
     pii = {f"{k}|{c['n']}": {"cat": c["pii"]["cat"], "alto": c["pii"]["nivel"] == "alta"}
            for k, t in T.items() for c in t["cols"] if c["pii"]}
@@ -288,6 +288,11 @@ def construir_html(m, version, entorno):
          "v: pct(nVal, cols) + ' %', meta: '≥ 95 %', ok: nVal / cols >= 0.95 ? true : null,"),
         ("`${nVal.toLocaleString()} validadas (${pct(nVal, cols)} %) · ${nProp.toLocaleString()} propuestas (${pct(nProp, cols)} %)`",
          "`${nVal.toLocaleString()} de ${cols.toLocaleString()} con definición registrada o validada · ${nProp.toLocaleString()} propuestas por validar`"),
+        # sin mención del entorno (QA) en el panel de indicadores ni en las fichas (pedido del líder, 2026-10-22)
+        ("Entorno QA · características ISO/IEC 25012 · referencia entre paréntesis", "Características ISO/IEC 25012 · referencia entre paréntesis"),
+        ("d: 'respaldos y copias de trabajo del entorno QA'", "d: 'respaldos y copias de trabajo'"),
+        ("(entorno QA) el ${this.rel.generado}", "el ${this.rel.generado}"),
+        ('title="Copia de apoyo del entorno QA (respaldo o trabajo)', 'title="Copia de apoyo (respaldo o trabajo)'),
         # Modelo ER: un dominio sin relaciones dibuja sus tablas como tarjetas independientes en lugar de quedar vacío
         ("        edges.push({p:f.p, c:f.c, f});\n      });\n    return {nodes, edges};\n  }\n  function focusGraph(k){",
          "        edges.push({p:f.p, c:f.c, f});\n      });\n"

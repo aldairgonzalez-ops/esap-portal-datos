@@ -11,7 +11,7 @@
        - No cambiar el diseño.
        - Solo usar clases Tailwind que ya existan en la plantilla, porque el CSS viene precompilado.
        - Ningún texto que nombre a SIPAE, UApA o PAE: el generador se detiene si queda alguno.
-       - Pedido del líder (2026-10-22): sin etiqueta de entorno (QA) en la barra superior y sin etiquetas «validada»/«propuesta» en descripciones de columnas y dominios. El resumen ejecutivo no lleva rutas relativas ni enlaces al repositorio.
+       - Pedido del líder (2026-10-22): sin mención del entorno (QA) en la barra superior, el panel de indicadores ni las fichas y sin etiquetas «validada»/«propuesta» en descripciones de columnas y dominios. El resumen ejecutivo no lleva rutas relativas ni enlaces al repositorio.
     2. **Resumen ejecutivo** (`informe/Resumen_Ejecutivo_BD_ESAP_<versión>.docx`): alcance, dominios, contenido del modelo y datos personales; cita el portal (con enlace a cada sección) y el repositorio.
     3. **Detalle técnico:** `docs/csv/`, `docs/catalogo/*.md`, `docs/informe_extraccion_<versión>.md` y las consultas de `sql/`.
   - **Uso interno (personal del proyecto):** `interno/` (fuera de Git).

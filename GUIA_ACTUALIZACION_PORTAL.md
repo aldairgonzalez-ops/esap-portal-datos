@@ -27,17 +27,17 @@ Los comandos son para **PowerShell en Windows**, desde el clon del repositorio e
    ```
    El commit que muestra `git log` debe ser el mismo que el último de GitHub (`main`). Si `git pull` muestra un error (cambios locales, conflicto, credenciales), resuélvalo antes de seguir. De lo contrario, el portal se genera con la versión anterior de las herramientas o de las descripciones.
 
-2. **Elegir la versión nueva.** Cada cambio del portal es una versión nueva (`v1.5` → `v1.6`). No se sobrescriben versiones ya entregadas. Versiones vigentes:
+2. **Elegir la versión nueva.** Cada cambio del portal es una versión nueva (`v1.6` → `v1.7`). No se sobrescriben versiones ya entregadas. Versiones vigentes:
    | Portal | Última versión | Carpeta |
    |---|---|---|
-   | Fase 2 | v1.5 | `portal\fase2\` |
+   | Fase 2 | v1.6 | `portal\fase2\` |
    | Base completa | v1.1 | `portal\` |
 
 3. **Conexión a QA (solo para extraer).** Tailscale activo y la contraseña del usuario de la base a mano. La contraseña se escribe cada vez que `psql` la pide y **no se guarda** en ningún archivo ni variable.
 
 ---
 
-### Estado actual (v1.5 de Fase 2)
+### Estado actual (v1.6 de Fase 2)
 
 - **Fase 2:** 154 de 154 tablas y 1.905 de 1.905 columnas con descripción. 95 tablas y 170 columnas la tienen registrada en la base; las demás están validadas en `config/descripciones.csv` y pendientes de registrarse con un lote `COMMENT ON` (sección 3).
 - **Base completa:** las columnas que no son de Fase 2 siguen en `Matriz_Validacion_Descripciones_Completa.xlsx`.
@@ -104,7 +104,7 @@ Salidas: `portal\Portal_de_Datos_ESAP_vX.Y.html`, `informe\Resumen_Ejecutivo_BD_
 ### 1.4 Revisar antes de entregar
 
 1. Abra el portal en el navegador y recorra Inicio, el buscador, varias fichas de tabla, el Modelo ER de cada dominio y el Inventario de programables, en tema claro y oscuro.
-2. En Inicio, revise los indicadores y la «Arquitectura Conceptual de Módulos»: cada dominio debe tener descripción. La barra superior muestra la base (`esap_db`) sin etiqueta de entorno.
+2. En Inicio, revise los indicadores y la «Arquitectura Conceptual de Módulos»: cada dominio debe tener descripción. La barra superior y el panel de indicadores muestran la base (`esap_db`) sin mención del entorno.
 3. En el resumen ejecutivo, la sección 6 nombra el portal y sus secciones sin rutas de archivo ni enlaces al repositorio (si se pasa `--url-portal`, incluye el enlace al portal publicado).
 4. Confirme que nada de `interno\` va al cliente.
 
