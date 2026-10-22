@@ -503,7 +503,7 @@ def aplicar_alcance(m, alcance):
         e = dict(e)
         if e["s"] in parciales:
             p = parciales[e["s"]]
-            e.update({"nombre": p.get("nombre", e["nombre"]), "d": p.get("descripcion", e["d"]), "de": "base" if p.get("descripcion") else e.get("de")})
+            e.update({"nombre": p.get("nombre", e["nombre"]), "d": p.get("descripcion", e["d"]), "de": "propuesta" if p.get("descripcion") else e.get("de")})
         e.update({"orden": orden.get(e["s"], 999),
                   "tablas": sum(1 for t in ts if t["k"] in "rpf" and not t["particion"]), "vistas": sum(1 for t in ts if t["k"] in "vm"),
                   "columnas": sum(len(t["cols"]) for t in ts if t["k"] in "rpf" and not t["particion"]),

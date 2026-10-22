@@ -1,7 +1,7 @@
 ﻿esquema;dominio;descripcion;tablas;vistas;columnas;filas;tablas_sin_filas;tablas_apoyo;programables;bytes
 academic-schedule;Programación académica;Esquema para la gestión de franjas horarias, aulas, jornadas y programación académica institucional ESAP;14;0;147;666;7;0;3;1097728
-academic_work_plan;RUND;Tablas del módulo RUND (prefijo Rund) del esquema academic_work_plan y las tablas Docente y Documento, a las que hacen referencia por nombre de columna (docente_id, documento_id).;15;0;236;23344;7;0;4;12451840
-hiring;Contratación;;84;1;952;1961;19;0;1;4628480
+academic_work_plan;RUND;Registro de docentes (RUND): datos del docente, aprobación de sus bloques de información y soportes, documentos del perfil, extracción asistida de datos desde los documentos, accesos de entidades externas y bitácoras de consulta.;15;0;236;23344;7;0;4;12451840
+hiring;Contratación;Proceso de contratación de la ESAP, desde la radicación y los estudios previos hasta la liquidación y el cierre: procesos por modalidad, CDP y registro presupuestal, publicaciones en SECOP, evaluación de ofertas y adjudicación, contratos, garantías, supervisión, pagos, modificaciones, incumplimientos y expediente electrónico.;84;1;952;1961;19;0;1;4628480
 infrastructure-management;Gestión de infraestructura;Esquema para la gestión de infraestructura física, sedes territoriales, bloques, aulas, espacios y solicitudes de mantenimiento ESAP;8;0;143;162;3;0;0;548864
-travel_expenses;Viáticos y gastos de viaje;;30;0;402;208;12;0;7;2007040
+travel_expenses;Viáticos y gastos de viaje;Trámite de comisiones de servicio: solicitudes de contratistas, docentes, estudiantes, funcionarios e investigadores, liquidación de viáticos y tiquetes, registro presupuestal, obligación y pago, legalización, reintegros y paz y salvos, con las escalas, tarifas y parámetros que se aplican.;30;0;402;208;12;0;7;2007040
 chatbot;Asistente virtual (chatbot);Esquema para el módulo Asistente Virtual y ChatBot institucional ESAP;3;0;25;0;3;0;0;90112

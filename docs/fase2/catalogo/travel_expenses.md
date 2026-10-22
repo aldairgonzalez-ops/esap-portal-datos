@@ -1,6 +1,6 @@
 # Viáticos y gastos de viaje (`travel_expenses`)
 
-_Descripción del dominio por documentar._
+Trámite de comisiones de servicio: solicitudes de contratistas, docentes, estudiantes, funcionarios e investigadores, liquidación de viáticos y tiquetes, registro presupuestal, obligación y pago, legalización, reintegros y paz y salvos, con las escalas, tarifas y parámetros que se aplican.
 
 30 tablas · 0 vistas · 402 columnas · 208 filas · 7 funciones o procedimientos
 

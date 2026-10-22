@@ -11,7 +11,7 @@ notifications;Notificaciones;9;Mensajes y notificaciones enviados por la platafo
 audit;Auditoría y trazabilidad;10;Bitácora de cambios y trazabilidad de operaciones.
 public;Esquema público;11;Objetos en el esquema por defecto de PostgreSQL.
 academic-schedule;Programación académica;12;
-hiring;Contratación;13;
-travel_expenses;Viáticos y gastos de viaje;14;
+hiring;Contratación;13;Proceso de contratación de la ESAP, desde la radicación y los estudios previos hasta la liquidación y el cierre: procesos por modalidad, CDP y registro presupuestal, publicaciones en SECOP, evaluación de ofertas y adjudicación, contratos, garantías, supervisión, pagos, modificaciones, incumplimientos y expediente electrónico.
+travel_expenses;Viáticos y gastos de viaje;14;Trámite de comisiones de servicio: solicitudes de contratistas, docentes, estudiantes, funcionarios e investigadores, liquidación de viáticos y tiquetes, registro presupuestal, obligación y pago, legalización, reintegros y paz y salvos, con las escalas, tarifas y parámetros que se aplican.
 infrastructure-management;Gestión de infraestructura;15;
 chatbot;Asistente virtual (chatbot);16;

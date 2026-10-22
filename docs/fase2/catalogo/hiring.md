@@ -1,6 +1,6 @@
 # Contratación (`hiring`)
 
-_Descripción del dominio por documentar._
+Proceso de contratación de la ESAP, desde la radicación y los estudios previos hasta la liquidación y el cierre: procesos por modalidad, CDP y registro presupuestal, publicaciones en SECOP, evaluación de ofertas y adjudicación, contratos, garantías, supervisión, pagos, modificaciones, incumplimientos y expediente electrónico.
 
 84 tablas · 1 vistas · 952 columnas · 1.961 filas · 1 funciones o procedimientos
 

@@ -9,7 +9,7 @@
 | Motor | PostgreSQL 16.14 (Debian 16.14-1.pgdg13+1) on x86_64-pc-linux-gnu |
 | Usuario de extracción | `postgres` |
 | Fecha de extracción | 2026-10-22 09:22:00 |
-| Portal generado | `portal/fase2/Portal_de_Datos_ESAP_Fase2_v1.3.html` · 2026-10-22 20:08 |
+| Portal generado | `portal/fase2/Portal_de_Datos_ESAP_Fase2_v1.3.html` · 2026-10-22 20:11 |
 
 ## Cifras
 

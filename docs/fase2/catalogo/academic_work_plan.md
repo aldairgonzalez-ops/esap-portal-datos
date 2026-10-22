@@ -1,6 +1,6 @@
 # RUND (`academic_work_plan`)
 
-Tablas del módulo RUND (prefijo Rund) del esquema academic_work_plan y las tablas Docente y Documento, a las que hacen referencia por nombre de columna (docente_id, documento_id).
+Registro de docentes (RUND): datos del docente, aprobación de sus bloques de información y soportes, documentos del perfil, extracción asistida de datos desde los documentos, accesos de entidades externas y bitácoras de consulta.
 
 15 tablas · 0 vistas · 236 columnas · 23.344 filas · 4 funciones o procedimientos
 
