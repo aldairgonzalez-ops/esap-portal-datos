@@ -116,8 +116,28 @@ def cmd_contexto(a):
           f"({sum(1 for r in filas if r['propuesta_regla'])} con propuesta por regla, {sum(1 for r in filas if not r['propuesta_regla'])} por documentar)")
 
 
-def leer_semanticas(sufijo):
-    ruta = os.path.join(M.CONFIG, "propuestas", f"{sufijo}_semanticas.csv")
+def texto_evidencia(x):
+    if not x:
+        return ""
+    partes = []
+    for e in x["evidencias"]:
+        t = e.get("comentario") or e.get("comment_typeorm")
+        if t:
+            partes.append(f'{e["fuente"].replace("backend/", "")}: {t[:300]}')
+    ent = next((e for e in x["evidencias"] if e["tipo"] == "entidad"), None)
+    if ent:
+        if not partes:
+            partes.append(f'Mapeada en {ent["fuente"].replace("backend/", "")} ({ent["entidad"]}.{ent["propiedad"]})')
+        if ent.get("enum"):
+            partes.append("Enum: " + ", ".join(ent["enum"]))
+    vals = sorted(set(x.get("validaciones_dto") or []) | {v for e in x["evidencias"] for v in e.get("validaciones", [])})
+    if vals:
+        partes.append("Validación: " + ", ".join(vals[:6]))
+    return " | ".join(partes)
+
+
+def leer_semanticas(sufijo, tipo="semanticas"):
+    ruta = os.path.join(M.CONFIG, "propuestas", f"{sufijo}_{tipo}.csv")
     if not os.path.isfile(ruta):
         return {}
     with open(ruta, encoding="utf-8-sig", newline="") as f:
@@ -144,6 +164,13 @@ def cmd_matriz(a):
     sufijo = alcance["id"].lower() if alcance else "completa"
     etiqueta = alcance["nombre"] if alcance else "Base completa"
     sem = leer_semanticas(sufijo)
+    cod = leer_semanticas(sufijo, "codigo")        # propuestas afinadas con el código de la aplicación
+    evid = {}
+    ruta_ev = os.path.join(M.CONFIG, "propuestas", f"{sufijo}_evidencia_codigo.jsonl")
+    if os.path.isfile(ruta_ev):
+        for linea in open(ruta_ev, encoding="utf-8"):
+            x = json.loads(linea)
+            evid[(x["esquema"], x["tabla"], x["columna"])] = x
     dominios = {e["s"]: e["nombre"] for e in m["esquemas"]}
     cols_todas = [c for t in m["tablas"].values() if t["k"] in "rp" and not t["particion"] for c in t["cols"]]
     total_cols = len(cols_todas)
@@ -170,7 +197,7 @@ def cmd_matriz(a):
         ("Objetivo", Font(name=F, bold=True, size=11)),
         ("Revisar con el equipo de desarrollo la descripción de cada columna que aún no tiene descripción registrada en la base ni validada.", Font(name=F, size=10)),
         ("Las propuestas se redactaron a partir de la estructura (nombre, tipo, restricciones, valores permitidos, relaciones) y del código de las "
-         "funciones, triggers y vistas que usan la columna. No se revisaron valores de los registros. Son propuestas: no reemplazan el conocimiento del equipo.", Font(name=F, size=10)),
+         "funciones, triggers y vistas que usan la columna, y del código fuente de la aplicación (entidades y migraciones). No se revisaron valores de los registros. Son propuestas: no reemplazan el conocimiento del equipo.", Font(name=F, size=10)),
         ("", None),
         ("Cómo revisar (hoja «Matriz»)", Font(name=F, bold=True, size=11)),
         ("1. Lea la propuesta, su fundamento y, si la hay, la pregunta para desarrollo.", Font(name=F, size=10)),
@@ -186,8 +213,11 @@ def cmd_matriz(a):
         ("", None),
         ("Columnas de la matriz", Font(name=F, bold=True, size=11)),
         ("Confianza: Alta (el nombre, el tipo y la lógica coinciden) · Media (el nombre es claro pero falta confirmar el uso) · Baja (el nombre es ambiguo; revisar con prioridad).", Font(name=F, size=10)),
-        ("Origen: «Regla estructural» (propuesta generada por convención de nombre) o «Propuesta semántica» (redactada a partir del contexto).", Font(name=F, size=10)),
-        ("Uso en lógica: funciones, procedimientos, triggers y vistas de la base que mencionan la columna. La lógica de la aplicación (backend) no está incluida.", Font(name=F, size=10)),
+        ("Origen: «Código fuente» (redactada a partir del comentario del desarrollador en la entidad o la migración), «Regla estructural» (convención de nombre) "
+         "o «Propuesta semántica» (redactada a partir del contexto de la base).", Font(name=F, size=10)),
+        ("Evidencia en código: archivo y línea del repositorio de la aplicación (rama micro-frontend) donde se define la columna, con el comentario del "
+         "desarrollador, los valores del enum y las validaciones declaradas.", Font(name=F, size=10)),
+        ("Uso en lógica: funciones, procedimientos, triggers y vistas de la base que mencionan la columna. La lógica de la aplicación se resume en «Evidencia en código».", Font(name=F, size=10)),
         ("Catálogo: la columna apunta a una tabla de catálogo, tiene valores permitidos (CHECK o tipo enumerado) o pertenece a una tabla de catálogo.", Font(name=F, size=10)),
         ("", None),
         ("Después de la revisión", Font(name=F, bold=True, size=11)),
@@ -204,16 +234,16 @@ def cmd_matriz(a):
     # ---------------- Matriz
     ws = wb.create_sheet("Matriz")
     enc = ["ID", "Dominio", "Esquema", "Tabla", "Filas en QA", "Columna", "Tipo de dato", "Admite nulos", "Restricciones",
-           "Valores permitidos", "Referencia (FK)", "Catálogo", "Uso en lógica", "Detalle del uso", "Índices",
+           "Valores permitidos", "Referencia (FK)", "Catálogo", "Uso en lógica", "Detalle del uso", "Índices", "Evidencia en código",
            "Origen", "Propuesta de descripción", "Confianza", "Fundamento", "Pregunta para desarrollo",
            "Decisión", "Descripción final", "Revisado por", "Fecha de revisión", "Observaciones", "Descripción a registrar"]
-    anchos = [9, 18, 18, 24, 9, 24, 18, 8, 16, 26, 26, 9, 9, 40, 18, 13, 46, 10, 34, 34, 18, 40, 16, 12, 30, 40]
+    anchos = [9, 18, 18, 24, 9, 24, 18, 8, 16, 26, 26, 9, 9, 40, 18, 50, 13, 46, 10, 34, 34, 18, 40, 16, 12, 30, 40]
     ws.append(enc)
     for i, w in enumerate(anchos, 1):
         ws.column_dimensions[get_column_letter(i)].width = w
         h = ws.cell(row=1, column=i)
         h.font = Font(name=F, bold=True, color="FFFFFF", size=10)
-        h.fill = cab_rev if i >= 21 else cab
+        h.fill = cab_rev if i >= 22 else cab
         h.alignment = Alignment(wrap_text=True, vertical="center", horizontal="center")
         h.border = borde
     ws.row_dimensions[1].height = 34
@@ -221,8 +251,12 @@ def cmd_matriz(a):
     filas.sort(key=lambda r: (orden.get(r["esquema"], 99), r["tabla"].lower(), r["columnas_tabla"].index(r["columna"])))
     sin_sem = 0
     for n, r in enumerate(filas, 2):
-        s = sem.get((r["esquema"], r["tabla"], r["columna"]), {})
-        if r["propuesta_regla"]:
+        clave = (r["esquema"], r["tabla"], r["columna"])
+        s = sem.get(clave, {})
+        if clave in cod:
+            s = cod[clave]
+            origen, prop, conf, fund = "Código fuente", s["propuesta"], s["confianza"], s["fundamento"]
+        elif r["propuesta_regla"]:
             origen, prop = "Regla estructural", r["propuesta_regla"]
             conf = s.get("confianza") or "Media"
             fund = s.get("fundamento") or "Convención de nombre de la columna."
@@ -237,43 +271,44 @@ def cmd_matriz(a):
         uso = texto_uso(r)
         detalle = " | ".join(f'{u["obj"]}: {u["lineas"][0][:120]}' for u in r["uso_programables"][:3])
         valores = ", ".join(r["valores"][:15]) + (" …" if len(r["valores"]) > 15 else "")
+        ev_txt = texto_evidencia(evid.get(clave))
         fila = [f"C{n - 1:04d}", dominios.get(r["esquema"], r["esquema"]), r["esquema"], r["tabla"], r["filas_tabla"], r["columna"], r["tipo"],
                 "Sí" if r["nulo"] else "No", restr, valores, r["fk"], "Sí" if catal else "No", "Sí" if uso else "No",
-                (uso + (" — " + detalle if detalle else "")) if uso else "", ", ".join(r["indices"]),
+                (uso + (" — " + detalle if detalle else "")) if uso else "", ", ".join(r["indices"]), ev_txt,
                 origen, prop, conf, fund, s.get("pregunta", ""), "Pendiente", "", "", None, "",
-                f'=IF(OR(U{n}="Aprobada"),Q{n},IF(AND(OR(U{n}="Aprobada con ajuste",U{n}="Rechazada"),V{n}<>""),V{n},""))']
+                f'=IF(OR(V{n}="Aprobada"),R{n},IF(AND(OR(V{n}="Aprobada con ajuste",V{n}="Rechazada"),W{n}<>""),W{n},""))']
         ws.append(fila)
         for i in range(1, len(enc) + 1):
             c = ws.cell(row=n, column=i)
             c.font = Font(name=F, size=9)
             c.alignment = ajuste
             c.border = borde
-            if 21 <= i <= 25:
+            if 22 <= i <= 26:
                 c.fill = editable
-        ws.cell(row=n, column=24).number_format = "yyyy-mm-dd"
+        ws.cell(row=n, column=25).number_format = "yyyy-mm-dd"
     ult = len(filas) + 1
     ws.freeze_panes = "G2"
     ws.auto_filter.ref = f"A1:{get_column_letter(len(enc))}{ult}"
     dv = DataValidation(type="list", formula1='"' + ",".join(DECISIONES) + '"', allow_blank=False, showDropDown=False,
                         errorTitle="Decisión", error="Elija un valor de la lista.", promptTitle="Decisión", prompt="Elija la decisión de la revisión")
     ws.add_data_validation(dv)
-    dv.add(f"U2:U{ult}")
+    dv.add(f"V2:V{ult}")
     dvf = DataValidation(type="date", operator="greaterThan", formula1="DATE(2026,1,1)", allow_blank=True,
                          error="Escriba una fecha (aaaa-mm-dd).", errorTitle="Fecha")
     ws.add_data_validation(dvf)
-    dvf.add(f"X2:X{ult}")
+    dvf.add(f"Y2:Y{ult}")
     colores = {"Aprobada": "D1FADF", "Aprobada con ajuste": "D1E9FF", "Rechazada": "FEE4E2", "Requiere aclaración": "FEF0C7"}
     for k, col in colores.items():
-        ws.conditional_formatting.add(f"U2:U{ult}", CellIsRule(operator="equal", formula=[f'"{k}"'], fill=PatternFill("solid", fgColor=col)))
-    ws.conditional_formatting.add(f"R2:R{ult}", CellIsRule(operator="equal", formula=['"Baja"'], font=Font(name=F, size=9, bold=True, color="B42318")))
+        ws.conditional_formatting.add(f"V2:V{ult}", CellIsRule(operator="equal", formula=[f'"{k}"'], fill=PatternFill("solid", fgColor=col)))
+    ws.conditional_formatting.add(f"S2:S{ult}", CellIsRule(operator="equal", formula=['"Baja"'], font=Font(name=F, size=9, bold=True, color="B42318")))
     # ajuste sin texto: se marca para completar
-    ws.conditional_formatting.add(f"V2:V{ult}", FormulaRule(formula=[f'AND(OR($U2="Aprobada con ajuste",$U2="Rechazada"),$V2="")'],
+    ws.conditional_formatting.add(f"W2:W{ult}", FormulaRule(formula=[f'AND(OR($V2="Aprobada con ajuste",$V2="Rechazada"),$W2="")'],
                                                              fill=PatternFill("solid", fgColor="FDA29B")))
 
     # ---------------- Métricas
     mt = wb.create_sheet("Métricas")
     mt.sheet_view.showGridLines = False
-    R = f"Matriz!$U$2:$U${ult}"
+    R = f"Matriz!$V$2:$V${ult}"
     rng = lambda col: f"Matriz!${col}$2:${col}${ult}"
     titulo = lambda c, t: (mt.cell(row=c, column=1, value=t).__setattr__("font", Font(name=F, bold=True, size=12, color="1F3A5F")))
     mt.cell(row=1, column=1, value=f"Métricas de la revisión · {etiqueta}").font = Font(name=F, bold=True, size=14, color="1F3A5F")
@@ -302,8 +337,8 @@ def cmd_matriz(a):
         filas_av.append([d, f'=COUNTIF({R},"{d}")'])
     filas_av.append(["Revisadas (decisión distinta de Pendiente)", f'=B5-B6'])
     filas_av.append(["% revisado", "=IF(B5=0,0,B11/B5)"])
-    filas_av.append(["Con descripción a registrar", f'=SUMPRODUCT(--({rng("Z")}<>""))'])
-    filas_av.append(["Ajustes sin texto en «Descripción final»", f'=SUMPRODUCT((({R}="Aprobada con ajuste")+({R}="Rechazada"))*({rng("V")}=""))'])
+    filas_av.append(["Con descripción a registrar", f'=SUMPRODUCT(--({rng("AA")}<>""))'])
+    filas_av.append(["Ajustes sin texto en «Descripción final»", f'=SUMPRODUCT((({R}="Aprobada con ajuste")+({R}="Rechazada"))*({rng("W")}=""))'])
     sig = tabla_m(f0, ["Indicador", "Valor"], filas_av)
     # 2. indicador de cobertura
     titulo(sig, "Cobertura de descripciones de columnas (indicador K02, meta ≥ 95 %)")
@@ -336,8 +371,9 @@ def cmd_matriz(a):
     # 4. por confianza y origen
     titulo(sig, "Avance por confianza y origen de la propuesta")
     filas_c = []
-    for etiqueta_c, col, val in [("Confianza Alta", "R", "Alta"), ("Confianza Media", "R", "Media"), ("Confianza Baja", "R", "Baja"),
-                                 ("Origen: Regla estructural", "P", "Regla estructural"), ("Origen: Propuesta semántica", "P", "Propuesta semántica"),
+    for etiqueta_c, col, val in [("Confianza Alta", "S", "Alta"), ("Confianza Media", "S", "Media"), ("Confianza Baja", "S", "Baja"),
+                                 ("Origen: Código fuente", "Q", "Código fuente"), ("Origen: Regla estructural", "Q", "Regla estructural"),
+                                 ("Origen: Propuesta semántica", "Q", "Propuesta semántica"), ("Con evidencia en código", "P", "?*"),
                                  ("Usadas en lógica de la base", "M", "Sí"), ("Relacionadas con catálogo", "L", "Sí")]:
         i = sig + 2 + len(filas_c)
         filas_c.append([etiqueta_c, f'=COUNTIF({rng(col)},"{val}")',
