@@ -182,7 +182,7 @@ academic_registration;graduates;created_by;Usuario que creó el registro.;valida
 academic_registration;graduates;degree_title;Título académico otorgado al graduado (por ejemplo, «Administrador Público»).;validada
 academic_registration;graduates;diploma_number;"Número del diploma otorgado al graduado; valor único.";validada
 academic_registration;graduates;email;Correo electrónico del graduado.;validada
-academic_registration;graduates;enrollment_date;"Fecha de ingreso registrada para el graduado; si no se digita, el servicio asigna la fecha de grado (sincronización) o la fecha de creación del registro.";validada
+academic_registration;graduates;enrollment_date;"Fecha de ingreso registrada para el graduado; si no se digita, el sistema asigna la fecha de grado o la fecha de creación del registro.";validada
 academic_registration;graduates;first_name;Nombres del graduado.;validada
 academic_registration;graduates;full_name;Nombre completo del graduado.;validada
 academic_registration;graduates;graduation_date;Fecha de graduación del estudiante.;validada
@@ -190,9 +190,9 @@ academic_registration;graduates;id;Identificador único del registro en la tabla
 academic_registration;graduates;id_number;"Número del documento de identidad del graduado; junto con program_name identifica de forma única el registro.";validada
 academic_registration;graduates;is_verified;Indica si el registro del graduado fue verificado.;validada
 academic_registration;graduates;last_name;Apellidos del graduado.;validada
-academic_registration;graduates;person_id;"Identificador UUID de la persona graduada; el servicio lo genera al azar al crear el graduado y no lo enlaza con la tabla de personas de autenticación.";validada
+academic_registration;graduates;person_id;Identificador UUID de la persona graduada, generado aleatoriamente por el sistema al crear el graduado.;validada
 academic_registration;graduates;phone;Número de teléfono de contacto del graduado.;validada
-academic_registration;graduates;program_id;"Identificador del programa académico cursado por el graduado; según el código, referencia a auth.programas_academicos.";validada
+academic_registration;graduates;program_id;"Identificador del programa académico cursado por el graduado; referencia a auth.programas_academicos.";validada
 academic_registration;graduates;program_name;Nombre del programa académico del que se graduó la persona.;validada
 academic_registration;graduates;program_type;Tipo de programa académico del que se graduó la persona, por ejemplo Pregrado, Especialización o Maestría.;validada
 academic_registration;graduates;resolution_number;Número de la resolución que otorga el título.;validada
@@ -298,12 +298,12 @@ academic_registration;template_config_changes;new_value;Valor del campo después
 academic_registration;template_config_changes;observations;Observaciones sobre el cambio realizado en la plantilla.;validada
 academic_registration;template_config_changes;old_value;Valor del campo antes del cambio en la plantilla.;validada
 academic_registration;template_config_changes;template_config_id;Referencia al registro de academic_registration.certificate_template_config (id).;validada
-academic_work_plan;AprobacionJefatura;camposModificados;"Campos del plan de trabajo modificados por la jefatura, en formato JSON; el servicio actual no llena esta columna.";validada
+academic_work_plan;AprobacionJefatura;camposModificados;Campos del plan de trabajo modificados por la jefatura, en formato JSON.;validada
 academic_work_plan;AprobacionJefatura;comentarios;Comentarios de la jefatura sobre su decisión.;validada
-academic_work_plan;AprobacionJefatura;componentesBloqueados;"Componentes del plan de trabajo bloqueados por la jefatura, en formato JSON; el servicio actual no lee ni llena esta columna.";validada
+academic_work_plan;AprobacionJefatura;componentesBloqueados;Componentes del plan de trabajo bloqueados por la jefatura, en formato JSON.;validada
 academic_work_plan;AprobacionJefatura;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;AprobacionJefatura;decision;"Decisión de la jefatura sobre el PTA (plan de trabajo académico). Valores previstos: pendiente, aprobado, aprobado_con_cambios, devuelto; por defecto pendiente.";validada
-academic_work_plan;AprobacionJefatura;firmaId;"Identificador de la firma asociada a la decisión de la jefatura; el servicio actual no lee ni llena esta columna.";validada
+academic_work_plan;AprobacionJefatura;firmaId;Identificador de la firma asociada a la decisión de la jefatura.;validada
 academic_work_plan;AprobacionJefatura;id;Identificador único del registro en la tabla AprobacionJefatura. Se genera automáticamente.;validada
 academic_work_plan;AprobacionJefatura;jefaturaRol;"Rol de la jefatura que registra la decisión; por defecto, «Jefatura de Zona».";validada
 academic_work_plan;AprobacionJefatura;jefaturaUserId;"Identificador del usuario de la jefatura que registró la decisión (id_user de auth.""user"", tomado del token de sesión); cadena vacía mientras la aprobación está pendiente.";validada
@@ -450,7 +450,7 @@ academic_work_plan;DocumentoVersion;url;Dirección web (URL) del archivo de la v
 academic_work_plan;DocumentoVersion;version;Número de la versión del documento.;validada
 academic_work_plan;HistorialEstadoPTA;actorId;"Identificador de quien realizó la transición de estado: el id_user de auth.""user"" del usuario autenticado o, en movimientos registrados en nombre del docente, el identificador del docente en la tabla Docente.";validada
 academic_work_plan;HistorialEstadoPTA;actorRol;Rol del usuario que realizó la transición de estado.;validada
-academic_work_plan;HistorialEstadoPTA;camposModificados;"Campos del plan modificados en la transición, en formato JSON; el servicio actual no mapea ni llena esta columna.";validada
+academic_work_plan;HistorialEstadoPTA;camposModificados;Campos del plan modificados en la transición, en formato JSON.;validada
 academic_work_plan;HistorialEstadoPTA;comentarios;Comentarios registrados en la transición de estado.;validada
 academic_work_plan;HistorialEstadoPTA;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;HistorialEstadoPTA;detallesTransicion;"Detalle técnico de la transición: texto enviado por la aplicación o JSON serializado con los datos del movimiento (por ejemplo, solicitud, componentes, subsección y estado); los comentarios del actor van en comentarios.";validada
@@ -508,12 +508,12 @@ academic_work_plan;PersonaPrograma;programaId;Identificador del programa académ
 academic_work_plan;PersonaPrograma;rolEnPrograma;"Rol de la persona en el programa; por defecto, «Estudiante».";validada
 academic_work_plan;PersonaPrograma;semestreActual;Semestre que cursa actualmente la persona en el programa.;validada
 academic_work_plan;PlanTrabajoAcademico;createdAt;Fecha y hora de creación del registro.;validada
-academic_work_plan;PlanTrabajoAcademico;datosEstructurados;Contenido completo del plan de trabajo académico en formato JSON, tal como lo envía el formulario (asignaturas, actividades de investigación, extensión y complementarias, horas a programar, entre otros), con campos de control añadidos por el servicio.;validada
+academic_work_plan;PlanTrabajoAcademico;datosEstructurados;Contenido completo del plan de trabajo académico en formato JSON, tal como se registra en el formulario (asignaturas, actividades de investigación, extensión y complementarias, horas a programar, entre otros), con campos de control añadidos por el sistema.;validada
 academic_work_plan;PlanTrabajoAcademico;dedicacion;Dedicación del docente registrada en el plan, tomada del formulario del plan o de la vinculación del docente.;validada
 academic_work_plan;PlanTrabajoAcademico;docenteId;Referencia al registro de academic_work_plan.Docente (id).;validada
 academic_work_plan;PlanTrabajoAcademico;estado;Estado del plan de trabajo académico.;validada
 academic_work_plan;PlanTrabajoAcademico;horasAsignables;"Número de horas del periodo que se pueden programar al docente en el plan: se toman de las horas asignables del Banco de Docentes, prorrateadas por semanas sobre 16; si no existen, se calculan según el tipo de vinculación y la dedicación.";validada
-academic_work_plan;PlanTrabajoAcademico;horasTotales;"Número total de horas programadas en el plan (suma de docencia, investigación, extensión y complementarias), calculado por el servicio al guardar; por defecto, 0.";validada
+academic_work_plan;PlanTrabajoAcademico;horasTotales;"Número total de horas programadas en el plan (suma de docencia, investigación, extensión y complementarias), calculado por el sistema al guardar; por defecto, 0.";validada
 academic_work_plan;PlanTrabajoAcademico;id;Identificador único del registro en la tabla PlanTrabajoAcademico. Se genera automáticamente.;validada
 academic_work_plan;PlanTrabajoAcademico;motivoDevolucion;Motivo de la devolución del plan de trabajo al docente.;validada
 academic_work_plan;PlanTrabajoAcademico;observaciones;Observaciones sobre el plan de trabajo académico.;validada
@@ -546,8 +546,8 @@ academic_work_plan;PtaComponentReview;respuesta_docente;Respuesta del docente al
 academic_work_plan;PtaComponentReview;revisor_id;"Identificador del usuario que revisa el componente del plan: id_user de auth.""user"", tomado del token de sesión.";validada
 academic_work_plan;PtaComponentReview;revisor_nombre;Nombre del usuario que revisa el componente del plan.;validada
 academic_work_plan;PtaComponentReview;revisor_rol;Rol del usuario que revisa el componente del plan.;validada
-academic_work_plan;PtaComponentReview;scope;"Ámbito de la revisión; la migración prevé el valor solicitud_edicion cuando se reabre un componente ya aprobado, pero el servicio actual no llena esta columna.";validada
-academic_work_plan;PtaComponentReview;scope_id;"Identificador del ámbito de la revisión según scope; el servicio actual no llena esta columna.";validada
+academic_work_plan;PtaComponentReview;scope;"Ámbito de la revisión; toma el valor solicitud_edicion cuando se reabre un componente ya aprobado.";validada
+academic_work_plan;PtaComponentReview;scope_id;Identificador del ámbito de la revisión según scope.;validada
 academic_work_plan;PtaComponentReview;subseccion;"Subsección del componente revisado: general para los componentes de revisión única (investigacion, ext_*); pregrado o posgrado para academica; docencia o academico_administrativas para complementarias. Por defecto general.";validada
 academic_work_plan;PtaComponentReview;updated_at;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;PtaEvento;actor;Identificador de quien generó el evento: el identificador del docente en acciones del portal, el id_user del usuario autenticado en acciones del backoffice o «sistema» en procesos automáticos.;validada
@@ -565,7 +565,7 @@ academic_work_plan;PtaEvento;metadata;Metadatos adicionales del evento del plan 
 academic_work_plan;PtaEvento;ptaId;Referencia al registro de academic_work_plan.PlanTrabajoAcademico (id).;validada
 academic_work_plan;PtaEvento;sistemaOrigen;"Sistema donde se originó el evento. Valores previstos: backoffice, portal, sistema; por defecto sistema.";validada
 academic_work_plan;PtaEvento;tipo;Tipo de evento del PTA. Valores previstos: cambio_estado, notificacion, respuesta_docente, escalamiento, edicion_admin, guardado.;validada
-academic_work_plan;PtaEvidencia;categoria;"Categoría de la evidencia, enviada por la aplicación; el servicio usa una categoría propia para la resolución del proyecto de investigación.";validada
+academic_work_plan;PtaEvidencia;categoria;"Categoría de la evidencia; para la resolución del proyecto de investigación se asigna una categoría propia del sistema.";validada
 academic_work_plan;PtaEvidencia;comentarioRevision;Comentario del revisor sobre la evidencia.;validada
 academic_work_plan;PtaEvidencia;componentePta;Componente del plan de trabajo al que corresponde la evidencia.;validada
 academic_work_plan;PtaEvidencia;createdAt;Fecha y hora de creación del registro.;validada
@@ -722,7 +722,7 @@ academic_work_plan;RundDocumentoPerfil;proveedor_almacenamiento;Proveedor donde 
 academic_work_plan;RundDocumentoPerfil;reemplaza_id;Referencia al registro de academic_work_plan.RundDocumentoPerfil (id).;validada
 academic_work_plan;RundDocumentoPerfil;rund_soporte_id;"Identificador del soporte en academic_work_plan.""RundSoporteCampo"" al que corresponde el documento.";validada
 academic_work_plan;RundDocumentoPerfil;tamano_bytes;Tamaño en bytes del archivo del documento del perfil docente.;validada
-academic_work_plan;RundDocumentoPerfil;tipo_soporte;Tipo de soporte que acredita el documento, de la lista definida por bloque en el código (por ejemplo, documento_identidad, diploma_pregrado, contrato, resolucion_escalafon, autorizacion_habeas_data).;validada
+academic_work_plan;RundDocumentoPerfil;tipo_soporte;Tipo de soporte que acredita el documento, de la lista definida por bloque (por ejemplo, documento_identidad, diploma_pregrado, contrato, resolucion_escalafon, autorizacion_habeas_data).;validada
 academic_work_plan;RundDocumentoPerfil;version;Número de versión del documento del perfil docente.;validada
 academic_work_plan;RundExtraccionInicio;;Parámetro de inicio de la extracción de datos de documentos del RUND (REQ-RUND-F014). Guarda la fecha y hora desde la que aplica la extracción.;validada
 academic_work_plan;RundExtraccionInicio;desde;Fecha y hora desde la que se toman los registros para la extracción, con zona horaria.;validada
@@ -757,7 +757,7 @@ academic_work_plan;RundExtraccionTrabajo;id;Identificador único del registro en
 academic_work_plan;RundExtraccionTrabajo;iniciado_en;Fecha y hora del inicio.;validada
 academic_work_plan;RundExtraccionTrabajo;intentos;"Número de veces que un proceso tomó el trabajo de extracción; se incrementa en cada toma. Con 3 intentos fallidos el trabajo pasa a ERROR.";validada
 academic_work_plan;RundExtraccionTrabajo;lease_hasta;Fecha y hora en que vence la reserva del trabajo: 90 segundos, renovados cada 20 segundos mientras se procesa. Si vence, el trabajo vuelve a PENDIENTE (o a ERROR con 3 intentos) con código PROCESAMIENTO_INTERRUMPIDO.;validada
-academic_work_plan;RundExtraccionTrabajo;lease_id;"Identificador aleatorio de la reserva con la que un proceso toma el trabajo; lo asigna el servicio de extracción al reservarlo y se limpia al terminar, fallar o vencer la reserva.";validada
+academic_work_plan;RundExtraccionTrabajo;lease_id;"Identificador aleatorio de la reserva con la que un proceso toma el trabajo; se asigna al reservar el trabajo y se limpia al terminar, fallar o vencer la reserva.";validada
 academic_work_plan;RundExtraccionTrabajo;motor;Identificación del procesamiento en JSON: modelo de lenguaje local, motor OCR (por ejemplo, PaddleOCR), SHA-256 del PDF, número de páginas y versión del contrato de extracción.;validada
 academic_work_plan;RundExtraccionTrabajo;notificacion_id;"Clave de idempotencia del aviso de fin de la extracción que se envía al servicio de notificaciones; evita avisos duplicados. Se genera automáticamente.";validada
 academic_work_plan;RundExtraccionTrabajo;notificacion_proxima;"Fecha y hora programada para el próximo intento de aviso de fin de la extracción a quien la solicitó o cargó el soporte; se reprograma un minuto después en cada intento y un día después si no se encuentra el usuario.";validada
@@ -856,7 +856,7 @@ academic_work_plan;Usuario;createdAt;Fecha y hora de creación del registro.;val
 academic_work_plan;Usuario;email;Correo electrónico del usuario.;validada
 academic_work_plan;Usuario;id;Identificador único del registro en la tabla Usuario. Se genera automáticamente.;validada
 academic_work_plan;Usuario;nombre;Nombre del usuario.;validada
-academic_work_plan;Usuario;password;"Campo de contraseña de la tabla de usuarios del plan de trabajo; el servicio lo llena con el valor fijo «N/A» al autoaprovisionar docentes y no lo usa para autenticar, que se hace con el token contra auth.""user"".";validada
+academic_work_plan;Usuario;password;"Contraseña del usuario en la tabla de usuarios del plan de trabajo; la autenticación se realiza contra auth.""user"".";validada
 academic_work_plan;Usuario;updatedAt;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;UsuarioRol;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;UsuarioRol;id;Identificador único del registro en la tabla UsuarioRol. Se genera automáticamente.;validada
@@ -868,7 +868,7 @@ academic_work_plan;asignatura;created_at;Fecha y hora de creación del registro.
 academic_work_plan;asignatura;created_by;Usuario que creó el registro.;validada
 academic_work_plan;asignatura;creditos;Número de créditos académicos de la asignatura.;validada
 academic_work_plan;asignatura;deleted_at;Fecha y hora de la eliminación.;validada
-academic_work_plan;asignatura;deleted_by;"Identificador del usuario que eliminó lógicamente el registro; el servicio actual no llena esta columna.";validada
+academic_work_plan;asignatura;deleted_by;Identificador del usuario que eliminó lógicamente el registro.;validada
 academic_work_plan;asignatura;horas_clase;"Número de horas de clase de la asignatura, cargado desde la plantilla de importación; si falta, se calcula como las horas PTA divididas por 3.";validada
 academic_work_plan;asignatura;horas_fijas_pta;"Número fijo de horas en el plan de trabajo académico (PTA) para las asignaturas con tipo_excepcion: 384 para seminario_enfasis, 20 para opciones_grado_ap y 144 para seminario_opciones_apt; nulo en las demás, que se calculan por créditos.";validada
 academic_work_plan;asignatura;horas_pta;Horas de la asignatura en el PTA, con el factor de carga ya aplicado.;validada
@@ -1025,7 +1025,7 @@ academic_work_plan;validacion_documental;fecha_validacion;Fecha y hora de valida
 academic_work_plan;validacion_documental;id;Identificador único del registro en la tabla validacion_documental. Se genera automáticamente.;validada
 academic_work_plan;validacion_documental;id_documento_carpeta;"Identificador del documento de la carpeta digital (auth.documento_carpeta_digital.id_documento, UUID) que soporta el campo; se guarda como texto y sin FK porque está en otro esquema. Lo asigna la sincronización de documentos del RUND.";validada
 academic_work_plan;validacion_documental;observacion;Observación sobre la validación del documento soporte.;validada
-academic_work_plan;validacion_documental;tipo_documento_soporte;Grupo de soporte documental que exige el campo del RUND: IDENTIDAD, CONTACTO, VINCULACION, ESCALAFON, SITUACION, FORMACION o EVALUACION. Es un código fijo del servicio, no se relaciona con auth.tipo_documento.;validada
+academic_work_plan;validacion_documental;tipo_documento_soporte;Grupo de soporte documental que exige el campo del RUND: IDENTIDAD, CONTACTO, VINCULACION, ESCALAFON, SITUACION, FORMACION o EVALUACION. Código fijo del sistema, independiente de auth.tipo_documento.;validada
 academic_work_plan;validacion_documental;updated_at;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;validacion_documental;validado_por;Usuario que realizó la validación.;validada
 audit;request_logs;created_at;Fecha y hora de creación del registro.;validada
@@ -1085,8 +1085,8 @@ auth;dependencias;dir_email;Correo electrónico institucional de la dependencia.
 auth;dependencias;gen_tip_unidad;Código de la lista genérica que define los tipos de unidad. Por defecto, TIUORG.;validada
 auth;dependencias;id_cargo;Identificador del cargo asociado a la dependencia (auth.cargos.id_cargo).;validada
 auth;dependencias;id_dependencia;Identificador único del registro en la tabla dependencias.;validada
-auth;dependencias;id_empresa;Identificador de la empresa o entidad a la que pertenece la dependencia. El servicio siempre asigna 1.;validada
-auth;dependencias;id_geopolitica;Identificador de la división geopolítica donde se ubica la dependencia (auth.geopolitica.id_geopolitica). El servicio verifica que exista al crear o actualizar la dependencia.;validada
+auth;dependencias;id_empresa;"Identificador de la empresa o entidad a la que pertenece la dependencia; el sistema asigna el valor 1.";validada
+auth;dependencias;id_geopolitica;"Identificador de la división geopolítica donde se ubica la dependencia (auth.geopolitica.id_geopolitica); se verifica su existencia al crear o actualizar la dependencia.";validada
 auth;dependencias;id_sede;"Sede a la que pertenece la dependencia; referencia a sedes (id_sede) sin llave foránea declarada.";validada
 auth;dependencias;id_tercero;Identificador de la persona responsable de la dependencia (auth.personas.id_tercero).;validada
 auth;dependencias;nom_dependencia;Nombre de la dependencia (máximo 250 caracteres).;validada
@@ -1122,7 +1122,7 @@ auth;festivos_colombia;origen;Fuente del festivo: la que informa el calendario n
 auth;festivos_colombia;regla;Regla con la que se determina la fecha del festivo, tomada del calendario nacional al sincronizar. Por defecto, fixed (fecha fija).;validada
 auth;geopolitica;cod_are_tel;Código de área telefónica (indicativo) de la división geopolítica.;validada
 auth;geopolitica;cod_ciudad;Código de la ciudad o municipio de la división geopolítica.;validada
-auth;geopolitica;cod_departamento;Código DANE del departamento de la división geopolítica. El servicio lo usa para listar las ciudades de cada departamento.;validada
+auth;geopolitica;cod_departamento;"Código DANE del departamento de la división geopolítica; permite listar las ciudades de cada departamento.";validada
 auth;geopolitica;cod_dian;Código del país o división asignado por la DIAN.;validada
 auth;geopolitica;cod_division;Código de la clase de división geopolítica.;validada
 auth;geopolitica;cod_geopolitica;Código de la división geopolítica.;validada
@@ -1144,7 +1144,7 @@ auth;geopolitica;nom_div_geopolitica;Nombre de la división geopolítica.;valida
 auth;geopolitica;nom_div_geopolitica_tot;Nombre completo de la división geopolítica.;validada
 auth;geopolitica;nom_idioma;Nombre del idioma principal de la división geopolítica.;validada
 auth;geopolitica;num_habitantes;Número de habitantes de la división geopolítica.;validada
-auth;geopolitica;tip_division;Código del tipo de división geopolítica. El código usa DEPTO para departamentos y CIUDAD para ciudades o municipios.;validada
+auth;geopolitica;tip_division;Código del tipo de división geopolítica: DEPTO para departamentos y CIUDAD para ciudades o municipios.;validada
 auth;geopolitica;usu_actualizacion;Usuario que hizo la última actualización del registro.;validada
 auth;geopolitica;usu_creacion;Usuario que creó el registro.;validada
 auth;migrations_db_log;executed_at;Fecha y hora en que se ejecutó el archivo de migración. Por defecto, la fecha y hora del registro.;validada
@@ -1186,7 +1186,7 @@ auth;personas;num_identificacion;Número de identificación de la persona.;valid
 auth;personas;pri_apellido;Primer apellido de la persona.;validada
 auth;personas;seg_apellido;Segundo apellido de la persona.;validada
 auth;personas;tel_celular;Número de teléfono celular de la persona.;validada
-auth;personas;tip_identificacion;Código del tipo de documento de identidad de la persona, en mayúsculas. El servicio valida la longitud del número para CC, CE y TI.;validada
+auth;personas;tip_identificacion;Código del tipo de documento de identidad de la persona, en mayúsculas. Para CC, CE y TI se valida la longitud del número.;validada
 auth;personas;usu_creacion;Usuario que creó el registro.;validada
 auth;personas;usu_modificacion;Usuario que hizo la última modificación del registro.;validada
 auth;programas_academicos;actualizado_en;Fecha y hora de la última actualización del registro.;validada
@@ -1219,8 +1219,8 @@ auth;registros_calificados;numero;Número del registro calificado del programa a
 auth;registros_calificados;programa_id;Referencia al registro de auth.programas_academicos (id).;validada
 auth;registros_calificados;vigencia;Fecha hasta la que está vigente el registro calificado.;validada
 auth;role;alcance;Configuración del alcance administrativo del rol, en formato JSON.;validada
-auth;role;category;Categoría del rol. Valores admitidos por el servicio: backoffice, portal, sistema, academico, directivo y administrativo. Por defecto, sistema.;validada
-auth;role;code;Código técnico único del rol, de seis dígitos, usado por el backend.;validada
+auth;role;category;Categoría del rol. Valores admitidos: backoffice, portal, sistema, academico, directivo y administrativo. Por defecto, sistema.;validada
+auth;role;code;Código técnico único del rol, de seis dígitos, usado por el sistema.;validada
 auth;role;color;"Color del rol en la interfaz, en código hexadecimal; por defecto #003DA5.";validada
 auth;role;created_at;Fecha y hora de creación del registro.;validada
 auth;role;created_by;Usuario que creó el registro.;validada
@@ -1420,7 +1420,7 @@ certification;certificates;technical_bonus;"Valor en pesos de la prima técnica 
 certification;certificates;updated_at;Fecha y hora de la última actualización del registro.;validada
 certification;certificates;validation_count;"Número de veces que se ha validado el certificado; por defecto 0.";validada
 certification;certificates;verification_code;Código QR único para validar el certificado laboral.;validada
-certification;labor_function_profiles;cost_center;Centro de costo del cargo (CENTROCOSTO), que el código trata como el nombre heredado del grupo interno de trabajo y usa cuando internal_group está vacío.;validada
+certification;labor_function_profiles;cost_center;Centro de costo del cargo (CENTROCOSTO), que corresponde al nombre del grupo interno de trabajo y se usa cuando internal_group está vacío.;validada
 certification;labor_function_profiles;created_at;Fecha y hora de creación del registro.;validada
 certification;labor_function_profiles;created_by;Usuario que creó el registro.;validada
 certification;labor_function_profiles;department_key;Clave del nombre de la dependencia del perfil de funciones, conservada del catálogo inicial.;validada
@@ -1432,7 +1432,7 @@ certification;labor_function_profiles;id_number;"Número de identificación del 
 certification;labor_function_profiles;internal_group;Nombre del grupo interno de trabajo al que pertenece el cargo.;validada
 certification;labor_function_profiles;internal_group_key;Clave del nombre del grupo interno de trabajo del perfil de funciones, conservada del catálogo inicial.;validada
 certification;labor_function_profiles;is_active;Indica si el perfil de funciones del cargo está activo.;validada
-certification;labor_function_profiles;position_code;"Código del cargo del perfil de funciones, conservado como contexto heredado para recuperación; no se usa para asociar funciones, que se asignan por id_number (match_key document|<número>).";validada
+certification;labor_function_profiles;position_code;"Código del cargo del perfil de funciones; las funciones se asignan por id_number (match_key document|<número>).";validada
 certification;labor_function_profiles;position_name;Denominación del cargo del perfil de funciones.;validada
 certification;labor_function_profiles;source_sheet;Nombre de la hoja de la Matriz de Funciones ESAP de la que se importó el perfil.;validada
 certification;labor_function_profiles;updated_at;Fecha y hora de la última actualización del registro.;validada
@@ -1671,7 +1671,7 @@ control_interno;auditoria;dias_restantes;"Número de días que faltan para la fe
 control_interno;auditoria;fecha_archivo;Fecha y hora en que se archivó la auditoría.;validada
 control_interno;auditoria;fecha_eliminacion;Fecha y hora de eliminación de la auditoría.;validada
 control_interno;auditoria;fecha_reunion_apertura;Fecha y hora de la reunión de apertura de la auditoría.;validada
-control_interno;auditoria;hallazgos;"Número de hallazgos registrados en la auditoría; se actualiza con las operaciones de incremento y decremento del servicio (sin bajar de 0) o con el valor enviado al editar la auditoría. Por defecto 0.";validada
+control_interno;auditoria;hallazgos;"Número de hallazgos registrados en la auditoría; aumenta o disminuye con las operaciones de incremento y decremento (sin bajar de 0) o toma el valor enviado al editar la auditoría. Por defecto, 0.";validada
 control_interno;auditoria;id;Identificador único del registro en la tabla auditoria. Se genera automáticamente.;validada
 control_interno;auditoria;metodologia;Metodología aplicada en la auditoría.;validada
 control_interno;auditoria;nombre;Nombre de la auditoría.;validada
@@ -1696,7 +1696,7 @@ control_interno;auditoria;tipo;"Tipo de auditoría. Los tipos predefinidos son R
 control_interno;auditoria;tipo_kanban;"Tipo operativo de la auditoría en el tablero Kanban. Valores permitidos: regular, especial, territorial; por defecto regular. Al crear la auditoría se deriva de tipo_kanban o de tipo; el Programa Anual combina ambos campos para clasificar la auditoría.";validada
 control_interno;auditoria;total_documentos;"Número de documentos asociados a la auditoría; lo actualiza la función actualizar_contadores_documentos_informes. Por defecto 0.";validada
 control_interno;auditoria;total_informes;"Número de documentos de tipo informe asociados a la auditoría; lo actualiza la función actualizar_contadores_documentos_informes. Por defecto 0.";validada
-control_interno;auditoria;total_tareas;"Número de tareas de la auditoría, diligenciado con el valor enviado al editarla; el código no lo calcula a partir de otros registros. Por defecto 0.";validada
+control_interno;auditoria;total_tareas;Número de tareas de la auditoría, diligenciado al editarla. Por defecto, 0.;validada
 control_interno;auditoria;ultima_actuacion;"Descripción de la última actuación de la auditoría, diligenciada con el valor enviado al editarla; no se calcula desde el historial.";validada
 control_interno;auditoria;updated_at;Fecha y hora de la última actualización del registro.;validada
 control_interno;auditoria_especial_info;aprobado_por_id;Referencia al registro de auth.personas (id_person).;validada
@@ -1974,7 +1974,7 @@ control_interno;evaluacion_proceso;created_at;Fecha y hora de creación del regi
 control_interno;evaluacion_proceso;criticidad;"Calificación de criticidad del proceso, de 0 a 5; componente C del puntaje de riesgo C+E-M. Por defecto 0.";validada
 control_interno;evaluacion_proceso;decision_rotacion;Decisión de programación según la rotación: «Incluir en año 1» o «Programar según rotación». Complementa decision_final, que registra INCLUIR_PLAN_ANUAL o INCLUIR_AUDITORIA_POSTERIOR.;validada
 control_interno;evaluacion_proceso;dependencia_responsable;Dependencia responsable del proceso evaluado.;validada
-control_interno;evaluacion_proceso;dias_rotacion;"Número de días del ciclo de rotación de auditoría del proceso, derivado del ciclo DAFP (365, 730, 1095 o 1460; 0 para No auditar). El backend usa 360 si no llega un valor.";validada
+control_interno;evaluacion_proceso;dias_rotacion;"Número de días del ciclo de rotación de auditoría del proceso, derivado del ciclo DAFP (365, 730, 1095 o 1460; 0 para No auditar). Si no se informa un valor, el sistema usa 360.";validada
 control_interno;evaluacion_proceso;dias_transcurridos;Número de días transcurridos desde la última auditoría del proceso.;validada
 control_interno;evaluacion_proceso;exposicion;"Calificación de exposición del proceso, de 0 a 5; es el componente E del puntaje de riesgo C+E-M. Por defecto 0.";validada
 control_interno;evaluacion_proceso;fecha_ultima_auditoria;Fecha de la última auditoría realizada al proceso (sección 3 de la evaluación).;validada
@@ -1985,7 +1985,7 @@ control_interno;evaluacion_proceso;plan_rotacion;"Ciclo de rotación de auditor�
 control_interno;evaluacion_proceso;prioridad_regla;Número de la regla DAFP aplicada en la evaluación del proceso, de 1 a 5.;validada
 control_interno;evaluacion_proceso;requerimiento_comite;"Indica si existe un requerimiento del Comité de Auditoría o de la Dirección para auditar el proceso; si es verdadero, el proceso se incluye en el Plan Anual de Auditoría. Por defecto falso.";validada
 control_interno;evaluacion_proceso;requerimiento_entes_reg;"Indica si existe un requerimiento de entes reguladores (por ejemplo, Contraloría, Procuraduría o ministerios) para auditar el proceso; no registra cuál ente lo hizo. Por defecto falso.";validada
-control_interno;evaluacion_proceso;resultado_ultima_auditoria;"Resultado de la última auditoría realizada al proceso. El formulario ofrece SIN_AUDITORIA, ADECUADO e INADECUADO; el backend admite texto libre de hasta 100 caracteres.";validada
+control_interno;evaluacion_proceso;resultado_ultima_auditoria;Resultado de la última auditoría realizada al proceso: SIN_AUDITORIA, ADECUADO o INADECUADO, en texto de hasta 100 caracteres.;validada
 control_interno;evaluacion_proceso;riesgos_altos;Número de riesgos inherentes de nivel alto del proceso. Por defecto 0.;validada
 control_interno;evaluacion_proceso;riesgos_bajos;Número de riesgos inherentes de nivel bajo del proceso. Por defecto 0.;validada
 control_interno;evaluacion_proceso;riesgos_extremos;Número de riesgos inherentes de nivel extremo del proceso (sección 1 de la evaluación). Por defecto 0.;validada
@@ -2060,7 +2060,7 @@ control_interno;hallazgo;recomendaciones;Recomendaciones del auditor sobre el ha
 control_interno;hallazgo;responsable;Responsable de atender el hallazgo.;validada
 control_interno;hallazgo;titulo;Título del hallazgo.;validada
 control_interno;hallazgo;updated_at;Fecha y hora de la última actualización del registro.;validada
-control_interno;historial_auditoria;accion;"Texto corto que describe la acción registrada en el historial de la auditoría (por ejemplo, «Auditoría creada», «Cambio de estado», «Evidencia cargada»); lo fija el backend o la función fn_registrar_cambio_estado_auditoria («Cambio de estado automático»). No es una lista cerrada en la base; la clasificación cerrada está en tipo_evento.";validada
+control_interno;historial_auditoria;accion;"Texto corto que describe la acción registrada en el historial de la auditoría (por ejemplo, «Auditoría creada», «Cambio de estado», «Evidencia cargada»); lo fija el sistema o la función fn_registrar_cambio_estado_auditoria («Cambio de estado automático»). La clasificación cerrada está en tipo_evento.";validada
 control_interno;historial_auditoria;auditoria_id;Referencia al registro de control_interno.auditoria (id).;validada
 control_interno;historial_auditoria;created_at;Fecha y hora de creación del registro.;validada
 control_interno;historial_auditoria;descripcion;Descripción del cambio o evento registrado en la auditoría.;validada
@@ -2074,7 +2074,7 @@ control_interno;historial_auditoria;ip_address;Dirección IP desde la que se ori
 control_interno;historial_auditoria;observaciones;Observaciones sobre el cambio o evento.;validada
 control_interno;historial_auditoria;tipo_evento;Tipo de evento registrado en el historial de la auditoría. Valores permitidos: creacion, actualizacion, cambio_estado, asignacion, aprobacion, ampliacion_plazo, documento, hallazgo, nota, archivo, finalizacion, eliminacion.;validada
 control_interno;historial_auditoria;user_agent;Agente de usuario (navegador) desde el que se realizó la acción.;validada
-control_interno;historial_auditoria;usuario_id;"Identificador de la persona (auth.personas.id_person) que realizó la acción; el backend lo obtiene a partir del auth.""user"".id_user del token. Puede ser nulo.";validada
+control_interno;historial_auditoria;usuario_id;"Identificador de la persona (auth.personas.id_person) que realizó la acción; se obtiene a partir del auth.""user"".id_user del usuario autenticado. Puede ser nulo.";validada
 control_interno;historial_generacion_informe;accion;Acción registrada en el historial de generación y aprobación del informe. Valores esperados: generado, actualizado, enviado_aprobacion, aprobado, rechazado.;validada
 control_interno;historial_generacion_informe;created_at;Fecha y hora de creación del registro.;validada
 control_interno;historial_generacion_informe;datos_anteriores;Datos del informe antes de la acción, en formato JSON.;validada
@@ -2086,7 +2086,7 @@ control_interno;historial_generacion_informe;observaciones;Observaciones sobre l
 control_interno;historial_generacion_informe;user_agent;Agente de usuario (navegador) desde el que se realizó la acción.;validada
 control_interno;historial_generacion_informe;usuario_id;Identificador del usuario que realizó la acción sobre la entrega del informe.;validada
 control_interno;historial_generacion_informe;usuario_nombre;Nombre del usuario que realizó la acción sobre el informe.;validada
-control_interno;historial_plan_anual;accion;"Texto corto que describe la acción registrada en el historial del Plan Anual 5 Roles (por ejemplo, «Creación de Plan Anual», «Actividad creada», «Actualización responsable de rol»); lo fija el backend o la función fn_registrar_cambio_estado_plan_anual («Cambio de estado automático»). No es una lista cerrada; la clasificación cerrada está en tipo_evento.";validada
+control_interno;historial_plan_anual;accion;"Texto corto que describe la acción registrada en el historial del Plan Anual 5 Roles (por ejemplo, «Creación de Plan Anual», «Actividad creada», «Actualización responsable de rol»); lo fija el sistema o la función fn_registrar_cambio_estado_plan_anual («Cambio de estado automático»). La clasificación cerrada está en tipo_evento.";validada
 control_interno;historial_plan_anual;created_at;Fecha y hora de creación del registro.;validada
 control_interno;historial_plan_anual;descripcion;Descripción del cambio registrado en el plan anual.;validada
 control_interno;historial_plan_anual;estado_anterior;Estado del plan anual antes del cambio.;validada
@@ -2152,7 +2152,7 @@ control_interno;lista_aplicada;resultado;Resultado consolidado de la aplicación
 control_interno;lista_aplicada;updated_at;Fecha y hora de la última actualización del registro.;validada
 control_interno;lista_chequeo;aplicable_para;"Tipos de auditoría para los que aplica la lista de chequeo, como arreglo JSON de textos sin lista cerrada. Por defecto [""gestion"", ""cumplimiento""].";validada
 control_interno;lista_chequeo;auditor_responsable;Auditor responsable de aplicar la lista de chequeo.;validada
-control_interno;lista_chequeo;auditoria_id;"Identificador (UUID) de la auditoría (control_interno.auditoria.id) a la que se vincula la lista de chequeo; el backend verifica que la auditoría exista. No tiene FK declarada.";validada
+control_interno;lista_chequeo;auditoria_id;Identificador (UUID) de la auditoría (control_interno.auditoria.id) a la que se vincula la lista de chequeo.;validada
 control_interno;lista_chequeo;categoria_esap;Categoría de la lista de chequeo según la clasificación de la ESAP.;validada
 control_interno;lista_chequeo;created_at;Fecha y hora de creación del registro.;validada
 control_interno;lista_chequeo;created_by;Usuario que creó el registro.;validada
@@ -2162,7 +2162,7 @@ control_interno;lista_chequeo;fase_comunicacion;Indica si la lista de chequeo se
 control_interno;lista_chequeo;fase_ejecucion;Indica si la lista de chequeo se aplica en la fase de ejecución de la auditoría. Por defecto falso.;validada
 control_interno;lista_chequeo;fase_planeacion;Indica si la lista de chequeo se aplica en la fase de planeación de la auditoría. Por defecto falso.;validada
 control_interno;lista_chequeo;fase_seguimiento;Indica si la lista de chequeo se aplica en la fase de seguimiento de la auditoría. Por defecto falso.;validada
-control_interno;lista_chequeo;fecha_aplicacion;"Fecha en que la lista de chequeo se vinculó a una auditoría; la asigna el backend con la fecha del momento.";validada
+control_interno;lista_chequeo;fecha_aplicacion;"Fecha en que la lista de chequeo se vinculó a una auditoría; se asigna con la fecha del momento.";validada
 control_interno;lista_chequeo;fecha_diligenciamiento;Fecha en que se diligenció la lista de chequeo.;validada
 control_interno;lista_chequeo;genera_hallazgos_automaticos;Indica si la lista de chequeo genera hallazgos de forma automática. Por defecto verdadero.;validada
 control_interno;lista_chequeo;hallazgos_generados;Número de hallazgos generados a partir de la lista de chequeo. Por defecto 0.;validada
@@ -2171,7 +2171,7 @@ control_interno;lista_chequeo;items_completados;Número de ítems diligenciados 
 control_interno;lista_chequeo;items_json;Ítems de la lista de chequeo en formato JSON.;validada
 control_interno;lista_chequeo;no_aplica;Número de ítems marcados como no aplica. Por defecto 0.;validada
 control_interno;lista_chequeo;no_cumplimientos;Número de ítems evaluados como no cumplidos. Por defecto 0.;validada
-control_interno;lista_chequeo;nombre_auditoria;"Nombre de la auditoría a la que se vincula la lista de chequeo; lo envía el cliente al crear o vincular la lista y el backend no lo copia de la auditoría.";validada
+control_interno;lista_chequeo;nombre_auditoria;"Nombre de la auditoría a la que se vincula la lista de chequeo; se registra al crear o vincular la lista.";validada
 control_interno;lista_chequeo;normativa_aplicable;Normativa aplicable a la lista de chequeo.;validada
 control_interno;lista_chequeo;objetivo;Objetivo de la lista de chequeo.;validada
 control_interno;lista_chequeo;permite_no_aplica;Indica si la lista de chequeo admite la respuesta no aplica en sus ítems. Por defecto verdadero.;validada
@@ -2179,7 +2179,7 @@ control_interno;lista_chequeo;proceso;Proceso institucional al que corresponde l
 control_interno;lista_chequeo;requiere_evidencias;Indica si la lista de chequeo exige adjuntar evidencias. Por defecto verdadero.;validada
 control_interno;lista_chequeo;subproceso;Subproceso institucional al que corresponde la lista de chequeo.;validada
 control_interno;lista_chequeo;updated_at;Fecha y hora de la última actualización del registro.;validada
-control_interno;lista_chequeo;version;"Versión de la lista de chequeo, la fija el usuario; 1.0 por defecto. El backend no la incrementa.";validada
+control_interno;lista_chequeo;version;"Versión de la lista de chequeo, fijada por el usuario; 1.0 por defecto.";validada
 control_interno;lista_chequeo;version_base;Versión de la plantilla base de la que se generó la lista de chequeo.;validada
 control_interno;logs_auditoria_esap;accion;Acción realizada por el usuario que se registra en el log.;validada
 control_interno;logs_auditoria_esap;created_at;Fecha y hora de creación del registro.;validada
@@ -2221,7 +2221,7 @@ control_interno;notificacion;leida;Indica si el usuario leyó la notificación.;
 control_interno;notificacion;mensaje;Texto del mensaje de la notificación.;validada
 control_interno;notificacion;metadata;Metadatos adicionales de la notificación en formato JSON.;validada
 control_interno;notificacion;prioridad;Prioridad de la notificación. Valores permitidos: baja, normal, alta, critica.;validada
-control_interno;notificacion;tipo_notificacion;Tipo de la notificación. El backend convierte los códigos de evento EVT-* a tipos como anuncio_auditoria, recordatorio_plazo, alerta_vencimiento, aprobacion_plan, rechazo_plan u otro, y guarda el código original en metadata.eventoCode.;validada
+control_interno;notificacion;tipo_notificacion;Tipo de la notificación. Los códigos de evento EVT-* se convierten en tipos como anuncio_auditoria, recordatorio_plazo, alerta_vencimiento, aprobacion_plan, rechazo_plan u otro, y el código original se guarda en metadata.eventoCode.;validada
 control_interno;notificacion;titulo;Título de la notificación.;validada
 control_interno;notificacion;updated_at;Fecha y hora de la última actualización del registro.;validada
 control_interno;notificacion;usuario_id;Identificador del usuario destinatario de la notificación, guardado como texto.;validada
@@ -2255,7 +2255,7 @@ control_interno;paso_workflow_informe;numero_paso;Número del paso dentro del wo
 control_interno;paso_workflow_informe;observaciones;Observaciones sobre el paso del flujo de aprobación.;validada
 control_interno;paso_workflow_informe;orden;Posición del paso en el flujo de aprobación.;validada
 control_interno;paso_workflow_informe;responsable;Responsable de ejecutar el paso del workflow.;validada
-control_interno;paso_workflow_informe;rol_responsable;"Rol que debe ejecutar el paso del workflow del informe de ley; el backend lo fija como texto: «Auditor» para la elaboración y «Jefe OCI» para la revisión y la aprobación.";validada
+control_interno;paso_workflow_informe;rol_responsable;Rol que debe ejecutar el paso del workflow del informe de ley: «Auditor» para la elaboración y «Jefe OCI» para la revisión y la aprobación.;validada
 control_interno;paso_workflow_informe;updated_at;Fecha y hora de la última actualización del registro.;validada
 control_interno;paso_workflow_informe;workflow_id;Referencia al registro de control_interno.workflow_aprobacion_informe (id).;validada
 control_interno;plan_anual;actividades_completadas;Cantidad de actividades del plan anual completadas.;validada
@@ -2281,13 +2281,13 @@ control_interno;plan_anual_5_roles;fecha_creacion;Fecha y hora de creación del 
 control_interno;plan_anual_5_roles;firma_activacion;Datos de la firma con la que se activa el plan anual, en formato JSON: firmante, fecha de firma, IP, hash y agente de usuario. Nula por defecto.;validada
 control_interno;plan_anual_5_roles;id;Identificador único del registro en la tabla plan_anual_5_roles. Se genera automáticamente.;validada
 control_interno;plan_anual_5_roles;orden_aprobacion;Orden en que el comité aprueba el plan anual: secuencial (vota el primer integrante pendiente) o paralelo (votan todos los pendientes). Valor por defecto: secuencial.;validada
-control_interno;plan_anual_5_roles;porcentaje_cumplimiento_general;"Porcentaje de cumplimiento general del plan anual: promedio redondeado del porcentaje de cumplimiento de sus roles (rol_plan_anual_5). Lo calcula el backend; 0 por defecto.";validada
-control_interno;plan_anual_5_roles;responsable;"Nombre del responsable del plan anual; obligatorio. Se registra aparte de responsable_id (auth.personas.id_person) y el backend no sincroniza los dos campos.";validada
+control_interno;plan_anual_5_roles;porcentaje_cumplimiento_general;Porcentaje de cumplimiento general del plan anual: promedio redondeado del porcentaje de cumplimiento de sus roles (rol_plan_anual_5), calculado por el sistema. Por defecto, 0.;validada
+control_interno;plan_anual_5_roles;responsable;"Nombre del responsable del plan anual; obligatorio. Se registra aparte de responsable_id (auth.personas.id_person).";validada
 control_interno;plan_anual_5_roles;total_actividades;Cantidad total de actividades del plan anual.;validada
 control_interno;plan_anual_5_roles;updated_at;Fecha y hora de la última actualización del registro.;validada
 control_interno;plan_anual_wizard_borrador;created_at;Fecha y hora de creación del registro.;validada
 control_interno;plan_anual_wizard_borrador;id;Identificador único del registro en la tabla plan_anual_wizard_borrador. Se genera automáticamente.;validada
-control_interno;plan_anual_wizard_borrador;payload;"Estado del asistente de creación del plan anual guardado como borrador, en formato JSON; el backend agrega savedAt y timestamp. Hay un borrador por usuario.";validada
+control_interno;plan_anual_wizard_borrador;payload;Estado del asistente de creación del plan anual guardado como borrador, en formato JSON, con las marcas savedAt y timestamp. Hay un borrador por usuario.;validada
 control_interno;plan_anual_wizard_borrador;updated_at;Fecha y hora de la última actualización del registro.;validada
 control_interno;plan_anual_wizard_borrador;usuario_id;"Identificador del usuario dueño del borrador; cada usuario tiene un solo borrador.";validada
 control_interno;plan_individual;alcance;Alcance de la auditoría descrito en el plan individual.;validada
@@ -2334,7 +2334,7 @@ control_interno;plan_mejoramiento;observaciones_aprobacion;Observaciones registr
 control_interno;plan_mejoramiento;porcentaje_efectividad;"Porcentaje de efectividad del plan de mejoramiento, de 0 a 100; 0 por defecto.";validada
 control_interno;plan_mejoramiento;proximo_seguimiento;Fecha programada para el próximo seguimiento del plan de mejoramiento.;validada
 control_interno;plan_mejoramiento;recursos;Recursos requeridos para ejecutar el plan de mejoramiento, en formato JSON.;validada
-control_interno;plan_mejoramiento;responsable_implementacion;Responsable de implementar el plan de mejoramiento, como texto (nombre, correo o usuario). Si no se envía, el backend usa el correo del responsable del área de la auditoría.;validada
+control_interno;plan_mejoramiento;responsable_implementacion;Responsable de implementar el plan de mejoramiento, como texto (nombre, correo o usuario). Si no se informa, se usa el correo del responsable del área de la auditoría.;validada
 control_interno;plan_mejoramiento;seguimientos;Seguimientos realizados al plan de mejoramiento, en formato JSON.;validada
 control_interno;plan_mejoramiento;seguimientos_realizados;Cantidad de seguimientos realizados al plan de mejoramiento.;validada
 control_interno;plan_mejoramiento;seguimientos_totales;Cantidad total de seguimientos programados para el plan de mejoramiento. Valor por defecto: 4.;validada
@@ -2357,7 +2357,7 @@ control_interno;plantilla_informe_ley;created_at;Fecha y hora de creación del r
 control_interno;plantilla_informe_ley;descripcion;Descripción de la plantilla de informe de ley.;validada
 control_interno;plantilla_informe_ley;id;Identificador único del registro en la tabla plantilla_informe_ley. Se genera automáticamente.;validada
 control_interno;plantilla_informe_ley;nombre;Nombre de la plantilla de informe de ley.;validada
-control_interno;plantilla_informe_ley;ruta_plantilla;"Ruta relativa del archivo de la plantilla del informe de ley (Handlebars.hbs) dentro de la carpeta templates del módulo de informes de ley del servicio; el servicio lee el archivo del sistema de archivos local.";validada
+control_interno;plantilla_informe_ley;ruta_plantilla;Ruta relativa del archivo de la plantilla del informe de ley (Handlebars, .hbs) dentro de la carpeta templates del módulo de informes de ley.;validada
 control_interno;plantilla_informe_ley;tipo_formato;Formato del archivo de la plantilla del informe de ley. Valores permitidos: Word, Excel, PDF, HTML.;validada
 control_interno;plantilla_informe_ley;updated_at;Fecha y hora de la última actualización del registro.;validada
 control_interno;plantilla_informe_ley;version;Versión de la plantilla de informe de ley.;validada
@@ -2396,7 +2396,7 @@ control_interno;proceso_auditable;codigo;Código del proceso auditable. Único e
 control_interno;proceso_auditable;created_at;Fecha y hora de creación del registro.;validada
 control_interno;proceso_auditable;dependencia;Dependencia de la ESAP a cargo del proceso auditable.;validada
 control_interno;proceso_auditable;descripcion;Descripción del proceso auditable.;validada
-control_interno;proceso_auditable;evaluacion_riesgo;Evaluación de riesgo del proceso auditable, como objeto JSON con probabilidad, impacto y nivel de control (1 a 3), riesgo inherente (probabilidad × impacto), riesgo residual (inherente ÷ nivel de control), nivel de riesgo (bajo, medio, alto) y campos opcionales de controles, factores de riesgo, distribución de riesgos DAFP, decisión de rotación e inclusión en el plan anual y puntaje C+E-M. El servicio calcula los valores derivados al crear o actualizar el proceso.;validada
+control_interno;proceso_auditable;evaluacion_riesgo;Evaluación de riesgo del proceso auditable, como objeto JSON con probabilidad, impacto y nivel de control (1 a 3), riesgo inherente (probabilidad × impacto), riesgo residual (inherente ÷ nivel de control), nivel de riesgo (bajo, medio, alto) y campos opcionales de controles, factores de riesgo, distribución de riesgos DAFP, decisión de rotación e inclusión en el plan anual y puntaje C+E-M. Los valores derivados se calculan al crear o actualizar el proceso.;validada
 control_interno;proceso_auditable;frecuencia_auditoria;Frecuencia con que debe auditarse el proceso, en texto: anual (valor por defecto), bienal, trienal, cuatrienal o «Cada N años». Se usa para calcular la fecha de la próxima auditoría a partir de la última.;validada
 control_interno;proceso_auditable;id;Identificador único del registro en la tabla proceso_auditable. Se genera automáticamente.;validada
 control_interno;proceso_auditable;macroproceso;Macroproceso al que pertenece el proceso auditable.;validada
@@ -2427,8 +2427,8 @@ control_interno;registro_seguimiento;evidencias;Evidencias del registro de segui
 control_interno;registro_seguimiento;hallazgo_se_repite;Indica si el hallazgo se repite. Valores permitidos: SI, NO.;validada
 control_interno;registro_seguimiento;id;Identificador único del registro en la tabla registro_seguimiento. Se genera automáticamente.;validada
 control_interno;registro_seguimiento;observaciones;Observaciones sobre el seguimiento de la acción.;validada
-control_interno;registro_seguimiento;puntaje_cumplimiento;Puntaje de cumplimiento de la acción en el seguimiento, en escala de 0 a 2, calculado por el servicio: 2 si las acciones implementadas igualan o superan las programadas, 1 si hay al menos una implementada y 0 si no hay ninguna. Valor por defecto: 0.;validada
-control_interno;registro_seguimiento;puntaje_efectividad;Puntaje de efectividad de la acción en el seguimiento, en escala de 0 a 2, calculado por el servicio: 0 si el hallazgo se repite, 2 si los controles están implementados y el hallazgo no se repite, 1 en los demás casos. Valor por defecto: 0.;validada
+control_interno;registro_seguimiento;puntaje_cumplimiento;Puntaje de cumplimiento de la acción en el seguimiento, en escala de 0 a 2, calculado por el sistema: 2 si las acciones implementadas igualan o superan las programadas, 1 si hay al menos una implementada y 0 si no hay ninguna. Valor por defecto: 0.;validada
+control_interno;registro_seguimiento;puntaje_efectividad;Puntaje de efectividad de la acción en el seguimiento, en escala de 0 a 2, calculado por el sistema: 0 si el hallazgo se repite, 2 si los controles están implementados y el hallazgo no se repite, 1 en los demás casos. Valor por defecto: 0.;validada
 control_interno;registro_seguimiento;seguimiento_id;Referencia al registro de control_interno.seguimiento_trimestral (id).;validada
 control_interno;registro_seguimiento;updated_at;Fecha y hora de la última actualización del registro.;validada
 control_interno;reunion_apertura;acta_ruta;Ruta del archivo del acta de la reunión de apertura.;validada
@@ -2460,7 +2460,7 @@ control_interno;reunion_cierre;id;Identificador único del registro en la tabla 
 control_interno;reunion_cierre;lugar;Lugar donde se realiza la reunión de cierre.;validada
 control_interno;reunion_cierre;modalidad;Modalidad de la reunión de cierre. Valores permitidos: presencial, virtual, hibrida.;validada
 control_interno;reunion_cierre;observaciones;Observaciones sobre la reunión de cierre.;validada
-control_interno;reunion_cierre;participantes;Participantes de la reunión de cierre, como arreglo JSON de textos: el servicio recibe un texto separado por comas y guarda cada participante como un elemento.;validada
+control_interno;reunion_cierre;participantes;"Participantes de la reunión de cierre, como arreglo JSON de textos; cada participante de la lista separada por comas se guarda como un elemento.";validada
 control_interno;reunion_cierre;revisado_por;Usuario que realizó la revisión.;validada
 control_interno;reunion_cierre;updated_at;Fecha y hora de la última actualización del registro.;validada
 control_interno;rol_decreto_648;activo;Indica si el rol está activo.;validada
@@ -2892,7 +2892,7 @@ hiring;contratos;created_at;Fecha y hora de creación del registro.;validada
 hiring;contratos;generado_at;Fecha y hora de la generación.;validada
 hiring;contratos;generado_por;Usuario que realizó la generación.;validada
 hiring;contratos;id;Identificador único del registro en la tabla contratos. Se genera automáticamente.;validada
-hiring;contratos;legalizado_at;Fecha y hora en que el contrato quedó legalizado, con todas las garantías aprobadas y, si el contratista es persona natural, la ARL registrada. La calcula el servicio (EFDS-1164).;validada
+hiring;contratos;legalizado_at;Fecha y hora en que el contrato quedó legalizado, con todas las garantías aprobadas y, si el contratista es persona natural, la ARL registrada. La calcula el sistema (EFDS-1164).;validada
 hiring;contratos;minuta_documento_id;Referencia al registro de hiring.documentos (id).;validada
 hiring;contratos;motivo_rechazo;Motivo del rechazo.;validada
 hiring;contratos;numero;Número de contrato de la entidad, el que figura en la minuta. Único en el sistema.;validada
@@ -2933,7 +2933,7 @@ hiring;documentos;;"Documentos de los expedientes contractuales. Un registro por
 hiring;documentos;archivo_mime_type;Tipo MIME del archivo cargado (por ejemplo, application/pdf).;validada
 hiring;documentos;archivo_nombre_original;Nombre original del archivo cargado.;validada
 hiring;documentos;archivo_tamano;Tamaño del archivo cargado, en bytes (máximo 25 MB por archivo).;validada
-hiring;documentos;archivo_url;"Ruta interna del archivo adjunto en el almacenamiento del servicio (hiring/files/ o /files/ seguido de un nombre aleatorio); no es una URL pública. Obligatoria cuando el tipo es ADJUNTO.";validada
+hiring;documentos;archivo_url;"Ruta interna del archivo adjunto en el almacenamiento del sistema (hiring/files/ o /files/ seguido de un nombre aleatorio); no es una URL pública. Obligatoria cuando el tipo es ADJUNTO.";validada
 hiring;documentos;contenido_snapshot;Copia inmutable de los datos del formulario en el momento de enviarlo, en formato JSON. Obligatoria cuando el tipo es SNAPSHOT_FORMULARIO.;validada
 hiring;documentos;created_at;Fecha y hora de creación del registro.;validada
 hiring;documentos;expediente_id;Referencia al registro de hiring.expedientes (id).;validada
@@ -3129,7 +3129,7 @@ hiring;modificaciones_contrato;solicitada_por;"Nombre de usuario (username) de l
 hiring;modificaciones_contrato;suspension_desde;Fecha de inicio de la suspensión del contrato, en formato AAAA-MM-DD.;validada
 hiring;modificaciones_contrato;suspension_hasta;"Fecha prevista de fin de la suspensión del contrato. Admite nulos porque hay suspensiones indefinidas; cuando se diligencia no puede ser anterior a suspension_desde.";validada
 hiring;modificaciones_contrato;terminacion_el;"Fecha desde la cual el contrato deja de ejecutarse por terminación anticipada; no corresponde a la fecha de firma. Es obligatoria cuando el tipo es TERMINACION_ANTICIPADA, con causal MUTUO_ACUERDO o UNILATERAL.";validada
-hiring;modificaciones_contrato;tipo;"Tipo de modificación contractual, según los tipos que lista la matriz de flujo. A la fecha del código solo ADICION tiene implementación; los demás quedan declarados para historias posteriores (EFDS-1177, EFDS-1178).";validada
+hiring;modificaciones_contrato;tipo;Tipo de modificación contractual, según los tipos que lista la matriz de flujo (EFDS-1177, EFDS-1178).;validada
 hiring;modificaciones_contrato;tope_porcentaje;"Porcentaje máximo de adición, sobre el valor inicial y acumulado, con el que se juzgó la adición; se copia al aprobarla del tope configurado en tope_adicion.porcentaje (sembrado en 50 % por la Ley 80 de 1993, art. 40).";validada
 hiring;modificaciones_contrato;valor_adicionado;"Valor que se adiciona al contrato con una modificación de tipo ADICION, en la misma unidad que el valor del contrato (pesos), al que se suma cuando se aprueba. Obligatorio y mayor que cero cuando el tipo es ADICION; vacío en las prórrogas y las terminaciones anticipadas.";validada
 hiring;modificaciones_contrato;valor_contrato_antes;"Valor del contrato, en pesos, antes de aplicar la adición; se copia de contratos.valor al aprobarla y queda congelado para conservar sobre qué valor se calculó, aunque luego entren otras adiciones o cambie el tope.";validada
@@ -3172,7 +3172,7 @@ hiring;pagos_contrato;id;Identificador único del registro en la tabla pagos_con
 hiring;pagos_contrato;informe_documento_id;Referencia al registro de hiring.documentos (id).;validada
 hiring;pagos_contrato;motivo_anulacion;Motivo de la anulación.;validada
 hiring;pagos_contrato;motivo_devolucion;Motivo de la devolución.;validada
-hiring;pagos_contrato;numero;Consecutivo de la cuenta de cobro dentro del contrato (por ejemplo, «el pago 3 de 8»). Lo asigna el servicio.;validada
+hiring;pagos_contrato;numero;Consecutivo de la cuenta de cobro dentro del contrato (por ejemplo, «el pago 3 de 8»). Lo asigna el sistema.;validada
 hiring;pagos_contrato;observacion_aval;Observación registrada al avalar la cuenta de cobro.;validada
 hiring;pagos_contrato;periodo_desde;Fecha de inicio del periodo que se cobra en la cuenta de cobro, expresado como rango con periodo_hasta. No puede ser posterior a periodo_hasta.;validada
 hiring;pagos_contrato;periodo_hasta;Fecha de fin del periodo que cubre la cuenta de cobro. No puede ser anterior a periodo_desde.;validada
@@ -3185,7 +3185,7 @@ hiring;pagos_contrato;valor;Valor cobrado en la cuenta de cobro, en pesos. Debe 
 hiring;parametros_alerta;clave;Clave primaria de la tabla parametros_alerta: clave.;validada
 hiring;parametros_alerta;descripcion;Descripción del parámetro de alerta.;validada
 hiring;parametros_alerta;maximo;Valor máximo permitido para el parámetro.;validada
-hiring;parametros_alerta;minimo;Valor mínimo que admite el parámetro de alerta. La pantalla lo muestra a quien edita y el servicio lo usa para rechazar valores fuera del rango.;validada
+hiring;parametros_alerta;minimo;"Valor mínimo que admite el parámetro de alerta; se rechazan los valores fuera del rango.";validada
 hiring;parametros_alerta;updated_at;Fecha y hora de la última actualización del registro.;validada
 hiring;parametros_alerta;updated_by;Usuario que realizó la última actualización del registro.;validada
 hiring;parametros_alerta;valor;"Valor vigente del parámetro de alerta; debe estar entre minimo y maximo. La unidad depende de la clave: días en las anticipaciones y en la tolerancia sin abogado, y hora de Bogotá (0 a 23) en hora_aviso.";validada
@@ -3381,7 +3381,7 @@ hiring;resoluciones_sancionatorias;fecha_expedicion;Fecha de expedición de la r
 hiring;resoluciones_sancionatorias;firme_el;Fecha en que la resolución quedó en firme. Requiere fecha de notificación y no puede ser anterior a ella.;validada
 hiring;resoluciones_sancionatorias;id;Identificador único del registro en la tabla resoluciones_sancionatorias. Se genera automáticamente.;validada
 hiring;resoluciones_sancionatorias;motivo_revocacion;Motivo de la revocación.;validada
-hiring;resoluciones_sancionatorias;notificada_el;"Fecha de notificación de la resolución, posterior a su expedición. Se registra; no se usa para calcular términos.";validada
+hiring;resoluciones_sancionatorias;notificada_el;Fecha de notificación de la resolución, posterior a su expedición.;validada
 hiring;resoluciones_sancionatorias;numero;Número de la resolución sancionatoria.;validada
 hiring;resoluciones_sancionatorias;revocada_at;Fecha y hora de la revocación.;validada
 hiring;resoluciones_sancionatorias;revocada_por;Usuario que realizó la revocación.;validada
@@ -3473,7 +3473,7 @@ hiring;subsanaciones;soporte_documento_id;Referencia al registro de hiring.docum
 hiring;subsanaciones;tipo;Tipo de lo presentado por el oferente durante el traslado del informe: SUBSANACION (aporta lo que faltaba y puede cambiar la habilitación) u OBSERVACION (cuestiona la evaluación, propia o de otro oferente).;validada
 hiring;subsanaciones;updated_at;Fecha y hora de la última actualización del registro.;validada
 hiring;supervisiones_contrato;acto_documento_id;Referencia al registro de hiring.documentos (id).;validada
-hiring;supervisiones_contrato;alerta_enviada_at;"Fecha y hora en que se avisó al supervisor de su designación (matriz, actividad 8.2). Es nula mientras el aviso esté pendiente; a la fecha del código el módulo no envía correos.";validada
+hiring;supervisiones_contrato;alerta_enviada_at;Fecha y hora en que se avisó al supervisor de su designación (matriz, actividad 8.2). Es nula mientras el aviso esté pendiente.;validada
 hiring;supervisiones_contrato;cargo;Cargo del supervisor designado.;validada
 hiring;supervisiones_contrato;contrato_id;Referencia al registro de hiring.contratos (id).;validada
 hiring;supervisiones_contrato;created_at;Fecha y hora de creación del registro.;validada
@@ -3511,7 +3511,7 @@ hiring;tope_adicion;fundamento;Texto que sustenta el tope de adición: la norma 
 hiring;tope_adicion;id;Identificador único del registro en la tabla tope_adicion.;validada
 hiring;tope_adicion;porcentaje;Porcentaje máximo de adición sobre el valor inicial del contrato. Mayor que 0 y hasta 100.;validada
 hiring;trazabilidad;;Bitácora de las acciones realizadas sobre los procesos de contratación y sus objetos relacionados. Un registro por acción (crear, guardar, enviar, adjuntar, aprobar, devolver, entre otras), con el objeto afectado, el detalle y el usuario que la hizo. Se relaciona con hiring.procesos.;validada
-hiring;trazabilidad;accion;Acción realizada sobre el registro, de una lista definida en el código (CREAR, GUARDAR, ENVIAR, ADJUNTAR, APROBAR, DEVOLVER, SOLICITAR, VERIFICAR, EXPEDIR, RECHAZAR, PUBLICAR, ANULAR, DESIGNAR, REVOCAR, ADJUDICAR, INICIAR, ARCHIVAR, CONSULTAR, entre otras). La columna no tiene CHECK.;validada
+hiring;trazabilidad;accion;Acción realizada sobre el registro, de una lista definida (CREAR, GUARDAR, ENVIAR, ADJUNTAR, APROBAR, DEVOLVER, SOLICITAR, VERIFICAR, EXPEDIR, RECHAZAR, PUBLICAR, ANULAR, DESIGNAR, REVOCAR, ADJUDICAR, INICIAR, ARCHIVAR, CONSULTAR, entre otras).;validada
 hiring;trazabilidad;created_at;Fecha y hora de creación del registro.;validada
 hiring;trazabilidad;detalle;Detalle de la acción en formato JSON, sin estructura fija: cada módulo guarda los datos propios del hecho (por ejemplo, la actividad, el contrato, el tipo y los valores antes y después de una adición).;validada
 hiring;trazabilidad;entidad;"Nombre funcional, en singular y snake_case, del objeto afectado por la acción (por ejemplo, modificacion_contrato, pago_contrato, cdp); no coincide siempre con el nombre de la tabla.";validada
@@ -3592,7 +3592,7 @@ infrastructure-management;solicitud_evidencia;notas;Notas sobre la evidencia.;va
 infrastructure-management;solicitud_evidencia;orden;Posición de la evidencia en el orden de presentación.;validada
 infrastructure-management;solicitud_evidencia;tamano_bytes;Tamaño en bytes del archivo de evidencia.;validada
 infrastructure-management;solicitud_evidencia;url_presigned;"URL prefirmada de acceso temporal al archivo; vence en la fecha de vencimiento_presigned.";validada
-infrastructure-management;solicitud_evidencia;url_publica;"URL relativa del archivo bajo el prefijo público del servicio, servida por el gateway en el mismo origen; no es una URL de bucket público y no expira.";validada
+infrastructure-management;solicitud_evidencia;url_publica;"URL relativa del archivo bajo el prefijo público del sistema, servida en el mismo origen; no es una URL de bucket público y no expira.";validada
 infrastructure-management;solicitud_evidencia;usuario_que_subio_email;Correo electrónico del usuario que subió el archivo.;validada
 infrastructure-management;solicitud_evidencia;usuario_que_subio_id;"Identificador del usuario que subió el archivo (auth.""user"".id_user, tomado del token).";validada
 infrastructure-management;solicitud_mantenimiento;;"Solicitudes y órdenes de mantenimiento de la infraestructura física y tecnológica de las sedes. Un registro por solicitud, con su consecutivo, sede, espacio y ubicación, tipo de mantenimiento, prioridad, solicitante, clasificación, técnico asignado, valoración técnica, cierre técnico y costos. Su ciclo se registra en el estado (EFDS-1728), con valores como RECIBIDA, EN_ANALISIS, EN_VALORACION, COMPLETADA o RECHAZADA; se relaciona con sede, espacio_fisico, solicitud_evidencia y solicitud_valoracion.";validada
@@ -3694,14 +3694,14 @@ internal_disciplinary_control;dias_festivos;fecha_creacion;Fecha y hora de creac
 internal_disciplinary_control;dias_festivos;id;Identificador único del registro en la tabla dias_festivos. Se genera automáticamente.;validada
 internal_disciplinary_control;dias_festivos;territorio;"Territorio al que aplica el día festivo; se diligencia solo si el tipo es regional.";validada
 internal_disciplinary_control;dias_festivos;tipo;Tipo de día festivo (nacional, regional o institucional).;validada
-internal_disciplinary_control;disciplinary_news;adjuntos;"Archivos adjuntos de la noticia disciplinaria, como arreglo de textos con el nombre del archivo guardado en la carpeta de cargas del servicio para el radicado; al remitir por competencia se agregan las rutas de los autos y evidencias del proceso.";validada
+internal_disciplinary_control;disciplinary_news;adjuntos;"Archivos adjuntos de la noticia disciplinaria, como arreglo de textos con el nombre del archivo guardado en la carpeta de cargas del radicado; al remitir por competencia se agregan las rutas de los autos y evidencias del proceso.";validada
 internal_disciplinary_control;disciplinary_news;conducta_disciplinaria;Conducta disciplinaria seleccionada para la noticia.;validada
 internal_disciplinary_control;disciplinary_news;correo_entidad_remision;Correo electrónico de la entidad a la que se remite la noticia.;validada
 internal_disciplinary_control;disciplinary_news;created_at;Fecha y hora de creación del registro.;validada
 internal_disciplinary_control;disciplinary_news;dependenciaDenunciado;Dependencia a la que pertenece el denunciado.;validada
 internal_disciplinary_control;disciplinary_news;descripcion_remision;Descripción de la remisión por competencia, como objeto JSON con los datos de la noticia remitida (numeroRadicado, origen, fechaRecepcion, territorial, dependenciaDenunciado, denunciante, disciplinable, hechos, conductas, fechaHechos, fechaCaducidad), más el total y los nombres de los archivos remitidos y la lista de autos y de actas y evidencias del proceso.;validada
 internal_disciplinary_control;disciplinary_news;entidad_remision;Nombre de la entidad a la que se remite la noticia disciplinaria por competencia, digitado en la remisión.;validada
-internal_disciplinary_control;disciplinary_news;fechaCaducidad;"Fecha de caducidad de la acción disciplinaria, calculada por el servicio como fechaHechos más 5 años (Ley 734 de 2002, art. 30); se recalcula si cambia fechaHechos y queda vacía si esta no se conoce.";validada
+internal_disciplinary_control;disciplinary_news;fechaCaducidad;"Fecha de caducidad de la acción disciplinaria, calculada por el sistema como fechaHechos más 5 años (Ley 734 de 2002, art. 30); se recalcula si cambia fechaHechos y queda vacía si esta no se conoce.";validada
 internal_disciplinary_control;disciplinary_news;fechaHechos;Fecha en que ocurrieron los hechos.;validada
 internal_disciplinary_control;disciplinary_news;fechaRecepcion;Fecha y hora de recepción de la noticia disciplinaria. Por defecto, la fecha y hora de creación del registro.;validada
 internal_disciplinary_control;disciplinary_news;fecha_remision;Fecha y hora de remisión de la noticia a la entidad destino.;validada
@@ -3710,7 +3710,7 @@ internal_disciplinary_control;disciplinary_news;historialAuditoria;"Historial de
 internal_disciplinary_control;disciplinary_news;id;Identificador único del registro en la tabla disciplinary_news. Se genera automáticamente.;validada
 internal_disciplinary_control;disciplinary_news;justificacion_remision;Justificación de la remisión de la noticia disciplinaria.;validada
 internal_disciplinary_control;disciplinary_news;kanbanStage;Identificador de la etapa del tablero Kanban en que se encuentra la noticia disciplinaria (internal_disciplinary_control.stage_configuration). La noticia inicia en la etapa de orden 1 y la columna queda vacía al remitirse.;validada
-internal_disciplinary_control;disciplinary_news;numero_rc;Número RC de la remisión por competencia de la noticia, generado por el servicio con el formato RC-<año>-<número de cuatro dígitos>.;validada
+internal_disciplinary_control;disciplinary_news;numero_rc;Número RC de la remisión por competencia de la noticia, generado por el sistema con el formato RC-<año>-<número de cuatro dígitos>.;validada
 internal_disciplinary_control;disciplinary_news;observaciones;Observaciones sobre la noticia disciplinaria.;validada
 internal_disciplinary_control;disciplinary_news;origen;Origen de la noticia disciplinaria. Valores permitidos: ANONIMO, QUEJOSO, OFICIO, REMISION, POR_DETERMINAR.;validada
 internal_disciplinary_control;disciplinary_news;proceso_asociado_fecha;Fecha y hora en que se asoció la noticia al proceso disciplinario.;validada
@@ -3757,32 +3757,32 @@ internal_disciplinary_control;disciplinary_process_tasks;titulo;Título de la ta
 internal_disciplinary_control;disciplinary_process_tasks;updatedAt;Fecha y hora de la última actualización del registro.;validada
 internal_disciplinary_control;disciplinary_processes;abogado_asignado_id;Referencia al registro de internal_disciplinary_control.disciplinary_professional (id).;validada
 internal_disciplinary_control;disciplinary_processes;cerrado_por_id;"Identificador del usuario que cerró el proceso al enviar el pliego de cargos a jurídica; se borra si el proceso se restaura.";validada
-internal_disciplinary_control;disciplinary_processes;correo_entidad_remision;"Correo electrónico de la entidad a la que se remite el proceso; es la dirección a la que el servicio envía la remisión.";validada
+internal_disciplinary_control;disciplinary_processes;correo_entidad_remision;"Correo electrónico de la entidad a la que se remite el proceso; es la dirección a la que se envía la remisión.";validada
 internal_disciplinary_control;disciplinary_processes;correo_juridica_enviado;Indica si se envió el correo a la Oficina Jurídica con el expediente al cerrar el proceso por el auto de pliego de cargos aprobado. El buzón se toma de la variable de entorno JURIDICA_EMAIL. Por defecto, falso.;validada
 internal_disciplinary_control;disciplinary_processes;correo_juridica_fecha_envio;"Fecha y hora de envío del correo a la Oficina Jurídica; se llena junto con correo_juridica_enviado = verdadero.";validada
 internal_disciplinary_control;disciplinary_processes;createdAt;Fecha y hora de creación del registro.;validada
-internal_disciplinary_control;disciplinary_processes;descripcion_remision;"Descripción de la remisión por competencia, como objeto JSON con los datos de la noticia remitida (numeroRadicado, origen, fechaRecepcion, territorial, dependenciaDenunciado, denunciante, disciplinable, hechos, conductas, fechaHechos, fechaCaducidad); la envía el formulario o la arma el servicio con los datos de la noticia.";validada
+internal_disciplinary_control;disciplinary_processes;descripcion_remision;"Descripción de la remisión por competencia, como objeto JSON con los datos de la noticia remitida (numeroRadicado, origen, fechaRecepcion, territorial, dependenciaDenunciado, denunciante, disciplinable, hechos, conductas, fechaHechos, fechaCaducidad); se registra en el formulario o se arma con los datos de la noticia.";validada
 internal_disciplinary_control;disciplinary_processes;documents_count;Cantidad de documentos asociados al proceso. Se actualiza mediante la función public.update_process_documents_count.;validada
 internal_disciplinary_control;disciplinary_processes;drafts_count;Cantidad de borradores asociados al proceso. Se actualiza mediante la función public.update_process_statistics.;validada
 internal_disciplinary_control;disciplinary_processes;en_proceso_remision;"Indica si el proceso está en trámite de remisión por competencia a otra entidad; se marca al crear el proceso cuando la noticia proviene de una remisión o trae entidad o tipo de remisión. Por defecto, falso.";validada
 internal_disciplinary_control;disciplinary_processes;entidad_remision;Nombre de la entidad a la que se remite el proceso, guardado como texto: se toma de la noticia, del auto de remisión aprobado o de la entidad digitada al remitir. Existe el catálogo entidades_remision, pero la columna no lo referencia.;validada
 internal_disciplinary_control;disciplinary_processes;etapa_al_cierre;"Etapa en que se encontraba el proceso al momento del cierre: copia de etapaActual; se borra si el proceso se restaura.";validada
 internal_disciplinary_control;disciplinary_processes;fechaInicioEtapa;Fecha de inicio de la etapa actual del proceso.;validada
-internal_disciplinary_control;disciplinary_processes;fechaPrescripcion;Fecha en que prescribe la acción disciplinaria del proceso, calculada por el servicio al crear el proceso como la fecha de recepción de la noticia más 15 años.;validada
-internal_disciplinary_control;disciplinary_processes;fechaVencimientoEtapa;"Fecha en que vence el término de la etapa actual del proceso, calculada por el servicio al iniciar o cambiar de etapa sumando a la fecha del cambio los días hábiles de la etapa en stage_configuration (sin festivos nacionales ni institucionales); queda vacía al remitir el proceso.";validada
+internal_disciplinary_control;disciplinary_processes;fechaPrescripcion;Fecha en que prescribe la acción disciplinaria del proceso, calculada por el sistema al crear el proceso como la fecha de recepción de la noticia más 15 años.;validada
+internal_disciplinary_control;disciplinary_processes;fechaVencimientoEtapa;"Fecha en que vence el término de la etapa actual del proceso, calculada por el sistema al iniciar o cambiar de etapa sumando a la fecha del cambio los días hábiles de la etapa en stage_configuration (sin festivos nacionales ni institucionales); queda vacía al remitir el proceso.";validada
 internal_disciplinary_control;disciplinary_processes;fecha_cierre;Fecha y hora de cierre del proceso disciplinario: se llena al cerrar el proceso por el envío del pliego de cargos a jurídica y se borra si el proceso se restaura.;validada
 internal_disciplinary_control;disciplinary_processes;fecha_remision;Fecha y hora en que se ejecutó la remisión del proceso a la entidad destino (envío), no la de aprobación del auto.;validada
 internal_disciplinary_control;disciplinary_processes;id;Identificador único del registro en la tabla disciplinary_processes. Se genera automáticamente.;validada
-internal_disciplinary_control;disciplinary_processes;informacion_consolidada;"Información del proceso principal de la consolidación, como objeto JSON con radicado, fechaInicio, hechos y disciplinable; la llena el servicio al consolidar.";validada
+internal_disciplinary_control;disciplinary_processes;informacion_consolidada;"Información del proceso principal de la consolidación, como objeto JSON con radicado, fechaInicio, hechos y disciplinable; la llena el sistema al consolidar.";validada
 internal_disciplinary_control;disciplinary_processes;justificacion_remision;Justificación de la remisión del proceso a otra entidad, obligatoria y digitada por el usuario que ejecuta la remisión.;validada
-internal_disciplinary_control;disciplinary_processes;kanbanNotice;Aviso que se muestra en la tarjeta del proceso en el tablero Kanban: texto que el usuario registra al cambiar de etapa o aviso que genera el servicio al aprobarse el auto de remisión o al remitir el proceso por competencia.;validada
+internal_disciplinary_control;disciplinary_processes;kanbanNotice;Aviso que se muestra en la tarjeta del proceso en el tablero Kanban: texto que el usuario registra al cambiar de etapa o aviso que genera el sistema al aprobarse el auto de remisión o al remitir el proceso por competencia.;validada
 internal_disciplinary_control;disciplinary_processes;kanbanStage;Identificador de la columna del tablero Kanban en que se ubica el proceso (internal_disciplinary_control.stage_configuration). El proceso inicia en la etapa de orden 2 (Valoración) y la columna se actualiza en cada cambio de etapa.;validada
 internal_disciplinary_control;disciplinary_processes;newsId;Identificador (UUID) de la noticia disciplinaria que dio origen al proceso (internal_disciplinary_control.disciplinary_news). La relación está mapeada en la entidad y el DDL de referencia del repositorio declara la FK con ON DELETE RESTRICT.;validada
-internal_disciplinary_control;disciplinary_processes;numero_rc;Número RC de la remisión por competencia del proceso, generado por el servicio con el formato RC-<año>-<número de cuatro dígitos>.;validada
+internal_disciplinary_control;disciplinary_processes;numero_rc;Número RC de la remisión por competencia del proceso, generado por el sistema con el formato RC-<año>-<número de cuatro dígitos>.;validada
 internal_disciplinary_control;disciplinary_processes;observaciones;Observaciones sobre el proceso disciplinario.;validada
 internal_disciplinary_control;disciplinary_processes;proceso_asociado_fecha;Fecha y hora en que se registró la asociación con el otro proceso.;validada
 internal_disciplinary_control;disciplinary_processes;proceso_asociado_id;"Identificador del otro proceso disciplinario (disciplinary_processes.id) al que se asoció este proceso como conexo, similar o consolidado; en la consolidación ambos procesos quedan apuntando uno al otro.";validada
-internal_disciplinary_control;disciplinary_processes;proceso_asociado_justificacion;"Justificación de la asociación del proceso con otro proceso, digitada por el usuario que registra la asociación; el servicio no valida que sea obligatoria.";validada
+internal_disciplinary_control;disciplinary_processes;proceso_asociado_justificacion;Justificación de la asociación del proceso con otro proceso, digitada por el usuario que registra la asociación.;validada
 internal_disciplinary_control;disciplinary_processes;proceso_asociado_numero;Radicado del proceso asociado: copia de radicadoProceso del proceso referenciado por proceso_asociado_id.;validada
 internal_disciplinary_control;disciplinary_processes;proceso_asociado_tipo;Tipo de vínculo con el proceso asociado: conexo, similar o consolidado.;validada
 internal_disciplinary_control;disciplinary_processes;proceso_consolidado_principal;Identificador del proceso principal de la consolidación (disciplinary_processes.id): el proceso más antiguo por fecha de creación.;validada
@@ -3822,7 +3822,7 @@ internal_disciplinary_control;evidence;nombreDocumento;"Nombre del documento car
 internal_disciplinary_control;evidence;participantes;Número de participantes registrados en la evidencia, recibido del formulario.;validada
 internal_disciplinary_control;evidence;processId;Referencia al registro de internal_disciplinary_control.disciplinary_processes (id).;validada
 internal_disciplinary_control;evidence;tipo;Tipo de evidencia: copia de tipoDocumento (EVIDENCIA, PRUEBA DOCUMENTAL, AUTO, OFICIO, NOTIFICACION, ACTA, DECLARACION u otro texto). Valor por defecto: DOCUMENTO.;validada
-internal_disciplinary_control;evidence;tipoDocumento;"Tipo de documento de la evidencia, en texto: el servicio reconoce EVIDENCIA, PRUEBA DOCUMENTAL, AUTO, OFICIO, NOTIFICACION, ACTA y DECLARACION para validar el formato del archivo; si no llega, DOCUMENTO.";validada
+internal_disciplinary_control;evidence;tipoDocumento;"Tipo de documento de la evidencia, en texto: EVIDENCIA, PRUEBA DOCUMENTAL, AUTO, OFICIO, NOTIFICACION, ACTA o DECLARACION, que determinan el formato de archivo admitido; si no se informa, DOCUMENTO.";validada
 internal_disciplinary_control;evidence;url;"Dirección web (URL) del archivo de la evidencia; admite URL externas largas.";validada
 internal_disciplinary_control;evidence;usuarioCarga;"Usuario que cargó la evidencia, en texto recibido del formulario; «Sistema» si no llega.";validada
 internal_disciplinary_control;expediente_compartido;contador_accesos;Número de veces que se ha accedido al enlace compartido. Valor por defecto: 0.;validada
@@ -3971,7 +3971,7 @@ legal_management;actuaciones;metadata;Datos adicionales de la actuación, en for
 legal_management;actuaciones;origen;Origen de la actuación en el historial unificado. Valores: MANUAL, AUDIENCIA, AUTO, ACTA, EVIDENCIA, OFICIO. Por defecto, MANUAL.;validada
 legal_management;actuaciones;referencia_id;Identificador del registro original que generó la actuación (auto, audiencia, etc.).;validada
 legal_management;actuaciones;responsable_id;"Identificador del usuario (auth.""user"") asignado como responsable de la actuación; se usa para notificarle la nueva actividad pendiente.";validada
-legal_management;actuaciones;tipo_actuacion;Tipo de actuación, en texto abierto sin catálogo cerrado. Por defecto, ACTUACION. El código registra, entre otros, AUTO_ADMISORIO, FALLO, NOTA_INTERNA, OFICIO, CAMBIO_ETAPA, PRUEBAS, EVIDENCIA, OTROS y el título de eventos automáticos.;validada
+legal_management;actuaciones;tipo_actuacion;Tipo de actuación, en texto abierto sin catálogo cerrado. Por defecto, ACTUACION. Incluye, entre otros, AUTO_ADMISORIO, FALLO, NOTA_INTERNA, OFICIO, CAMBIO_ETAPA, PRUEBAS, EVIDENCIA, OTROS y el título de eventos automáticos.;validada
 legal_management;actuaciones;usuario_responsable;"Nombre para mostrar del usuario responsable de la actuación. Valor por defecto: Sistema. El identificador del usuario (auth.""user"") que se notifica va en responsable_id.";validada
 legal_management;adjuntos_correo;content_type;Tipo de contenido (MIME) del adjunto.;validada
 legal_management;adjuntos_correo;correo_id;Referencia al registro de legal_management.correos_juridicos (id).;validada
@@ -4055,7 +4055,7 @@ legal_management;comentarios_correo;fecha;Fecha y hora del comentario. Valor por
 legal_management;comentarios_correo;id;Identificador único del registro en la tabla comentarios_correo. Se genera automáticamente.;validada
 legal_management;comentarios_correo;mensaje;Texto del comentario sobre la comunicación.;validada
 legal_management;comentarios_correo;usuario;"Usuario autor del comentario, enviado por el cliente; Sistema cuando no se informa.";validada
-legal_management;comentarios_oc;autor_id;"Identificador del usuario autor del comentario. Tenía FK a la tabla abogados, eliminada al pasar a la autenticación federada; la API actual de comentarios no la llena.";validada
+legal_management;comentarios_oc;autor_id;Identificador del usuario autor del comentario.;validada
 legal_management;comentarios_oc;autor_nombre;Nombre del autor del comentario.;validada
 legal_management;comentarios_oc;contenido;Texto del comentario sobre el requerimiento.;validada
 legal_management;comentarios_oc;created_at;Fecha y hora de creación del registro.;validada
@@ -4100,7 +4100,7 @@ legal_management;consultas_juridicas;abogado_asignado_id;"Identificador (UUID) d
 legal_management;consultas_juridicas;abogado_asignado_nombre;Nombre del abogado asignado a la consulta.;validada
 legal_management;consultas_juridicas;antecedentes;Antecedentes de la consulta jurídica.;validada
 legal_management;consultas_juridicas;area_solicitante;Área que solicita la consulta.;validada
-legal_management;consultas_juridicas;areas_con_acceso;Áreas con acceso a la consulta cuando es confidencial. Columna de la versión inicial sin uso en la entidad actual.;validada
+legal_management;consultas_juridicas;areas_con_acceso;Áreas con acceso a la consulta cuando es confidencial.;validada
 legal_management;consultas_juridicas;asunto;Asunto de la consulta jurídica.;validada
 legal_management;consultas_juridicas;canal_entrada;Canal por el que ingresó la consulta. Valores: correo_electronico, active_document, ventanilla_unica.;validada
 legal_management;consultas_juridicas;cargo_solicitante;Cargo del funcionario solicitante.;validada
@@ -4112,7 +4112,7 @@ legal_management;consultas_juridicas;created_by;Usuario que creó el registro.;v
 legal_management;consultas_juridicas;dependencia_solicitante;"Dependencia que solicita la consulta. Es la columna que usa la aplicación; area_solicitante viene de la versión inicial de la tabla y no está mapeada en la entidad.";validada
 legal_management;consultas_juridicas;descripcion;Descripción de la consulta jurídica.;validada
 legal_management;consultas_juridicas;dias_termino;"Días de término para responder la consulta. Valor por defecto: 30. Columna de la versión inicial; la aplicación usa termino_legal_dias.";validada
-legal_management;consultas_juridicas;dias_transcurridos;Días transcurridos desde la radicación de la consulta. Valor por defecto: 0. Columna de la versión inicial sin uso en la entidad actual.;validada
+legal_management;consultas_juridicas;dias_transcurridos;Días transcurridos desde la radicación de la consulta. Valor por defecto: 0.;validada
 legal_management;consultas_juridicas;documento_respuesta_url;URL del documento de respuesta a la consulta.;validada
 legal_management;consultas_juridicas;documentos_soporte_urls;URL de los documentos soporte de la consulta.;validada
 legal_management;consultas_juridicas;email_solicitante;Correo electrónico del solicitante.;validada
@@ -4132,7 +4132,7 @@ legal_management;consultas_juridicas;materia_juridica;Materia jurídica de la co
 legal_management;consultas_juridicas;motivo_archivo;Motivo del archivo.;validada
 legal_management;consultas_juridicas;motivo_suspension;Motivo de la suspensión.;validada
 legal_management;consultas_juridicas;nombre_solicitante;"Nombre del solicitante de la consulta. Es la columna que usa la aplicación (también como autor del evento de creación); funcionario_solicitante viene de la versión inicial de la tabla y no está mapeada en la entidad.";validada
-legal_management;consultas_juridicas;numero_oficio_respuesta;"Número del oficio con que se respondió la consulta, digitado al registrar la respuesta; el código no lo toma de otro sistema.";validada
+legal_management;consultas_juridicas;numero_oficio_respuesta;Número del oficio con que se respondió la consulta, digitado al registrar la respuesta.;validada
 legal_management;consultas_juridicas;numero_radicado;Número de radicado de la consulta jurídica. Es único en la tabla.;validada
 legal_management;consultas_juridicas;observaciones;Observaciones sobre la consulta jurídica.;validada
 legal_management;consultas_juridicas;origen_comunicacion_id;Identificador de la comunicación (correo jurídico) que dio origen a la consulta cuando se crea desde el Centro de Comunicaciones (Clasificación IA).;validada
@@ -4141,7 +4141,7 @@ legal_management;consultas_juridicas;prioridad;"Prioridad de la consulta: alta, 
 legal_management;consultas_juridicas;respuesta;Texto de la respuesta a la consulta.;validada
 legal_management;consultas_juridicas;suspendida;Indica si la consulta jurídica está suspendida.;validada
 legal_management;consultas_juridicas;telefono_solicitante;Teléfono del solicitante.;validada
-legal_management;consultas_juridicas;tema_principal;Tema principal de la consulta, columna de la versión inicial del módulo sin uso en la entidad actual.;validada
+legal_management;consultas_juridicas;tema_principal;Tema principal de la consulta.;validada
 legal_management;consultas_juridicas;tipo_respuesta;Tipo de respuesta. Valores: favorable, con_observaciones, desfavorable, informativa.;validada
 legal_management;consultas_juridicas;tipo_solicitud;Tipo de solicitud. Valores: consulta, concepto_juridico, control_legalidad.;validada
 legal_management;consultas_juridicas;tipo_usuario;Tipo de usuario solicitante. Valores: interno, externo. Por defecto, interno.;validada
@@ -4150,7 +4150,7 @@ legal_management;consultas_juridicas;updated_by;Usuario que realizó la última 
 legal_management;consultas_juridicas;usuario_archivo;Usuario que archivó la consulta.;validada
 legal_management;correo_juridico_historial;correo_juridico_id;Referencia al registro de legal_management.correos_juridicos (id).;validada
 legal_management;correo_juridico_historial;descripcion;Descripción del evento en el historial del correo jurídico.;validada
-legal_management;correo_juridico_historial;detalle_json;Detalle del evento del correo, en formato JSON. El código actual no lo llena: ningún registro de evento envía este dato, por lo que queda nulo.;validada
+legal_management;correo_juridico_historial;detalle_json;Detalle del evento del correo, en formato JSON.;validada
 legal_management;correo_juridico_historial;fecha_creacion;Fecha y hora de creación del registro.;validada
 legal_management;correo_juridico_historial;id;Identificador único del registro en la tabla correo_juridico_historial. Se genera automáticamente.;validada
 legal_management;correo_juridico_historial;tipo_evento;Tipo de evento del historial del correo jurídico. Valores: RECIBIDO, CLASIFICADO_IA, CLASIFICACION_MANUAL, ASOCIADO_PROCESO, LEIDO, ARCHIVADO, RESPONDIDO, REENVIADO.;validada
@@ -4395,7 +4395,7 @@ legal_management;pagos_coactivos;updated_at;Fecha y hora de la última actualiza
 legal_management;pagos_coactivos;valor;Valor total del pago registrado en el proceso coactivo.;validada
 legal_management;pei_indicadores;archive_reason;Motivo por el que se archivó el indicador.;validada
 legal_management;pei_indicadores;archived_at;"Fecha y hora en que se archivó el indicador; vacío si está activo.";validada
-legal_management;pei_indicadores;archived_by;Usuario que archivó el indicador. El código guarda el valor fijo System al archivar y lo deja vacío al restaurar.;validada
+legal_management;pei_indicadores;archived_by;"Usuario que archivó el indicador; queda vacío al restaurarlo.";validada
 legal_management;pei_indicadores;created_at;Fecha y hora de creación del registro.;validada
 legal_management;pei_indicadores;descripcion;Descripción del indicador del plan estratégico institucional (PEI).;validada
 legal_management;pei_indicadores;eje_estrategico;Eje estratégico del indicador. Valores: GESTION, TALENTO, TRANSPARENCIA, TECNOLOGIA.;validada
@@ -4445,7 +4445,7 @@ legal_management;planes_hallazgos;porcentaje_avance;Porcentaje de avance del hal
 legal_management;planes_hallazgos;updated_at;Fecha y hora de la última actualización del registro.;validada
 legal_management;planes_mejoramiento;archive_reason;Motivo por el que se archivó el plan de mejoramiento.;validada
 legal_management;planes_mejoramiento;archived_at;Fecha y hora en que se archivó el plan.;validada
-legal_management;planes_mejoramiento;archived_by;Usuario que archivó el plan de mejoramiento. El backend registra el texto fijo «System» al archivar y lo deja vacío al restaurar.;validada
+legal_management;planes_mejoramiento;archived_by;"Usuario que archivó el plan de mejoramiento; queda vacío al restaurarlo.";validada
 legal_management;planes_mejoramiento;avance_porcentaje;Porcentaje de avance global del plan de mejoramiento. Se actualiza con el porcentaje reportado en cada seguimiento y, si el plan tiene hallazgos, se recalcula como el promedio redondeado del avance de sus hallazgos. Por defecto, 0.;validada
 legal_management;planes_mejoramiento;codigo;Código del plan de mejoramiento, único en la tabla.;validada
 legal_management;planes_mejoramiento;created_at;Fecha y hora de creación del registro.;validada
@@ -4493,7 +4493,7 @@ legal_management;procesos_coactivos;radicado;Número de radicado único del proc
 legal_management;procesos_coactivos;responsable;Responsable del proceso coactivo, registrado como texto. Por defecto, «Sin asignar».;validada
 legal_management;procesos_coactivos;saldo_pendiente;"Saldo pendiente de la obligación. Al crear el proceso es el valor de la obligación; al registrar un pago se recalcula con la liquidación, que suma capital, intereses moratorios y costas pendientes. Por defecto, 0.";validada
 legal_management;procesos_coactivos;tipo_interes_aplicable;Tipo de tasa de interés con que se liquidan los intereses moratorios: DIAN o USURA. Por defecto, DIAN.;validada
-legal_management;procesos_coactivos;ultima_actuacion;Fecha y hora de la última actuación del proceso. El backend la actualiza al crear o actualizar el proceso y al registrar o eliminar un pago.;validada
+legal_management;procesos_coactivos;ultima_actuacion;Fecha y hora de la última actuación del proceso. Se actualiza al crear o actualizar el proceso y al registrar o eliminar un pago.;validada
 legal_management;procesos_coactivos;updated_at;Fecha y hora de la última actualización del registro.;validada
 legal_management;procesos_coactivos;usuario_archivo;Usuario que archivó o eliminó el proceso.;validada
 legal_management;procesos_coactivos;valor_costas;Valor de las costas del proceso. Por defecto, 0.;validada
@@ -4508,7 +4508,7 @@ legal_management;procesos_coactivos_adjuntos;nombre_original;Nombre original del
 legal_management;procesos_coactivos_adjuntos;proceso_id;Referencia al registro de legal_management.procesos_coactivos (id).;validada
 legal_management;procesos_coactivos_adjuntos;tamano;Tamaño del archivo adjunto, en bytes.;validada
 legal_management;procesos_coactivos_adjuntos;tipo;Tipo de adjunto del proceso coactivo.;validada
-legal_management;requerimientos_oc;abogado_asignado_id;"Identificador del usuario del servicio de autenticación (auth.""user"") asignado como abogado del requerimiento; no referencia legal_management.abogados.";validada
+legal_management;requerimientos_oc;abogado_asignado_id;"Identificador del usuario de autenticación (auth.""user"") asignado como abogado del requerimiento; no referencia legal_management.abogados.";validada
 legal_management;requerimientos_oc;acuse_recibo_url;URL del acuse de recibo del requerimiento. El requerimiento no se puede cerrar sin acuse de recibo o sin oficio de respuesta.;validada
 legal_management;requerimientos_oc;archivo_adjunto_url;URL del archivo adjunto del requerimiento recibido.;validada
 legal_management;requerimientos_oc;area_responsable;"Área responsable de atender el requerimiento, registrada como texto; no está enlazada a un catálogo.";validada
@@ -4521,7 +4521,7 @@ legal_management;requerimientos_oc;fecha_archivo;Fecha y hora en que se archivó
 legal_management;requerimientos_oc;fecha_recepcion;Fecha y hora de recepción del requerimiento. Por defecto, la fecha y hora del registro.;validada
 legal_management;requerimientos_oc;fecha_respuesta;Fecha y hora de respuesta al requerimiento.;validada
 legal_management;requerimientos_oc;fecha_vencimiento;Fecha de vencimiento del plazo de respuesta. Si no se informa, el sistema la calcula a partir de fecha_recepcion, plazo_otorgado y unidad_tiempo (por defecto, días hábiles).;validada
-legal_management;requerimientos_oc;funcionario_responsable;Nombre del funcionario responsable de atender el requerimiento. Al reasignar, se guarda el nombre del usuario enviado por el frontend o, si falta, su identificador.;validada
+legal_management;requerimientos_oc;funcionario_responsable;Nombre del funcionario responsable de atender el requerimiento. Al reasignar, se guarda el nombre del usuario asignado o, si falta, su identificador.;validada
 legal_management;requerimientos_oc;id;Identificador único del registro en la tabla requerimientos_oc. Se genera automáticamente.;validada
 legal_management;requerimientos_oc;motivo_archivo;Motivo por el que se archivó el requerimiento.;validada
 legal_management;requerimientos_oc;observaciones;Observaciones sobre el requerimiento.;validada
@@ -4569,7 +4569,7 @@ legal_management;riesgos;probabilidad_inherente;Probabilidad inherente del riesg
 legal_management;riesgos;probabilidad_residual;Probabilidad residual del riesgo (valoración después de controles), en escala de 1 a 5. Con impacto_residual calcula zona_residual. Por defecto, 3.;validada
 legal_management;riesgos;proceso;Proceso institucional al que pertenece el riesgo, registrado como texto. Es distinto de proceso_id, que identifica el proceso de un submódulo jurídico (modulo_origen y proceso_radicado).;validada
 legal_management;riesgos;responsable;Nombre del responsable del riesgo.;validada
-legal_management;riesgos;responsable_id;"Identificador del usuario responsable del riesgo en el servicio de autenticación (auth.""user""); no tiene clave foránea.";validada
+legal_management;riesgos;responsable_id;"Identificador del usuario responsable del riesgo (auth.""user"").";validada
 legal_management;riesgos;tipo_riesgo;Tipo de riesgo. Valores permitidos: CORRUPCION, FISCAL, GESTION, SEGURIDAD_DIGITAL.;validada
 legal_management;riesgos;updated_at;Fecha y hora de la última actualización del registro.;validada
 legal_management;riesgos;zona_inherente;Zona de riesgo inherente. Valores permitidos: ALTO, BAJO, EXTREMO, MODERADO. Por defecto, MODERADO.;validada
@@ -4633,7 +4633,7 @@ legal_management;terminos_procesales;estado;"Estado del término. Valores permit
 legal_management;terminos_procesales;fecha_alerta_critica;Fecha de la alerta crítica: vencimiento menos 2 días.;validada
 legal_management;terminos_procesales;fecha_alerta_preventiva;Fecha de la alerta preventiva: vencimiento menos 5 días.;validada
 legal_management;terminos_procesales;fecha_base;Fecha de notificación o de inicio del conteo del término.;validada
-legal_management;terminos_procesales;fecha_vencimiento;Fecha de vencimiento del término, calculada por el backend al insertar.;validada
+legal_management;terminos_procesales;fecha_vencimiento;Fecha de vencimiento del término, calculada por el sistema al registrar el término.;validada
 legal_management;terminos_procesales;fundamento_normativo;Normas que sustentan el término procesal, en formato JSON: cada elemento tiene tipo, cita, actualizacionPeriodica y, opcionalmente, mesRecordatorio.;validada
 legal_management;terminos_procesales;horas_anticipacion_alerta_personalizada;"Horas de anticipación al vencimiento para la alerta de este término; si tiene valor, el programador de alertas ignora las reglas globales de terminos_reglas_alerta y usa solo este umbral.";validada
 legal_management;terminos_procesales;id;Identificador único del registro en la tabla terminos_procesales. Se genera automáticamente.;validada
@@ -4660,7 +4660,7 @@ legal_management;terminos_reglas_alerta;updated_at;Fecha y hora de la última ac
 notifications;notificacion;archivada;Indica si la notificación está archivada.;validada
 notifications;notificacion;categoria;"Módulo o área de la notificación, usada para filtrar la bandeja; por ejemplo, VIATICOS, gestion-legal, DISCIPLINARIO o PTA. tipo_notificacion identifica el evento concreto.";validada
 notifications;notificacion;color;Color con que se muestra la notificación, como código hexadecimal (por ejemplo, #DC2626).;validada
-notifications;notificacion;datos_adicionales;"Datos adicionales de la notificación, en formato JSON; las claves dependen del servicio emisor (por ejemplo, ptaId, componentes y periodo en el plan de trabajo académico).";validada
+notifications;notificacion;datos_adicionales;"Datos adicionales de la notificación, en formato JSON; las claves dependen del módulo emisor (por ejemplo, ptaId, componentes y periodo en el plan de trabajo académico).";validada
 notifications;notificacion;descripcion_corta;Resumen corto de la notificación.;validada
 notifications;notificacion;email_abierto;Indica si el destinatario abrió el correo electrónico de la notificación.;validada
 notifications;notificacion;email_click;Indica si el destinatario hizo clic en el correo electrónico de la notificación.;validada
@@ -4777,7 +4777,7 @@ requerimientos_oc;requerimientos;referencia_externa;Referencia externa del reque
 requerimientos_oc;requerimientos;tipo_requerimiento;Tipo de requerimiento del órgano de control. Valores permitidos: INFORMACION, AUDITORIA, HALLAZGO, AJUSTE.;validada
 requerimientos_oc;requerimientos;unidad_tiempo;Unidad de tiempo del plazo otorgado. Valores permitidos: DIAS_CALENDARIO, DIAS_HABILES, HORAS. Por defecto, DIAS_HABILES.;validada
 requerimientos_oc;requerimientos;updated_at;Fecha y hora de la última actualización del registro.;validada
-requerimientos_oc;requerimientos;usuario_asignado_id;"Identificador del usuario asignado al requerimiento; el código lo documenta como referencia a auth.personas, sin clave foránea en la base.";validada
+requerimientos_oc;requerimientos;usuario_asignado_id;"Identificador del usuario asignado al requerimiento; referencia a auth.personas.";validada
 requerimientos_oc;solicitudes_insumos;area_destino;Área a la que se solicitan los insumos para responder el requerimiento.;validada
 requerimientos_oc;solicitudes_insumos;comentario_respuesta;Comentario del área al responder la solicitud.;validada
 requerimientos_oc;solicitudes_insumos;created_at;Fecha y hora de creación del registro.;validada
@@ -4880,7 +4880,7 @@ travel_expenses;configuraciones_globales;actualizado_en;Fecha y hora de la últi
 travel_expenses;configuraciones_globales;clave;Clave primaria de la tabla configuraciones_globales: clave.;validada
 travel_expenses;configuraciones_globales;creado_en;Fecha y hora de creación del registro.;validada
 travel_expenses;configuraciones_globales;descripcion;Descripción de la configuración global.;validada
-travel_expenses;configuraciones_globales;valor;"Valor del parámetro identificado por la clave, guardado como texto. Hay valores de correo, hora (HH:MM), número y lista JSON (DIAS_LABORALES_SEMANA); el servicio solo lee CORREO_DESTINO_SST como texto.";validada
+travel_expenses;configuraciones_globales;valor;Valor del parámetro identificado por la clave, guardado como texto: correo, hora (HH:MM), número o lista JSON (DIAS_LABORALES_SEMANA).;validada
 travel_expenses;documentos_soporte;;Archivos de soporte adjuntos a las solicitudes de comisión, como CDP, certificación bancaria, contrato SECOP, RUT o seguridad social. Un registro por archivo, con su tipo de documento, nombre original, nombre de almacenamiento, ruta y tipo MIME. Se relaciona con travel_expenses.solicitudes_comision.;validada
 travel_expenses;documentos_soporte;creado_en;Fecha y hora de creación del registro.;validada
 travel_expenses;documentos_soporte;id;Identificador único del registro en la tabla documentos_soporte. Se genera automáticamente.;validada
@@ -4889,7 +4889,7 @@ travel_expenses;documentos_soporte;nombre_archivo_seguro;Nombre con el que se gu
 travel_expenses;documentos_soporte;solicitud_id;Referencia al registro de travel_expenses.solicitudes_comision (id).;validada
 travel_expenses;documentos_soporte;tipo_documento;Tipo de documento de soporte de la solicitud. Valores permitidos: CDP, CERT_BANCARIA, CONTRATO_SECOP, RUT, SEGURIDAD_SOCIAL.;validada
 travel_expenses;documentos_soporte;tipo_mime;Tipo MIME del archivo (por ejemplo, application/pdf).;validada
-travel_expenses;documentos_soporte;url_repositorio;Ruta relativa del archivo en el almacenamiento local del servicio (/uploads/<solicitud_id>/<nombre_archivo_seguro>), servida por el mismo servicio bajo /uploads. En el reporte de revocatoria guarda el PDF en base64.;validada
+travel_expenses;documentos_soporte;url_repositorio;Ruta relativa del archivo en el almacenamiento local del sistema (/uploads/<solicitud_id>/<nombre_archivo_seguro>), servida bajo /uploads. En el reporte de revocatoria guarda el PDF en base64.;validada
 travel_expenses;escalas_viaticos;;Escalas de viáticos por rango salarial fijadas por decreto. Un registro por rango de asignación básica y año de vigencia, con la tarifa diaria base que se aplica en la liquidación de las comisiones.;validada
 travel_expenses;escalas_viaticos;activo;Indica si la escala de viáticos está activa.;validada
 travel_expenses;escalas_viaticos;ano_vigencia;Año de vigencia de la escala de viáticos.;validada
@@ -4934,7 +4934,7 @@ travel_expenses;legalizacion_soportes;observacion_revision;Observación del anal
 travel_expenses;legalizacion_soportes;revisado_en;Fecha y hora en que el analista revisó el soporte (EFDS-1310).;validada
 travel_expenses;legalizacion_soportes;revisado_por_id;Identificador del analista que revisó el soporte (EFDS-1310).;validada
 travel_expenses;legalizacion_soportes;revision;Resultado de la revisión del soporte por parte del analista: APROBADO o RECHAZADO (EFDS-1310). Nulo mientras el soporte no se ha revisado.;validada
-travel_expenses;legalizacion_soportes;ruta_relativa;"Ruta del archivo PDF relativa a la raíz de almacenamiento del servicio, con la forma <solicitud_id>/legalizacion/<uuid>.pdf. No se entrega al cliente; el archivo se descarga por un endpoint autenticado.";validada
+travel_expenses;legalizacion_soportes;ruta_relativa;"Ruta del archivo PDF relativa a la raíz de almacenamiento del sistema, con la forma <solicitud_id>/legalizacion/<uuid>.pdf; el archivo se descarga mediante un acceso autenticado.";validada
 travel_expenses;legalizacion_soportes;sha256;Huella SHA-256 del archivo, en hexadecimal (64 caracteres).;validada
 travel_expenses;legalizacion_soportes;tamano_bytes;Tamaño en bytes del archivo PDF de soporte de la legalización.;validada
 travel_expenses;legalizacion_soportes;tipo_documento_soporte_id;Referencia al registro de travel_expenses.tipos_documento_soporte (id).;validada
@@ -5152,5 +5152,5 @@ travel_expenses;tipos_documento_soporte;codigo;Código único del tipo de docume
 travel_expenses;tipos_documento_soporte;creado_en;Fecha y hora de creación del registro.;validada
 travel_expenses;tipos_documento_soporte;descripcion;Descripción del tipo de documento de soporte.;validada
 travel_expenses;tipos_documento_soporte;id;Identificador único del registro en la tabla tipos_documento_soporte. Se genera automáticamente.;validada
-travel_expenses;tipos_documento_soporte;instrucciones_validacion;"Instrucciones de validación del documento de soporte, dirigidas a quien revisa (por ejemplo, vigencia y coincidencia del titular). El servicio solo las guarda y las devuelve; no las aplica un proceso automático.";validada
+travel_expenses;tipos_documento_soporte;instrucciones_validacion;Instrucciones de validación del documento de soporte, dirigidas a quien revisa (por ejemplo, vigencia y coincidencia del titular).;validada
 travel_expenses;tipos_documento_soporte;nombre;Nombre del tipo de documento de soporte.;validada
