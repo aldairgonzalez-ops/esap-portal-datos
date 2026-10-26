@@ -31,7 +31,7 @@ Los comandos son para **PowerShell en Windows**, desde el clon del repositorio e
    | Portal | Última versión | Carpeta |
    |---|---|---|
    | Fase 2 | v1.6 | `portal\fase2\` |
-   | Base completa | v1.1 | `portal\` |
+   | Base completa | v1.2 | `portal\` |
 
 3. **Conexión a QA (solo para extraer).** Tailscale activo y la contraseña del usuario de la base a mano. La contraseña se escribe cada vez que `psql` la pide y **no se guarda** en ningún archivo ni variable.
 
@@ -40,7 +40,7 @@ Los comandos son para **PowerShell en Windows**, desde el clon del repositorio e
 ### Estado actual (v1.6 de Fase 2)
 
 - **Fase 2:** 154 de 154 tablas y 1.905 de 1.905 columnas con descripción. 95 tablas y 170 columnas la tienen registrada en la base; las demás están validadas en `config/descripciones.csv` y pendientes de registrarse con un lote `COMMENT ON` (sección 3).
-- **Base completa:** las columnas que no son de Fase 2 siguen en `Matriz_Validacion_Descripciones_Completa.xlsx`.
+- **Base completa (v1.2):** 418 de 418 tablas y 5.700 de 5.700 columnas con descripción, con el mismo método de Fase 2 (aprobación por niveles y verificación con el código). Las decisiones están en `completa_decisiones.csv` y `completa_tablas.csv`; las preguntas que quedaron para desarrollo, en sus observaciones.
 - Las preguntas que quedaron abiertas al validar Fase 2 están en `fase2_decisiones.csv` (columna `observaciones`) y en `fase2_tablas.csv` (columna `pregunta`), como referencia para desarrollo. No bloquean la entrega.
 
 ---
@@ -165,7 +165,7 @@ Matrices vigentes, en `config\propuestas\` y en Drive `Interno\Matrices`:
 | Matriz | Contiene |
 |---|---|
 | `Matriz_Validacion_Descripciones_Fase2.xlsx` | Última revisión de Fase 2. Desde la v1.4, **todas las tablas y columnas de Fase 2 tienen descripción** (registrada o validada); la matriz solo se vuelve a generar si una extracción trae columnas nuevas |
-| `Matriz_Validacion_Descripciones_Completa.xlsx` | Las columnas pendientes del resto de la base |
+| `Matriz_Validacion_Descripciones_Completa.xlsx` | Última revisión de la base completa. Desde la v1.2 no quedan columnas pendientes; se vuelve a generar si una extracción trae columnas nuevas |
 
 Si no hay columnas pendientes, `matriz` lo informa y conserva la matriz anterior.
 
@@ -205,6 +205,7 @@ Las de Fase 2 están en `config\propuestas\fase2_tablas.csv` (Excel, separador `
 2. Incorpore:
    ```powershell
    python herramientas/matriz_descripciones.py incorporar --tablas config/propuestas/fase2_tablas.csv
+   python herramientas/matriz_descripciones.py incorporar --tablas config/propuestas/completa_tablas.csv
    ```
 3. Genere una versión nueva del portal.
 
@@ -280,7 +281,7 @@ Solo con **autorización explícita** para escribir en QA. El lote toca únicame
 | `config/dominios.csv` | Nombre, orden y descripción de cada dominio |
 | `config/alcances/fase2.json` | Esquemas y tablas de la Fase 2 |
 | `config/propuestas/Matriz_Validacion_Descripciones_*.xlsx` | Matrices de validación de columnas |
-| `config/propuestas/fase2_tablas.csv` | Propuestas y decisiones de las descripciones de tabla de Fase 2 |
-| `config/propuestas/fase2_decisiones.csv` | Registro de las decisiones sobre columnas (quién, cuándo, criterio y, si la hubo, la pregunta que quedó registrada para desarrollo) |
+| `config/propuestas/fase2_tablas.csv`, `completa_tablas.csv` | Propuestas y decisiones de las descripciones de tabla (Fase 2 y resto de la base) |
+| `config/propuestas/fase2_decisiones.csv`, `completa_decisiones.csv` | Registro de las decisiones sobre columnas (quién, cuándo, criterio y, si la hubo, la pregunta que quedó registrada para desarrollo) |
 | `sql/metadatos/` | Lotes `COMMENT ON` y su reversa |
 | `CLAUDE.md` | Reglas de trabajo y contexto completo del proyecto |

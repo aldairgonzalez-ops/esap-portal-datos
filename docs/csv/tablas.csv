@@ -2,84 +2,84 @@
 academic-schedule;asignacion_docente;Tabla;Docente asignado a un grupo. La llave es auth.personas.id_person (identidad estable), no Docente.id, que cambia por periodo de carga.;base;0;11;id_asignacion;2;0;0;0;4;1;no;40960
 academic-schedule;aula;Tabla;"Catálogo de aulas. Desde el Lote 1 son las 28 reales de Sede Central (provisional=FALSE); capacidad pendiente del CRUD de NUEVA-6.";base;28;10;codigo;0;0;0;0;1;0;no;24576
 academic-schedule;cetap_sin_catalogo;Tabla;CETAPs declarados en el detalle territorial que no tienen contraparte en el catálogo oficial. Pendientes de código. No inventar: resolver con Gestión Profesoral.;base;46;4;id;0;0;0;0;2;0;no;40960
-academic-schedule;concertacion_docencia;Tabla;;;0;14;id_concertacion;1;3;0;0;3;0;no;32768
-academic-schedule;concertacion_firma;Tabla;;;0;8;id_firma;1;0;0;0;2;0;no;16384
-academic-schedule;concertacion_historial;Tabla;;;0;8;id;1;0;0;0;1;0;no;16384
-academic-schedule;concertacion_revision;Tabla;;;0;4;id_concertacion,tipo;1;0;0;0;1;0;no;8192
-academic-schedule;equivalencia_periodo;Tabla;;;5;4;codigo_programacion;1;0;0;0;1;0;no;32768
-academic-schedule;franja_horaria;Tabla;;;5;19;id_franja;4;0;0;0;6;1;no;114688
+academic-schedule;concertacion_docencia;Tabla;"Concertaciones de la docencia del periodo (EFDS-2315). Un registro por docente, periodo y nivel (pregrado o posgrado), con la foto de las franjas enviadas, el total de horas y la huella que se firma; se relaciona con auth.personas (docente) y con sus firmas, revisiones e historial. Ciclo: enviada, revisada, aprobada o devuelta; la concertación aprobada se entrega al PTA (Plan de Trabajo Académico), que devuelve su estado de aplicación.";validada;0;14;id_concertacion;1;3;0;0;3;0;no;32768
+academic-schedule;concertacion_firma;Tabla;"Firmas de las concertaciones de docencia. Un registro por firma de un usuario sobre una concertación, con el rol con que firma (docente, revisor o aprobador), el modo de verificación OTP, la fecha y la huella firmada; se relaciona con concertacion_docencia.";validada;0;8;id_firma;1;0;0;0;2;0;no;16384
+academic-schedule;concertacion_historial;Tabla;"Historial de acciones sobre las concertaciones de docencia. Un registro por acción (enviar, revisar, devolver o aprobar), con el estado anterior y el nuevo, el usuario que la realizó, el comentario y la fecha; se relaciona con concertacion_docencia.";validada;0;8;id;1;0;0;0;1;0;no;16384
+academic-schedule;concertacion_revision;Tabla;"Revisiones de las concertaciones de docencia. Un registro por concertación y tipo de revisión, con el usuario que revisó y la fecha; se relaciona con concertacion_docencia.";validada;0;4;id_concertacion,tipo;1;0;0;0;1;0;no;8192
+academic-schedule;equivalencia_periodo;Tabla;"Equivalencias entre los códigos de periodo de programación y los códigos de periodo académico de la plataforma (academic_work_plan.periodo_academico). Un registro por código de programación, con el periodo académico equivalente, el tipo de oferta que se asigna a sus grupos y la justificación; se relaciona con periodo_programacion.";validada;5;4;codigo_programacion;1;0;0;0;1;0;no;32768
+academic-schedule;franja_horaria;Tabla;"Franjas horarias de la programación académica. Un registro por franja de un grupo, con el periodo, el día, las horas de inicio y fin, la jornada, el aula, el tipo de sesión y el docente asignado; se relaciona con grupo, periodo_programacion, academic_work_plan.programa y academic_work_plan.asignatura. Ciclo: programado, tomada, aprobada, devuelta o publicada.";validada;5;19;id_franja;4;0;0;0;6;1;no;114688
 academic-schedule;grupo;Tabla;Instancia independiente de programación de una asignatura (RN-11). El horario y las fechas cuelgan del GRUPO, no de la asignatura.;base;2;16;id_grupo;4;2;0;0;8;0;no;147456
 academic-schedule;jefatura_territorial;Tabla;Qué territorial(es) gobierna cada usuario con el rol JEFATURA_TERRITORIAL. Referencia la territorial por id: un nombre puede divergir, un id no.;base;0;3;id_user,id_direccion_territorial;2;0;0;0;2;0;no;16384
-academic-schedule;periodo_programacion;Tabla;;;5;9;id_periodo;0;3;0;0;2;0;no;40960
+academic-schedule;periodo_programacion;Tabla;"Periodos de programación académica. Un registro por periodo, con su código, nombre, fechas de inicio y fin y tipo de oferta (periodo regular, interperiodo o créditos virtual); lo referencian los grupos, las franjas horarias y las equivalencias de periodo. Ciclo: planeación, activo o cerrado.";validada;5;9;id_periodo;0;3;0;0;2;0;no;40960
 academic-schedule;programacion_historica;Tabla;Programación 2026-1 y 2026-V1 tal como llegó. Sin FK: cod_asigna es PROGRAMA_PENSUM, no código de materia. No pasa por el guard de publicación.;base;575;31;id;0;0;0;0;4;0;no;557056
-academic-schedule;programacion_periodo;Tabla;;;0;6;id_periodo_academico;1;0;0;0;1;0;no;8192
+academic-schedule;programacion_periodo;Tabla;Estado de la programación de cada periodo académico de la plataforma. Un registro por periodo académico (relación uno a uno con academic_work_plan.periodo_academico), con el estado abierta o cerrada, la fecha de cierre y el usuario que la cerró.;validada;0;6;id_periodo_academico;1;0;0;0;1;0;no;8192
 academic_registration;certificate_template_config;Tabla;Certificate template configuration;base;1;19;id;1;1;0;0;3;1;no;147456
 academic_registration;certificate_validations;Tabla;Public certificate validation history;base;153;8;id;1;0;0;0;3;0;no;122880
-academic_registration;graduate_files;Tabla;;;41;8;id;1;0;0;0;2;0;no;81920
+academic_registration;graduate_files;Tabla;"Archivos asociados a los graduados del registro académico. Un registro por archivo cargado para un graduado (academic_registration.graduates), con su nombre original, nombre de almacenamiento, tipo MIME, tamaño, quién lo cargó y la fecha de carga; incluye archivos copiados desde la revisión de la solicitud de certificado de grado.";validada;41;8;id;1;0;0;0;2;0;no;81920
 academic_registration;graduate_program_catalog;Tabla;Catálogo central de programas usado por la gestión y revisión de graduados.;base;1;5;id;0;0;0;0;2;0;no;49152
 academic_registration;graduates;Tabla;Graduates from the supported academic program types;base;10429;31;id;0;2;0;0;9;2;no;7364608
 academic_registration;graduation_certificate_requests;Tabla;Graduation certificate requests across workflow states;base;392;59;id;0;2;0;0;11;1;no;729088
 academic_registration;graduation_certificates;Tabla;Issued graduation certificates with valid QR codes;base;161;27;id;2;1;0;0;8;1;no;720896
-academic_registration;graduation_request_review_files;Tabla;;;30;8;id;1;0;0;0;2;0;no;49152
+academic_registration;graduation_request_review_files;Tabla;Archivos cargados durante la revisión de las solicitudes de certificado de grado. Un registro por archivo adjunto a una solicitud (academic_registration.graduation_certificate_requests), con su nombre original, nombre de almacenamiento, tipo MIME, tamaño, quién lo cargó y la fecha de carga.;validada;30;8;id;1;0;0;0;2;0;no;49152
 academic_registration;signers;Tabla;Authorized certificate signers;base;1;9;id;0;1;0;0;3;1;no;65536
 academic_registration;template_config_changes;Tabla;Certificate template change history;base;6;9;id;1;0;0;0;3;0;no;147456
-academic_work_plan;AprobacionJefatura;Tabla;;;8;13;id;1;0;0;0;6;0;no;131072
-academic_work_plan;AuditLog;Tabla;;;2;12;id;0;0;0;0;4;0;no;81920
+academic_work_plan;AprobacionJefatura;Tabla;"Aprobaciones de las jefaturas territoriales sobre los planes de trabajo académico (PTA). Un registro por aprobación requerida de una jefatura territorial cuando el docente tiene asignaturas en varias territoriales, relacionado con academic_work_plan.PlanTrabajoAcademico; registra la decisión (pendiente, aprobado, aprobado con cambios o devuelto), el usuario y rol de la jefatura y sus comentarios.";validada;8;13;id;1;0;0;0;6;0;no;131072
+academic_work_plan;AuditLog;Tabla;Registro de auditoría de las acciones de los usuarios en el plan de trabajo académico. Un registro por acción, con la fecha y hora, el usuario que la realizó, el módulo, la entidad afectada, el detalle, el resultado y la dirección IP de origen.;validada;2;12;id;0;0;1;0;4;0;no;81920
 academic_work_plan;BancoDocentesInvitaciones;Tabla;Invitaciones de autogestión RUND (Canal 3): link público + OTP por correo. Estados: Enviada, Abierta, OTP validado, En proceso, Gestionada, Vencida.;base;3;13;id;0;0;0;0;5;0;no;90112
-academic_work_plan;CarpetaDigital;Tabla;;;278;8;id;1;0;0;0;2;0;no;147456
-academic_work_plan;Certificado;Tabla;;;0;8;id;0;0;0;0;4;0;no;40960
-academic_work_plan;Concertacion;Tabla;;;0;6;id;1;0;0;0;2;0;no;24576
-academic_work_plan;ConfiguracionSistema;Tabla;;;3;4;clave;0;0;0;0;1;0;no;548864
-academic_work_plan;DetallesPta;Tabla;;;0;13;id;1;0;0;0;1;0;no;16384
-academic_work_plan;Docente;Tabla;;;814;51;id;1;3;0;0;8;0;no;819200
-academic_work_plan;Documento;Tabla;;;2;15;id;1;1;0;0;1;0;no;32768
-academic_work_plan;DocumentoVersion;Tabla;;;0;9;id;1;0;0;0;1;0;no;16384
-academic_work_plan;HistorialEstadoPTA;Tabla;;;51;13;id;1;0;0;0;2;0;no;434176
-academic_work_plan;PTAUserData;Tabla;;;55;8;id;0;0;0;0;2;0;no;49152
-academic_work_plan;Permiso;Tabla;;;58;5;id;0;1;0;0;2;0;no;49152
-academic_work_plan;Persona;Tabla;;;283;27;id;1;3;0;0;3;0;no;196608
-academic_work_plan;PersonaPrograma;Tabla;;;267;7;id;1;0;0;0;2;0;no;147456
-academic_work_plan;PlanTrabajoAcademico;Tabla;;;8;21;id;1;10;0;0;3;0;no;376832
-academic_work_plan;PtaComponentApproval;Tabla;;;99;14;id;1;0;0;0;3;0;no;172032
-academic_work_plan;PtaComponentReview;Tabla;;;23;15;id;1;0;0;0;3;0;no;98304
-academic_work_plan;PtaEvento;Tabla;;;83;15;id;1;0;0;0;5;0;no;180224
-academic_work_plan;PtaEvidencia;Tabla;;;2;20;id;1;0;0;0;3;0;no;65536
-academic_work_plan;PtaTerritorialApproval;Tabla;;;3;16;id;1;0;0;0;4;0;no;81920
-academic_work_plan;PtaTerritorialReview;Tabla;;;3;14;id;1;0;0;0;4;0;no;81920
-academic_work_plan;Rol;Tabla;;;12;7;id;0;2;0;0;2;0;no;49152
-academic_work_plan;RolPermiso;Tabla;;;55;4;id;2;0;0;0;2;0;no;49152
-academic_work_plan;RundAccesoDatosLog;Tabla;;;9141;10;id;0;0;0;0;4;2;no;5799936
-academic_work_plan;RundAccesoExterno;Tabla;;;0;13;id;0;1;0;0;4;0;no;40960
+academic_work_plan;CarpetaDigital;Tabla;Carpetas digitales de las personas del plan de trabajo académico. Un registro por carpeta de una persona (academic_work_plan.Persona), con su estado, el total de documentos, los documentos rechazados y la fecha de la última actualización.;validada;278;8;id;1;0;0;0;2;0;no;147456
+academic_work_plan;Certificado;Tabla;Certificados emitidos a personas en el plan de trabajo académico. Un registro por certificado, con la persona a la que se emite, el tipo, el estado, el código QR de verificación y la fecha de emisión.;validada;0;8;id;0;0;0;0;4;0;no;40960
+academic_work_plan;Concertacion;Tabla;Mensajes de concertación de los planes de trabajo académico. Un registro por mensaje intercambiado sobre un plan (academic_work_plan.PlanTrabajoAcademico), con el autor, su rol, el texto y la fecha de creación.;validada;0;6;id;1;0;0;0;2;0;no;24576
+academic_work_plan;ConfiguracionSistema;Tabla;Parámetros de configuración del plan de trabajo académico. Un registro por parámetro, identificado por su clave, con su valor en formato JSON, la descripción y la fecha de la última actualización.;validada;3;4;clave;0;0;0;0;1;0;no;548864
+academic_work_plan;DetallesPta;Tabla;Detalle de las asignaturas de los planes de trabajo académico. Un registro por asignatura y grupo asignados en un plan (academic_work_plan.PlanTrabajoAcademico), con las horas, la modalidad, el número de estudiantes, la territorial y el CETAP donde se dicta, las fechas de inicio y fin y observaciones.;validada;0;13;id;1;0;0;0;1;0;no;16384
+academic_work_plan;Docente;Tabla;"Registro de docentes del RUND. Un registro por docente y periodo de carga, con su vinculación, dedicación, sede, territorial, formación, situación administrativa, bolsa de horas del PTA y estado de aprobación (PENDIENTE_APROBACION, ACTIVO_RUND o DEVUELTO); se relaciona con auth.personas. Se diligencia por carga masiva, registro individual o autogestión del docente.";validada;814;51;id;1;3;0;0;8;0;no;819200
+academic_work_plan;Documento;Tabla;"Documentos asociados a una persona del plan de trabajo académico. Un registro por documento, con su nombre, tipo, categoría, URL, tamaño, versión vigente, estado y el usuario que lo aprobó; se relaciona con academic_work_plan.Persona.";validada;2;15;id;1;1;0;0;1;0;no;32768
+academic_work_plan;DocumentoVersion;Tabla;Historial de versiones de los documentos del plan de trabajo académico. Un registro por versión de un documento (academic_work_plan.Documento), con el número de versión, la URL y el nombre del archivo, el tamaño, el usuario que la creó y comentarios.;validada;0;9;id;1;0;0;0;1;0;no;16384
+academic_work_plan;HistorialEstadoPTA;Tabla;Historial de cambios de estado de los planes de trabajo académico (PTA). Un registro por transición de un plan (academic_work_plan.PlanTrabajoAcademico), con el estado anterior y el nuevo, quién la realizó y su rol, el tipo de acción, los comentarios, la versión del plan y una copia del plan en el momento de la transición.;validada;51;13;id;1;0;0;0;2;0;no;434176
+academic_work_plan;PTAUserData;Tabla;Preferencias de los usuarios en el plan de trabajo académico. Un registro por usuario, con sus etiquetas, notas, planes fijados y orden de prioridad, guardados en formato JSON.;validada;55;8;id;0;0;0;0;2;0;no;49152
+academic_work_plan;Permiso;Tabla;"Catálogo de permisos del plan de trabajo académico. Un registro por combinación de recurso y acción permitida, con su descripción; los permisos se asignan a los roles mediante academic_work_plan.RolPermiso.";validada;58;5;id;0;1;0;0;2;0;no;49152
+academic_work_plan;Persona;Tabla;"Datos personales y de vinculación de las personas del plan de trabajo académico. Un registro por persona, asociado a su usuario (academic_work_plan.Usuario), con identificación, nombres y apellidos, datos de contacto, tipo de usuario, dependencia, cargo y datos de contrato; se relaciona con su carpeta digital, sus documentos y sus programas.";validada;283;27;id;1;3;0;0;3;0;no;196608
+academic_work_plan;PersonaPrograma;Tabla;Vinculación de las personas con los programas académicos en el plan de trabajo académico. Un registro por persona (academic_work_plan.Persona) y programa, con el rol en el programa, el semestre actual y el estado de la vinculación.;validada;267;7;id;1;0;0;0;2;0;no;147456
+academic_work_plan;PlanTrabajoAcademico;Tabla;Planes de trabajo académico (PTA) de los docentes. Un registro por plan de un docente (academic_work_plan.Docente) en un periodo, con su estado, dedicación, tipo de vinculación, horas totales y asignables, contenido estructurado del formulario, versión, nivel y motivo de devolución y datos del cierre por periodo. Se relaciona con sus aprobaciones, revisiones, eventos, evidencias, detalles e historial de estados.;validada;8;21;id;1;10;0;0;3;0;no;376832
+academic_work_plan;PtaComponentApproval;Tabla;Aprobaciones por componente de los planes de trabajo académico (PTA). Un registro por componente de un plan (academic_work_plan.PlanTrabajoAcademico) y ámbito de aprobación, con su estado (pendiente, aprobado o devuelto), el usuario aprobador, su rol, comentarios, fecha de aprobación y la respuesta del docente al reenviar un componente devuelto.;validada;99;14;id;1;0;0;0;3;0;no;172032
+academic_work_plan;PtaComponentReview;Tabla;Revisiones por componente de los planes de trabajo académico (PTA), etapa de preaprobación previa a la aprobación definitiva registrada en academic_work_plan.PtaComponentApproval. Un registro por componente y subsección revisados de un plan (academic_work_plan.PlanTrabajoAcademico), con su estado (pendiente, revisado o devuelto), el revisor, su rol, comentarios, la respuesta del docente y la fecha de revisión.;validada;23;15;id;1;0;0;0;3;0;no;98304
+academic_work_plan;PtaEvento;Tabla;Eventos de los planes de trabajo académico (PTA) para notificaciones y trazabilidad entre el portal y el backoffice. Un registro por evento de un plan (academic_work_plan.PlanTrabajoAcademico): cambio de estado, notificación, respuesta del docente, escalamiento, edición administrativa o guardado, con el actor, su rol, el sistema de origen, el mensaje y si fue leído en cada sistema.;validada;83;15;id;1;0;0;0;5;0;no;180224
+academic_work_plan;PtaEvidencia;Tabla;Evidencias de avance de los planes de trabajo académico (PTA). Un registro por archivo de evidencia cargado para un plan (academic_work_plan.PlanTrabajoAcademico), con el componente y la sección a la que corresponde, las horas que justifica, la ubicación del archivo, quién lo cargó y la revisión (pendiente, aprobado o rechazado) con su revisor, fecha y comentario.;validada;2;20;id;1;0;0;0;3;0;no;65536
+academic_work_plan;PtaTerritorialApproval;Tabla;Aprobaciones territoriales de los planes de trabajo académico (PTA). Un registro por territorial, nivel de formación (pregrado o posgrado) y componente territorial de un plan (academic_work_plan.PlanTrabajoAcademico), con su estado (pendiente, aprobado o devuelto), el usuario que registra la decisión, su rol, comentarios, la fecha de decisión y, cuando aplica, la concertación de Programación Académica que la originó.;validada;3;16;id;1;0;0;0;4;0;no;81920
+academic_work_plan;PtaTerritorialReview;Tabla;Revisiones territoriales de los planes de trabajo académico (PTA). Un registro por territorial, nivel de formación (pregrado o posgrado) y componente territorial revisado de un plan (academic_work_plan.PlanTrabajoAcademico), con su estado (pendiente, revisado o devuelto), el revisor, su rol, comentarios y la fecha de revisión.;validada;3;14;id;1;0;0;0;4;0;no;81920
+academic_work_plan;Rol;Tabla;"Catálogo de roles del plan de trabajo académico. Un registro por rol, con su nombre, descripción, estado y si es un rol del sistema; se relaciona con los permisos (academic_work_plan.RolPermiso) y los usuarios (academic_work_plan.UsuarioRol).";validada;12;7;id;0;2;0;0;2;0;no;49152
+academic_work_plan;RolPermiso;Tabla;Asignación de permisos a roles del plan de trabajo académico. Un registro por par de rol (academic_work_plan.Rol) y permiso (academic_work_plan.Permiso).;validada;55;4;id;2;0;0;0;2;0;no;49152
+academic_work_plan;RundAccesoDatosLog;Tabla;Bitácora de accesos a los datos de docentes del RUND. Un registro por consulta, con el usuario y sus roles, el servicio consultado, el recurso, los docentes y campos consultados, el resultado del control de acceso (completo, enmascarado o denegado) y la IP de origen.;validada;9141;10;id;0;0;0;0;4;2;no;5799936
+academic_work_plan;RundAccesoExterno;Tabla;"Accesos temporales de entidades externas al Macro Docente (REQ-RUND-F022). Un registro por acceso otorgado, con la entidad, su contacto, el token, el docente que puede consultar, el motivo, la vigencia y quién lo otorgó o revocó; el acceso lo otorga GGP o la Dirección y las consultas hechas con él se registran en RundMacroDocenteConsultaLog.";validada;0;13;id;0;1;0;0;4;0;no;40960
 academic_work_plan;RundAprobacionLog;Tabla;Log de auditoría inmutable del RUND (BR-056). Sólo INSERT: registra crear/aprobar/devolver/editar/vincular soporte.;base;6760;14;id;0;0;0;0;2;1;no;3923968
-academic_work_plan;RundCampoEstado;Tabla;;;6594;13;id;0;0;0;0;2;0;no;1449984
+academic_work_plan;RundCampoEstado;Tabla;Estado de aprobación de los bloques de campos del perfil RUND (BR-044). Un registro por docente y bloque (IDENTIDAD, FORMACION, VINCULACION, CONTACTO), con quién lo cargó y revisó, la observación, la versión, el canal de origen y los soportes vinculados. Ciclo: Pendiente, En revisión, Aprobado, Devuelto o Soporte faltante.;validada;6594;13;id;0;0;0;0;2;0;no;1449984
 academic_work_plan;RundCargaMasiva;Tabla;Soporte documental inmutable de cada importación masiva de perfiles RUND.;base;0;13;id;0;0;0;0;2;1;no;24576
-academic_work_plan;RundDocumentoCategoria;Tabla;;;10;9;codigo;0;1;0;0;1;0;no;32768
+academic_work_plan;RundDocumentoCategoria;Tabla;"Catálogo de categorías de documento del RUND. Un registro por categoría, con su código, nombre, descripción, tipos MIME permitidos, tamaño máximo de archivo, orden y si está activa; lo referencian los documentos del perfil (RundDocumentoPerfil).";validada;10;9;codigo;0;1;0;0;1;0;no;32768
 academic_work_plan;RundDocumentoPerfil;Tabla;REQ-RUND-F010: documentos PDF versionados del perfil docente, almacenados en OpenKM o proveedor local de desarrollo.;base;11;22;id;2;2;0;0;5;0;no;98304
-academic_work_plan;RundExtraccionInicio;Tabla;;;0;2;id;0;0;0;0;1;0;no;8192
-academic_work_plan;RundExtraccionSugerencia;Tabla;;;0;14;id;1;0;0;0;2;0;no;24576
-academic_work_plan;RundExtraccionTrabajo;Tabla;;;0;20;id;1;1;0;0;5;0;no;49152
-academic_work_plan;RundInvitacionDocente;Tabla;;;0;16;id;0;0;0;0;4;0;no;40960
-academic_work_plan;RundMacroDocenteConsultaLog;Tabla;;;0;11;id;1;0;0;0;4;0;no;40960
-academic_work_plan;RundSoporteCampo;Tabla;;;12;13;id;0;0;0;0;3;0;no;65536
-academic_work_plan;Sede;Tabla;;;280;7;id;1;0;0;0;2;0;no;131072
-academic_work_plan;SistemaAlerta;Tabla;;;1;9;id;0;0;0;0;1;0;no;32768
-academic_work_plan;SolicitudPTA;Tabla;;;13;25;id;1;0;0;0;7;0;no;180224
-academic_work_plan;Territorial;Tabla;;;21;5;id;0;1;0;0;3;0;no;65536
-academic_work_plan;Usuario;Tabla;;;283;7;id;0;2;0;0;2;0;no;163840
-academic_work_plan;UsuarioRol;Tabla;;;278;4;id;2;0;0;0;2;0;no;163840
-academic_work_plan;asignatura;Tabla;;;503;26;id;4;2;0;0;9;0;no;434176
-academic_work_plan;cetap;Tabla;;;290;15;id;1;4;0;0;5;0;no;172032
-academic_work_plan;cetap_alias;Tabla;;;0;7;id;1;0;0;0;3;0;no;24576
-academic_work_plan;direccion_territorial;Tabla;;;18;12;id;0;2;0;0;4;0;no;73728
-academic_work_plan;docencia_concertada;Tabla;;;0;15;id_concertacion;0;0;0;0;2;0;no;24576
-academic_work_plan;facultad;Tabla;;;4;10;id;0;2;0;0;3;0;no;57344
-academic_work_plan;nucleo_tematico;Tabla;;;42;12;id;1;1;0;0;4;0;no;81920
-academic_work_plan;oferta_cetap_programa;Tabla;;;337;13;id;3;1;0;0;6;0;no;180224
-academic_work_plan;periodo_academico;Tabla;;;2;11;id;0;5;0;0;3;0;no;57344
-academic_work_plan;periodo_cetap;Tabla;;;576;6;id;2;0;0;0;2;0;no;147456
-academic_work_plan;programa;Tabla;;;20;22;id;2;4;0;0;5;0;no;98304
-academic_work_plan;ubicacion_semestral;Tabla;;;16;5;id;0;1;0;0;3;0;no;57344
-academic_work_plan;validacion_documental;Tabla;;;12000;12;id;1;0;0;0;3;0;no;3366912
+academic_work_plan;RundExtraccionInicio;Tabla;Parámetro de inicio de la extracción de datos de documentos del RUND (REQ-RUND-F014). Guarda la fecha y hora desde la que aplica la extracción.;validada;0;2;id;0;0;0;0;1;0;no;8192
+academic_work_plan;RundExtraccionSugerencia;Tabla;"Sugerencias de valores extraídos de documentos del perfil RUND (REQ-RUND-F014). Un registro por campo sugerido en un trabajo de extracción, con el valor sugerido, el valor previo, la página y el fragmento de evidencia, la confianza y la decisión del revisor; se relaciona con RundExtraccionTrabajo. Ciclo: pendiente, aprobada, corregida o descartada.";validada;0;14;id;1;0;0;0;2;0;no;24576
+academic_work_plan;RundExtraccionTrabajo;Tabla;"Trabajos de extracción de datos de los documentos del perfil RUND. Un registro por documento procesado de un docente, con el estado, los intentos, la reserva del proceso que lo toma, el perfil base, el motor de procesamiento, el error y el aviso de fin; se relaciona con RundDocumentoPerfil y sus sugerencias están en RundExtraccionSugerencia. Ciclo: pendiente, procesando, completado, error u obsoleto.";validada;0;20;id;1;1;0;0;5;0;no;49152
+academic_work_plan;RundInvitacionDocente;Tabla;Invitaciones enviadas a docentes para ingresar al RUND con verificación por código de un solo uso (OTP). Un registro por invitación, con el correo institucional y el documento del docente, el token y su vencimiento, los intentos de OTP, el bloqueo y las fechas de envío, apertura y última actividad.;validada;0;16;id;0;0;0;0;4;0;no;40960
+academic_work_plan;RundMacroDocenteConsultaLog;Tabla;"Bitácora de consultas al Macro Docente (REQ-RUND-F020/F022). Un registro por consulta, con su tipo (macro docente, consulta puntual o externa), quién la hizo y con qué roles, los filtros, el docente y periodo consultados, el número de resultados y la IP; se relaciona con RundAccesoExterno cuando la consulta se hace con un acceso externo. Solo admite inserciones.";validada;0;11;id;1;0;0;0;4;0;no;40960
+academic_work_plan;RundSoporteCampo;Tabla;Soportes de los bloques de campos del perfil RUND (BR-038, BR-039, BR-041). Un registro por soporte de un docente y bloque, con el tipo de soporte, la referencia al documento en la Carpeta Digital o en RundDocumentoPerfil, el estado (Pendiente, Aprobado o Rechazado), la observación del revisor, la fecha de vencimiento y la revisión de cada campo.;validada;12;13;id;0;0;0;0;3;0;no;65536
+academic_work_plan;Sede;Tabla;Sedes territoriales del plan de trabajo académico. Un registro por sede, con su código, nombre, municipio y la territorial a la que pertenece (academic_work_plan.Territorial).;validada;280;7;id;1;0;0;0;2;0;no;131072
+academic_work_plan;SistemaAlerta;Tabla;Alertas del sistema en el plan de trabajo académico. Un registro por alerta, con su tipo, severidad, mensaje, la entidad que la origina y si está resuelta.;validada;1;9;id;0;0;0;0;1;0;no;32768
+academic_work_plan;SolicitudPTA;Tabla;Solicitudes de los docentes sobre sus planes de trabajo académico (PTA): de creación y de edición de componentes. Un registro por solicitud de un docente (academic_work_plan.Docente), con el caso, la razón, la justificación, los documentos de soporte, los componentes solicitados, el estado y la resolución (quién la resolvió, fecha, motivo, acción y decisión por componente).;validada;13;25;id;1;0;0;0;7;0;no;180224
+academic_work_plan;Territorial;Tabla;"Catálogo de territoriales del plan de trabajo académico. Un registro por territorial, con su código y nombre; agrupa las sedes de academic_work_plan.Sede.";validada;21;5;id;0;1;0;0;3;0;no;65536
+academic_work_plan;Usuario;Tabla;"Usuarios del plan de trabajo académico. Un registro por usuario, con su correo, nombre y si está activo; se relaciona con sus datos personales (academic_work_plan.Persona) y sus roles (academic_work_plan.UsuarioRol).";validada;283;7;id;0;2;0;1;2;0;no;163840
+academic_work_plan;UsuarioRol;Tabla;Asignación de roles a usuarios del plan de trabajo académico. Un registro por par de usuario (academic_work_plan.Usuario) y rol (academic_work_plan.Rol).;validada;278;4;id;2;0;0;0;2;0;no;163840
+academic_work_plan;asignatura;Tabla;Catálogo de asignaturas de los programas académicos. Un registro por asignatura, identificada por su código (llave del SNIES, RN-01), con su nombre, modalidad, tipo, créditos, horas de clase y del PTA, excepción de la Circular 003, pensum, ubicación semestral, programa, núcleo temático y facultad. Se carga desde una plantilla de importación y lo consulta la programación académica (academic-schedule).;validada;503;26;id;4;2;0;0;9;0;no;434176
+academic_work_plan;cetap;Tabla;"Catálogo de CETAP y sedes de la ESAP. Un registro por ubicación (sede central, CETAP u otra), con su código, nombre, nombre normalizado, coordenadas geográficas y la dirección territorial a la que pertenece (academic_work_plan.direccion_territorial); se relaciona con la oferta de programas, los periodos y los alias del CETAP.";validada;290;15;id;1;4;0;0;5;0;no;172032
+academic_work_plan;cetap_alias;Tabla;Nombres alternativos de los CETAP. Un registro por alias con el que se identifica un CETAP (academic_work_plan.cetap) en las fuentes de datos, con su forma normalizada para la comparación y el origen del alias.;validada;0;7;id;1;0;0;0;3;0;no;24576
+academic_work_plan;direccion_territorial;Tabla;"Catálogo de direcciones territoriales de la ESAP. Un registro por dirección territorial, con su código, nombre, nombre normalizado, orden de visualización y si está activa; agrupa los CETAP (academic_work_plan.cetap) y las jefaturas territoriales de la programación académica.";validada;18;12;id;0;2;0;0;4;0;no;73728
+academic_work_plan;docencia_concertada;Tabla;Decisiones de concertación de la docencia recibidas de Programación Académica (EFDS-2315). Un registro por docente, periodo y nivel de formación, con las asignaturas y horas concertadas, las firmas, la huella de lo firmado y el estado de su aplicación al componente de Docencia del plan de trabajo académico (PTA).;validada;0;15;id_concertacion;0;0;0;0;2;0;no;24576
+academic_work_plan;facultad;Tabla;"Catálogo de facultades. Un registro por facultad, con su código, nombre y si está activa; se relaciona con los programas y las asignaturas.";validada;4;10;id;0;2;0;0;3;0;no;57344
+academic_work_plan;nucleo_tematico;Tabla;"Catálogo de núcleos temáticos de los programas académicos. Un registro por núcleo temático de un programa (academic_work_plan.programa), con su código, nombre, descripción y si está activo; agrupa asignaturas.";validada;42;12;id;1;1;0;0;4;0;no;81920
+academic_work_plan;oferta_cetap_programa;Tabla;"Oferta de programas académicos por CETAP y periodo. Un registro por programa (academic_work_plan.programa) ofrecido en un CETAP (academic_work_plan.cetap) en un periodo académico (academic_work_plan.periodo_academico), con los cupos estimados, observaciones y si está activa; se relaciona con los grupos de la programación académica.";validada;337;13;id;3;1;0;0;6;0;no;180224
+academic_work_plan;periodo_academico;Tabla;"Catálogo de periodos académicos. Un registro por periodo (año y semestre), con su código, fechas de inicio y fin y estado (planeación, concertación, en curso o cerrado); se relaciona con la oferta de programas, los CETAP por periodo y la programación académica.";validada;2;11;id;0;5;0;0;3;0;no;57344
+academic_work_plan;periodo_cetap;Tabla;Relación entre periodos académicos y CETAP. Un registro por CETAP (academic_work_plan.cetap) en un periodo académico (academic_work_plan.periodo_academico), con la indicación de si está activo en ese periodo.;validada;576;6;id;2;0;0;0;2;0;no;147456
+academic_work_plan;programa;Tabla;"Catálogo de programas académicos. Un registro por programa, con su código, nombre, facultad, nivel de formación, modalidad, periodo académico, factores de cálculo de horas y categoría de horas según la Circular 003; se relaciona con las asignaturas, los núcleos temáticos, la oferta por CETAP y la programación académica. Es la fuente del catálogo de programas que consulta la programación académica (RN-01/RN-02).";validada;20;22;id;2;4;0;0;5;0;no;98304
+academic_work_plan;ubicacion_semestral;Tabla;"Catálogo de ubicaciones semestrales del plan de estudios. Un registro por semestre, con su código, etiqueta, tipo de programa (pregrado o posgrado) y orden de presentación del catálogo agrupado (AC-01); se relaciona con las asignaturas.";validada;16;5;id;0;1;0;0;3;0;no;57344
+academic_work_plan;validacion_documental;Tabla;Validación documental de los campos del RUND de los docentes. Un registro por docente (academic_work_plan.Docente) y campo del RUND, con el grupo de soporte documental, el documento de la carpeta digital que lo soporta, su estado de validación (aceptado, no aplica, pendiente, rechazado o sin cargar), las fechas de carga y validación, quién lo validó y la observación.;validada;12000;12;id;1;0;0;0;3;0;no;3366912
 audit;request_logs;Tabla particionada;Registro de todas las peticiones HTTP del sistema para auditoría. Tabla particionada por mes.;base;74668;34;id,timestamp;0;0;0;0;19;0;no;0
 audit;request_logs_2026_06;Partición;;;;34;id,timestamp;0;0;0;0;19;0;no;261652480
 audit;request_logs_2026_07;Partición;;;;34;id,timestamp;0;0;0;0;19;0;no;68198400
@@ -90,29 +90,29 @@ audit;request_logs_current;Partición;;;;34;id,timestamp;0;0;0;0;19;0;no;2531328
 audit;request_logs_next_month;Partición;;;;34;id,timestamp;0;0;0;0;19;0;no;761856
 audit;request_logs_prev_month;Partición;;;;34;id,timestamp;0;0;0;0;19;0;no;188416
 audit;request_logs_stats;Vista;;;;10;;0;0;0;0;0;0;no;0
-auth;acreditaciones_programa;Tabla;;;5;6;id;1;0;0;0;2;1;no;49152
-auth;cargos;Tabla;;;17;8;id_cargo;0;2;0;0;5;0;no;98304
-auth;carpeta_digital;Tabla;;;409;7;id_carpeta_digital;1;2;0;0;4;1;no;196608
+auth;acreditaciones_programa;Tabla;"Acreditaciones de los programas académicos. Un registro por acreditación de un programa (auth.programas_academicos), con su tipo (por ejemplo, Alta Calidad o Internacional) y la fecha de vigencia; un programa puede tener más de una.";validada;5;6;id;1;0;0;0;2;1;no;49152
+auth;cargos;Tabla;"Catálogo de cargos de la institución. Un registro por cargo, con su código, nombre, descripción, nivel jerárquico y si está activo; se relaciona con las personas (auth.personas) y con las dependencias (auth.dependencias_cargos).";validada;17;8;id_cargo;0;2;0;0;5;0;no;98304
+auth;carpeta_digital;Tabla;"Carpetas digitales de las personas. Un registro por carpeta, asociada a una persona de auth.personas, con su nombre, estado y metadatos; agrupa los tipos de documento y los documentos cargados (auth.tipo_documento, auth.documento_carpeta_digital).";validada;409;7;id_carpeta_digital;1;2;0;0;4;1;no;196608
 auth;dependencias;Tabla;Catálogo transversal de dependencias ESAP. Referenciada por travel_expenses.saldos_tiquetes y otros microservicios.;base;7;18;id_dependencia;0;2;1;0;4;0;no;81920
-auth;dependencias_cargos;Tabla;;;30;6;id_dependencia_cargo;2;0;0;0;5;0;no;90112
+auth;dependencias_cargos;Tabla;Relación entre dependencias y cargos. Un registro por cada cargo asignado a una dependencia (auth.dependencias, auth.cargos), con la marca de si la asignación está activa.;validada;30;6;id_dependencia_cargo;2;0;0;0;5;0;no;90112
 auth;documento_carpeta_digital;Tabla;Documentos físicos subidos por la persona en su Carpeta Digital. Une las 3 vistas (portal docente, backoffice carpeta digital, backoffice RUND).;base;0;17;id_documento;2;0;0;0;5;1;no;49152
-auth;festivos_colombia;Tabla;;;18;7;id;0;0;0;0;3;0;no;57344
-auth;geopolitica;Tabla;;;1155;27;id_geopolitica;1;3;0;0;1;0;no;212992
-auth;migrations_db_log;Tabla;;;1221;2;filename;0;0;0;0;1;0;sí;270336
-auth;module;Tabla;;;23;11;id_module;0;1;0;0;2;0;no;49152
-auth;permission;Tabla;;;704;8;id_permission;1;1;0;0;2;0;no;344064
-auth;personas;Tabla;;;409;21;;4;17;0;0;6;2;no;335872
-auth;programas_academicos;Tabla;;;12;22;id;1;2;0;0;4;1;no;81920
-auth;registros_calificados;Tabla;;;12;7;id;1;0;0;0;2;1;no;49152
-auth;role;Tabla;;;132;16;id;0;3;0;0;3;0;no;122880
-auth;role_permissions;Tabla;;;3112;5;id_rol,id_permission;2;0;0;0;1;0;no;524288
-auth;seccionales;Tabla;;;38;19;id_seccional;1;2;0;0;1;0;no;24576
+auth;festivos_colombia;Tabla;"Catálogo de los días festivos oficiales de Colombia, de uso transversal en el sistema. Un registro por fecha festiva, con su descripción, origen y regla de cálculo; se usa para computar días hábiles, por ejemplo en las solicitudes de viáticos (RF-PRE-003).";validada;18;7;id;0;0;0;0;3;0;no;57344
+auth;geopolitica;Tabla;"Catálogo de la división geopolítica: países, departamentos y ciudades o municipios. Un registro por división, con sus códigos (DANE, DIAN, internacional), nombre, tipo, coordenadas e idioma; cada división puede apuntar a su división padre en la misma tabla y es referenciada por seccionales y sedes.";validada;1155;27;id_geopolitica;1;3;0;0;1;0;no;212992
+auth;migrations_db_log;Tabla;Registro de los archivos de migración de base de datos ejecutados. Un registro por archivo, con la fecha y hora de su ejecución.;validada;1221;2;filename;0;0;0;0;1;0;sí;270336
+auth;module;Tabla;"Catálogo de los módulos funcionales de la aplicación. Un registro por módulo, con su código, nombre, descripción, categoría (backoffice o portal), ícono, color, orden de presentación y estado activo; agrupa los permisos de auth.permission.";validada;23;11;id_module;0;1;0;0;2;0;no;49152
+auth;permission;Tabla;"Catálogo de permisos de la aplicación. Un registro por permiso, con su código, nombre, descripción y módulo al que pertenece (auth.module); los permisos se asignan a los roles en auth.role_permissions.";validada;704;8;id_permission;1;1;0;0;2;0;no;344064
+auth;personas;Tabla;"Registro maestro de las personas del sistema. Un registro por persona, con identificación, nombres y apellidos, datos de contacto, fecha de nacimiento y su ubicación organizacional (seccional, sede, dependencia y cargo); id_person es el identificador con el que la enlazan los usuarios (auth.user) y las tablas de los demás dominios.";validada;409;21;;4;17;0;0;6;2;no;335872
+auth;programas_academicos;Tabla;"Catálogo de programas académicos. Un registro por programa, con código, nombre, nivel de formación, modalidad, jornada, duración, créditos, sede, facultad, estado y cifras de estudiantes, graduados y docentes; se relaciona con sus registros calificados y acreditaciones.";validada;12;22;id;1;2;0;0;4;1;no;81920
+auth;registros_calificados;Tabla;Registros calificados de los programas académicos. Un registro por registro calificado, asociado a un programa de auth.programas_academicos, con su número, fecha de emisión y vigencia.;validada;12;7;id;1;0;0;0;2;1;no;49152
+auth;role;Tabla;"Catálogo de roles de la aplicación. Un registro por rol, con su código, nombre, descripción, categoría, tipo (sistema o personalizado), sistema al que aplica, alcance administrativo y si exige autenticación de dos factores; los roles agrupan permisos (auth.role_permissions) y se asignan a usuarios (auth.user_roles).";validada;132;16;id;0;3;0;0;3;0;no;122880
+auth;role_permissions;Tabla;Asignación de permisos a roles (relación N:M). Un registro por cada permiso (auth.permission) asignado a un rol (auth.role), con la marca de si la asignación está activa.;validada;3112;5;id_rol,id_permission;2;0;0;0;1;0;no;524288
+auth;seccionales;Tabla;"Catálogo de seccionales de la ESAP. Un registro por seccional, con su código, nombre, dirección, NIT, ubicación en la división geopolítica y los firmantes y dependencias firmantes de certificados; agrupa las sedes y se asigna a las personas.";validada;38;19;id_seccional;1;2;0;0;1;0;no;24576
 auth;sede_cetap_mapping;Tabla;Relaciona una sede histórica con el CETAP académico usado para activación por periodo.;base;290;5;id_sede;2;0;0;0;2;0;no;81920
-auth;sedes;Tabla;;;615;23;id_sede;2;3;0;1;1;0;no;229376
-auth;system_settings;Tabla;;;1;3;key;0;0;0;0;1;0;no;32768
-auth;tipo_documento;Tabla;;;4;19;id_tipo_documento;1;1;0;0;4;1;no;81920
-auth;user;Tabla;;;390;13;id_user;1;10;0;1;3;1;no;245760
-auth;user_roles;Tabla;;;408;5;id_user,id_rol;2;0;0;0;1;0;no;106496
+auth;sedes;Tabla;"Catálogo de sedes de la ESAP. Un registro por sede, con su código, nombre, seccional, ubicación geopolítica, dirección, coordenadas, contacto, capacidad de estudiantes y docentes, estado y si permite inscripciones, matrículas y visibilidad en el portal; se asigna a personas y programas académicos.";validada;615;23;id_sede;2;3;0;1;1;0;no;229376
+auth;system_settings;Tabla;"Parámetros globales del sistema en formato clave-valor. Un registro por parámetro, con su valor y fecha de actualización; se usa, por ejemplo, para el SMMLV o para habilitar el inicio de sesión con correo y contraseña.";validada;1;3;key;0;0;0;0;1;0;no;32768
+auth;tipo_documento;Tabla;Tipos de documento que se configuran para la carpeta digital. Un registro por tipo, con su nombre, categoría, si es obligatorio o requiere validación, el rol validador, los formatos y el tamaño máximo permitidos, y el criterio de asignación a las personas (todos, territorial, seccional, sede o persona).;validada;4;19;id_tipo_documento;1;1;0;0;4;1;no;81920
+auth;user;Tabla;"Cuentas de usuario para el acceso al sistema. Un registro por usuario, enlazado a una persona de auth.personas, con su nombre de usuario, contraseña cifrada, estado, identificador público, datos de inicio de sesión con Microsoft y de autenticación de dos factores; los roles del usuario se asignan en auth.user_roles.";validada;390;13;id_user;1;10;0;1;3;1;no;245760
+auth;user_roles;Tabla;Asignación de roles a usuarios (relación N:M). Un registro por cada rol (auth.role) asignado a un usuario (auth.user), con la marca de si la asignación está activa.;validada;408;5;id_user,id_rol;2;0;0;0;1;0;no;106496
 certification;certificate_correction_requests;Tabla;Employee correction requests and coordinator resolutions for labor certificates;base;9;21;id;1;0;0;0;6;0;no;237568
 certification;certificate_requests;Tabla;Labor certificate requests submitted by employees;base;15250;31;id;0;2;0;0;7;0;no;16039936
 certification;certificate_template_config;Tabla;Labor-certificate template configuration;base;3;20;id;1;1;0;0;3;0;no;131072
@@ -126,17 +126,17 @@ certification;technical_bonus_assignments;Tabla;Technical-bonus percentage assig
 certification;technical_bonus_templates;Tabla;Paragraph templates for technical-bonus sections in labor certificates;base;3;11;id;0;0;0;0;2;0;no;49152
 certification;template_config_changes;Tabla;Certificate-template configuration change history;base;206;9;id;1;0;0;0;4;0;no;491520
 certification;template_signers;Tabla;Signers available for labor-certificate templates;base;1;9;id;0;1;0;0;2;0;no;49152
-chatbot;conversacion;Tabla;;;0;10;id;0;1;0;0;3;0;no;32768
-chatbot;mensaje;Tabla;;;0;7;id;1;0;0;0;3;0;no;32768
-chatbot;prompt_template;Tabla;;;0;8;id;0;0;0;0;2;0;no;24576
-control_interno;accion_correctiva;Tabla;;;29;33;id;1;5;1;0;5;2;no;172032
+chatbot;conversacion;Tabla;"Conversaciones del asistente virtual. Un registro por conversación de un usuario, con su correo, nombre, título, contexto, metadatos y si está activa; sus mensajes están en chatbot.mensaje.";validada;0;10;id;0;1;0;0;3;0;no;32768
+chatbot;mensaje;Tabla;"Mensajes de las conversaciones del asistente virtual. Un registro por mensaje, con el autor (usuario, asistente o sistema), el texto, los tokens y los metadatos; se relaciona con chatbot.conversacion.";validada;0;7;id;1;0;0;0;3;0;no;32768
+chatbot;prompt_template;Tabla;Catálogo de plantillas de instrucciones (prompts) de sistema del asistente virtual. Un registro por plantilla, con su código, nombre, descripción, el texto de instrucciones que se envía al modelo de lenguaje y si está activa.;validada;0;8;id;0;0;0;0;2;0;no;24576
+control_interno;accion_correctiva;Tabla;"Acciones correctivas, de mejora o preventivas de los planes de mejoramiento. Un registro por acción, asociada a un plan (y opcionalmente a un hallazgo), con su responsable, fechas, indicador y meta, estado, avance, verificación de la Oficina de Control Interno y la calificación de cumplimiento y efectividad (EM-FO-002); de ella dependen las evidencias, alertas y registros de seguimiento.";validada;29;33;id;1;5;1;0;5;2;no;172032
 control_interno;accion_mejora;Tabla;Acciones de mejora dentro de un plan;base;0;14;id;1;0;0;0;3;0;no;32768
 control_interno;actividad_etapa_auditoria;Tabla;Actividades dentro de cada etapa de auditoría;base;0;12;id;1;0;0;0;2;0;no;24576
 control_interno;actividad_plan_anual_5;Tabla;Actividades por rol del plan anual;base;1604;33;id;1;2;0;0;5;0;no;4210688
 control_interno;actividad_proceso_auditoria;Tabla;Actividades del proceso de auditoría. Cada fase tiene hasta 3 actividades requeridas para avanzar.;base;0;13;id;2;0;0;0;5;1;no;49152
 control_interno;actividad_rol;Tabla;Actividades por rol configurable (RF020);base;0;8;id;1;0;0;0;2;0;no;24576
 control_interno;adjunto_actividad_plan_anual_5;Tabla;Archivos adjuntos (evidencias) para actividades del Plan Anual de Auditoría según Decreto 648/2017;base;21;13;id;1;0;0;0;3;0;no;98304
-control_interno;alerta_plan;Tabla;;;21;9;id;2;0;0;0;2;0;no;49152
+control_interno;alerta_plan;Tabla;Alertas generadas automáticamente durante el seguimiento de los planes de mejoramiento (RF-SG-08). Un registro por alerta, asociada a un plan y, si aplica, a una acción correctiva, con su tipo, descripción, fecha de generación y si fue atendida, cuándo y por quién.;validada;21;9;id;2;0;0;0;2;0;no;49152
 control_interno;ampliacion_plazo;Tabla;Solicitudes de ampliación de plazo de auditorías;base;0;15;id;1;0;0;0;4;1;no;40960
 control_interno;aprobacion;Tabla;Sistema de aprobaciones centralizado;base;10;22;id;0;1;0;0;6;0;no;114688
 control_interno;auditor_perfil;Tabla;Perfil profesional de auditores. Almacena información específica como especialidades y disponibilidad.;base;0;11;id;1;0;0;0;6;0;no;57344
@@ -146,8 +146,8 @@ control_interno;auditoria_gestion;Tabla;Gestión de auditorías con fases y segu
 control_interno;auditoria_programada;Tabla;Auditorías programadas en el plan anual;base;0;29;id;2;3;0;0;6;0;no;57344
 control_interno;auditoria_territorial_info;Tabla;Información específica de auditorías territoriales (ciudad, departamento, contacto).;base;0;12;id;1;0;0;0;6;0;no;57344
 control_interno;cache_esap;Tabla;Cache del sistema ESAP;base;0;6;id;0;0;0;0;4;0;no;40960
-control_interno;cierre_plan;Tabla;;;2;12;id;1;0;0;0;2;0;no;49152
-control_interno;condicion_disparo_notificacion;Tabla;;;12;6;id;0;0;0;0;2;0;no;49152
+control_interno;cierre_plan;Tabla;Cierre de los planes de mejoramiento (EM-PT-002 act. 8-10, RF-SG-11, RF-SG-12). Un registro por cierre de plan, con la fecha y el responsable del cierre, observaciones, verificación de efectividad y archivo del expediente mediante índice electrónico.;validada;2;12;id;1;0;0;0;2;0;no;49152
+control_interno;condicion_disparo_notificacion;Tabla;Catálogo de condiciones que disparan notificaciones en el módulo de control interno. Un registro por condición, con su nombre, descripción y estado activo.;validada;12;6;id;0;0;0;0;2;0;no;49152
 control_interno;configuracion_esap;Tabla;Configuraciones específicas del sistema ESAP;base;7;9;id;0;0;0;0;5;0;no;98304
 control_interno;configuracion_profesionales_ocig;Tabla;Configuración de profesionales asignados al equipo OCIG (Oficina de Control Interno de Gestión);base;31;14;id;0;0;0;0;6;1;no;147456
 control_interno;criterio_auditoria;Tabla;Criterios de auditoría (normas, políticas, estándares aplicables);base;27;7;id;1;0;0;0;4;0;no;81920
@@ -155,16 +155,16 @@ control_interno;cronograma_auditoria;Tabla;Cronograma de auditorías del plan an
 control_interno;cronograma_fase_auditoria;Tabla;Cronograma estimado por fase de la auditoría (duración de cada fase);base;0;9;id;1;0;0;0;4;0;no;40960
 control_interno;datos_automaticos_informe;Tabla;Datos automáticos poblados desde el sistema (US-022);base;0;9;id;1;0;0;0;3;0;no;32768
 control_interno;documento;Tabla;Gestión documental centralizada (RF013);base;77;29;id;3;5;2;0;8;1;no;204800
-control_interno;documento_aprobacion;Tabla;;;0;8;id;2;0;0;0;2;0;no;24576
-control_interno;documento_plan_mejoramiento;Tabla;;;0;20;id;2;0;0;0;3;0;no;32768
+control_interno;documento_aprobacion;Tabla;Archivos adjuntos a las solicitudes de aprobación de control interno. Un registro por archivo, asociado a una aprobación (control_interno.aprobacion) y a un documento (control_interno.documento), con nombre, ruta, tipo MIME y tamaño.;validada;0;8;id;2;0;0;0;2;0;no;24576
+control_interno;documento_plan_mejoramiento;Tabla;Documentos adjuntos a los planes de mejoramiento y a sus acciones correctivas. Un registro por documento, con nombre, tipo, datos del archivo, quién y cuándo lo cargó, y su validación por el auditor (pendiente de revisión, aceptada, con observaciones o rechazada).;validada;0;20;id;2;0;0;0;3;0;no;32768
 control_interno;entrega_informe_ley;Tabla;Entregas de informes de ley por periodo;base;0;28;id;1;3;0;0;6;0;no;57344
 control_interno;equipo_auditor;Tabla;Equipo de auditores asignados a una auditoría. Relación N-N entre auditorías y personas.;base;160;10;id;2;0;0;0;5;0;no;139264
-control_interno;especialidades_ocig;Tabla;;;13;7;id;0;0;0;0;2;0;no;49152
+control_interno;especialidades_ocig;Tabla;Catálogo de especialidades de la Oficina de Control Interno de Gestión (OCIG). Un registro por especialidad, con su nombre, descripción, orden y estado activo.;validada;13;7;id;0;0;0;0;2;0;no;49152
 control_interno;etapa_auditoria;Tabla;Etapas de ejecución de auditorías;base;0;11;id;1;1;0;0;3;0;no;32768
 control_interno;etapa_kanban;Tabla;Etapas configuradas para cada tablero Kanban;base;12;16;id;1;0;0;2;3;0;no;65536
 control_interno;evaluacion_proceso;Tabla;Evaluaciones DAFP de procesos auditables. Cada proceso puede tener múltiples evaluaciones con diferentes vigencias/fechas de corte.;base;54;39;id;1;0;0;0;6;0;no;163840
 control_interno;eventos_timeline;Tabla;Registro histórico de todos los eventos importantes relacionados con planes de mejoramiento;base;265;9;id;1;0;0;0;6;0;no;286720
-control_interno;evidencia_accion;Tabla;;;0;16;id;1;0;0;0;2;0;no;24576
+control_interno;evidencia_accion;Tabla;Evidencias de cumplimiento que carga el área auditada para las acciones de mejora (RF-SG-02). Un registro por evidencia, asociada a una acción correctiva, con los datos del archivo, quién y cuándo la cargó, y la calificación del auditor de la Oficina de Control Interno con sus comentarios y la eventual solicitud de nueva evidencia (RF-SG-03, RF-SG-13).;validada;0;16;id;1;0;0;0;2;0;no;24576
 control_interno;evidencia_documento;Tabla;Sistema independiente de gestión de evidencias y documentos vinculados a Hallazgos, Acciones, Planes y Auditorías;base;48;29;id;5;1;0;0;11;1;no;245760
 control_interno;hallazgo;Tabla;Hallazgos identificados en las auditorías;base;34;34;id;1;2;0;2;6;0;no;188416
 control_interno;historial_auditoria;Tabla;"Historial completo de cambios y eventos de una auditoría. Trazabilidad completa de todas las acciones. El campo cambios almacena un array JSONB con formato: [{""campo"": ""Progreso"", ""valorAnterior"": ""10%"", ""valorNuevo"": ""15%""}]";base;480;18;id;1;0;0;0;5;0;no;335872
@@ -183,8 +183,8 @@ control_interno;objetivo_auditoria;Tabla;Objetivos específicos de cada auditor�
 control_interno;parametro_sistema;Tabla;Parámetros de configuración del sistema (RF020);base;1;9;id;0;0;0;0;4;0;no;81920
 control_interno;paso_workflow_informe;Tabla;Pasos individuales del workflow de aprobación;base;0;17;id;1;0;0;0;3;0;no;32768
 control_interno;plan_anual;Tabla;Planes anuales de auditoría;base;0;14;id;0;3;0;0;3;0;no;32768
-control_interno;plan_anual_5_roles;Tabla;;;63;17;id;0;2;0;0;5;1;no;180224
-control_interno;plan_anual_wizard_borrador;Tabla;;;2;5;id;0;0;0;0;3;0;no;212992
+control_interno;plan_anual_5_roles;Tabla;"Planes anuales de auditoría organizados según los cinco roles de la oficina de control interno del Decreto 648. Un registro por plan y vigencia, con su responsable, periodo de ejecución, estado (borrador, en revisión, aprobado, en ejecución, completado), avance de actividades, comité y orden de aprobación y firma de activación; se relaciona con las auditorías y el historial del plan.";validada;63;17;id;0;2;0;0;5;1;no;180224
+control_interno;plan_anual_wizard_borrador;Tabla;Borradores del asistente de creación del plan anual de auditoría. Un registro por usuario, con el estado del asistente guardado en formato JSON.;validada;2;5;id;0;0;0;0;3;0;no;212992
 control_interno;plan_individual;Tabla;Planes individuales de auditoría;base;0;19;id;1;0;0;0;4;0;no;40960
 control_interno;plan_mejoramiento;Tabla;Planes de mejoramiento derivados de hallazgos;base;14;31;id;2;10;0;0;5;2;no;98304
 control_interno;plantilla_email;Tabla;Plantillas de correo electrónico (RF020);base;0;9;id;0;0;0;0;4;0;no;40960
@@ -194,17 +194,17 @@ control_interno;plantillas_documentos_esap;Tabla;Plantillas de documentos person
 control_interno;preferencia_notificacion;Tabla;Preferencias de notificación por usuario (RF014);base;1;9;id;0;0;0;0;3;0;no;65536
 control_interno;proceso_auditable;Tabla;Procesos auditables del universo de auditorías;base;36;22;id;1;2;0;0;8;0;no;212992
 control_interno;programa_anual_ajuste;Tabla;"Ajustes del Programa Anual (EFDS-1919): borrador de la siguiente versión; la versión que se genera lo cierra.";base;3;7;id;0;0;0;0;2;0;no;40960
-control_interno;registro_seguimiento;Tabla;;;0;14;id;2;0;0;0;3;0;no;32768
+control_interno;registro_seguimiento;Tabla;Registros de seguimiento de las acciones de mejora en cada seguimiento trimestral. Un registro por acción evaluada en un seguimiento (control_interno.seguimiento_trimestral), con las acciones programadas e implementadas, los controles, si el hallazgo se repite y los puntajes de cumplimiento y efectividad.;validada;0;14;id;2;0;0;0;3;0;no;32768
 control_interno;reunion_apertura;Tabla;Información de la reunión de apertura de la auditoría;base;15;16;id;2;0;0;0;4;0;no;81920
 control_interno;reunion_cierre;Tabla;Información de la reunión de cierre de la auditoría;base;11;16;id;2;0;0;0;3;0;no;65536
 control_interno;rol_decreto_648;Tabla;Roles del Decreto 648 configurable (RF020);base;0;9;id;0;1;0;0;3;0;no;32768
-control_interno;rol_decreto_648_template;Tabla;;;5;8;id;0;0;0;0;3;0;no;65536
+control_interno;rol_decreto_648_template;Tabla;Plantillas de los cinco roles de la oficina de control interno según el Decreto 648. Un registro por rol, con su número, nombre, descripción, color y estado activo.;validada;5;8;id;0;0;0;0;3;0;no;65536
 control_interno;rol_plan_anual;Tabla;Roles y disponibilidad de auditores en el plan anual;base;0;11;id;1;0;0;0;3;0;no;32768
 control_interno;rol_plan_anual_5;Tabla;Roles del plan anual (5 roles);base;405;14;id;0;1;0;0;5;0;no;409600
 control_interno;seccion_lista_chequeo;Tabla;Secciones organizadas de listas de chequeo;base;0;7;id;0;0;0;0;2;0;no;24576
-control_interno;seguimiento_plan;Tabla;;;7;16;id;1;0;0;0;3;0;no;65536
+control_interno;seguimiento_plan;Tabla;Cortes de seguimiento periódico de los planes de mejoramiento (EM-PT-002 act. 5 y 7). Un registro por corte, trimestral (control interno) o semestral (ente externo), con su responsable, resumen, informe, conteo de acciones según su cumplimiento, alertas generadas y si lo generó el proceso automático.;validada;7;16;id;1;0;0;0;3;0;no;65536
 control_interno;seguimiento_plan_mejoramiento;Tabla;Seguimientos trimestrales de planes de mejoramiento;base;0;12;id;1;0;0;0;3;0;no;32768
-control_interno;seguimiento_trimestral;Tabla;;;0;15;id;1;1;0;0;3;0;no;32768
+control_interno;seguimiento_trimestral;Tabla;"Seguimientos trimestrales de los planes de mejoramiento. Un registro por plan, trimestre y año, con las fechas del periodo y del seguimiento, los porcentajes de avance, cumplimiento y efectividad, las acciones revisadas y las observaciones; el detalle por acción se registra en control_interno.registro_seguimiento.";validada;0;15;id;1;1;0;0;3;0;no;32768
 control_interno;sesiones_esap;Tabla;Sesiones activas de usuarios;base;0;9;id;1;0;0;0;6;0;no;57344
 control_interno;tablero_kanban;Tabla;Configuración de tableros Kanban para auditorías y planes de mejoramiento;base;2;9;id;0;1;0;0;4;0;no;81920
 control_interno;tareas_auditoria;Tabla;Tareas personalizadas asignadas a auditorías;base;0;15;id;1;0;0;0;6;0;no;57344
@@ -230,7 +230,7 @@ hiring;actividades_salvedad;Tabla;Celdas de la matriz donde la actividad aplica 
 hiring;actos_adjudicacion;Tabla;Acto administrativo de adjudicación del Ordenador del Gasto, con su notificación y publicación (EFDS-1159).;base;1;20;id;5;0;0;0;2;0;no;49152
 hiring;adendas;Tabla;Adendas de fondo y de cronograma del proceso, con su emisión y su publicación (EFDS-1154).;base;3;17;id;3;0;0;0;3;0;no;65536
 hiring;afiliaciones_arl;Tabla;Afiliación a riesgos laborales, exigida a los contratistas persona natural (EFDS-1164).;base;0;9;id;2;0;0;0;2;0;no;24576
-hiring;alcances_permiso;Tabla;;;313;11;id;2;0;0;0;3;0;no;180224
+hiring;alcances_permiso;Tabla;"Alcances de los permisos de los roles en el proceso contractual. Un registro por permiso de un rol para una acción (ver, editar, aprobar o decidir) en un ámbito: todo el módulo, una etapa, un numeral de la matriz de flujo o un trámite de incumplimiento (INC.1 o INC.2); se relaciona con auth.role y hiring.actividades.";validada;313;11;id;2;0;0;0;3;0;no;180224
 hiring;amparos;Tabla;Coberturas de cada garantía con su vigencia, para controlar vencimientos (EFDS-1164).;base;1;7;id;2;0;0;0;4;0;no;73728
 hiring;aperturas_proceso;Tabla;Resolución de apertura y pliego definitivo de cada proceso (EFDS-1152).;base;3;10;id;4;0;0;0;2;0;no;49152
 hiring;audiencia_riesgos_config;Tabla;En qué modalidades la audiencia de riesgos es obligatoria (EFDS-1153, RF-PUB-04).;base;1;6;modalidad;1;0;0;0;1;0;no;32768
@@ -239,7 +239,7 @@ hiring;audiencias_riesgos;Tabla;Audiencias de asignación de riesgos celebradas,
 hiring;audiencias_sancionatorias;Tabla;"Audiencias del trámite sancionatorio (EFDS-1181, RF-INC-02). La citación mira al futuro; el acta, al hecho ya ocurrido.";base;0;13;id;3;0;0;0;2;0;no;24576
 hiring;avisos;Tabla;Lo que cambió la Dirección sobre los avisos de cada actividad. Sin fila, la actividad avisa con lo sugerido.;base;0;13;numeral,evento;1;0;0;0;1;0;no;16384
 hiring;avisos_habilitacion;Tabla;Actividades de cada proceso de las que ya salió el aviso de «te toca». Evita repetirlo.;base;156;3;proceso_id,numeral;2;0;0;0;1;0;no;57344
-hiring;campos_formulario;Tabla;;;13;15;id;0;0;0;0;3;0;no;65536
+hiring;campos_formulario;Tabla;Definición de los campos del formulario de cada actividad de la matriz de flujo contractual. Un registro por campo, con el numeral de la actividad, el código, la etiqueta, la ayuda, el tipo, el grupo, el orden, las opciones y si es obligatorio, de solo lectura o está activo.;validada;13;15;id;0;0;0;0;3;0;no;65536
 hiring;casos_incumplimiento;Tabla;Reportes de presunto incumplimiento del contrato (EFDS-1180, RF-INC-01).;base;0;9;id;3;2;0;0;2;0;no;24576
 hiring;causales_contratacion;Tabla;Actividad 3.6 (3.5.1 de la matriz): causales que habilitan contratar por una modalidad. La matriz la describe como «filtro según la modalidad» y solo la marca aplicable en selección abreviada de menor cuantía y en contratación directa.;base;14;8;codigo;1;1;0;0;2;0;no;49152
 hiring;cdp;Tabla;Certificado de Disponibilidad Presupuestal del proceso. Requisito previo a la apertura (EFDS-1148).;base;4;16;id;3;1;0;0;6;0;no;106496
@@ -249,12 +249,12 @@ hiring;comites_evaluadores;Tabla;Comités evaluadores designados por memorando, 
 hiring;contratos;Tabla;Contratos generados a partir del formato de su tipología, con la aceptación del proponente (EFDS-1161).;base;1;27;id;5;16;0;0;4;1;no;81920
 hiring;declaratorias_desiertas;Tabla;Declaratoria desierta del proceso: causal, motivación, acto firmado, notificación y publicación (EFDS-1160, RF-ADJ-02).;base;0;21;id;5;0;0;0;3;0;no;32768
 hiring;dias_no_habiles;Tabla;Días no laborables propios de la ESAP, adicionales a los festivos nacionales que el servicio calcula (EFDS-1150).;base;0;3;fecha;0;0;0;0;1;0;no;8192
-hiring;documentos;Tabla;;;130;15;id;2;56;0;2;3;0;no;139264
-hiring;documentos_proceso;Tabla;;;40;9;id;2;0;0;0;3;0;no;65536
+hiring;documentos;Tabla;"Documentos de los expedientes contractuales. Un registro por documento o versión, sea un archivo adjunto o una copia del formulario al momento de enviarlo, con el numeral de la actividad, los datos del archivo, el hash SHA-256 y quién lo cargó; se relaciona con hiring.expedientes y hiring.plantillas, y lo referencian los registros de las etapas del proceso (actas, contratos, garantías, pagos, informes, entre otros).";validada;130;15;id;2;56;0;2;3;0;no;139264
+hiring;documentos_proceso;Tabla;"Documentos cargados por cada proceso contractual para cubrir sus requisitos. Un registro por documento que satisface un requisito, con el numeral de la actividad, el código del requisito, quién lo cargó y, si fue sustituido, la anulación; el archivo está en hiring.documentos y se relaciona con hiring.procesos.";validada;40;9;id;2;0;0;0;3;0;no;65536
 hiring;documentos_requeridos;Tabla;Catálogo de documentos que exige cada actividad, filtrado por modalidad (EFDS-1149).;base;23;16;id;0;0;0;0;3;0;no;65536
 hiring;entregables_informe;Tabla;Consolidado de entregables del informe final (EFDS-1171).;base;0;7;id;2;0;0;0;2;0;no;24576
 hiring;evidencias_evaluacion;Tabla;Documentos con que el comité sustenta su evaluación: verificaciones, cuadro comparativo, actas (EFDS-1157).;base;0;6;id;2;0;0;0;2;0;no;24576
-hiring;expedientes;Tabla;;;10;13;id;1;1;0;0;4;0;no;81920
+hiring;expedientes;Tabla;"Expedientes electrónicos de los procesos contractuales (RF-SIS-04). Un registro por proceso, con el número de expediente, la apertura, el archivo con su índice documental y radicado de Active Document, y la reapertura; se relaciona con hiring.procesos y sus documentos están en hiring.documentos. Ciclo: abierto o archivado.";validada;10;13;id;1;1;0;0;4;0;no;81920
 hiring;firmas_contrato;Tabla;Firmas del ordenador del gasto y del contratista, con su evidencia (EFDS-1162).;base;2;10;id;2;0;0;0;3;0;no;65536
 hiring;garantias;Tabla;Pólizas constituidas por el contratista, con su revisión y aprobación (EFDS-1164).;base;1;11;id;2;1;0;0;3;0;no;65536
 hiring;informes_definitivos;Tabla;Informe de evaluación definitivo, con el resultado congelado y lo que cambió desde el preliminar (EFDS-1159).;base;1;18;id;5;1;0;0;2;0;no;49152
@@ -263,7 +263,7 @@ hiring;informes_finales;Tabla;Informe final del supervisor con el balance congel
 hiring;limitaciones_mipyme;Tabla;Decisión de limitar o no la convocatoria a MIPYME, con las condiciones que se evaluaron (EFDS-1151).;base;2;16;id;1;0;0;0;2;0;no;49152
 hiring;manifestaciones_mipyme;Tabla;"Manifestaciones de interés de MIPYME en participar; su número decide la limitación (EFDS-1151).";base;0;8;id;1;0;0;0;2;0;no;16384
 hiring;miembros_comite;Tabla;Integrantes del comité evaluador con su dimensión de evaluación (EFDS-1156).;base;3;6;id;1;0;0;0;4;0;no;73728
-hiring;modalidades;Tabla;;;11;6;codigo;0;11;0;0;1;0;no;24576
+hiring;modalidades;Tabla;"Catálogo de modalidades de selección del contratista. Un registro por modalidad, con su código, nombre, orden como columna de la matriz de flujo, si está activa y si se determina por cuantía; determina qué actividades de la matriz aplican al proceso y la referencian los procesos, plazos, umbrales y reglas de actividad.";validada;11;6;codigo;0;11;0;0;1;0;no;24576
 hiring;modificaciones_contrato;Tabla;"Modificaciones contractuales de la actividad 9.5; hoy solo la adición tiene trámite (EFDS-1176).";base;0;38;id;5;4;0;0;6;0;no;57344
 hiring;observaciones_pliego;Tabla;Observaciones de interesados al proyecto de pliego publicado, con su respuesta (EFDS-1151).;base;4;17;id;2;0;1;0;3;0;no;65536
 hiring;oferentes;Tabla;Ofertas recibidas dentro del plazo, con su soporte. Al cerrar la recepción componen la lista publicada (EFDS-1155).;base;4;10;id;2;4;0;0;4;0;no;73728
@@ -272,14 +272,14 @@ hiring;parametros_alerta;Tabla;Plazos que gobiernan las alertas de contratación
 hiring;parametros_mipyme;Tabla;Condiciones que habilitan la limitación a MIPYME. Parametrizables (EFDS-1393).;base;2;8;clave;0;0;0;0;1;0;no;32768
 hiring;participaciones_proceso;Tabla;Quién está en cada proceso y con qué papel, vigentes y relevados, con el motivo del cambio (EFDS-1183).;base;17;16;id;1;0;0;0;5;0;no;98304
 hiring;piezas_audiencia;Tabla;Acta, grabaciones, observaciones y anexos que documentan la audiencia de adjudicación (EFDS-1159).;base;0;7;id;2;0;0;0;2;0;no;24576
-hiring;plantillas;Tabla;;;10;10;id;0;2;0;0;3;0;no;65536
+hiring;plantillas;Tabla;Catálogo de formatos institucionales del Sistema Integrado de Gestión (Isolución) que se diligencian y firman fuera del sistema durante el proceso de contratación. Un registro por formato, con su código, versión, fecha de aprobación, numeral de la actividad de la matriz de flujo y las modalidades de contratación a las que aplica. Se relaciona con hiring.contratos y hiring.documentos.;validada;10;10;id;0;2;0;0;3;0;no;65536
 hiring;plazo_publicacion_acta;Tabla;Plazo para publicar el acta de liquidación, parametrizable y marcado si está sin confirmar (EFDS-1174).;base;1;5;id;0;0;0;0;1;0;no;32768
 hiring;plazo_publicacion_contrato;Tabla;Plazo para publicar el contrato, parametrizable y marcado si está sin confirmar (EFDS-1166).;base;1;5;id;0;0;0;0;1;0;no;32768
 hiring;plazos_ofertas;Tabla;Días hábiles de recepción de ofertas por modalidad, contados desde la apertura (EFDS-1155).;base;7;6;modalidad;1;0;0;0;1;0;no;32768
 hiring;plazos_publicacion;Tabla;Días hábiles de publicidad del proyecto de pliego, por modalidad. Parametrizables (EFDS-1150).;base;7;6;modalidad;1;0;0;0;1;0;no;32768
 hiring;plazos_traslado;Tabla;Días hábiles de traslado del informe de evaluación por modalidad, contados desde su publicación (EFDS-1158).;base;7;6;modalidad;1;0;0;0;1;0;no;32768
-hiring;proceso_actividades;Tabla;;;590;14;id;1;1;0;0;3;0;no;237568
-hiring;procesos;Tabla;;;10;14;id;2;25;0;0;3;0;no;65536
+hiring;proceso_actividades;Tabla;Actividades ejecutadas dentro de cada proceso de contratación, según el numeral del procedimiento. Un registro por proceso y numeral, con los datos del formulario diligenciado, el envío a revisión, la revisión y su estado (borrador, en revisión, aprobado, devuelto, negado o no aplica). Se relaciona con hiring.procesos, y las decisiones de revisión quedan en hiring.revisiones.;validada;590;14;id;1;1;0;0;3;0;no;237568
+hiring;procesos;Tabla;Procesos de contratación radicados ante la Dirección de Contratación. Un registro por proceso, con su radicado, objeto, modalidad, causal, valor estimado, etapa en la matriz de flujo y desenlace (en curso, adjudicado, desierto o negado). Es la tabla central del esquema: de ella dependen las actividades, documentos, evaluaciones, contratos y la trazabilidad del proceso.;validada;10;14;id;2;25;0;0;3;0;no;65536
 hiring;publicaciones_acta;Tabla;Publicaciones del acta de liquidación con su destino, evidencia y control de plazo (EFDS-1174).;base;0;11;id;2;0;0;0;3;0;no;32768
 hiring;publicaciones_contrato;Tabla;Publicaciones del contrato con su destino, evidencia y control de plazo (EFDS-1166).;base;1;11;id;2;0;0;0;3;0;no;65536
 hiring;publicaciones_modificacion;Tabla;Publicación de la modificación en SECOP II, con su evidencia (EFDS-1176, RF-MOD-05).;base;0;8;id;2;0;0;0;3;0;no;32768
@@ -287,10 +287,10 @@ hiring;publicaciones_pliego;Tabla;Registro de la publicación del proyecto de pl
 hiring;recepciones_ofertas;Tabla;Plazo de recepción de ofertas de cada proceso y su cierre (EFDS-1155).;base;3;8;id;1;1;0;0;2;0;no;40960
 hiring;registros_actividad;Tabla;Constancia de que una actividad sin historia propia ocurrió, con su fecha, su nota y su soporte.;base;2;13;id;3;0;0;0;3;0;no;65536
 hiring;registros_presupuestales;Tabla;Registros presupuestales que comprometen los recursos del contrato (EFDS-1163).;base;1;16;id;3;2;0;0;4;0;no;73728
-hiring;reglas_actividad;Tabla;;;13;14;id;2;0;0;0;3;0;no;65536
+hiring;reglas_actividad;Tabla;Reglas que debe cumplir una actividad de la matriz de flujo para darse por terminada, según la modalidad de contratación (por ejemplo, campo obligatorio, documento requerido, rango de valor o plazo mínimo). Un registro por regla, con sus condiciones, acciones, mensaje para el gestor, orden de evaluación y periodo de vigencia. Se relaciona con hiring.actividades y hiring.modalidades.;validada;13;14;id;2;0;0;0;3;0;no;65536
 hiring;resoluciones_sancionatorias;Tabla;Actos administrativos del trámite sancionatorio (EFDS-1181, RF-INC-02): el que lo abre y el que lo decide, incluida la caducidad.;base;0;16;id;2;0;0;0;3;0;no;32768
 hiring;resultados_evaluacion;Tabla;Resultado de la evaluación hecha por el comité fuera de la plataforma: oferta ganadora, su valoración y el informe que la sustenta (EFDS-1157).;base;2;16;id;3;4;0;0;2;0;no;49152
-hiring;revisiones;Tabla;;;12;9;id;1;0;0;0;2;0;no;49152
+hiring;revisiones;Tabla;Historial de revisiones de las actividades de un proceso de contratación (numeral 3.4 de la matriz). Un registro por decisión del revisor (aprobado, devuelto o negado), con las observaciones, la versión revisada, el revisor y los soportes de la devolución. Se relaciona con hiring.proceso_actividades.;validada;12;9;id;1;0;0;0;2;0;no;49152
 hiring;roles_del_modulo;Vista;Roles que trabajan en contratación: los que tienen al menos un permiso del módulo. Alimenta el selector de aprobadores.;base;;3;;0;0;0;0;0;0;no;0
 hiring;seguimientos_contrato;Tabla;Informes, actas y soportes de la ejecución del contrato (EFDS-1168, actividad 9.2).;base;1;11;id;3;0;0;0;2;0;no;49152
 hiring;sesiones_comite_contratacion;Tabla;Sesiones del comité de contratación sobre un proceso (actividad 3.7). Una por sesión: observar devuelve el proceso al comité, y las dos quedan.;base;4;10;id;2;0;0;0;2;0;no;49152
@@ -303,134 +303,134 @@ hiring;suscripciones_acta_inicio;Tabla;Acta de inicio suscrita por la entidad y 
 hiring;tipologias_contrato;Tabla;Tipologías de contrato y el formato del SIG que sirve de minuta (EFDS-1161).;base;12;7;codigo;0;1;0;0;1;0;no;32768
 hiring;tipos_amparo;Tabla;Coberturas que puede incluir una garantía, para controlar sus vencimientos (EFDS-1164).;base;7;5;codigo;0;1;0;0;1;0;no;32768
 hiring;tope_adicion;Tabla;Tope legal de la adición como porcentaje del valor inicial del contrato (EFDS-1176).;base;1;5;id;0;0;0;0;1;0;no;32768
-hiring;trazabilidad;Tabla;;;236;9;id;1;0;0;0;2;0;no;155648
+hiring;trazabilidad;Tabla;Bitácora de las acciones realizadas sobre los procesos de contratación y sus objetos relacionados. Un registro por acción (crear, guardar, enviar, adjuntar, aprobar, devolver, entre otras), con el objeto afectado, el detalle y el usuario que la hizo. Se relaciona con hiring.procesos.;validada;236;9;id;1;0;0;0;2;0;no;155648
 hiring;umbrales_comite_contratacion;Tabla;Condición de cuantía para pasar por el comité de contratación (actividad 3.7). La modalidad sin fila va a comité siempre que la matriz la marque.;base;1;7;modalidad;1;0;0;0;1;0;no;32768
 hiring;umbrales_modalidad;Tabla;Rangos de cuantía que sugieren cada modalidad. Parametrizables por administrador (EFDS-1147).;base;3;11;id;1;0;0;0;3;0;no;57344
-infrastructure-management;bloque_edificio;Tabla;;;23;9;id_bloque;1;1;0;0;2;0;no;49152
+infrastructure-management;bloque_edificio;Tabla;Bloques o edificios de las sedes de la ESAP. Un registro por bloque, con su código, nombre, número de pisos, descripción y estado activo. Pertenece a una sede (infrastructure-management.sede) y agrupa los espacios físicos.;validada;23;9;id_bloque;1;1;0;0;2;0;no;49152
 infrastructure-management;catalogo_item;Tabla;Catálogo genérico para listas parametrizables de infraestructura (tipos, prioridades, estados);base;45;8;id_catalogo;0;0;0;0;3;0;no;98304
-infrastructure-management;espacio_fisico;Tabla;;;81;15;id_espacio;1;1;0;0;2;0;no;73728
-infrastructure-management;sede;Tabla;;;7;13;id_sede;0;2;0;0;3;0;no;65536
+infrastructure-management;espacio_fisico;Tabla;Espacios físicos de los bloques o edificios, como aulas, auditorios, laboratorios, oficinas, bibliotecas y salas de consejo. Un registro por espacio, con su tipo, capacidad, piso, área, dotación (aire acondicionado, videobeam, computadores) y estado (disponible, mantenimiento, inactivo o reservado). Pertenece a un bloque o edificio y es referenciado por las solicitudes de mantenimiento.;validada;81;15;id_espacio;1;1;0;0;2;0;no;73728
+infrastructure-management;sede;Tabla;Sedes de la ESAP: sede central, territoriales y CETAP. Un registro por sede, con su código, nombre, tipo, ubicación (departamento, municipio y dirección), datos de contacto y si pertenece al alcance directo de la UMI. Agrupa los bloques o edificios y se asocia a las solicitudes de mantenimiento.;validada;7;13;id_sede;0;2;0;0;3;0;no;65536
 infrastructure-management;solicitud_evidencia;Tabla;Evidencias/adjuntos subidos por el usuario al radicar o gestionar una solicitud de mantenimiento (fotos, PDFs, planos). Almacenado en MinIO, referenciado por URL;base;6;16;id_evidencia;1;0;0;0;5;0;no;98304
-infrastructure-management;solicitud_mantenimiento;Tabla;;;0;52;id_solicitud;2;2;0;0;13;0;no;114688
+infrastructure-management;solicitud_mantenimiento;Tabla;"Solicitudes y órdenes de mantenimiento de la infraestructura física y tecnológica de las sedes. Un registro por solicitud, con su consecutivo, sede, espacio y ubicación, tipo de mantenimiento, prioridad, solicitante, clasificación, técnico asignado, valoración técnica, cierre técnico y costos. Su ciclo se registra en el estado (EFDS-1728), con valores como RECIBIDA, EN_ANALISIS, EN_VALORACION, COMPLETADA o RECHAZADA; se relaciona con sede, espacio_fisico, solicitud_evidencia y solicitud_valoracion.";validada;0;52;id_solicitud;2;2;0;0;13;0;no;114688
 infrastructure-management;solicitud_valoracion;Tabla;EFDS-1735 RF-INF-006. Cada fila es una visita técnica de inspección previa. 1-N con solicitud (se permiten revalorizaciones o segundas visitas).;base;0;18;id_valoracion;1;1;0;0;3;0;no;32768
 infrastructure-management;solicitud_valoracion_insumo;Tabla;EFDS-1735. Detalle fila-a-fila de materiales y repuestos requeridos para la ejecución de una visita de valoración. Restricción a nivel fila chk_tiempo_adquisicion_si_no_disponible: si disponibilidad=NO_DISPONIBLE_A_SOLICITAR, es obligatorio tiempo_adquisicion_dias para extender el SLA.;base;0;12;id_insumo;1;0;0;0;2;0;no;16384
 internal_disciplinary_control;actas_configuration;Tabla;Tabla de configuración paramétrica de actas para el módulo disciplinario;base;8;15;id;0;0;0;0;5;0;no;98304
-internal_disciplinary_control;alertas_enviadas;Tabla;;;117;14;id;3;0;0;0;10;0;no;229376
-internal_disciplinary_control;auto_versions;Tabla;;;244;9;id;0;0;0;0;4;0;no;245760
-internal_disciplinary_control;autos_configuration;Tabla;;;38;13;;0;0;0;0;3;1;no;98304
-internal_disciplinary_control;dias_festivos;Tabla;;;19;9;id;0;0;0;0;5;0;no;90112
+internal_disciplinary_control;alertas_enviadas;Tabla;Alertas enviadas en el control disciplinario sobre términos procesales y autos. Un registro por alerta, asociada a un término, a una regla de alerta o a un auto, con su tipo (correo, visual o sistema), destinatario, asunto, mensaje, estado del envío (pendiente, enviada o error) y fechas de envío y lectura.;validada;117;14;id;3;0;0;0;10;0;no;229376
+internal_disciplinary_control;auto_versions;Tabla;Historial de versiones de los autos legales del proceso disciplinario. Un registro por versión de un auto (internal_disciplinary_control.legal_autos), con el contenido del auto, número de versión, motivo del cambio, archivo adjunto, autor y fecha.;validada;244;9;id;0;0;0;0;4;0;no;245760
+internal_disciplinary_control;autos_configuration;Tabla;Configuración de los tipos de auto del proceso disciplinario. Un registro por tipo de auto, con su nombre, estado, orden, etapa del proceso a la que corresponde y los datos de su plantilla (archivo, nombre, descripción, versión y estado).;validada;38;13;;0;0;0;0;3;1;no;98304
+internal_disciplinary_control;dias_festivos;Tabla;Días festivos que se tienen en cuenta en el control disciplinario. Un registro por fecha festiva, con su descripción, tipo (nacional, regional o institucional), territorio cuando es regional y estado activo.;validada;19;9;id;0;0;0;0;5;0;no;90112
 internal_disciplinary_control;disciplinary_behaviors;Tabla;Catálogo parametrizable de conductas indisciplinarias;base;17;8;id;0;0;0;0;5;1;no;98304
 internal_disciplinary_control;disciplinary_news;Tabla;Noticias disciplinarias recibidas;base;35;33;id;0;1;0;0;12;1;no;319488
 internal_disciplinary_control;disciplinary_news_processes;Tabla;Tabla puente para asociar noticias disciplinarias con procesos disciplinarios;base;9;7;id;1;0;0;0;5;0;no;98304
-internal_disciplinary_control;disciplinary_process_actuaciones;Tabla;;;148;11;id;2;0;0;0;4;0;no;172032
-internal_disciplinary_control;disciplinary_process_notes;Tabla;;;14;6;id;1;0;0;0;3;0;no;65536
+internal_disciplinary_control;disciplinary_process_actuaciones;Tabla;Actuaciones registradas en los procesos disciplinarios. Un registro por actuación, asociada a un proceso y, si aplica, a una noticia disciplinaria, con su tipo, etapa, descripción, responsable, fecha y observaciones.;validada;148;11;id;2;0;0;0;4;0;no;172032
+internal_disciplinary_control;disciplinary_process_notes;Tabla;Notas de los procesos disciplinarios. Un registro por nota, asociada a un proceso, con su texto y la etapa del proceso a la que corresponde.;validada;14;6;id;1;0;0;0;3;0;no;65536
 internal_disciplinary_control;disciplinary_process_reassignment_requests;Tabla;Tabla para solicitudes de reasignación de procesos disciplinarios;base;24;15;id;3;0;0;0;7;0;no;131072
-internal_disciplinary_control;disciplinary_process_tasks;Tabla;;;15;13;id;1;0;0;0;4;0;no;131072
+internal_disciplinary_control;disciplinary_process_tasks;Tabla;Tareas de los procesos disciplinarios. Un registro por tarea, asociada a un proceso, con título, descripción, prioridad (alta, media o baja), etapa, responsable, fecha de vencimiento y si está completada.;validada;15;13;id;1;0;0;0;4;0;no;131072
 internal_disciplinary_control;disciplinary_processes;Tabla;Procesos disciplinarios activos;base;26;41;id;1;7;0;0;13;1;no;262144
 internal_disciplinary_control;disciplinary_professional;Tabla;Profesionales (abogados) asignados a procesos disciplinarios;base;9;14;id;0;3;1;0;6;0;no;114688
 internal_disciplinary_control;entidades_remision;Tabla;Tabla para gestionar las entidades de remisión en procesos disciplinarios;base;9;6;id;0;0;0;0;3;0;no;65536
 internal_disciplinary_control;evidence;Tabla;Evidencias y documentos adjuntos a los procesos;base;70;19;id;1;0;0;0;4;0;no;139264
 internal_disciplinary_control;expediente_compartido;Tabla;Tabla para gestionar los enlaces compartidos de expedientes disciplinarios;base;95;19;id;0;0;0;0;6;0;no;155648
 internal_disciplinary_control;legal_autos;Tabla;Autos legales generados en los procesos;base;218;30;id;1;1;0;0;8;1;no;360448
-internal_disciplinary_control;oficios_configuration;Tabla;;;14;15;id;0;0;0;0;5;1;no;98304
-internal_disciplinary_control;plantilla_auto;Tabla;;;1;7;id;0;0;0;0;3;1;no;65536
-internal_disciplinary_control;reglas_alerta;Tabla;;;7;10;id;0;1;0;0;4;0;no;81920
+internal_disciplinary_control;oficios_configuration;Tabla;Configuración de los tipos de oficio del proceso disciplinario. Un registro por oficio, con su tipo, nombre, código, descripción, estado, etapa del proceso, orden y los datos de su plantilla (archivo, nombre, descripción, versión y estado).;validada;14;15;id;0;0;0;0;5;1;no;98304
+internal_disciplinary_control;plantilla_auto;Tabla;Plantillas en HTML para la elaboración de autos del proceso disciplinario. Un registro por plantilla, con su nombre, descripción, contenido y estado (activo o inactivo).;validada;1;7;id;0;0;0;0;3;1;no;65536
+internal_disciplinary_control;reglas_alerta;Tabla;"Reglas de alerta de vencimiento de términos procesales. Un registro por regla, con su nombre, días hábiles de anticipación, canales (correo y panel), descripción y estado activo; las alertas generadas se registran en internal_disciplinary_control.alertas_enviadas.";validada;7;10;id;0;1;0;0;4;0;no;81920
 internal_disciplinary_control;sequences;Tabla;Tabla para gestionar secuencias de radicados;base;7;3;name;0;0;0;0;1;1;no;57344
 internal_disciplinary_control;stage_configuration;Tabla;Configuración de días hábiles por etapa procesal;base;7;9;id;0;0;0;0;1;1;no;32768
 internal_disciplinary_control;system_configuration;Tabla;Configuración global del sistema disciplinario;base;1;6;id;0;0;0;0;1;0;no;49152
-internal_disciplinary_control;terminos_procesales;Tabla;;;23;18;id;0;1;0;0;11;0;no;229376
+internal_disciplinary_control;terminos_procesales;Tabla;Términos procesales con su control de vencimiento. Un registro por término de una actuación de un proceso, con el responsable, fecha de inicio, días hábiles, fecha de vencimiento, días restantes, estado (pendiente, próximo a vencer, vencido o cumplido), envío de alerta y fecha de cumplimiento.;validada;23;18;id;0;1;0;0;11;0;no;229376
 internal_disciplinary_control;tipos_remision;Tabla;Tabla para gestionar los tipos de remisión en procesos disciplinarios;base;6;8;id;0;0;0;0;5;0;no;98304
-legal_management;actas;Tabla;;;0;18;id;1;0;0;0;2;0;no;24576
-legal_management;actors;Tabla;;;168;14;id;1;0;0;0;3;0;no;114688
-legal_management;actuaciones;Tabla;;;427;13;id;0;0;0;0;3;0;no;237568
-legal_management;adjuntos_correo;Tabla;Adjuntos de correos electrónicos sincronizados desde Microsoft Graph;base;2552;10;id;1;1;0;0;3;0;no;1941504
-legal_management;audiencias;Tabla;;;18;15;id;1;0;0;0;1;0;no;32768
-legal_management;autos;Tabla;;;4;13;id;1;0;0;0;2;0;no;49152
+legal_management;actas;Tabla;Actas de reuniones o sesiones de los expedientes de gestión jurídica. Un registro por acta, asociada a un expediente, con número, fecha, horario, duración, lugar, presidente, participantes, resumen, decisiones, tipo, estado (firmada o programada) y archivo del acta.;validada;0;18;id;1;0;0;0;2;0;no;24576
+legal_management;actors;Tabla;Actores de los expedientes de gestión jurídica: demandantes, demandados y otros. Un registro por actor de un expediente, con nombre, tipo de persona (natural o jurídica), identificación, rol, cargo, dependencia, apoderado y datos de contacto.;validada;168;14;id;1;0;0;0;3;0;no;114688
+legal_management;actuaciones;Tabla;Historial unificado de actuaciones de los expedientes y procesos de la gestión jurídica. Un registro por actuación, con su tipo, fecha, documento soporte, responsable y origen (manual, audiencia, auto, acta, evidencia u oficio), y la referencia al registro que la generó. El expediente se identifica por texto, sin relación declarada con legal_management.expedientes.;validada;427;13;id;0;0;0;0;3;0;no;237568
+legal_management;adjuntos_correo;Tabla;Adjuntos de correos electrónicos sincronizados desde Microsoft Graph;base;2554;10;id;1;1;0;0;3;0;no;1941504
+legal_management;audiencias;Tabla;Audiencias programadas en los expedientes de la gestión jurídica. Un registro por audiencia, asociada a un expediente (legal_management.expedientes), con su fecha y hora, duración, modalidad (virtual o presencial), abogado responsable e historial de reprogramaciones. Su estado pasa por programada, realizada, cancelada o aplazada.;validada;18;15;id;1;0;0;0;1;0;no;32768
+legal_management;autos;Tabla;Autos emitidos dentro de los expedientes de la gestión jurídica. Un registro por auto, asociado a un expediente (legal_management.expedientes), con su número, tipo, fecha, juzgado, resumen y archivo. Su estado pasa por pendiente, notificado o archivado.;validada;4;13;id;1;0;0;0;2;0;no;49152
 legal_management;borradores_correos;Tabla;Borradores privados de correos nuevos del Centro de Comunicaciones (Redactar Correo). Se autoguardan y se eliminan al enviarse.;base;2;13;id;0;0;0;0;2;0;no;958464
-legal_management;cat_tipos_requerimiento;Tabla;;;9;7;id;0;0;0;0;3;0;no;65536
-legal_management;coactivos_historial;Tabla;;;48;9;id;1;0;0;0;2;0;no;81920
-legal_management;comentarios;Tabla;;;9;7;id;1;0;0;0;2;0;no;49152
-legal_management;comentarios_consulta;Tabla;;;2;6;id;1;0;0;0;2;0;no;49152
+legal_management;cat_tipos_requerimiento;Tabla;"Catálogo de tipos de requerimiento de los organismos de control. Un registro por tipo, con nombre, descripción, orden de presentación e indicador de activo; legal_management.requerimientos_oc toma de aquí su tipo de requerimiento.";validada;9;7;id;0;0;0;0;3;0;no;65536
+legal_management;coactivos_historial;Tabla;Historial de eventos de los procesos de cobro coactivo. Un registro por evento (creación, pago, cambio de etapa o actualización) de un proceso de legal_management.procesos_coactivos, con el campo modificado, sus valores anterior y nuevo, el usuario y la fecha.;validada;48;9;id;1;0;0;0;2;0;no;81920
+legal_management;comentarios;Tabla;Comentarios registrados sobre los expedientes de la gestión jurídica. Un registro por comentario, asociado a un expediente (legal_management.expedientes), con su texto y el usuario autor.;validada;9;7;id;1;0;0;0;2;0;no;49152
+legal_management;comentarios_consulta;Tabla;Comentarios registrados sobre las consultas jurídicas. Un registro por comentario, asociado a una consulta de legal_management.consultas_juridicas, con el mensaje, el usuario autor, su cargo y la fecha.;validada;2;6;id;1;0;0;0;2;0;no;49152
 legal_management;comentarios_correo;Tabla;"Comentarios del tab ""Comentarios"" en el Detalle de Comunicación (Centro de Comunicaciones).";base;2;6;id;1;0;0;0;2;0;no;49152
-legal_management;comentarios_oc;Tabla;;;28;8;id;1;0;0;0;3;1;no;65536
-legal_management;conceptos_juridicos;Tabla;;;0;26;id;1;0;0;0;5;0;no;49152
-legal_management;consulta_juridica_historial;Tabla;;;132;7;id;1;0;0;0;1;0;no;73728
+legal_management;comentarios_oc;Tabla;Comentarios registrados sobre los requerimientos de los organismos de control. Un registro por comentario, asociado a un requerimiento de legal_management.requerimientos_oc, con su tipo, contenido y autor.;validada;28;8;id;1;0;0;0;3;1;no;65536
+legal_management;conceptos_juridicos;Tabla;Conceptos jurídicos emitidos en respuesta a las consultas de asesoría jurídica. Un registro por concepto (concepto, memorando, revisión o viabilidad), asociado a una consulta de legal_management.consultas_juridicas, con su análisis, normatividad, conclusión, redactor, revisión, aprobación y emisión. Su estado pasa por borrador, en revisión, devuelto, aprobado o emitido, y puede publicarse en el banco de conceptos.;validada;0;26;id;1;0;0;0;5;0;no;49152
+legal_management;consulta_juridica_historial;Tabla;Historial de eventos de las consultas jurídicas. Un registro por evento (creación, asignación, reasignación, cambio de etapa, respuesta, envío o devolución por el jefe, entre otros) de una consulta de legal_management.consultas_juridicas, con su descripción, detalle, usuario y fecha.;validada;132;7;id;1;0;0;0;1;0;no;73728
 legal_management;consultas_juridicas;Tabla;Registro de consultas y asesorías jurídicas internas de ESAP;base;31;54;id;0;5;0;0;10;0;no;237568
-legal_management;correo_juridico_historial;Tabla;;;14552;7;id;1;0;0;0;7;0;no;5251072
-legal_management;correo_tracking_tokens;Tabla;;;100;11;id;2;0;0;0;4;0;no;122880
-legal_management;correos_juridicos;Tabla;;;14036;36;id;1;5;0;0;13;0;no;67944448
+legal_management;correo_juridico_historial;Tabla;Historial de eventos de los correos jurídicos. Un registro por evento (recepción, clasificación automática o manual, asociación a un proceso, lectura, archivo, respuesta, entre otros) de un correo de legal_management.correos_juridicos, con su descripción, usuario y fecha.;validada;14558;7;id;1;0;0;0;7;0;no;5251072
+legal_management;correo_tracking_tokens;Tabla;Tokens de seguimiento de apertura de los correos jurídicos y de descarga de sus adjuntos. Un registro por token (píxel de apertura o enlace de descarga), asociado a un correo de legal_management.correos_juridicos y, si aplica, a un adjunto de legal_management.adjuntos_correo, con la fecha, la dirección IP y el navegador de apertura.;validada;100;11;id;2;0;0;0;4;0;no;122880
+legal_management;correos_juridicos;Tabla;Correos de los buzones jurídicos sincronizados desde Microsoft Graph y correos enviados desde la plataforma. Un registro por mensaje, con remitente, destinatarios, asunto, cuerpo, dirección (entrante o enviado), buzón, hilo de conversación y clasificación automática (tipo, categoría, módulo y proceso sugeridos). Se relaciona con sus adjuntos, comentarios, historial y tokens de seguimiento, y puede derivarse a un expediente o a una consulta jurídica.;validada;14042;36;id;1;5;0;0;13;0;no;67969024
 legal_management;decisiones_disciplinarias;Tabla;Tabla para almacenar decisiones de procesos disciplinarios en el módulo de juzgamiento;base;6;11;id;1;0;0;0;4;0;no;81920
 legal_management;documentos;Tabla;Documentos asociados a expedientes judiciales;base;157;17;id;1;0;0;0;4;1;no;786432
 legal_management;documentos_consulta;Tabla;Documentos adjuntos a consultas jurídicas;base;25;14;id;1;0;0;0;4;1;no;81920
-legal_management;documentos_oc;Tabla;;;21;12;id;1;0;0;0;3;1;no;65536
-legal_management;evidencias;Tabla;;;16;14;id;1;0;0;0;2;0;no;49152
+legal_management;documentos_oc;Tabla;Documentos asociados a los requerimientos de los organismos de control. Un registro por documento (oficio, respuesta, acuse, anexo, evidencia, informe u otro), asociado a un requerimiento de legal_management.requerimientos_oc, con su archivo, tamaño, tipo MIME, fecha y usuario que lo cargó.;validada;21;12;id;1;0;0;0;3;1;no;65536
+legal_management;evidencias;Tabla;Evidencias aportadas a los expedientes de la gestión jurídica. Un registro por evidencia, asociada a un expediente (legal_management.expedientes), con su descripción, quien la aportó, fecha de presentación, archivo, tipo y prioridad. Su estado pasa por pendiente, en revisión, admitida, válida o rechazada.;validada;16;14;id;1;0;0;0;2;0;no;49152
 legal_management;excepciones_procesales;Tabla;Excepciones procesales del módulo de Juzgamiento Disciplinario;base;2;12;id;1;0;0;0;4;0;no;81920
-legal_management;expedientes;Tabla;;;91;70;id;1;12;0;0;7;0;no;7782400
-legal_management;hallazgos;Tabla;;;0;24;id;1;0;0;0;5;0;no;49152
-legal_management;historial_consultas;Tabla;;;0;8;id;1;0;0;0;1;0;no;16384
+legal_management;expedientes;Tabla;Expedientes de los procesos de la gestión jurídica (defensa judicial, juzgamiento disciplinario y otros tipos de proceso configurados). Un registro por expediente, con su radicado, jurisdicción, tipo de proceso, partes, abogado sustanciador, etapa, términos procesales, provisión contable y estado de archivo. Es la tabla central del módulo: de ella dependen actas, actores, audiencias, autos, comentarios, decisiones, documentos, evidencias, excepciones, notas y tareas, y puede vincularse a un proceso principal.;validada;91;70;id;1;12;0;0;7;0;no;7782400
+legal_management;hallazgos;Tabla;Hallazgos de auditoría de los organismos de control y su plan de mejoramiento. Un registro por hallazgo, asociado a un requerimiento de legal_management.requerimientos_oc, con su tipo (administrativo, disciplinario, fiscal o penal), causa, efecto, acción correctiva, responsables, indicador, avance y periodicidad de reporte. Su estado pasa por abierto, en curso, en revisión, cerrado o rechazado.;validada;0;24;id;1;0;0;0;5;0;no;49152
+legal_management;historial_consultas;Tabla;Bitácora de cambios de las consultas jurídicas. Un registro por acción sobre una consulta de legal_management.consultas_juridicas, con su descripción, los estados anterior y nuevo, el usuario y la fecha.;validada;0;8;id;1;0;0;0;1;0;no;16384
 legal_management;notas_expediente;Tabla;Notas internas de los abogados sobre el expediente;base;3;8;id;1;0;0;0;4;1;no;81920
 legal_management;oficios_enviados;Tabla;Oficios judiciales enviados desde el sistema, con soporte para plantillas institucionales ESAP;base;4;17;id;0;0;0;0;4;0;no;98304
-legal_management;organismos_control;Tabla;;;9;8;id;0;0;0;0;2;1;no;49152
-legal_management;pagos_coactivos;Tabla;;;10;12;id;1;0;0;0;2;0;no;49152
-legal_management;pei_indicadores;Tabla;;;24;19;id;0;1;0;0;4;0;no;81920
-legal_management;pei_registros_avance;Tabla;;;24;8;id;1;0;0;0;1;0;no;32768
-legal_management;planes_comentarios;Tabla;;;0;5;id;1;0;0;0;1;0;no;16384
-legal_management;planes_evidencias;Tabla;;;14;7;id;1;0;0;0;2;0;no;49152
-legal_management;planes_hallazgos;Tabla;;;4;11;id;1;0;0;0;2;0;no;49152
-legal_management;planes_mejoramiento;Tabla;;;22;24;id;0;4;0;0;5;0;no;98304
-legal_management;planes_seguimientos;Tabla;;;22;6;id;1;0;0;0;1;0;no;32768
-legal_management;plantillas_documentos;Tabla;;;5;10;id;0;0;0;0;2;1;no;524288
+legal_management;organismos_control;Tabla;Catálogo de organismos de control externos que emiten requerimientos a la entidad. Un registro por organismo, con su sigla, nombre, descripción, correos de contacto e indicador de activo.;validada;9;8;id;0;0;0;0;2;1;no;49152
+legal_management;pagos_coactivos;Tabla;Pagos registrados en los procesos de cobro coactivo. Un registro por pago de un proceso de legal_management.procesos_coactivos, con su valor, fecha, soporte, origen (banco o manual) y su distribución entre capital, intereses y costas.;validada;10;12;id;1;0;0;0;2;0;no;49152
+legal_management;pei_indicadores;Tabla;"Indicadores del plan estratégico institucional (PEI) de la gestión jurídica. Un registro por indicador, con su eje estratégico, meta, unidad de medida, plazo, frecuencia de medición, prioridad y responsable; sus avances se registran en legal_management.pei_registros_avance. Su estado es activo, inactivo o archivado.";validada;24;19;id;0;1;0;0;4;0;no;81920
+legal_management;pei_registros_avance;Tabla;Historial de avances de los indicadores del plan estratégico institucional (PEI). Un registro por reporte de avance de un indicador de legal_management.pei_indicadores, con el valor reportado, el porcentaje de avance frente a la meta, la justificación, la evidencia y el usuario que lo registró.;validada;24;8;id;1;0;0;0;1;0;no;32768
+legal_management;planes_comentarios;Tabla;Comentarios registrados sobre los planes de mejoramiento. Un registro por comentario, asociado a un plan de legal_management.planes_mejoramiento, con el mensaje y el usuario autor.;validada;0;5;id;1;0;0;0;1;0;no;16384
+legal_management;planes_evidencias;Tabla;Evidencias cargadas a los planes de mejoramiento. Un registro por archivo de evidencia, asociado a un plan de legal_management.planes_mejoramiento, con su título, URL, tipo de archivo y usuario que lo cargó.;validada;14;7;id;1;0;0;0;2;0;no;49152
+legal_management;planes_hallazgos;Tabla;"Hallazgos o acciones de mejora asociados a los planes de mejoramiento. Un registro por hallazgo de un plan de legal_management.planes_mejoramiento, con su nombre, descripción, archivo de soporte y porcentaje de avance; el avance global del plan es el promedio de los avances de sus hallazgos.";validada;4;11;id;1;0;0;0;2;0;no;49152
+legal_management;planes_mejoramiento;Tabla;"Planes de mejoramiento de la entidad, originados en auditorías, organismos de control, autoevaluaciones o riesgos. Un registro por plan, con su código, origen, documento base, área y responsable, fechas, presupuesto, severidad y avance global; se relaciona con sus hallazgos, seguimientos, evidencias y comentarios. Su estado pasa por abierto, en ejecución, vencido o cerrado, y puede archivarse.";validada;22;24;id;0;4;0;0;5;0;no;98304
+legal_management;planes_seguimientos;Tabla;Bitácora de seguimiento de los planes de mejoramiento. Un registro por reporte de avance de un plan de legal_management.planes_mejoramiento, con la descripción, el porcentaje reportado, la fecha y el usuario que lo registró.;validada;22;6;id;1;0;0;0;1;0;no;32768
+legal_management;plantillas_documentos;Tabla;Plantillas de documentos Word de la gestión jurídica. Un registro por plantilla, con su nombre, categoría (actas, evidencias, oficios, pruebas, comunicaciones, notificaciones o documentos generales), archivo original, tipo MIME, tamaño, contenido en Base64 y usuario que la cargó.;validada;5;10;id;0;0;0;0;2;1;no;524288
 legal_management;procesos_coactivos;Tabla;Tabla de procesos de cobro coactivo - Módulo Gestión Legal;base;7;21;id;0;3;0;0;6;0;no;114688
-legal_management;procesos_coactivos_adjuntos;Tabla;;;13;10;id;1;0;0;0;2;0;no;49152
-legal_management;requerimientos_oc;Tabla;;;14;28;id;0;5;0;0;6;0;no;114688
+legal_management;procesos_coactivos_adjuntos;Tabla;Archivos adjuntos de los procesos de cobro coactivo. Un registro por archivo, asociado a un proceso de legal_management.procesos_coactivos, con su nombre original y almacenado, tipo, tamaño, URL e indicador de si corresponde al título ejecutivo.;validada;13;10;id;1;0;0;0;2;0;no;49152
+legal_management;requerimientos_oc;Tabla;"Requerimientos recibidos de los organismos de control. Un registro por requerimiento, con sus radicados externo e interno, organismo emisor, tipo, asunto, plazo y fecha de vencimiento, responsable, abogado asignado, prioridad y soportes de respuesta; se relaciona con sus comentarios, documentos, hallazgos, borradores de respuesta y solicitudes de insumos. Su estado pasa por recibido, en análisis, en respuesta, enviado, cerrado o vencido, y puede archivarse.";validada;14;28;id;0;5;0;0;6;0;no;114688
 legal_management;respuesta_borrador_oc;Tabla;Almacena borradores de respuestas a requerimientos de órganos de control;base;2;10;id;1;0;0;0;2;0;no;49152
 legal_management;riesgo_historial;Tabla;Historial de cambios y eventos de riesgos para trazabilidad;base;8;9;id;1;0;0;0;3;0;no;65536
-legal_management;riesgos;Tabla;;;6;31;id;0;1;0;0;11;1;no;196608
-legal_management;sequences;Tabla;;;1;3;name;0;0;0;0;1;0;no;57344
-legal_management;solicitudes_insumos;Tabla;;;0;17;id;1;0;0;0;5;0;no;49152
-legal_management;system_configurations;Tabla;;;8;6;key;0;0;0;0;1;0;no;180224
+legal_management;riesgos;Tabla;"Riesgos institucionales de la gestión jurídica. Un registro por riesgo, con su código, proceso, tipo (corrupción, fiscal, gestión o seguridad digital), valoración inherente y residual (probabilidad, impacto y zona), causas, consecuencias, controles, plan de tratamiento, responsable y provisión contable, y el proceso jurídico de origen cuando aplica; su historial se registra en legal_management.riesgo_historial. Avanza por etapas desde identificado hasta cerrado.";validada;6;31;id;0;1;0;0;11;1;no;196608
+legal_management;sequences;Tabla;Consecutivos genéricos de la gestión jurídica para generar radicados legibles por año (por ejemplo, TERM-2026-0001). Un registro por nombre de secuencia (prefijo y año), con el último número asignado.;validada;1;3;name;0;0;0;0;1;0;no;57344
+legal_management;solicitudes_insumos;Tabla;Solicitudes de insumos que se delegan a otras áreas para responder los requerimientos de los organismos de control. Un registro por solicitud, asociada a un requerimiento de legal_management.requerimientos_oc, con el área y el funcionario destinatarios, los documentos solicitados, los plazos, la respuesta y los documentos entregados. Su estado pasa por pendiente, en proceso, entregado, rechazado o vencido.;validada;0;17;id;1;0;0;0;5;0;no;49152
+legal_management;system_configurations;Tabla;Parámetros de configuración de los módulos de la gestión jurídica (por ejemplo, columnas del tablero Kanban y tipos de proceso). Un registro por clave de configuración, con el módulo al que pertenece, su valor en formato JSON y su descripción.;validada;8;6;key;0;0;0;0;1;0;no;180224
 legal_management;tareas_expediente;Tabla;Tareas asociadas a expedientes judiciales para control de actividades;base;35;14;id;1;0;0;0;5;1;no;131072
-legal_management;tasas_referencia;Tabla;;;0;7;id;0;0;0;0;1;0;no;8192
-legal_management;terminos_alertas_enviadas;Tabla;;;109;4;id;2;0;0;0;4;0;no;106496
+legal_management;tasas_referencia;Tabla;Tasas de referencia mensuales para la liquidación de intereses en los procesos de cobro coactivo (Resolución 492). Un registro por año, mes y tipo de tasa (DIAN o usura), con su valor en porcentaje anual.;validada;0;7;id;0;0;0;0;1;0;no;8192
+legal_management;terminos_alertas_enviadas;Tabla;"Registro de las alertas de vencimiento ya enviadas para cada término procesal, para no reenviar la misma alerta. Un registro por envío, asociado a un término de legal_management.terminos_procesales y a la regla de legal_management.terminos_reglas_alerta que lo disparó; sin regla, corresponde a la anticipación personalizada del propio término.";validada;109;4;id;2;0;0;0;4;0;no;106496
 legal_management;terminos_procesales;Tabla;Torre de control transversal para vencimientos de términos procesales de todos los módulos;base;233;26;id;0;1;0;0;7;0;no;294912
-legal_management;terminos_reglas_alerta;Tabla;;;2;8;id;0;1;0;0;3;0;no;57344
-notifications;notificacion;Tabla;;;6324;26;id_notificacion;0;0;0;0;3;0;no;4235264
-public;config_entes_control;Tabla;;;4;9;id;0;0;0;0;2;1;no;49152
-public;stage_configuration;Tabla;;;7;7;id;0;0;0;0;1;0;no;32768
-public;system_configuration;Tabla;;;1;5;id;0;0;0;0;1;0;no;32768
-requerimientos_oc;avances_hallazgo;Tabla;;;0;10;id;1;0;0;0;3;0;no;32768
+legal_management;terminos_reglas_alerta;Tabla;"Reglas globales de alerta automática de vencimiento de los términos procesales. Un registro por regla, con las horas de anticipación al vencimiento, los canales de envío (correo electrónico o notificación en la aplicación) e indicador de activa; los envíos se registran en legal_management.terminos_alertas_enviadas.";validada;2;8;id;0;1;0;0;3;0;no;57344
+notifications;notificacion;Tabla;"Notificaciones de la plataforma dirigidas a los usuarios (RF014). Un registro por notificación a un usuario destinatario, con su tipo de evento, módulo, título, mensaje, prioridad, acción asociada y datos adicionales; registra su lectura, archivo y marca de favorita, y el envío, entrega, apertura y clic del correo electrónico correspondiente.";validada;6345;26;id_notificacion;0;0;0;0;3;0;no;4251648
+public;config_entes_control;Tabla;Catálogo de configuración de los entes de control (por ejemplo, Contraloría y Procuraduría). Un registro por ente, con su código, nombre, descripción, color de identificación en la interfaz, orden e indicador de activo.;validada;4;9;id;0;0;0;0;2;1;no;49152
+public;stage_configuration;Tabla;Configuración de días hábiles por etapa del proceso disciplinario. Un registro por etapa, con su descripción, el número de días hábiles asignados e indicador de activa.;validada;7;7;id;0;0;0;0;1;0;no;32768
+public;system_configuration;Tabla;Configuración global del módulo de control disciplinario interno. Registra, en formato JSON, la capacidad de procesos por cargo y los parámetros de notificaciones, alertas y seguridad.;validada;1;5;id;0;0;0;0;1;0;no;32768
+requerimientos_oc;avances_hallazgo;Tabla;Reportes de avance de los hallazgos de los organismos de control. Un registro por reporte de un hallazgo de requerimientos_oc.hallazgos, con la fecha, el porcentaje de avance, la descripción, los documentos de soporte, el reporte a SIRECI y el funcionario que lo reportó.;validada;0;10;id;1;0;0;0;3;0;no;32768
 requerimientos_oc;cat_organismos_control;Tabla;Catálogo maestro de organismos de control que pueden generar requerimientos a la ESAP;base;25;8;id;0;1;0;0;2;0;no;40960
-requerimientos_oc;hallazgos;Tabla;;;2;25;id;1;1;0;0;5;1;no;98304
-requerimientos_oc;historial_requerimientos;Tabla;;;0;9;id;1;0;0;0;3;0;no;32768
+requerimientos_oc;hallazgos;Tabla;"Hallazgos de auditoría de los organismos de control y su plan de mejoramiento. Un registro por hallazgo, asociado a un requerimiento de requerimientos_oc.requerimientos, con su código, número interno, tipo (administrativo, disciplinario, fiscal o penal), causa, efecto, acción correctiva, responsables, indicador, avance y periodicidad de reporte; sus avances se registran en requerimientos_oc.avances_hallazgo. Su estado pasa por abierto, en curso, en revisión, cerrado o rechazado.";validada;2;25;id;1;1;0;0;5;1;no;98304
+requerimientos_oc;historial_requerimientos;Tabla;"Bitácora de acciones sobre los requerimientos de los organismos de control. Un registro por acción (creación, asignación, delegación, cambio de estado, respuesta o cierre) sobre un requerimiento de requerimientos_oc.requerimientos, con su descripción, los estados anterior y nuevo, el usuario, su área y la fecha; los cambios de estado se registran automáticamente.";validada;0;9;id;1;0;0;0;3;0;no;32768
 requerimientos_oc;requerimientos;Tabla;Gestión de requerimientos de órganos de control con radicado automático y cálculo de vencimiento;base;5;25;id;1;3;0;0;7;1;no;131072
-requerimientos_oc;solicitudes_insumos;Tabla;;;0;17;id;1;0;0;0;4;0;no;40960
+requerimientos_oc;solicitudes_insumos;Tabla;Solicitudes de insumos que se delegan a otras áreas para responder los requerimientos de los organismos de control. Un registro por solicitud, asociada a un requerimiento de requerimientos_oc.requerimientos, con el área y el funcionario destinatarios, los documentos solicitados, los plazos, la respuesta y los documentos entregados. Su estado pasa por pendiente, en proceso, entregado, rechazado o vencido.;validada;0;17;id;1;0;0;0;4;0;no;40960
 travel_expenses;analistas_viaticos;Tabla;Catalogo de analistas del Grupo de Viaticos para asignacion de comisiones y calculo de carga laboral;base;0;13;id;1;0;0;0;7;1;no;65536
-travel_expenses;comisionados;Tabla;;;4;21;id;0;2;0;0;4;1;no;81920
-travel_expenses;config_campos_formulario;Tabla;;;19;12;id;0;0;0;0;4;0;no;81920
-travel_expenses;config_jornada_laboral;Tabla;;;1;13;id;0;0;0;0;4;0;no;81920
+travel_expenses;comisionados;Tabla;Personas que pueden recibir una comisión de servicio de la ESAP: contratistas, docentes, estudiantes, funcionarios e investigadores. Un registro por persona, identificada por su número de documento, con nombres, contacto, tipo de vinculación, origen de los datos, autorización de tratamiento de datos personales, vigencia del contrato, cuentas bancarias y cargos. Es referenciada por las solicitudes de comisión y los paz y salvos.;validada;4;21;id;0;2;0;0;4;1;no;81920
+travel_expenses;config_campos_formulario;Tabla;Catálogo de los campos configurables del formulario de solicitud de comisión. Un registro por campo, con su clave, etiqueta, tipo de control, opciones, sección (comisionado, comisión, valores o soportes), orden y límite de caracteres. Sus claves se usan en config_tipo_comisionado y en los campos adicionales de solicitudes_comision.;validada;19;12;id;0;0;0;0;4;0;no;81920
+travel_expenses;config_jornada_laboral;Tabla;Configuración de la jornada laboral que se aplica en el trámite de comisiones. Un registro por jornada, con hora de inicio y fin, días hábiles de la semana, días mínimos de anticipación para radicar una comisión ordinaria (RF-EXT-001) y umbral de días hábiles para definir la modalidad de pago al expedir el registro presupuestal. La diligencia el administrador del módulo.;validada;1;13;id;0;0;0;0;4;0;no;81920
 travel_expenses;config_legalizacion;Tabla;EFDS-1309 — Disparador, plazo (días hábiles) y aviso de la legalización por modalidad de pago.;base;2;9;modalidad_pago;0;0;0;0;1;1;no;24576
 travel_expenses;config_legalizacion_documentos;Tabla;EFDS-1309 — Soportes exigidos para legalizar, por tipo de comisionado. Configuración, no código (D-2).;base;42;9;id;2;0;0;0;2;1;no;73728
-travel_expenses;config_tipo_comisionado;Tabla;;;7;9;id;0;2;0;0;4;0;no;81920
-travel_expenses;config_tipo_comisionado_documentos;Tabla;;;24;6;id;2;0;0;0;4;0;no;73728
-travel_expenses;configuraciones_globales;Tabla;;;6;5;clave;0;0;0;0;1;0;no;32768
-travel_expenses;documentos_soporte;Tabla;;;0;8;id;1;0;0;0;2;0;no;24576
-travel_expenses;escalas_viaticos;Tabla;;;11;8;id;0;0;0;0;4;0;no;73728
-travel_expenses;excepciones_autorizadas_tiquetes;Tabla;;;0;8;id;0;0;0;0;3;0;no;32768
+travel_expenses;config_tipo_comisionado;Tabla;Configuración del formulario de solicitud de comisión por tipo de comisionado. Un registro por tipo, con el código del formulario y las listas de campos obligatorios, opcionales y ocultos (claves de config_campos_formulario). Se relaciona con los documentos de soporte exigidos (config_tipo_comisionado_documentos) y con config_legalizacion_documentos.;validada;7;9;id;0;2;0;0;4;0;no;81920
+travel_expenses;config_tipo_comisionado_documentos;Tabla;Documentos de soporte exigidos por tipo de comisionado. Un registro por combinación de tipo de comisionado y tipo de documento de soporte, que indica si el documento es obligatorio u opcional. Relaciona config_tipo_comisionado con tipos_documento_soporte.;validada;24;6;id;2;0;0;0;4;0;no;73728
+travel_expenses;configuraciones_globales;Tabla;Parámetros globales del módulo de viáticos. Un registro por parámetro, identificado por su clave, con su valor guardado como texto (correos, horas, números o listas JSON) y su descripción.;validada;6;5;clave;0;0;0;0;1;0;no;32768
+travel_expenses;documentos_soporte;Tabla;Archivos de soporte adjuntos a las solicitudes de comisión, como CDP, certificación bancaria, contrato SECOP, RUT o seguridad social. Un registro por archivo, con su tipo de documento, nombre original, nombre de almacenamiento, ruta y tipo MIME. Se relaciona con travel_expenses.solicitudes_comision.;validada;0;8;id;1;0;0;0;2;0;no;24576
+travel_expenses;escalas_viaticos;Tabla;Escalas de viáticos por rango salarial fijadas por decreto. Un registro por rango de asignación básica y año de vigencia, con la tarifa diaria base que se aplica en la liquidación de las comisiones.;validada;11;8;id;0;0;0;0;4;0;no;73728
+travel_expenses;excepciones_autorizadas_tiquetes;Tabla;Excepciones autorizadas por la Dirección Nacional o el Sindicato para omitir la restricción de ruta corta o de presupuesto agotado en la compra de tiquetes (RF-LIQ-003, RF-LIQ-004). Un registro por excepción, con la solicitud de comisión a la que aplica, el tipo de excepción, la instancia que la autoriza y el documento de soporte.;validada;0;8;id;0;0;0;0;3;0;no;32768
 travel_expenses;legalizacion_reversiones;Tabla;"EFDS-1310 — Solicitudes de reversión de una revisión de legalización aprobada. La solicita el analista y la resuelve otra persona; solo antes del registro en SIIF.";base;0;9;id;1;0;0;0;3;1;no;32768
 travel_expenses;legalizacion_revisiones;Tabla;EFDS-1310 — Trazabilidad de la revisión de la legalización (quién, qué, cuándo). Solo inserción.;base;0;8;id;1;0;0;0;2;1;no;24576
 travel_expenses;legalizacion_soportes;Tabla;EFDS-1309 — PDF de soporte de la legalización, validados por contenido (%PDF-), no por extensión.;base;0;13;id;2;0;0;0;2;1;no;24576
 travel_expenses;legalizaciones_comision;Tabla;EFDS-1309 — Legalización de una comisión: plazo en días hábiles y envío a revisión.;base;0;41;id;1;3;0;0;4;2;no;40960
-travel_expenses;liquidation_params;Tabla;;;5;7;id;0;0;0;0;3;0;no;65536
+travel_expenses;liquidation_params;Tabla;Parámetros configurables de la autoliquidación de viáticos, como los factores por tipo de comisionado y por pernocta. Un registro por parámetro, con su clave, valor guardado como texto, tipo de dato (NUMBER o STRING) y descripción.;validada;5;7;id;0;0;0;0;3;0;no;65536
 travel_expenses;parametros_globales;Tabla;Parametros globales configurables del modulo de viaticos y comisiones;base;1;7;clave;0;0;0;0;1;0;no;32768
-travel_expenses;paz_y_salvo_eventos;Tabla;;;0;6;id;1;0;0;0;2;0;no;24576
-travel_expenses;paz_y_salvos;Tabla;;;0;9;id;1;1;0;0;2;0;no;24576
+travel_expenses;paz_y_salvo_eventos;Tabla;Historial de eventos sobre los paz y salvos de los comisionados. Un registro por acción (solicitado, OTP solicitado, firma verificada, consultado o descargado), con el usuario que la realizó, la fecha y el detalle. Se relaciona con travel_expenses.paz_y_salvos.;validada;0;6;id;1;0;0;0;2;0;no;24576
+travel_expenses;paz_y_salvos;Tabla;Paz y salvos de los comisionados, emitidos como documentos de la persona fuera del expediente de comisiones (EFDS-1311). Un registro por paz y salvo, con su contenido, la huella SHA-256, el usuario que lo solicitó y los datos de la firma electrónica por código OTP enviado al correo. Se relaciona con travel_expenses.comisionados, y sus eventos quedan en paz_y_salvo_eventos.;validada;0;9;id;1;1;0;0;2;0;no;24576
 travel_expenses;reintegros_comision;Tabla;Reintegros de comisiones pagadas por avance no realizadas o ejecutadas por menos días (RF-PAG-004).;base;0;16;id;1;0;0;0;4;0;no;40960
-travel_expenses;rutas_restringidas;Tabla;;;4;6;id;0;0;0;0;3;0;no;57344
-travel_expenses;saldos_tiquetes;Tabla;;;0;10;id;0;0;0;0;3;0;no;24576
-travel_expenses;solicitudes_comision;Tabla;;;3;98;id;8;4;0;0;29;1;no;507904
+travel_expenses;rutas_restringidas;Tabla;Catálogo de rutas entre ciudades cuya conexión aérea está restringida (RF-LIQ-003), como las rutas cortas que requieren autorización del Director Nacional o del Sindicato. Un registro por ruta de origen y destino, con la descripción de la restricción y su estado activo. Se consulta al validar los tiquetes de una solicitud de comisión.;validada;4;6;id;0;0;0;0;3;0;no;57344
+travel_expenses;saldos_tiquetes;Tabla;Cupo presupuestal de cada dependencia para la compra de tiquetes aéreos. Un registro por dependencia, con el presupuesto inicial, reservado y disponible, y el porcentaje de holgura que se suma al reservar para cubrir la variación del precio del tiquete entre la radicación y la emisión (RF-LIQ-004).;validada;0;10;id;0;0;0;0;3;0;no;24576
+travel_expenses;solicitudes_comision;Tabla;"Solicitudes de comisión de servicio de los comisionados de la ESAP. Un registro por solicitud, con destino, fechas, objeto, itinerario, liquidación de viáticos y gastos de viaje, y los datos de cada etapa del trámite: revisión, autorización, registro presupuestal, obligación, pago o cancelación. Su ciclo se registra en estado_solicitud (BORRADOR, RADICADA, EN_VERIFICACION, DEVUELTA, PAGADA, entre otros); se relaciona con comisionados, auth.user, documentos_soporte, legalizaciones_comision, reintegros_comision y solicitudes_historial_estados.";validada;3;98;id;8;4;0;0;29;1;no;507904
 travel_expenses;solicitudes_historial_estados;Tabla;Auditoría append-only de transiciones de estado del expediente de comisión (RF-SIS-001 / RF-LIQ-004).;base;0;7;id;1;0;0;0;3;0;no;24576
-travel_expenses;tarifas_investigadores;Tabla;;;3;5;id;0;0;0;0;4;0;no;73728
-travel_expenses;tarifas_referencia_tiquetes;Tabla;;;42;14;id;0;0;0;0;5;0;no;98304
-travel_expenses;tarifas_regionales_excepcion;Tabla;;;8;7;id;0;0;0;0;3;0;no;57344
-travel_expenses;tarifas_transporte_terminal;Tabla;;;11;9;id;0;0;0;0;3;0;no;57344
-travel_expenses;tipos_documento_soporte;Tabla;;;15;9;id;0;3;0;0;3;0;no;65536
+travel_expenses;tarifas_investigadores;Tabla;Tarifas diarias de viáticos por categoría de investigador (JUNIOR, ASOCIADO o SENIOR). Un registro por categoría, con la tarifa diaria base que se aplica a los comisionados de tipo INVESTIGADOR.;validada;3;5;id;0;0;0;0;4;0;no;73728
+travel_expenses;tarifas_referencia_tiquetes;Tabla;Matriz de tarifas de referencia de tiquetes aéreos por ruta, para vuelos nacionales e internacionales. Un registro por ruta de origen y destino, con códigos IATA, tarifa estimada, mínima y máxima de un tiquete de ida, y la fuente de la tarifa (paramétrica, manual o API). Se actualiza por sincronización con API o por parametrización institucional.;validada;42;14;id;0;0;0;0;5;0;no;98304
+travel_expenses;tarifas_regionales_excepcion;Tabla;Tarifas de viáticos de excepción por departamento, según el artículo 5 del Decreto 314 de 2026 para departamentos nuevos. Un registro por departamento, con la tarifa diaria, el decreto de referencia y su estado activo.;validada;8;7;id;0;0;0;0;3;0;no;57344
+travel_expenses;tarifas_transporte_terminal;Tabla;Valores máximos reconocidos por trayecto para el desplazamiento a terminales aéreos. Un registro por departamento y ciudad del aeropuerto, con el valor máximo por trayecto que se usa en la liquidación de los gastos de viaje de la comisión.;validada;11;9;id;0;0;0;0;3;0;no;57344
+travel_expenses;tipos_documento_soporte;Tabla;Catálogo de tipos de documento de soporte del trámite de comisiones. Un registro por tipo, con su código, nombre, descripción, instrucciones de validación para quien revisa y campos del formulario que se cotejan con el documento. Se usa en la configuración de documentos por tipo de comisionado, en la de legalización y en los soportes de legalización.;validada;15;9;id;0;3;0;0;3;0;no;65536

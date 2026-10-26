@@ -358,20 +358,20 @@ internal_disciplinary_control.evidence;processId;internal_disciplinary_control.d
 internal_disciplinary_control.legal_autos;processId;internal_disciplinary_control.disciplinary_processes;id;fk_auto_process;1..*;1;sí;218;218;77;13;26;cascada;sin acción
 legal_management.actas;expediente_id;legal_management.expedientes;id;actas_expediente_id_fkey;0..1;1;sí;0;0;0;0;91;cascada;sin acción
 legal_management.actors;expediente_id;legal_management.expedientes;id;fk_actor_expediente;0..*;1;sí;168;168;79;4;91;cascada;sin acción
-legal_management.adjuntos_correo;correo_id;legal_management.correos_juridicos;id;adjuntos_correo_correo_id_fkey;0..*;1;sí;2552;2552;1119;35;14036;cascada;sin acción
+legal_management.adjuntos_correo;correo_id;legal_management.correos_juridicos;id;adjuntos_correo_correo_id_fkey;0..*;1;sí;2554;2554;1120;35;14042;cascada;sin acción
 legal_management.audiencias;expediente_id;legal_management.expedientes;id;audiencias_expediente_id_fkey;0..*;1;sí;18;18;12;3;91;sin acción;sin acción
 legal_management.autos;expediente_id;legal_management.expedientes;id;fk_autos_expediente;0..*;1;sí;4;4;2;3;91;cascada;sin acción
 legal_management.coactivos_historial;proceso_id;legal_management.procesos_coactivos;id;coactivos_historial_proceso_id_fkey;1..*;1;sí;48;48;7;19;7;cascada;sin acción
 legal_management.comentarios;expediente_id;legal_management.expedientes;id;comentarios_expediente_id_fkey;0..*;1;sí;9;9;3;5;91;cascada;sin acción
 legal_management.comentarios_consulta;consulta_id;legal_management.consultas_juridicas;id;comentarios_consulta_consulta_id_fkey;0..1;1;sí;2;2;2;1;31;cascada;sin acción
-legal_management.comentarios_correo;correo_id;legal_management.correos_juridicos;id;comentarios_correo_correo_id_fkey;0..1;1;sí;2;2;2;1;14036;cascada;sin acción
+legal_management.comentarios_correo;correo_id;legal_management.correos_juridicos;id;comentarios_correo_correo_id_fkey;0..1;1;sí;2;2;2;1;14042;cascada;sin acción
 legal_management.comentarios_oc;requerimiento_id;legal_management.requerimientos_oc;id;comentarios_oc_requerimiento_id_fkey;0..*;1;sí;28;28;9;10;14;cascada;sin acción
 legal_management.conceptos_juridicos;consulta_id;legal_management.consultas_juridicas;id;conceptos_juridicos_consulta_id_fkey;0..1;1;sí;0;0;0;0;31;cascada;sin acción
 legal_management.consulta_juridica_historial;consulta_id;legal_management.consultas_juridicas;id;FK_consulta_juridica_historial_consulta;1..*;1;sí;132;132;31;9;31;cascada;sin acción
-legal_management.correo_juridico_historial;correo_juridico_id;legal_management.correos_juridicos;id;fk_correo_historial_correo;0..*;1;sí;14552;14552;13833;6;14036;cascada;sin acción
-legal_management.correo_tracking_tokens;adjunto_id;legal_management.adjuntos_correo;id;fk_tracking_adjunto;0..1;0..1;no;100;48;48;1;2552;poner nulo;sin acción
-legal_management.correo_tracking_tokens;correo_id;legal_management.correos_juridicos;id;fk_tracking_correo;0..*;1;sí;100;100;52;5;14036;cascada;sin acción
-legal_management.correos_juridicos;parent_email_id;legal_management.correos_juridicos;id;correos_juridicos_parent_email_id_fkey;0..*;0..1;no;14036;15;11;2;14036;poner nulo;sin acción
+legal_management.correo_juridico_historial;correo_juridico_id;legal_management.correos_juridicos;id;fk_correo_historial_correo;0..*;1;sí;14558;14558;13839;6;14042;cascada;sin acción
+legal_management.correo_tracking_tokens;adjunto_id;legal_management.adjuntos_correo;id;fk_tracking_adjunto;0..1;0..1;no;100;48;48;1;2554;poner nulo;sin acción
+legal_management.correo_tracking_tokens;correo_id;legal_management.correos_juridicos;id;fk_tracking_correo;0..*;1;sí;100;100;52;5;14042;cascada;sin acción
+legal_management.correos_juridicos;parent_email_id;legal_management.correos_juridicos;id;correos_juridicos_parent_email_id_fkey;0..*;0..1;no;14042;15;11;2;14042;poner nulo;sin acción
 legal_management.decisiones_disciplinarias;expediente_id;legal_management.expedientes;id;fk_decisiones_expediente;0..*;1;sí;6;6;4;2;91;cascada;sin acción
 legal_management.documentos;expediente_id;legal_management.expedientes;id;documentos_expediente_id_fkey;0..*;1;sí;157;157;58;9;91;cascada;sin acción
 legal_management.documentos_consulta;consulta_id;legal_management.consultas_juridicas;id;documentos_consulta_consulta_id_fkey;0..*;1;sí;25;25;19;3;31;cascada;sin acción

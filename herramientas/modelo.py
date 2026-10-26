@@ -352,10 +352,12 @@ def construir(carpeta):
         s = r["s"]
         ts = [t for t in tablas.values() if t["s"] == s]
         cfg = dominios_cfg.get(s, {})
+        # el comentario por defecto de PostgreSQL para public no documenta nada: se toma el de config/dominios.csv
+        d_esq = "" if (r.get("d") or "").strip().lower() == "standard public schema" else (r.get("d") or "").strip()
         esquemas.append({
             "s": s, "nombre": (cfg.get("nombre") or s.replace("_", " ").capitalize()),
-            "d": (r.get("d") or "").strip() or (cfg.get("descripcion") or "").strip(),
-            "de": "base" if (r.get("d") or "").strip() else ("propuesta" if (cfg.get("descripcion") or "").strip() else ""),
+            "d": d_esq or (cfg.get("descripcion") or "").strip(),
+            "de": "base" if d_esq else ("propuesta" if (cfg.get("descripcion") or "").strip() else ""),
             "orden": int(cfg.get("orden") or 999), "owner": r.get("owner"),
             "tablas": sum(1 for t in ts if t["k"] in "rpf" and not t["particion"]), "vistas": sum(1 for t in ts if t["k"] in "vm"),
             "columnas": sum(len(t["cols"]) for t in ts if t["k"] in "rpf" and not t["particion"]),

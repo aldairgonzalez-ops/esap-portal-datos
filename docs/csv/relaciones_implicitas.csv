@@ -1,4 +1,5 @@
 ﻿tabla;columna;tabla_destino;columna_destino;regla;valores;con_padre;sin_padre;cobertura_pct;estado;otros_destinos_posibles
+academic_work_plan.AuditLog;usuario_id;academic_work_plan.Usuario;id;R2;1;1;0;100.0;confirmada por datos;
 auth.dependencias;id_sede;auth.sedes;id_sede;R1;6;6;0;100.0;confirmada por datos;auth.sede_cetap_mapping
 control_interno.accion_correctiva;hallazgo_id;control_interno.hallazgo;id;R2;29;29;0;100.0;confirmada por datos;legal_management.hallazgos, requerimientos_oc.hallazgos
 control_interno.documento;etapa_kanban_id;control_interno.etapa_kanban;id;R2;17;17;0;100.0;confirmada por datos;

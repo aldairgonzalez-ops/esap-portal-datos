@@ -162,6 +162,7 @@ academic_registration;certificate_validations;location;Ciudad y país desde dond
 academic_registration;certificate_validations;result;Resultado de la validación pública del certificado. Valores permitidos: VALID, REVOKED, EXPIRED, NOT_FOUND.;validada
 academic_registration;certificate_validations;user_agent;Agente de usuario (navegador) desde el que se consultó la validación pública del certificado.;validada
 academic_registration;certificate_validations;validation_date;Fecha y hora en que se realizó la validación pública del certificado de grado.;validada
+academic_registration;graduate_files;;"Archivos asociados a los graduados del registro académico. Un registro por archivo cargado para un graduado (academic_registration.graduates), con su nombre original, nombre de almacenamiento, tipo MIME, tamaño, quién lo cargó y la fecha de carga; incluye archivos copiados desde la revisión de la solicitud de certificado de grado.";validada
 academic_registration;graduate_files;graduate_id;Referencia al registro de academic_registration.graduates (id).;validada
 academic_registration;graduate_files;id;Identificador único del registro en la tabla graduate_files. Se genera automáticamente.;validada
 academic_registration;graduate_files;mime_type;Tipo MIME del archivo adjunto del graduado.;validada
@@ -272,6 +273,7 @@ academic_registration;graduation_certificates;signer_position;Cargo del firmante
 academic_registration;graduation_certificates;status;"Estado del certificado emitido. Valores permitidos: VALID, REVOKED, EXPIRED; por defecto VALID.";validada
 academic_registration;graduation_certificates;updated_at;Fecha y hora de la última actualización del registro.;validada
 academic_registration;graduation_certificates;verification_code;Código de verificación único del certificado, contenido en el código QR.;validada
+academic_registration;graduation_request_review_files;;Archivos cargados durante la revisión de las solicitudes de certificado de grado. Un registro por archivo adjunto a una solicitud (academic_registration.graduation_certificate_requests), con su nombre original, nombre de almacenamiento, tipo MIME, tamaño, quién lo cargó y la fecha de carga.;validada
 academic_registration;graduation_request_review_files;id;Identificador único del registro en la tabla graduation_request_review_files. Se genera automáticamente.;validada
 academic_registration;graduation_request_review_files;mime_type;Tipo MIME del archivo de revisión de la solicitud de certificado de grado.;validada
 academic_registration;graduation_request_review_files;original_name;Nombre original del archivo cargado en la revisión de la solicitud.;validada
@@ -298,6 +300,7 @@ academic_registration;template_config_changes;new_value;Valor del campo después
 academic_registration;template_config_changes;observations;Observaciones sobre el cambio realizado en la plantilla.;validada
 academic_registration;template_config_changes;old_value;Valor del campo antes del cambio en la plantilla.;validada
 academic_registration;template_config_changes;template_config_id;Referencia al registro de academic_registration.certificate_template_config (id).;validada
+academic_work_plan;AprobacionJefatura;;"Aprobaciones de las jefaturas territoriales sobre los planes de trabajo académico (PTA). Un registro por aprobación requerida de una jefatura territorial cuando el docente tiene asignaturas en varias territoriales, relacionado con academic_work_plan.PlanTrabajoAcademico; registra la decisión (pendiente, aprobado, aprobado con cambios o devuelto), el usuario y rol de la jefatura y sus comentarios.";validada
 academic_work_plan;AprobacionJefatura;camposModificados;Campos del plan de trabajo modificados por la jefatura, en formato JSON.;validada
 academic_work_plan;AprobacionJefatura;comentarios;Comentarios de la jefatura sobre su decisión.;validada
 academic_work_plan;AprobacionJefatura;componentesBloqueados;Componentes del plan de trabajo bloqueados por la jefatura, en formato JSON.;validada
@@ -311,6 +314,7 @@ academic_work_plan;AprobacionJefatura;ptaId;Referencia al registro de academic_w
 academic_work_plan;AprobacionJefatura;territorialId;Identificador de la dirección territorial (id_seccional de auth.seccionales, como texto) a la que corresponde la aprobación.;validada
 academic_work_plan;AprobacionJefatura;territorialNombre;Nombre de la territorial a la que corresponde la aprobación.;validada
 academic_work_plan;AprobacionJefatura;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;AuditLog;;Registro de auditoría de las acciones de los usuarios en el plan de trabajo académico. Un registro por acción, con la fecha y hora, el usuario que la realizó, el módulo, la entidad afectada, el detalle, el resultado y la dirección IP de origen.;validada
 academic_work_plan;AuditLog;accion;Acción realizada por el usuario.;validada
 academic_work_plan;AuditLog;detalles;"Detalle de la acción realizada; vacío por defecto.";validada
 academic_work_plan;AuditLog;entidad_id;Identificador del registro afectado por la acción.;validada
@@ -336,6 +340,7 @@ academic_work_plan;BancoDocentesInvitaciones;sesion_expira_en;Fecha y hora en qu
 academic_work_plan;BancoDocentesInvitaciones;sesion_token_hash;"Hash SHA-256 (hexadecimal) del token de sesión que se entrega tras validar el OTP; la sesión dura dos horas.";validada
 academic_work_plan;BancoDocentesInvitaciones;token_acceso;Token único del enlace público de la invitación.;validada
 academic_work_plan;BancoDocentesInvitaciones;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;CarpetaDigital;;Carpetas digitales de las personas del plan de trabajo académico. Un registro por carpeta de una persona (academic_work_plan.Persona), con su estado, el total de documentos, los documentos rechazados y la fecha de la última actualización.;validada
 academic_work_plan;CarpetaDigital;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;CarpetaDigital;documentosRechazados;"Número de documentos rechazados de la carpeta digital; inicia en 0.";validada
 academic_work_plan;CarpetaDigital;estado;Estado de la carpeta digital.;validada
@@ -344,6 +349,7 @@ academic_work_plan;CarpetaDigital;personaId;Referencia al registro de academic_w
 academic_work_plan;CarpetaDigital;totalDocumentos;"Número total de documentos de la carpeta digital; inicia en 0.";validada
 academic_work_plan;CarpetaDigital;ultimaActualizacion;Fecha y hora de la última actualización de la carpeta digital.;validada
 academic_work_plan;CarpetaDigital;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;Certificado;;Certificados emitidos a personas en el plan de trabajo académico. Un registro por certificado, con la persona a la que se emite, el tipo, el estado, el código QR de verificación y la fecha de emisión.;validada
 academic_work_plan;Certificado;codigoQR;Código QR de verificación del certificado.;validada
 academic_work_plan;Certificado;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;Certificado;estado;Estado del certificado.;validada
@@ -352,16 +358,19 @@ academic_work_plan;Certificado;id;Identificador único del registro en la tabla 
 academic_work_plan;Certificado;personaId;Identificador de la persona a la que se emite el certificado.;validada
 academic_work_plan;Certificado;tipo;Tipo de certificado.;validada
 academic_work_plan;Certificado;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;Concertacion;;Mensajes de concertación de los planes de trabajo académico. Un registro por mensaje intercambiado sobre un plan (academic_work_plan.PlanTrabajoAcademico), con el autor, su rol, el texto y la fecha de creación.;validada
 academic_work_plan;Concertacion;autorId;Identificador del autor del mensaje de concertación del plan de trabajo académico.;validada
 academic_work_plan;Concertacion;autorRol;Rol del autor del mensaje de concertación.;validada
 academic_work_plan;Concertacion;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;Concertacion;id;Identificador único del registro en la tabla Concertacion. Se genera automáticamente.;validada
 academic_work_plan;Concertacion;mensaje;Texto del mensaje de concertación del plan de trabajo académico.;validada
 academic_work_plan;Concertacion;ptaId;Referencia al registro de academic_work_plan.PlanTrabajoAcademico (id).;validada
+academic_work_plan;ConfiguracionSistema;;Parámetros de configuración del plan de trabajo académico. Un registro por parámetro, identificado por su clave, con su valor en formato JSON, la descripción y la fecha de la última actualización.;validada
 academic_work_plan;ConfiguracionSistema;clave;Clave primaria de la tabla ConfiguracionSistema: clave.;validada
 academic_work_plan;ConfiguracionSistema;descripcion;Descripción del parámetro de configuración del sistema.;validada
 academic_work_plan;ConfiguracionSistema;updatedAt;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;ConfiguracionSistema;valor;Valor del parámetro de configuración identificado por la clave, en formato JSON.;validada
+academic_work_plan;DetallesPta;;Detalle de las asignaturas de los planes de trabajo académico. Un registro por asignatura y grupo asignados en un plan (academic_work_plan.PlanTrabajoAcademico), con las horas, la modalidad, el número de estudiantes, la territorial y el CETAP donde se dicta, las fechas de inicio y fin y observaciones.;validada
 academic_work_plan;DetallesPta;asignaturaId;Identificador de la asignatura asignada en el plan de trabajo académico.;validada
 academic_work_plan;DetallesPta;cetapId;Identificador del CETAP donde se dicta la asignatura.;validada
 academic_work_plan;DetallesPta;createdAt;Fecha y hora de creación del registro.;validada
@@ -439,6 +448,7 @@ academic_work_plan;Documento;tipoDocumentoId;Identificador del tipo de documento
 academic_work_plan;Documento;updatedAt;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;Documento;url;Dirección web (URL) del documento.;validada
 academic_work_plan;Documento;versionActual;Número de la versión vigente del documento. Por defecto, 1.;validada
+academic_work_plan;DocumentoVersion;;Historial de versiones de los documentos del plan de trabajo académico. Un registro por versión de un documento (academic_work_plan.Documento), con el número de versión, la URL y el nombre del archivo, el tamaño, el usuario que la creó y comentarios.;validada
 academic_work_plan;DocumentoVersion;comentarios;Comentarios sobre la versión del documento.;validada
 academic_work_plan;DocumentoVersion;creadoPor;Identificador del usuario que creó la versión del documento.;validada
 academic_work_plan;DocumentoVersion;createdAt;Fecha y hora de creación del registro.;validada
@@ -448,6 +458,7 @@ academic_work_plan;DocumentoVersion;nombre;Nombre del archivo de la versión del
 academic_work_plan;DocumentoVersion;tamanoBytes;"Tamaño en bytes de la versión del documento; por defecto, 0.";validada
 academic_work_plan;DocumentoVersion;url;Dirección web (URL) del archivo de la versión del documento.;validada
 academic_work_plan;DocumentoVersion;version;Número de la versión del documento.;validada
+academic_work_plan;HistorialEstadoPTA;;Historial de cambios de estado de los planes de trabajo académico (PTA). Un registro por transición de un plan (academic_work_plan.PlanTrabajoAcademico), con el estado anterior y el nuevo, quién la realizó y su rol, el tipo de acción, los comentarios, la versión del plan y una copia del plan en el momento de la transición.;validada
 academic_work_plan;HistorialEstadoPTA;actorId;"Identificador de quien realizó la transición de estado: el id_user de auth.""user"" del usuario autenticado o, en movimientos registrados en nombre del docente, el identificador del docente en la tabla Docente.";validada
 academic_work_plan;HistorialEstadoPTA;actorRol;Rol del usuario que realizó la transición de estado.;validada
 academic_work_plan;HistorialEstadoPTA;camposModificados;Campos del plan modificados en la transición, en formato JSON.;validada
@@ -460,6 +471,7 @@ academic_work_plan;HistorialEstadoPTA;id;Identificador único del registro en la
 academic_work_plan;HistorialEstadoPTA;ptaId;Referencia al registro de academic_work_plan.PlanTrabajoAcademico (id).;validada
 academic_work_plan;HistorialEstadoPTA;snapshotPta;Copia del plan de trabajo académico en el momento de la transición, en formato JSON.;validada
 academic_work_plan;HistorialEstadoPTA;version;Número de versión del plan de trabajo académico registrado en el cambio de estado.;validada
+academic_work_plan;PTAUserData;;Preferencias de los usuarios en el plan de trabajo académico. Un registro por usuario, con sus etiquetas, notas, planes fijados y orden de prioridad, guardados en formato JSON.;validada
 academic_work_plan;PTAUserData;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;PTAUserData;id;Identificador único del registro en la tabla PTAUserData. Se genera automáticamente.;validada
 academic_work_plan;PTAUserData;notes;Notas del usuario, como objeto JSON.;validada
@@ -468,11 +480,13 @@ academic_work_plan;PTAUserData;priority;Lista JSON ordenada de elementos prioriz
 academic_work_plan;PTAUserData;tags;Etiquetas guardadas por el usuario, como objeto JSON (alias saved_tags).;validada
 academic_work_plan;PTAUserData;updatedAt;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;PTAUserData;userId;"Identificador del usuario al que pertenecen las preferencias; valor único.";validada
+academic_work_plan;Permiso;;"Catálogo de permisos del plan de trabajo académico. Un registro por combinación de recurso y acción permitida, con su descripción; los permisos se asignan a los roles mediante academic_work_plan.RolPermiso.";validada
 academic_work_plan;Permiso;accion;"Acción permitida sobre el recurso; junto con recurso es única.";validada
 academic_work_plan;Permiso;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;Permiso;descripcion;Descripción del permiso.;validada
 academic_work_plan;Permiso;id;Identificador único del registro en la tabla Permiso. Se genera automáticamente.;validada
 academic_work_plan;Permiso;recurso;"Recurso del sistema al que aplica el permiso; junto con accion es único.";validada
+academic_work_plan;Persona;;"Datos personales y de vinculación de las personas del plan de trabajo académico. Un registro por persona, asociado a su usuario (academic_work_plan.Usuario), con identificación, nombres y apellidos, datos de contacto, tipo de usuario, dependencia, cargo y datos de contrato; se relaciona con su carpeta digital, sus documentos y sus programas.";validada
 academic_work_plan;Persona;aplicacion;Aplicación desde la que se registró la persona.;validada
 academic_work_plan;Persona;cargo_semestre;Cargo de la persona o semestre que cursa, según su tipo de usuario.;validada
 academic_work_plan;Persona;contrato;Número o identificación del contrato de la persona.;validada
@@ -500,6 +514,7 @@ academic_work_plan;Persona;tipo_usuario;Tipo de usuario de la persona en el sist
 academic_work_plan;Persona;ubicacion_fisica;Ubicación física de trabajo de la persona.;validada
 academic_work_plan;Persona;updatedAt;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;Persona;usuarioId;Referencia al registro de academic_work_plan.Usuario (id).;validada
+academic_work_plan;PersonaPrograma;;Vinculación de las personas con los programas académicos en el plan de trabajo académico. Un registro por persona (academic_work_plan.Persona) y programa, con el rol en el programa, el semestre actual y el estado de la vinculación.;validada
 academic_work_plan;PersonaPrograma;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;PersonaPrograma;estado;Estado de la vinculación de la persona al programa.;validada
 academic_work_plan;PersonaPrograma;id;Identificador único del registro en la tabla PersonaPrograma. Se genera automáticamente.;validada
@@ -507,6 +522,7 @@ academic_work_plan;PersonaPrograma;personaId;Referencia al registro de academic_
 academic_work_plan;PersonaPrograma;programaId;Identificador del programa académico al que está vinculada la persona.;validada
 academic_work_plan;PersonaPrograma;rolEnPrograma;"Rol de la persona en el programa; por defecto, «Estudiante».";validada
 academic_work_plan;PersonaPrograma;semestreActual;Semestre que cursa actualmente la persona en el programa.;validada
+academic_work_plan;PlanTrabajoAcademico;;Planes de trabajo académico (PTA) de los docentes. Un registro por plan de un docente (academic_work_plan.Docente) en un periodo, con su estado, dedicación, tipo de vinculación, horas totales y asignables, contenido estructurado del formulario, versión, nivel y motivo de devolución y datos del cierre por periodo. Se relaciona con sus aprobaciones, revisiones, eventos, evidencias, detalles e historial de estados.;validada
 academic_work_plan;PlanTrabajoAcademico;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;PlanTrabajoAcademico;datosEstructurados;Contenido completo del plan de trabajo académico en formato JSON, tal como se registra en el formulario (asignaturas, actividades de investigación, extensión y complementarias, horas a programar, entre otros), con campos de control añadidos por el sistema.;validada
 academic_work_plan;PlanTrabajoAcademico;dedicacion;Dedicación del docente registrada en el plan, tomada del formulario del plan o de la vinculación del docente.;validada
@@ -522,6 +538,7 @@ academic_work_plan;PlanTrabajoAcademico;semanasVinculacion;Número de semanas de
 academic_work_plan;PlanTrabajoAcademico;tipoVinculacion;Tipo de vinculación del docente registrado en el plan, tomado del formulario.;validada
 academic_work_plan;PlanTrabajoAcademico;ultimoActorRol;Rol del último usuario que actuó sobre el plan de trabajo.;validada
 academic_work_plan;PlanTrabajoAcademico;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;PtaComponentApproval;;Aprobaciones por componente de los planes de trabajo académico (PTA). Un registro por componente de un plan (academic_work_plan.PlanTrabajoAcademico) y ámbito de aprobación, con su estado (pendiente, aprobado o devuelto), el usuario aprobador, su rol, comentarios, fecha de aprobación y la respuesta del docente al reenviar un componente devuelto.;validada
 academic_work_plan;PtaComponentApproval;aprobador_id;"Identificador del usuario que aprueba el componente del plan: id_user de auth.""user"", tomado del token de sesión; nulo en las aprobaciones registradas por la concertación de Programación Académica.";validada
 academic_work_plan;PtaComponentApproval;aprobador_nombre;Nombre del usuario que aprueba el componente del plan.;validada
 academic_work_plan;PtaComponentApproval;aprobador_rol;Rol del usuario que aprueba el componente del plan.;validada
@@ -535,6 +552,7 @@ academic_work_plan;PtaComponentApproval;pta_id;Referencia al registro de academi
 academic_work_plan;PtaComponentApproval;scope;Ámbito de la aprobación del componente. Valores previstos: cetap, territorial, nacional.;validada
 academic_work_plan;PtaComponentApproval;scope_id;Identificador del ámbito de la aprobación según scope: número de nivel (1 a 3) cuando scope es nivel_aprobacion, identificador de la solicitud de edición (SolicitudPTA) cuando es solicitud_edicion e identificador de la concertación cuando es programacion.;validada
 academic_work_plan;PtaComponentApproval;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;PtaComponentReview;;Revisiones por componente de los planes de trabajo académico (PTA), etapa de preaprobación previa a la aprobación definitiva registrada en academic_work_plan.PtaComponentApproval. Un registro por componente y subsección revisados de un plan (academic_work_plan.PlanTrabajoAcademico), con su estado (pendiente, revisado o devuelto), el revisor, su rol, comentarios, la respuesta del docente y la fecha de revisión.;validada
 academic_work_plan;PtaComponentReview;comentarios;Comentarios del revisor sobre el componente.;validada
 academic_work_plan;PtaComponentReview;componente;"Componente del PTA revisado; usa las mismas claves que PtaComponentApproval.componente.";validada
 academic_work_plan;PtaComponentReview;created_at;Fecha y hora de creación del registro.;validada
@@ -550,6 +568,7 @@ academic_work_plan;PtaComponentReview;scope;"Ámbito de la revisión; toma el va
 academic_work_plan;PtaComponentReview;scope_id;Identificador del ámbito de la revisión según scope.;validada
 academic_work_plan;PtaComponentReview;subseccion;"Subsección del componente revisado: general para los componentes de revisión única (investigacion, ext_*); pregrado o posgrado para academica; docencia o academico_administrativas para complementarias. Por defecto general.";validada
 academic_work_plan;PtaComponentReview;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;PtaEvento;;Eventos de los planes de trabajo académico (PTA) para notificaciones y trazabilidad entre el portal y el backoffice. Un registro por evento de un plan (academic_work_plan.PlanTrabajoAcademico): cambio de estado, notificación, respuesta del docente, escalamiento, edición administrativa o guardado, con el actor, su rol, el sistema de origen, el mensaje y si fue leído en cada sistema.;validada
 academic_work_plan;PtaEvento;actor;Identificador de quien generó el evento: el identificador del docente en acciones del portal, el id_user del usuario autenticado en acciones del backoffice o «sistema» en procesos automáticos.;validada
 academic_work_plan;PtaEvento;actorRol;Rol del usuario que generó el evento.;validada
 academic_work_plan;PtaEvento;createdAt;Fecha y hora de creación del registro.;validada
@@ -565,6 +584,7 @@ academic_work_plan;PtaEvento;metadata;Metadatos adicionales del evento del plan 
 academic_work_plan;PtaEvento;ptaId;Referencia al registro de academic_work_plan.PlanTrabajoAcademico (id).;validada
 academic_work_plan;PtaEvento;sistemaOrigen;"Sistema donde se originó el evento. Valores previstos: backoffice, portal, sistema; por defecto sistema.";validada
 academic_work_plan;PtaEvento;tipo;Tipo de evento del PTA. Valores previstos: cambio_estado, notificacion, respuesta_docente, escalamiento, edicion_admin, guardado.;validada
+academic_work_plan;PtaEvidencia;;Evidencias de avance de los planes de trabajo académico (PTA). Un registro por archivo de evidencia cargado para un plan (academic_work_plan.PlanTrabajoAcademico), con el componente y la sección a la que corresponde, las horas que justifica, la ubicación del archivo, quién lo cargó y la revisión (pendiente, aprobado o rechazado) con su revisor, fecha y comentario.;validada
 academic_work_plan;PtaEvidencia;categoria;"Categoría de la evidencia; para la resolución del proyecto de investigación se asigna una categoría propia del sistema.";validada
 academic_work_plan;PtaEvidencia;comentarioRevision;Comentario del revisor sobre la evidencia.;validada
 academic_work_plan;PtaEvidencia;componentePta;Componente del plan de trabajo al que corresponde la evidencia.;validada
@@ -585,6 +605,7 @@ academic_work_plan;PtaEvidencia;subidoPor;"Persona que cargó la evidencia, seg�
 academic_work_plan;PtaEvidencia;tamanioBytes;"Tamaño en bytes del archivo de evidencia; por defecto, 0.";validada
 academic_work_plan;PtaEvidencia;tipoArchivo;"Tipo de archivo de la evidencia; por defecto, «pdf».";validada
 academic_work_plan;PtaEvidencia;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;PtaTerritorialApproval;;Aprobaciones territoriales de los planes de trabajo académico (PTA). Un registro por territorial, nivel de formación (pregrado o posgrado) y componente territorial de un plan (academic_work_plan.PlanTrabajoAcademico), con su estado (pendiente, aprobado o devuelto), el usuario que registra la decisión, su rol, comentarios, la fecha de decisión y, cuando aplica, la concertación de Programación Académica que la originó.;validada
 academic_work_plan;PtaTerritorialApproval;actor_id;"Identificador del usuario que registró la decisión territorial: id_user de auth.""user"", tomado del token de sesión; nulo en las aprobaciones registradas por la concertación de Programación Académica.";validada
 academic_work_plan;PtaTerritorialApproval;actor_nombre;Nombre del usuario que registra la decisión territorial.;validada
 academic_work_plan;PtaTerritorialApproval;actor_rol;Rol del usuario que registra la decisión territorial.;validada
@@ -601,6 +622,7 @@ academic_work_plan;PtaTerritorialApproval;scope_id;"Identificador de la concerta
 academic_work_plan;PtaTerritorialApproval;territorial_id;Identificador de la dirección territorial (id_seccional de auth.seccionales, como texto) a la que corresponde la aprobación.;validada
 academic_work_plan;PtaTerritorialApproval;territorial_nombre;Nombre de la territorial que emite la aprobación.;validada
 academic_work_plan;PtaTerritorialApproval;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;PtaTerritorialReview;;Revisiones territoriales de los planes de trabajo académico (PTA). Un registro por territorial, nivel de formación (pregrado o posgrado) y componente territorial revisado de un plan (academic_work_plan.PlanTrabajoAcademico), con su estado (pendiente, revisado o devuelto), el revisor, su rol, comentarios y la fecha de revisión.;validada
 academic_work_plan;PtaTerritorialReview;comentarios;Comentarios de la revisión territorial.;validada
 academic_work_plan;PtaTerritorialReview;componente;Componente territorial revisado: distingue la revisión de Docencia territorial (academica_territorial) de la de Complementarias territoriales (complementarias_territorial). Por defecto academica_territorial (EFDS-1353).;validada
 academic_work_plan;PtaTerritorialReview;created_at;Fecha y hora de creación del registro.;validada
@@ -615,6 +637,7 @@ academic_work_plan;PtaTerritorialReview;revisor_rol;Rol del usuario que realiza 
 academic_work_plan;PtaTerritorialReview;territorial_id;Identificador de la dirección territorial (id_seccional de auth.seccionales, como texto) a la que corresponde la revisión.;validada
 academic_work_plan;PtaTerritorialReview;territorial_nombre;Nombre de la territorial que realiza la revisión.;validada
 academic_work_plan;PtaTerritorialReview;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;Rol;;"Catálogo de roles del plan de trabajo académico. Un registro por rol, con su nombre, descripción, estado y si es un rol del sistema; se relaciona con los permisos (academic_work_plan.RolPermiso) y los usuarios (academic_work_plan.UsuarioRol).";validada
 academic_work_plan;Rol;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;Rol;descripcion;Descripción del rol.;validada
 academic_work_plan;Rol;estado;Estado del rol.;validada
@@ -622,6 +645,7 @@ academic_work_plan;Rol;id;Identificador único del registro en la tabla Rol. Se 
 academic_work_plan;Rol;isSystem;Indica si el rol es del sistema.;validada
 academic_work_plan;Rol;nombre;Nombre del rol.;validada
 academic_work_plan;Rol;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;RolPermiso;;Asignación de permisos a roles del plan de trabajo académico. Un registro por par de rol (academic_work_plan.Rol) y permiso (academic_work_plan.Permiso).;validada
 academic_work_plan;RolPermiso;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;RolPermiso;id;Identificador único del registro en la tabla RolPermiso. Se genera automáticamente.;validada
 academic_work_plan;RolPermiso;permisoId;Referencia al registro de academic_work_plan.Permiso (id).;validada
@@ -806,6 +830,7 @@ academic_work_plan;RundSoporteCampo;nombre_archivo;Nombre descriptivo del archiv
 academic_work_plan;RundSoporteCampo;observacion;Observación del revisor sobre el soporte, como el motivo de rechazo.;validada
 academic_work_plan;RundSoporteCampo;revisiones_campos;Revisión individual de cada campo del soporte, en JSON: objeto cuya clave es el campo y cuyo valor tiene estado, observacion (solo si es Rechazado), documentoVersionId, revisadoPor y fechaRevision. Se vacía al reemplazar el soporte.;validada
 academic_work_plan;RundSoporteCampo;tipo_soporte;Tipo de soporte según el catálogo por bloque (BR-039): por ejemplo, documento_identidad (IDENTIDAD), diploma_pregrado o convalidacion_men (FORMACION) y acto_administrativo o contrato (VINCULACION). CONTACTO no requiere soporte.;validada
+academic_work_plan;Sede;;Sedes territoriales del plan de trabajo académico. Un registro por sede, con su código, nombre, municipio y la territorial a la que pertenece (academic_work_plan.Territorial).;validada
 academic_work_plan;Sede;codigo;Código de la sede, único en la tabla.;validada
 academic_work_plan;Sede;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;Sede;id;Identificador único del registro en la tabla Sede. Se genera automáticamente.;validada
@@ -813,6 +838,7 @@ academic_work_plan;Sede;municipio;Municipio donde se ubica la sede.;validada
 academic_work_plan;Sede;nombre;Nombre de la sede.;validada
 academic_work_plan;Sede;territorialId;Referencia al registro de academic_work_plan.Territorial (id).;validada
 academic_work_plan;Sede;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;SistemaAlerta;;Alertas del sistema en el plan de trabajo académico. Un registro por alerta, con su tipo, severidad, mensaje, la entidad que la origina y si está resuelta.;validada
 academic_work_plan;SistemaAlerta;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;SistemaAlerta;entidadId;Identificador del registro que origina la alerta.;validada
 academic_work_plan;SistemaAlerta;entidadRef;Referencia o tipo de la entidad que origina la alerta.;validada
@@ -822,6 +848,7 @@ academic_work_plan;SistemaAlerta;resuelta;Indica si la alerta del sistema está 
 academic_work_plan;SistemaAlerta;severidad;"Nivel de severidad de la alerta; por defecto, «ALTA».";validada
 academic_work_plan;SistemaAlerta;tipo;Tipo de alerta del sistema.;validada
 academic_work_plan;SistemaAlerta;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;SolicitudPTA;;Solicitudes de los docentes sobre sus planes de trabajo académico (PTA): de creación y de edición de componentes. Un registro por solicitud de un docente (academic_work_plan.Docente), con el caso, la razón, la justificación, los documentos de soporte, los componentes solicitados, el estado y la resolución (quién la resolvió, fecha, motivo, acción y decisión por componente).;validada
 academic_work_plan;SolicitudPTA;archivos;Documentos de soporte de la solicitud: arreglo JSON de hasta cinco archivos PDF de máximo 10 MB, cada uno con url (en /uploads/pta-solicitudes/), nombre, tipo («pdf») y tamaño en bytes.;validada
 academic_work_plan;SolicitudPTA;caso;"Caso que motiva la solicitud, enviado por la aplicación; «edicion_pta» en las solicitudes de edición de componentes.";validada
 academic_work_plan;SolicitudPTA;casoLibre;Descripción libre del caso de la solicitud.;validada
@@ -846,11 +873,13 @@ academic_work_plan;SolicitudPTA;resueltoPor;"Nombre del usuario que resolvió la
 academic_work_plan;SolicitudPTA;territorialNueva;Territorial nueva registrada al resolver la solicitud, según el valor que envía la aplicación.;validada
 academic_work_plan;SolicitudPTA;tipoSolicitud;"Tipo de solicitud del docente. Valores previstos: creacion (flujo de creación del PTA) y edicion_componentes (edición de componentes del mismo PTA, sin crear un plan adicional); por defecto creacion.";validada
 academic_work_plan;SolicitudPTA;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;Territorial;;"Catálogo de territoriales del plan de trabajo académico. Un registro por territorial, con su código y nombre; agrupa las sedes de academic_work_plan.Sede.";validada
 academic_work_plan;Territorial;codigo;Código de la territorial.;validada
 academic_work_plan;Territorial;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;Territorial;id;Identificador único del registro en la tabla Territorial. Se genera automáticamente.;validada
 academic_work_plan;Territorial;nombre;Nombre de la territorial.;validada
 academic_work_plan;Territorial;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;Usuario;;"Usuarios del plan de trabajo académico. Un registro por usuario, con su correo, nombre y si está activo; se relaciona con sus datos personales (academic_work_plan.Persona) y sus roles (academic_work_plan.UsuarioRol).";validada
 academic_work_plan;Usuario;activo;Indica si el usuario está activo.;validada
 academic_work_plan;Usuario;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;Usuario;email;Correo electrónico del usuario.;validada
@@ -858,10 +887,12 @@ academic_work_plan;Usuario;id;Identificador único del registro en la tabla Usua
 academic_work_plan;Usuario;nombre;Nombre del usuario.;validada
 academic_work_plan;Usuario;password;"Contraseña del usuario en la tabla de usuarios del plan de trabajo; la autenticación se realiza contra auth.""user"".";validada
 academic_work_plan;Usuario;updatedAt;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;UsuarioRol;;Asignación de roles a usuarios del plan de trabajo académico. Un registro por par de usuario (academic_work_plan.Usuario) y rol (academic_work_plan.Rol).;validada
 academic_work_plan;UsuarioRol;createdAt;Fecha y hora de creación del registro.;validada
 academic_work_plan;UsuarioRol;id;Identificador único del registro en la tabla UsuarioRol. Se genera automáticamente.;validada
 academic_work_plan;UsuarioRol;rolId;Referencia al registro de academic_work_plan.Rol (id).;validada
 academic_work_plan;UsuarioRol;usuarioId;Referencia al registro de academic_work_plan.Usuario (id).;validada
+academic_work_plan;asignatura;;Catálogo de asignaturas de los programas académicos. Un registro por asignatura, identificada por su código (llave del SNIES, RN-01), con su nombre, modalidad, tipo, créditos, horas de clase y del PTA, excepción de la Circular 003, pensum, ubicación semestral, programa, núcleo temático y facultad. Se carga desde una plantilla de importación y lo consulta la programación académica (academic-schedule).;validada
 academic_work_plan;asignatura;activa;Indica si la asignatura está activa.;validada
 academic_work_plan;asignatura;codigo;"Código único de la asignatura; llave maestra del SNIES (RN-01). La importación lo exige y admite hasta 20 caracteres.";validada
 academic_work_plan;asignatura;created_at;Fecha y hora de creación del registro.;validada
@@ -888,6 +919,7 @@ academic_work_plan;asignatura;tipo_asignatura;Tipo de asignatura según su forma
 academic_work_plan;asignatura;tipo_excepcion;Tipo de excepción de la Circular 003 que aplica a la asignatura. Valores permitidos: seminario_enfasis, opciones_grado_ap, seminario_opciones_apt.;validada
 academic_work_plan;asignatura;updated_at;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;asignatura;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;cetap;;"Catálogo de CETAP y sedes de la ESAP. Un registro por ubicación (sede central, CETAP u otra), con su código, nombre, nombre normalizado, coordenadas geográficas y la dirección territorial a la que pertenece (academic_work_plan.direccion_territorial); se relaciona con la oferta de programas, los periodos y los alias del CETAP.";validada
 academic_work_plan;cetap;activo;Indica si el CETAP está activo.;validada
 academic_work_plan;cetap;codigo;Código del CETAP, único en la tabla.;validada
 academic_work_plan;cetap;created_at;Fecha y hora de creación del registro.;validada
@@ -903,6 +935,7 @@ academic_work_plan;cetap;nombre_normalizado;Nombre del CETAP normalizado: sin ti
 academic_work_plan;cetap;tipo;"Tipo de ubicación registrada en el catálogo de CETAP. Valores permitidos: sede_central, cetap, otro; por defecto cetap.";validada
 academic_work_plan;cetap;updated_at;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;cetap;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;cetap_alias;;Nombres alternativos de los CETAP. Un registro por alias con el que se identifica un CETAP (academic_work_plan.cetap) en las fuentes de datos, con su forma normalizada para la comparación y el origen del alias.;validada
 academic_work_plan;cetap_alias;alias;Nombre alternativo con el que se identifica el CETAP en las fuentes de datos.;validada
 academic_work_plan;cetap_alias;alias_normalizado;"Alias del CETAP normalizado para la comparación; es único en la tabla.";validada
 academic_work_plan;cetap_alias;created_at;Fecha y hora de creación del registro.;validada
@@ -910,6 +943,7 @@ academic_work_plan;cetap_alias;created_by;Usuario que creó el registro.;validad
 academic_work_plan;cetap_alias;id;Identificador único del registro en la tabla cetap_alias. Se genera automáticamente.;validada
 academic_work_plan;cetap_alias;id_cetap;Referencia al registro de academic_work_plan.cetap (id).;validada
 academic_work_plan;cetap_alias;origen;Fuente de la que proviene el alias. Por defecto, excel_2025_2.;validada
+academic_work_plan;direccion_territorial;;"Catálogo de direcciones territoriales de la ESAP. Un registro por dirección territorial, con su código, nombre, nombre normalizado, orden de visualización y si está activa; agrupa los CETAP (academic_work_plan.cetap) y las jefaturas territoriales de la programación académica.";validada
 academic_work_plan;direccion_territorial;activo;Indica si la dirección territorial está activa.;validada
 academic_work_plan;direccion_territorial;codigo;Código de la dirección territorial, único en la tabla.;validada
 academic_work_plan;direccion_territorial;created_at;Fecha y hora de creación del registro.;validada
@@ -922,6 +956,7 @@ academic_work_plan;direccion_territorial;nombre_normalizado;Nombre de la direcci
 academic_work_plan;direccion_territorial;orden_visualizacion;Posición de la dirección territorial en las listas de presentación. Por defecto, 999.;validada
 academic_work_plan;direccion_territorial;updated_at;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;direccion_territorial;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;docencia_concertada;;Decisiones de concertación de la docencia recibidas de Programación Académica (EFDS-2315). Un registro por docente, periodo y nivel de formación, con las asignaturas y horas concertadas, las firmas, la huella de lo firmado y el estado de su aplicación al componente de Docencia del plan de trabajo académico (PTA).;validada
 academic_work_plan;docencia_concertada;actualizada_en;Fecha y hora de la actualización.;validada
 academic_work_plan;docencia_concertada;aplicada_en;Fecha y hora en que el PTA aplicó la docencia concertada a su componente de Docencia.;validada
 academic_work_plan;docencia_concertada;asignaturas;Lista de asignaturas concertadas, en JSON. Cada elemento lleva idGrupo, asignaturaId, codigo, nombre, programaId, pensum, creditos, semestre, modalidad, fechaInicio, fechaFin, horas y territorialId (seccional donde se dicta).;validada
@@ -937,6 +972,7 @@ academic_work_plan;docencia_concertada;nivel;Nivel de formación de la docencia 
 academic_work_plan;docencia_concertada;periodo;Código del periodo académico de la docencia concertada, con la forma AAAA-S (año y semestre 1 o 2). Viene de periodo_academico.codigo del plan de trabajo o del código del periodo de programación.;validada
 academic_work_plan;docencia_concertada;recibida_en;Fecha y hora en que se recibió la docencia concertada. Por defecto, la fecha y hora del registro.;validada
 academic_work_plan;docencia_concertada;registrada_por;Usuario que realizó el registro.;validada
+academic_work_plan;facultad;;"Catálogo de facultades. Un registro por facultad, con su código, nombre y si está activa; se relaciona con los programas y las asignaturas.";validada
 academic_work_plan;facultad;activo;Indica si la facultad está activa.;validada
 academic_work_plan;facultad;codigo;Código de la facultad, único en la tabla.;validada
 academic_work_plan;facultad;created_at;Fecha y hora de creación del registro.;validada
@@ -947,6 +983,7 @@ academic_work_plan;facultad;id;Identificador único del registro en la tabla fac
 academic_work_plan;facultad;nombre;Nombre de la facultad.;validada
 academic_work_plan;facultad;updated_at;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;facultad;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;nucleo_tematico;;"Catálogo de núcleos temáticos de los programas académicos. Un registro por núcleo temático de un programa (academic_work_plan.programa), con su código, nombre, descripción y si está activo; agrupa asignaturas.";validada
 academic_work_plan;nucleo_tematico;activo;Indica si el núcleo temático está activo.;validada
 academic_work_plan;nucleo_tematico;codigo;Código del núcleo temático, único en la tabla.;validada
 academic_work_plan;nucleo_tematico;created_at;Fecha y hora de creación del registro.;validada
@@ -959,6 +996,7 @@ academic_work_plan;nucleo_tematico;id_programa;Referencia al registro de academi
 academic_work_plan;nucleo_tematico;nombre;Nombre del núcleo temático.;validada
 academic_work_plan;nucleo_tematico;updated_at;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;nucleo_tematico;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;oferta_cetap_programa;;"Oferta de programas académicos por CETAP y periodo. Un registro por programa (academic_work_plan.programa) ofrecido en un CETAP (academic_work_plan.cetap) en un periodo académico (academic_work_plan.periodo_academico), con los cupos estimados, observaciones y si está activa; se relaciona con los grupos de la programación académica.";validada
 academic_work_plan;oferta_cetap_programa;activa;Indica si la oferta del programa en el CETAP está activa.;validada
 academic_work_plan;oferta_cetap_programa;created_at;Fecha y hora de creación del registro.;validada
 academic_work_plan;oferta_cetap_programa;created_by;Usuario que creó el registro.;validada
@@ -972,6 +1010,7 @@ academic_work_plan;oferta_cetap_programa;id_programa;Referencia al registro de a
 academic_work_plan;oferta_cetap_programa;observaciones;Observaciones sobre la oferta del programa en el CETAP.;validada
 academic_work_plan;oferta_cetap_programa;updated_at;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;oferta_cetap_programa;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;periodo_academico;;"Catálogo de periodos académicos. Un registro por periodo (año y semestre), con su código, fechas de inicio y fin y estado (planeación, concertación, en curso o cerrado); se relaciona con la oferta de programas, los CETAP por periodo y la programación académica.";validada
 academic_work_plan;periodo_academico;anio;Año del periodo académico.;validada
 academic_work_plan;periodo_academico;codigo;Código del periodo académico, único en la tabla.;validada
 academic_work_plan;periodo_academico;created_at;Fecha y hora de creación del registro.;validada
@@ -983,12 +1022,14 @@ academic_work_plan;periodo_academico;id;Identificador único del registro en la 
 academic_work_plan;periodo_academico;semestre;Número del semestre del año al que corresponde el periodo académico.;validada
 academic_work_plan;periodo_academico;updated_at;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;periodo_academico;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;periodo_cetap;;Relación entre periodos académicos y CETAP. Un registro por CETAP (academic_work_plan.cetap) en un periodo académico (academic_work_plan.periodo_academico), con la indicación de si está activo en ese periodo.;validada
 academic_work_plan;periodo_cetap;activo;Indica si el CETAP está activo en el periodo académico.;validada
 academic_work_plan;periodo_cetap;created_at;Fecha y hora de creación del registro.;validada
 academic_work_plan;periodo_cetap;id;Identificador único del registro en la tabla periodo_cetap. Se genera automáticamente.;validada
 academic_work_plan;periodo_cetap;id_cetap;Referencia al registro de academic_work_plan.cetap (id).;validada
 academic_work_plan;periodo_cetap;id_periodo_academico;Referencia al registro de academic_work_plan.periodo_academico (id).;validada
 academic_work_plan;periodo_cetap;updated_at;Fecha y hora de la última actualización del registro.;validada
+academic_work_plan;programa;;"Catálogo de programas académicos. Un registro por programa, con su código, nombre, facultad, nivel de formación, modalidad, periodo académico, factores de cálculo de horas y categoría de horas según la Circular 003; se relaciona con las asignaturas, los núcleos temáticos, la oferta por CETAP y la programación académica. Es la fuente del catálogo de programas que consulta la programación académica (RN-01/RN-02).";validada
 academic_work_plan;programa;activo;Indica si el programa está activo.;validada
 academic_work_plan;programa;categoria_horas_circular003;Categoría de horas del programa según la Circular 003: pregrado_sede_central, pregrado_territorial, especializacion o maestria. Se toma del archivo de carga (en minúsculas) o se infiere del tipo de programa y de las horas de pregrado central.;validada
 academic_work_plan;programa;codigo;Código del programa, único en la tabla.;validada
@@ -1011,11 +1052,13 @@ academic_work_plan;programa;nombre_excel;"Nombre del programa tal como aparece e
 academic_work_plan;programa;tipo;Nivel de formación del programa académico. Valores permitidos: pregrado, tecnico_profesional, tecnologico, especializacion, maestria, doctorado.;validada
 academic_work_plan;programa;updated_at;Fecha y hora de la última actualización del registro.;validada
 academic_work_plan;programa;updated_by;Usuario que realizó la última actualización del registro.;validada
+academic_work_plan;ubicacion_semestral;;"Catálogo de ubicaciones semestrales del plan de estudios. Un registro por semestre, con su código, etiqueta, tipo de programa (pregrado o posgrado) y orden de presentación del catálogo agrupado (AC-01); se relaciona con las asignaturas.";validada
 academic_work_plan;ubicacion_semestral;codigo;Código de la ubicación semestral, único en la tabla.;validada
 academic_work_plan;ubicacion_semestral;etiqueta;"Texto con el que se muestra el semestre del plan de estudios; es único en la tabla.";validada
 academic_work_plan;ubicacion_semestral;id;Identificador único del registro en la tabla ubicacion_semestral. Se genera automáticamente.;validada
 academic_work_plan;ubicacion_semestral;orden;Posición de la ubicación semestral en el ordenamiento.;validada
 academic_work_plan;ubicacion_semestral;tipo_programa;Tipo de programa al que corresponde la ubicación semestral. Valores permitidos: pregrado, posgrado.;validada
+academic_work_plan;validacion_documental;;Validación documental de los campos del RUND de los docentes. Un registro por docente (academic_work_plan.Docente) y campo del RUND, con el grupo de soporte documental, el documento de la carpeta digital que lo soporta, su estado de validación (aceptado, no aplica, pendiente, rechazado o sin cargar), las fechas de carga y validación, quién lo validó y la observación.;validada
 academic_work_plan;validacion_documental;campo_rund;Campo del RUND al que corresponde el documento de soporte del docente. Valores posibles: DOCUMENTO_IDENTIDAD, TIPO_DOCUMENTO, NOMBRE_COMPLETO, FECHA_NACIMIENTO, GENERO, CORREO_INSTITUCIONAL, VINCULACION, TERRITORIAL, DEDICACION, CATEGORIA_ESCALAFON, INICIO_VINCULACION, FIN_VINCULACION, ACTO_ADMINISTRATIVO, PUNTAJE_SALARIAL, SITUACION_ADMINISTRATIVA, NIVEL_FORMACION, TITULO_PREGRADO, TITULO_ESPECIALIZACION, TITULO_MAESTRIA, TITULO_DOCTORADO, TITULO_POSDOCTORADO, NUCLEO_TEMATICO, PERFIL_ACADEMICO y ULTIMA_EVALUACION. Es único por docente.;validada
 academic_work_plan;validacion_documental;created_at;Fecha y hora de creación del registro.;validada
 academic_work_plan;validacion_documental;docente_id;Referencia al registro de academic_work_plan.Docente (id).;validada
@@ -1054,12 +1097,14 @@ audit;request_logs;user_email;Correo electrónico del usuario autenticado que hi
 audit;request_logs;user_id;"Identificador del usuario autenticado que hizo la petición (auth.""user"".id_user), tomado del token. Es nulo si la petición no trae usuario.";validada
 audit;request_logs;user_role;Rol del usuario autenticado al momento de la petición.;validada
 audit;request_logs;version;Versión indicada en la petición HTTP.;validada
+auth;acreditaciones_programa;;"Acreditaciones de los programas académicos. Un registro por acreditación de un programa (auth.programas_academicos), con su tipo (por ejemplo, Alta Calidad o Internacional) y la fecha de vigencia; un programa puede tener más de una.";validada
 auth;acreditaciones_programa;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 auth;acreditaciones_programa;creado_en;Fecha y hora de creación del registro.;validada
 auth;acreditaciones_programa;id;Identificador único del registro en la tabla acreditaciones_programa. Se genera automáticamente.;validada
 auth;acreditaciones_programa;programa_id;Referencia al registro de auth.programas_academicos (id).;validada
 auth;acreditaciones_programa;tipo;Tipo de acreditación del programa académico (por ejemplo, Alta Calidad, Internacional).;validada
 auth;acreditaciones_programa;vigencia;Fecha hasta la que está vigente la acreditación del programa académico.;validada
+auth;cargos;;"Catálogo de cargos de la institución. Un registro por cargo, con su código, nombre, descripción, nivel jerárquico y si está activo; se relaciona con las personas (auth.personas) y con las dependencias (auth.dependencias_cargos).";validada
 auth;cargos;activo;Indica si el cargo está activo.;validada
 auth;cargos;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 auth;cargos;cod_cargo;"Código del cargo; es único en la tabla (máximo 50 caracteres).";validada
@@ -1068,6 +1113,7 @@ auth;cargos;descripcion;Descripción del cargo.;validada
 auth;cargos;id_cargo;Identificador único del registro en la tabla cargos. Se genera automáticamente.;validada
 auth;cargos;nivel_jerarquico;Nivel jerárquico del cargo, en texto libre de hasta 50 caracteres. Por defecto, Profesional.;validada
 auth;cargos;nom_cargo;Nombre del cargo (máximo 250 caracteres).;validada
+auth;carpeta_digital;;"Carpetas digitales de las personas. Un registro por carpeta, asociada a una persona de auth.personas, con su nombre, estado y metadatos; agrupa los tipos de documento y los documentos cargados (auth.tipo_documento, auth.documento_carpeta_digital).";validada
 auth;carpeta_digital;created_at;Fecha y hora de creación del registro.;validada
 auth;carpeta_digital;estado;Estado de la carpeta digital de la persona.;validada
 auth;carpeta_digital;id_carpeta_digital;Identificador único del registro en la tabla carpeta_digital. Se genera automáticamente.;validada
@@ -1092,6 +1138,7 @@ auth;dependencias;id_tercero;Identificador de la persona responsable de la depen
 auth;dependencias;nom_dependencia;Nombre de la dependencia (máximo 250 caracteres).;validada
 auth;dependencias;tip_unidad;Código numérico (un dígito) del tipo de unidad organizacional de la dependencia.;validada
 auth;dependencias;url_dependencia;Dirección web (URL) de la dependencia.;validada
+auth;dependencias_cargos;;Relación entre dependencias y cargos. Un registro por cada cargo asignado a una dependencia (auth.dependencias, auth.cargos), con la marca de si la asignación está activa.;validada
 auth;dependencias_cargos;activo;Indica si la asignación del cargo a la dependencia está activa.;validada
 auth;dependencias_cargos;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 auth;dependencias_cargos;creado_en;Fecha y hora de creación del registro.;validada
@@ -1113,6 +1160,7 @@ auth;documento_carpeta_digital;tipo_archivo;Extensión del archivo subido, en mi
 auth;documento_carpeta_digital;tipo_documento_id;Referencia al registro de auth.tipo_documento (id_tipo_documento).;validada
 auth;documento_carpeta_digital;updated_at;Fecha y hora de la última actualización del registro.;validada
 auth;documento_carpeta_digital;validado_por;Usuario que realizó la validación.;validada
+auth;festivos_colombia;;"Catálogo de los días festivos oficiales de Colombia, de uso transversal en el sistema. Un registro por fecha festiva, con su descripción, origen y regla de cálculo; se usa para computar días hábiles, por ejemplo en las solicitudes de viáticos (RF-PRE-003).";validada
 auth;festivos_colombia;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 auth;festivos_colombia;creado_en;Fecha y hora de creación del registro.;validada
 auth;festivos_colombia;descripcion;Descripción del día festivo.;validada
@@ -1120,6 +1168,7 @@ auth;festivos_colombia;fecha;"Fecha del día festivo; es única en la tabla.";va
 auth;festivos_colombia;id;Identificador único del registro en la tabla festivos_colombia. Se genera automáticamente.;validada
 auth;festivos_colombia;origen;Fuente del festivo: la que informa el calendario nacional al sincronizar (por defecto, Ley 51/1983) o «Manual / Ajuste Interno» cuando se registra a mano.;validada
 auth;festivos_colombia;regla;Regla con la que se determina la fecha del festivo, tomada del calendario nacional al sincronizar. Por defecto, fixed (fecha fija).;validada
+auth;geopolitica;;"Catálogo de la división geopolítica: países, departamentos y ciudades o municipios. Un registro por división, con sus códigos (DANE, DIAN, internacional), nombre, tipo, coordenadas e idioma; cada división puede apuntar a su división padre en la misma tabla y es referenciada por seccionales y sedes.";validada
 auth;geopolitica;cod_are_tel;Código de área telefónica (indicativo) de la división geopolítica.;validada
 auth;geopolitica;cod_ciudad;Código de la ciudad o municipio de la división geopolítica.;validada
 auth;geopolitica;cod_departamento;"Código DANE del departamento de la división geopolítica; permite listar las ciudades de cada departamento.";validada
@@ -1147,8 +1196,10 @@ auth;geopolitica;num_habitantes;Número de habitantes de la división geopolíti
 auth;geopolitica;tip_division;Código del tipo de división geopolítica: DEPTO para departamentos y CIUDAD para ciudades o municipios.;validada
 auth;geopolitica;usu_actualizacion;Usuario que hizo la última actualización del registro.;validada
 auth;geopolitica;usu_creacion;Usuario que creó el registro.;validada
+auth;migrations_db_log;;Registro de los archivos de migración de base de datos ejecutados. Un registro por archivo, con la fecha y hora de su ejecución.;validada
 auth;migrations_db_log;executed_at;Fecha y hora en que se ejecutó el archivo de migración. Por defecto, la fecha y hora del registro.;validada
 auth;migrations_db_log;filename;Clave primaria de la tabla migrations_db_log: filename.;validada
+auth;module;;"Catálogo de los módulos funcionales de la aplicación. Un registro por módulo, con su código, nombre, descripción, categoría (backoffice o portal), ícono, color, orden de presentación y estado activo; agrupa los permisos de auth.permission.";validada
 auth;module;category;"Categoría del módulo según la aplicación donde se presenta. Valores previstos: backoffice, portal; por defecto backoffice.";validada
 auth;module;code;"Código del módulo, único en la tabla; la aplicación lo valida con seis dígitos.";validada
 auth;module;color;Color del módulo en la interfaz, en formato hexadecimal. Por defecto, #003DA5.;validada
@@ -1160,6 +1211,7 @@ auth;module;id_module;Identificador único del registro en la tabla module. Se g
 auth;module;is_active;Indica si el módulo está activo.;validada
 auth;module;name;Nombre del módulo.;validada
 auth;module;updated_at;Fecha y hora de la última actualización del registro.;validada
+auth;permission;;"Catálogo de permisos de la aplicación. Un registro por permiso, con su código, nombre, descripción y módulo al que pertenece (auth.module); los permisos se asignan a los roles en auth.role_permissions.";validada
 auth;permission;code;"Código del permiso, único en la tabla; la aplicación lo valida con seis dígitos.";validada
 auth;permission;created_at;Fecha y hora de creación del registro.;validada
 auth;permission;description;Descripción del permiso.;validada
@@ -1168,6 +1220,7 @@ auth;permission;id_permission;Identificador único del registro en la tabla perm
 auth;permission;is_active;Indica si el permiso está activo.;validada
 auth;permission;name;Nombre del permiso.;validada
 auth;permission;updated_at;Fecha y hora de la última actualización del registro.;validada
+auth;personas;;"Registro maestro de las personas del sistema. Un registro por persona, con identificación, nombres y apellidos, datos de contacto, fecha de nacimiento y su ubicación organizacional (seccional, sede, dependencia y cargo); id_person es el identificador con el que la enlazan los usuarios (auth.user) y las tablas de los demás dominios.";validada
 auth;personas;city;Ciudad de la persona, en texto libre.;validada
 auth;personas;dir_email;Correo electrónico de la persona, guardado en minúsculas.;validada
 auth;personas;dir_residencia;Dirección de residencia de la persona.;validada
@@ -1189,6 +1242,7 @@ auth;personas;tel_celular;Número de teléfono celular de la persona.;validada
 auth;personas;tip_identificacion;Código del tipo de documento de identidad de la persona, en mayúsculas. Para CC, CE y TI se valida la longitud del número.;validada
 auth;personas;usu_creacion;Usuario que creó el registro.;validada
 auth;personas;usu_modificacion;Usuario que hizo la última modificación del registro.;validada
+auth;programas_academicos;;"Catálogo de programas académicos. Un registro por programa, con código, nombre, nivel de formación, modalidad, jornada, duración, créditos, sede, facultad, estado y cifras de estudiantes, graduados y docentes; se relaciona con sus registros calificados y acreditaciones.";validada
 auth;programas_academicos;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 auth;programas_academicos;codigo;Código del programa académico, único en la tabla.;validada
 auth;programas_academicos;costo_matricula;Valor de la matrícula del programa.;validada
@@ -1211,6 +1265,7 @@ auth;programas_academicos;perfil_egresado;Descripción del perfil del egresado d
 auth;programas_academicos;requisitos_ingreso;Lista de requisitos de ingreso al programa.;validada
 auth;programas_academicos;sede_id;Referencia al registro de auth.sedes (id_sede).;validada
 auth;programas_academicos;ultima_actualizacion;"Fecha de actualización de la información del programa; toma la fecha actual al crear el registro y no se actualiza automáticamente. actualizado_en, en cambio, lo actualiza un trigger en cada modificación.";validada
+auth;registros_calificados;;Registros calificados de los programas académicos. Un registro por registro calificado, asociado a un programa de auth.programas_academicos, con su número, fecha de emisión y vigencia.;validada
 auth;registros_calificados;actualizado_en;Fecha y hora de la última actualización del registro.;validada
 auth;registros_calificados;creado_en;Fecha y hora de creación del registro.;validada
 auth;registros_calificados;fecha_emision;Fecha de emisión del registro calificado.;validada
@@ -1218,6 +1273,7 @@ auth;registros_calificados;id;Identificador único del registro en la tabla regi
 auth;registros_calificados;numero;Número del registro calificado del programa académico.;validada
 auth;registros_calificados;programa_id;Referencia al registro de auth.programas_academicos (id).;validada
 auth;registros_calificados;vigencia;Fecha hasta la que está vigente el registro calificado.;validada
+auth;role;;"Catálogo de roles de la aplicación. Un registro por rol, con su código, nombre, descripción, categoría, tipo (sistema o personalizado), sistema al que aplica, alcance administrativo y si exige autenticación de dos factores; los roles agrupan permisos (auth.role_permissions) y se asignan a usuarios (auth.user_roles).";validada
 auth;role;alcance;Configuración del alcance administrativo del rol, en formato JSON.;validada
 auth;role;category;Categoría del rol. Valores admitidos: backoffice, portal, sistema, academico, directivo y administrativo. Por defecto, sistema.;validada
 auth;role;code;Código técnico único del rol, de seis dígitos, usado por el sistema.;validada
@@ -1234,11 +1290,13 @@ auth;role;sistema_destino;Sistema al que aplica el rol: Backoffice, Portal o Amb
 auth;role;type;"Tipo de rol. Valores previstos: sistema, personalizado; por defecto personalizado.";validada
 auth;role;updated_at;Fecha y hora de la última actualización del registro.;validada
 auth;role;updated_by;Usuario que realizó la última actualización del registro.;validada
+auth;role_permissions;;Asignación de permisos a roles (relación N:M). Un registro por cada permiso (auth.permission) asignado a un rol (auth.role), con la marca de si la asignación está activa.;validada
 auth;role_permissions;created_at;Fecha y hora de creación del registro.;validada
 auth;role_permissions;id_permission;Identificador único del registro en la tabla role_permissions.;validada
 auth;role_permissions;id_rol;Identificador único del registro en la tabla role_permissions.;validada
 auth;role_permissions;is_active;Indica si la asignación del permiso al rol está activa.;validada
 auth;role_permissions;updated_at;Fecha y hora de la última actualización del registro.;validada
+auth;seccionales;;"Catálogo de seccionales de la ESAP. Un registro por seccional, con su código, nombre, dirección, NIT, ubicación en la división geopolítica y los firmantes y dependencias firmantes de certificados; agrupa las sedes y se asigna a las personas.";validada
 auth;seccionales;cod_seccional;Código de la seccional (máximo 20 caracteres).;validada
 auth;seccionales;dir_seccional;Dirección física de la seccional.;validada
 auth;seccionales;fec_creacion;Fecha de creación del registro.;validada
@@ -1263,6 +1321,7 @@ auth;sede_cetap_mapping;id_cetap;Referencia al registro de academic_work_plan.ce
 auth;sede_cetap_mapping;id_sede;Identificador único del registro en la tabla sede_cetap_mapping.;validada
 auth;sede_cetap_mapping;origen;Origen de la relación entre la sede y el CETAP. Valores permitidos: legacy, official. Por defecto, official.;validada
 auth;sede_cetap_mapping;updated_at;Fecha y hora de la última actualización del registro.;validada
+auth;sedes;;"Catálogo de sedes de la ESAP. Un registro por sede, con su código, nombre, seccional, ubicación geopolítica, dirección, coordenadas, contacto, capacidad de estudiantes y docentes, estado y si permite inscripciones, matrículas y visibilidad en el portal; se asigna a personas y programas académicos.";validada
 auth;sedes;capacidad_docentes;Número de docentes que puede atender la sede. Se suma en los totales de capacidad de la estructura organizacional.;validada
 auth;sedes;capacidad_estudiantes;Número de estudiantes que puede atender la sede. Se suma en los totales de capacidad de la estructura organizacional.;validada
 auth;sedes;cod_atributo;Código de atributo de la sede, de hasta 10 caracteres. Cuando la carga de estructura reemplaza el código de la sede por el del CETAP, guarda aquí el código anterior si el campo está vacío.;validada
@@ -1286,9 +1345,11 @@ auth;sedes;tel_sede;Número de teléfono de contacto de la sede.;validada
 auth;sedes;usu_actualizacion;Usuario que hizo la última actualización del registro. La carga de estructura organizacional escribe el valor sistema.;validada
 auth;sedes;usu_creacion;Usuario que creó el registro. La carga de estructura organizacional escribe el valor sistema.;validada
 auth;sedes;visible_portal;Indica si la sede se muestra en el portal. Por defecto, verdadero.;validada
+auth;system_settings;;"Parámetros globales del sistema en formato clave-valor. Un registro por parámetro, con su valor y fecha de actualización; se usa, por ejemplo, para el SMMLV o para habilitar el inicio de sesión con correo y contraseña.";validada
 auth;system_settings;key;Clave primaria de la tabla system_settings: key.;validada
 auth;system_settings;updated_at;Fecha y hora de la última actualización del registro.;validada
 auth;system_settings;value;Valor del parámetro global identificado por key (por ejemplo, el SMMLV), en texto de 1 a 100 caracteres.;validada
+auth;tipo_documento;;Tipos de documento que se configuran para la carpeta digital. Un registro por tipo, con su nombre, categoría, si es obligatorio o requiere validación, el rol validador, los formatos y el tamaño máximo permitidos, y el criterio de asignación a las personas (todos, territorial, seccional, sede o persona).;validada
 auth;tipo_documento;activo;Indica si el tipo de documento está activo.;validada
 auth;tipo_documento;asignacion_tipo;Criterio con que se asigna el tipo de documento a las personas: todos, territorial, seccional, sede o persona. Por defecto, todos.;validada
 auth;tipo_documento;asignacion_valor;"Valor del criterio de asignación del tipo de documento: identificador, nombre o código de la seccional (territorial o seccional) o de la sede (sede), o identificador, número de identificación o correo de la persona (persona). Se compara sin distinguir mayúsculas; vacío aplica a todos.";validada
@@ -1306,6 +1367,7 @@ auth;tipo_documento;requiere_validacion;Indica si los documentos de este tipo re
 auth;tipo_documento;rol_validador;Rol encargado de validar los documentos de este tipo, registrado como texto.;validada
 auth;tipo_documento;tamano_max_mb;Tamaño máximo del archivo permitido para el tipo de documento, en megabytes. Por defecto, 10.;validada
 auth;tipo_documento;updated_at;Fecha y hora de la última actualización del registro.;validada
+auth;user;;"Cuentas de usuario para el acceso al sistema. Un registro por usuario, enlazado a una persona de auth.personas, con su nombre de usuario, contraseña cifrada, estado, identificador público, datos de inicio de sesión con Microsoft y de autenticación de dos factores; los roles del usuario se asignan en auth.user_roles.";validada
 auth;user;2fa;Indica si el usuario tiene habilitada la autenticación de dos factores.;validada
 auth;user;created_at;Fecha y hora de creación del registro.;validada
 auth;user;id_person;Referencia al registro de auth.personas (id_person).;validada
@@ -1319,6 +1381,7 @@ auth;user;token;Código numérico de seis dígitos de un solo uso que se envía 
 auth;user;token_microsoft;Identificador de objeto (oid) de la cuenta Microsoft del usuario, registrado al iniciar sesión con Microsoft. No guarda el token de acceso ni el de actualización.;validada
 auth;user;updated_at;Fecha y hora de la última actualización del registro.;validada
 auth;user;username;Nombre de usuario con el que la persona inicia sesión.;validada
+auth;user_roles;;Asignación de roles a usuarios (relación N:M). Un registro por cada rol (auth.role) asignado a un usuario (auth.user), con la marca de si la asignación está activa.;validada
 auth;user_roles;created_at;Fecha y hora de creación del registro.;validada
 auth;user_roles;id_rol;Identificador único del registro en la tabla user_roles.;validada
 auth;user_roles;id_user;Identificador único del registro en la tabla user_roles.;validada
@@ -1507,6 +1570,7 @@ chatbot;prompt_template;is_activo;Indica si la plantilla de instrucciones (promp
 chatbot;prompt_template;nombre;Nombre de la plantilla de instrucciones (prompt).;validada
 chatbot;prompt_template;system_prompt;Texto de instrucciones de sistema (system prompt) que se envía al modelo de lenguaje con esta plantilla.;validada
 chatbot;prompt_template;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;accion_correctiva;;"Acciones correctivas, de mejora o preventivas de los planes de mejoramiento. Un registro por acción, asociada a un plan (y opcionalmente a un hallazgo), con su responsable, fechas, indicador y meta, estado, avance, verificación de la Oficina de Control Interno y la calificación de cumplimiento y efectividad (EM-FO-002); de ella dependen las evidencias, alertas y registros de seguimiento.";validada
 control_interno;accion_correctiva;cantidad_acciones_implementadas;Cantidad de acciones implementadas de la acción correctiva (EM-FO-002).;validada
 control_interno;accion_correctiva;cantidad_acciones_programadas;Cantidad de acciones programadas como meta de la acción correctiva (EM-FO-002).;validada
 control_interno;accion_correctiva;created_at;Fecha y hora de creación del registro.;validada
@@ -1606,6 +1670,7 @@ control_interno;adjunto_actividad_plan_anual_5;hash_archivo;Hash SHA-256 del arc
 control_interno;adjunto_actividad_plan_anual_5;id;Identificador único del registro en la tabla adjunto_actividad_plan_anual_5. Se genera automáticamente.;validada
 control_interno;adjunto_actividad_plan_anual_5;nombre;Nombre del archivo adjunto (evidencia) de la actividad del Plan Anual de Auditoría.;validada
 control_interno;adjunto_actividad_plan_anual_5;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;alerta_plan;;Alertas generadas automáticamente durante el seguimiento de los planes de mejoramiento (RF-SG-08). Un registro por alerta, asociada a un plan y, si aplica, a una acción correctiva, con su tipo, descripción, fecha de generación y si fue atendida, cuándo y por quién.;validada
 control_interno;alerta_plan;accion_id;Referencia al registro de control_interno.accion_correctiva (id).;validada
 control_interno;alerta_plan;atendida;"Indica si la alerta fue atendida o resuelta; por defecto falso.";validada
 control_interno;alerta_plan;atendida_at;Fecha y hora en que se atendió la alerta.;validada
@@ -1772,6 +1837,7 @@ control_interno;cache_esap;fecha_expiracion;Fecha y hora en que expira la entrad
 control_interno;cache_esap;id;Identificador único del registro en la tabla cache_esap. Se genera automáticamente.;validada
 control_interno;cache_esap;updated_at;Fecha y hora de la última actualización del registro.;validada
 control_interno;cache_esap;valor;Valor almacenado en caché para la clave, en formato JSON.;validada
+control_interno;cierre_plan;;Cierre de los planes de mejoramiento (EM-PT-002 act. 8-10, RF-SG-11, RF-SG-12). Un registro por cierre de plan, con la fecha y el responsable del cierre, observaciones, verificación de efectividad y archivo del expediente mediante índice electrónico.;validada
 control_interno;cierre_plan;archivado;"Indica si el expediente del plan se archivó con índice electrónico; por defecto falso (EM-PT-002, actividad 10).";validada
 control_interno;cierre_plan;cerrado;"Indica si el plan de mejoramiento está cerrado; por defecto falso.";validada
 control_interno;cierre_plan;cerrado_por_id;Identificador del responsable que cerró el plan (jefe de la Oficina de Control Interno o delegado).;validada
@@ -1784,6 +1850,7 @@ control_interno;cierre_plan;indice_electronico_ref;Referencia al índice electr�
 control_interno;cierre_plan;observaciones_cierre;Observaciones del cierre del plan.;validada
 control_interno;cierre_plan;plan_id;Referencia al registro de control_interno.plan_mejoramiento (id).;validada
 control_interno;cierre_plan;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;condicion_disparo_notificacion;;Catálogo de condiciones que disparan notificaciones en el módulo de control interno. Un registro por condición, con su nombre, descripción y estado activo.;validada
 control_interno;condicion_disparo_notificacion;activo;Indica si la condición de disparo de notificación está activa.;validada
 control_interno;condicion_disparo_notificacion;created_at;Fecha y hora de creación del registro.;validada
 control_interno;condicion_disparo_notificacion;descripcion;Descripción de la condición que dispara la notificación.;validada
@@ -1875,6 +1942,7 @@ control_interno;documento;updated_at;Fecha y hora de la última actualización d
 control_interno;documento;version;Número de versión del documento.;validada
 control_interno;documento;version_anterior_id;Referencia al registro de control_interno.documento (id).;validada
 control_interno;documento;visible_auditoria_id;"Identificador de la auditoría para la que es visible el documento plantilla; nulo indica que es visible para todas.";validada
+control_interno;documento_aprobacion;;Archivos adjuntos a las solicitudes de aprobación de control interno. Un registro por archivo, asociado a una aprobación (control_interno.aprobacion) y a un documento (control_interno.documento), con nombre, ruta, tipo MIME y tamaño.;validada
 control_interno;documento_aprobacion;aprobacion_id;Referencia al registro de control_interno.aprobacion (id).;validada
 control_interno;documento_aprobacion;created_at;Fecha y hora de creación del registro.;validada
 control_interno;documento_aprobacion;documento_id;Referencia al registro de control_interno.documento (id).;validada
@@ -1883,6 +1951,7 @@ control_interno;documento_aprobacion;nombre_archivo;Nombre del archivo adjunto a
 control_interno;documento_aprobacion;ruta_archivo;Ruta de almacenamiento del archivo adjunto.;validada
 control_interno;documento_aprobacion;tamanio_bytes;Tamaño del archivo adjunto, en bytes.;validada
 control_interno;documento_aprobacion;tipo_mime;Tipo MIME del archivo adjunto.;validada
+control_interno;documento_plan_mejoramiento;;Documentos adjuntos a los planes de mejoramiento y a sus acciones correctivas. Un registro por documento, con nombre, tipo, datos del archivo, quién y cuándo lo cargó, y su validación por el auditor (pendiente de revisión, aceptada, con observaciones o rechazada).;validada
 control_interno;documento_plan_mejoramiento;accion_id;Referencia al registro de control_interno.accion_correctiva (id).;validada
 control_interno;documento_plan_mejoramiento;comentarios_auditor;Comentarios del auditor al validar el documento.;validada
 control_interno;documento_plan_mejoramiento;created_at;Fecha y hora de creación del registro.;validada
@@ -1937,6 +2006,7 @@ control_interno;equipo_auditor;id;Identificador único del registro en la tabla 
 control_interno;equipo_auditor;observaciones;Observaciones sobre la asignación del auditor a la auditoría.;validada
 control_interno;equipo_auditor;persona_id;Referencia al registro de auth.personas (id_person).;validada
 control_interno;equipo_auditor;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;especialidades_ocig;;Catálogo de especialidades de la Oficina de Control Interno de Gestión (OCIG). Un registro por especialidad, con su nombre, descripción, orden y estado activo.;validada
 control_interno;especialidades_ocig;activo;Indica si la especialidad está activa.;validada
 control_interno;especialidades_ocig;created_at;Fecha y hora de creación del registro.;validada
 control_interno;especialidades_ocig;descripcion;Descripción de la especialidad.;validada
@@ -1995,6 +2065,7 @@ control_interno;evaluacion_proceso;total_riesgos;Número total de riesgos inhere
 control_interno;evaluacion_proceso;updated_at;Fecha y hora de la última actualización del registro.;validada
 control_interno;eventos_timeline;created_at;Fecha y hora de creación del registro.;validada
 control_interno;eventos_timeline;id;Identificador único del registro en la tabla eventos_timeline. Se genera automáticamente.;validada
+control_interno;evidencia_accion;;Evidencias de cumplimiento que carga el área auditada para las acciones de mejora (RF-SG-02). Un registro por evidencia, asociada a una acción correctiva, con los datos del archivo, quién y cuándo la cargó, y la calificación del auditor de la Oficina de Control Interno con sus comentarios y la eventual solicitud de nueva evidencia (RF-SG-03, RF-SG-13).;validada
 control_interno;evidencia_accion;accion_id;Referencia al registro de control_interno.accion_correctiva (id).;validada
 control_interno;evidencia_accion;archivo_nombre;Nombre original del archivo cargado.;validada
 control_interno;evidencia_accion;archivo_ref;Referencia al archivo de la evidencia en el repositorio documental (URL o ruta relativa).;validada
@@ -2272,6 +2343,7 @@ control_interno;plan_anual;porcentaje_cumplimiento;Porcentaje de cumplimiento de
 control_interno;plan_anual;total_actividades;Cantidad total de actividades del plan anual.;validada
 control_interno;plan_anual;updated_at;Fecha y hora de la última actualización del registro.;validada
 control_interno;plan_anual;version;Versión del plan anual.;validada
+control_interno;plan_anual_5_roles;;"Planes anuales de auditoría organizados según los cinco roles de la oficina de control interno del Decreto 648. Un registro por plan y vigencia, con su responsable, periodo de ejecución, estado (borrador, en revisión, aprobado, en ejecución, completado), avance de actividades, comité y orden de aprobación y firma de activación; se relaciona con las auditorías y el historial del plan.";validada
 control_interno;plan_anual_5_roles;actividades_completadas;Cantidad de actividades del plan anual completadas.;validada
 control_interno;plan_anual_5_roles;actividades_en_progreso;Cantidad de actividades del plan anual en progreso.;validada
 control_interno;plan_anual_5_roles;ano;"Año (vigencia) del plan anual de auditoría; es único por plan, entre 2020 y 2100.";validada
@@ -2285,6 +2357,7 @@ control_interno;plan_anual_5_roles;porcentaje_cumplimiento_general;Porcentaje de
 control_interno;plan_anual_5_roles;responsable;"Nombre del responsable del plan anual; obligatorio. Se registra aparte de responsable_id (auth.personas.id_person).";validada
 control_interno;plan_anual_5_roles;total_actividades;Cantidad total de actividades del plan anual.;validada
 control_interno;plan_anual_5_roles;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;plan_anual_wizard_borrador;;Borradores del asistente de creación del plan anual de auditoría. Un registro por usuario, con el estado del asistente guardado en formato JSON.;validada
 control_interno;plan_anual_wizard_borrador;created_at;Fecha y hora de creación del registro.;validada
 control_interno;plan_anual_wizard_borrador;id;Identificador único del registro en la tabla plan_anual_wizard_borrador. Se genera automáticamente.;validada
 control_interno;plan_anual_wizard_borrador;payload;Estado del asistente de creación del plan anual guardado como borrador, en formato JSON, con las marcas savedAt y timestamp. Hay un borrador por usuario.;validada
@@ -2417,6 +2490,7 @@ control_interno;programa_anual_ajuste;iniciado_por;Usuario que realizó el inici
 control_interno;programa_anual_ajuste;iniciado_por_id;"Identificador del usuario que inició el ajuste del Programa Anual (EFDS-1919): el id_user de auth.""user"" tomado del token de sesión; queda vacío si lo inicia el sistema.";validada
 control_interno;programa_anual_ajuste;version_resultante;"Número de la versión del Programa Anual con la que se cerró el ajuste; vacío si el ajuste se cerró sin cambios (EFDS-1919).";validada
 control_interno;programa_anual_ajuste;vigencia;Vigencia (año) del programa anual que se ajusta.;validada
+control_interno;registro_seguimiento;;Registros de seguimiento de las acciones de mejora en cada seguimiento trimestral. Un registro por acción evaluada en un seguimiento (control_interno.seguimiento_trimestral), con las acciones programadas e implementadas, los controles, si el hallazgo se repite y los puntajes de cumplimiento y efectividad.;validada
 control_interno;registro_seguimiento;accion_descripcion;Descripción de la acción de mejora objeto del seguimiento.;validada
 control_interno;registro_seguimiento;accion_id;Referencia al registro de control_interno.accion_correctiva (id).;validada
 control_interno;registro_seguimiento;acciones_implementadas;Cantidad de acciones implementadas.;validada
@@ -2472,6 +2546,7 @@ control_interno;rol_decreto_648;id;Identificador único del registro en la tabla
 control_interno;rol_decreto_648;nombre;Nombre del rol del Decreto 648.;validada
 control_interno;rol_decreto_648;orden;Posición del rol en el listado.;validada
 control_interno;rol_decreto_648;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;rol_decreto_648_template;;Plantillas de los cinco roles de la oficina de control interno según el Decreto 648. Un registro por rol, con su número, nombre, descripción, color y estado activo.;validada
 control_interno;rol_decreto_648_template;activo;Indica si la plantilla de rol está activa.;validada
 control_interno;rol_decreto_648_template;color;Color hexadecimal con que se muestra el rol en la interfaz. Valor por defecto: #3B82F6.;validada
 control_interno;rol_decreto_648_template;created_at;Fecha y hora de creación del registro.;validada
@@ -2508,6 +2583,7 @@ control_interno;seccion_lista_chequeo;lista_id;Identificador de la lista de cheq
 control_interno;seccion_lista_chequeo;nombre;Nombre de la sección de la lista de chequeo.;validada
 control_interno;seccion_lista_chequeo;orden;Posición de la sección en la lista de chequeo.;validada
 control_interno;seccion_lista_chequeo;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;seguimiento_plan;;Cortes de seguimiento periódico de los planes de mejoramiento (EM-PT-002 act. 5 y 7). Un registro por corte, trimestral (control interno) o semestral (ente externo), con su responsable, resumen, informe, conteo de acciones según su cumplimiento, alertas generadas y si lo generó el proceso automático.;validada
 control_interno;seguimiento_plan;acciones_cumplen;Número de acciones que cumplen en el corte (cumplimiento = 2).;validada
 control_interno;seguimiento_plan;acciones_no_cumplen;Número de acciones que no cumplen en el corte (cumplimiento = 0).;validada
 control_interno;seguimiento_plan;acciones_parcial;Número de acciones con cumplimiento parcial en el corte (cumplimiento = 1).;validada
@@ -2536,6 +2612,7 @@ control_interno;seguimiento_plan_mejoramiento;observaciones;Observaciones sobre 
 control_interno;seguimiento_plan_mejoramiento;plan_id;Referencia al registro de control_interno.plan_mejoramiento (id).;validada
 control_interno;seguimiento_plan_mejoramiento;realizado_por;Persona que realizó el seguimiento.;validada
 control_interno;seguimiento_plan_mejoramiento;updated_at;Fecha y hora de la última actualización del registro.;validada
+control_interno;seguimiento_trimestral;;"Seguimientos trimestrales de los planes de mejoramiento. Un registro por plan, trimestre y año, con las fechas del periodo y del seguimiento, los porcentajes de avance, cumplimiento y efectividad, las acciones revisadas y las observaciones; el detalle por acción se registra en control_interno.registro_seguimiento.";validada
 control_interno;seguimiento_trimestral;acciones_revisadas;Cantidad de acciones revisadas en el seguimiento trimestral.;validada
 control_interno;seguimiento_trimestral;acciones_totales;Cantidad total de acciones del plan en el seguimiento trimestral.;validada
 control_interno;seguimiento_trimestral;avance_global;Porcentaje de avance global en el trimestre, entre 0 y 100.;validada
@@ -3655,6 +3732,7 @@ infrastructure-management;solicitud_valoracion_insumo;unidad_medida;Unidad de me
 internal_disciplinary_control;actas_configuration;createdat;Fecha y hora de creación del registro.;validada
 internal_disciplinary_control;actas_configuration;id;Identificador único del registro en la tabla actas_configuration. Se genera automáticamente.;validada
 internal_disciplinary_control;actas_configuration;updatedat;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;alertas_enviadas;;Alertas enviadas en el control disciplinario sobre términos procesales y autos. Un registro por alerta, asociada a un término, a una regla de alerta o a un auto, con su tipo (correo, visual o sistema), destinatario, asunto, mensaje, estado del envío (pendiente, enviada o error) y fechas de envío y lectura.;validada
 internal_disciplinary_control;alertas_enviadas;asunto;Asunto de la alerta enviada.;validada
 internal_disciplinary_control;alertas_enviadas;auto_id;Referencia al registro de internal_disciplinary_control.legal_autos (id).;validada
 internal_disciplinary_control;alertas_enviadas;creado_por_id;"Identificador de quien creó la alerta: vacío en las alertas automáticas de términos; en las alertas de autos, el identificador del usuario que aprueba o del abogado asignado.";validada
@@ -3669,6 +3747,7 @@ internal_disciplinary_control;alertas_enviadas;mensaje;Texto del mensaje de la a
 internal_disciplinary_control;alertas_enviadas;regla_alerta_id;Referencia al registro de internal_disciplinary_control.reglas_alerta (id).;validada
 internal_disciplinary_control;alertas_enviadas;termino_id;Referencia al registro de internal_disciplinary_control.terminos_procesales (id).;validada
 internal_disciplinary_control;alertas_enviadas;tipo;Tipo de alerta enviada (email, visual o sistema).;validada
+internal_disciplinary_control;auto_versions;;Historial de versiones de los autos legales del proceso disciplinario. Un registro por versión de un auto (internal_disciplinary_control.legal_autos), con el contenido del auto, número de versión, motivo del cambio, archivo adjunto, autor y fecha.;validada
 internal_disciplinary_control;auto_versions;autoId;Identificador del auto al que pertenece la versión (internal_disciplinary_control.legal_autos). La relación está mapeada en la entidad y el DDL de referencia del repositorio declara la FK con borrado en cascada.;validada
 internal_disciplinary_control;auto_versions;changeReason;Motivo del cambio que generó la versión del auto.;validada
 internal_disciplinary_control;auto_versions;contenido;Contenido del auto en esta versión, en HTML (texto enriquecido): copia del contenido del auto al momento de la versión.;validada
@@ -3676,6 +3755,7 @@ internal_disciplinary_control;auto_versions;createdAt;Fecha y hora de creación 
 internal_disciplinary_control;auto_versions;createdBy;Usuario que creó el registro.;validada
 internal_disciplinary_control;auto_versions;id;Identificador único del registro en la tabla auto_versions. Se genera automáticamente.;validada
 internal_disciplinary_control;auto_versions;versionNumber;Número de la versión del auto.;validada
+internal_disciplinary_control;autos_configuration;;Configuración de los tipos de auto del proceso disciplinario. Un registro por tipo de auto, con su nombre, estado, orden, etapa del proceso a la que corresponde y los datos de su plantilla (archivo, nombre, descripción, versión y estado).;validada
 internal_disciplinary_control;autos_configuration;createdAt;Fecha y hora de creación del registro.;validada
 internal_disciplinary_control;autos_configuration;estado;Estado de la configuración del auto.;validada
 internal_disciplinary_control;autos_configuration;id;Identificador único de la configuración de auto (UUID generado automáticamente).;validada
@@ -3685,6 +3765,7 @@ internal_disciplinary_control;autos_configuration;plantilla;Ruta del archivo de 
 internal_disciplinary_control;autos_configuration;stage;"Etapa del proceso disciplinario asociada al tipo de auto: RECEPCION, EVALUACION, VALORACION, INDAGACION_PREVIA, INVESTIGACION, JUZGAMIENTO o SEGUNDA_INSTANCIA; vacía si el auto está disponible para todas las etapas. En los autos de pliego de cargos se usa como etapa destino del proceso al aprobarse.";validada
 internal_disciplinary_control;autos_configuration;tipo;Tipo de auto configurado.;validada
 internal_disciplinary_control;autos_configuration;updatedAt;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;dias_festivos;;Días festivos que se tienen en cuenta en el control disciplinario. Un registro por fecha festiva, con su descripción, tipo (nacional, regional o institucional), territorio cuando es regional y estado activo.;validada
 internal_disciplinary_control;dias_festivos;activo;Indica si el día festivo está activo.;validada
 internal_disciplinary_control;dias_festivos;creado_por_id;Identificador de la persona que registró el día festivo.;validada
 internal_disciplinary_control;dias_festivos;descripcion;Descripción del día festivo.;validada
@@ -3723,6 +3804,7 @@ internal_disciplinary_control;disciplinary_news;territorial;Dirección territori
 internal_disciplinary_control;disciplinary_news;tipo_remision;Código del tipo de remisión por competencia, del catálogo tipos_remision: sin-competencia (valor por defecto), factor-territorial, factor-funcional, naturaleza-falta o prelacion-competencia.;validada
 internal_disciplinary_control;disciplinary_news;updatedAt;Fecha y hora de la última actualización del registro.;validada
 internal_disciplinary_control;disciplinary_news_processes;id;Identificador único del registro en la tabla disciplinary_news_processes. Se genera automáticamente.;validada
+internal_disciplinary_control;disciplinary_process_actuaciones;;Actuaciones registradas en los procesos disciplinarios. Un registro por actuación, asociada a un proceso y, si aplica, a una noticia disciplinaria, con su tipo, etapa, descripción, responsable, fecha y observaciones.;validada
 internal_disciplinary_control;disciplinary_process_actuaciones;createdAt;Fecha y hora de creación del registro.;validada
 internal_disciplinary_control;disciplinary_process_actuaciones;descripcion;Descripción de la actuación del proceso disciplinario.;validada
 internal_disciplinary_control;disciplinary_process_actuaciones;etapa;"Etapa del proceso disciplinario en que se registra la actuación: la recibida en el formulario o, si no llega, la etapa actual del proceso (nombre de etapa de stage_configuration); para actuaciones de la noticia, RADICACION por defecto.";validada
@@ -3734,6 +3816,7 @@ internal_disciplinary_control;disciplinary_process_actuaciones;processId;Referen
 internal_disciplinary_control;disciplinary_process_actuaciones;responsableNombre;Nombre del responsable de la actuación.;validada
 internal_disciplinary_control;disciplinary_process_actuaciones;tipo;Tipo de actuación del proceso disciplinario.;validada
 internal_disciplinary_control;disciplinary_process_actuaciones;updatedAt;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;disciplinary_process_notes;;Notas de los procesos disciplinarios. Un registro por nota, asociada a un proceso, con su texto y la etapa del proceso a la que corresponde.;validada
 internal_disciplinary_control;disciplinary_process_notes;createdAt;Fecha y hora de creación del registro.;validada
 internal_disciplinary_control;disciplinary_process_notes;etapa;Etapa del proceso disciplinario a la que corresponde la nota: la recibida en el formulario o, si no llega, la etapa actual del proceso (nombre de etapa de stage_configuration).;validada
 internal_disciplinary_control;disciplinary_process_notes;id;Identificador único del registro en la tabla disciplinary_process_notes. Se genera automáticamente.;validada
@@ -3742,6 +3825,7 @@ internal_disciplinary_control;disciplinary_process_notes;texto;Texto de la nota 
 internal_disciplinary_control;disciplinary_process_notes;updatedAt;Fecha y hora de la última actualización del registro.;validada
 internal_disciplinary_control;disciplinary_process_reassignment_requests;id;Identificador único del registro en la tabla disciplinary_process_reassignment_requests. Se genera automáticamente.;validada
 internal_disciplinary_control;disciplinary_process_reassignment_requests;was_initially_unassigned;Indica si el proceso no tenía profesional asignado al momento de la solicitud de reasignación.;validada
+internal_disciplinary_control;disciplinary_process_tasks;;Tareas de los procesos disciplinarios. Un registro por tarea, asociada a un proceso, con título, descripción, prioridad (alta, media o baja), etapa, responsable, fecha de vencimiento y si está completada.;validada
 internal_disciplinary_control;disciplinary_process_tasks;completada;Indica si la tarea está completada.;validada
 internal_disciplinary_control;disciplinary_process_tasks;createdAt;Fecha y hora de creación del registro.;validada
 internal_disciplinary_control;disciplinary_process_tasks;descripcion;Descripción de la tarea del proceso disciplinario.;validada
@@ -3861,6 +3945,7 @@ internal_disciplinary_control;legal_autos;rejectionDocumentName;Nombre original 
 internal_disciplinary_control;legal_autos;rejectionDocumentUrl;URL del documento de soporte que adjunta el jefe al devolver el auto.;validada
 internal_disciplinary_control;legal_autos;rejection_comments;Comentarios del rechazo del auto.;validada
 internal_disciplinary_control;legal_autos;updatedAt;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;oficios_configuration;;Configuración de los tipos de oficio del proceso disciplinario. Un registro por oficio, con su tipo, nombre, código, descripción, estado, etapa del proceso, orden y los datos de su plantilla (archivo, nombre, descripción, versión y estado).;validada
 internal_disciplinary_control;oficios_configuration;codigo;Código del oficio configurado.;validada
 internal_disciplinary_control;oficios_configuration;createdAt;Fecha y hora de creación del registro.;validada
 internal_disciplinary_control;oficios_configuration;descripcion;Descripción del oficio configurado.;validada
@@ -3876,6 +3961,7 @@ internal_disciplinary_control;oficios_configuration;stage;Etapa del proceso disc
 internal_disciplinary_control;oficios_configuration;tipo;Tipo de oficio configurado.;validada
 internal_disciplinary_control;oficios_configuration;updatedAt;Fecha y hora de la última actualización del registro.;validada
 internal_disciplinary_control;oficios_configuration;version_plantilla;Versión de la plantilla del oficio. Valor por defecto: 1.0.;validada
+internal_disciplinary_control;plantilla_auto;;Plantillas en HTML para la elaboración de autos del proceso disciplinario. Un registro por plantilla, con su nombre, descripción, contenido y estado (activo o inactivo).;validada
 internal_disciplinary_control;plantilla_auto;createdAt;Fecha y hora de creación del registro.;validada
 internal_disciplinary_control;plantilla_auto;descripcion;Descripción de la plantilla de auto.;validada
 internal_disciplinary_control;plantilla_auto;estado;Estado de la plantilla de auto. Valores permitidos: activo, inactivo. Por defecto, activo.;validada
@@ -3883,6 +3969,7 @@ internal_disciplinary_control;plantilla_auto;htmlContent;Contenido HTML de la pl
 internal_disciplinary_control;plantilla_auto;id;Identificador único del registro en la tabla plantilla_auto. Se genera automáticamente.;validada
 internal_disciplinary_control;plantilla_auto;nombre;Nombre de la plantilla de auto.;validada
 internal_disciplinary_control;plantilla_auto;updatedAt;Fecha y hora de la última actualización del registro.;validada
+internal_disciplinary_control;reglas_alerta;;"Reglas de alerta de vencimiento de términos procesales. Un registro por regla, con su nombre, días hábiles de anticipación, canales (correo y panel), descripción y estado activo; las alertas generadas se registran en internal_disciplinary_control.alertas_enviadas.";validada
 internal_disciplinary_control;reglas_alerta;activa;Indica si la regla de alerta está activa.;validada
 internal_disciplinary_control;reglas_alerta;creado_por_id;"Identificador de la persona que creó la regla (auth.personas); nulo en las reglas generadas por el sistema.";validada
 internal_disciplinary_control;reglas_alerta;descripcion;Descripción de la regla de alerta.;validada
@@ -3909,6 +3996,7 @@ internal_disciplinary_control;system_configuration;id;Identificador único del r
 internal_disciplinary_control;system_configuration;notificationSettings;Configuración de notificaciones, en formato JSON (por ejemplo, vencimiento7dias, emailMasterSwitch).;validada
 internal_disciplinary_control;system_configuration;roleCapacities;"Capacidad máxima por cargo, en formato JSON (llave: texto del cargo; valor: número). Fija el tope de capacidad_maxima del profesional, que se compara con sus procesos activos asignados.";validada
 internal_disciplinary_control;system_configuration;securitySettings;Configuración de seguridad y auditoría, en formato JSON (por ejemplo, auditEnabled, digitalSignature).;validada
+internal_disciplinary_control;terminos_procesales;;Términos procesales con su control de vencimiento. Un registro por término de una actuación de un proceso, con el responsable, fecha de inicio, días hábiles, fecha de vencimiento, días restantes, estado (pendiente, próximo a vencer, vencido o cumplido), envío de alerta y fecha de cumplimiento.;validada
 internal_disciplinary_control;terminos_procesales;actuacion;Tipo de actuación procesal a la que corresponde el término.;validada
 internal_disciplinary_control;terminos_procesales;alerta_enviada;Indica si se envió la alerta del término procesal.;validada
 internal_disciplinary_control;terminos_procesales;creado_por_id;Identificador de la persona que registró el término (auth.personas).;validada
@@ -3928,6 +4016,7 @@ internal_disciplinary_control;terminos_procesales;proceso_id;"Identificador (UUI
 internal_disciplinary_control;terminos_procesales;responsable_id;Identificador de la persona responsable del término (auth.personas).;validada
 internal_disciplinary_control;terminos_procesales;responsable_nombre;Nombre del responsable del término, copiado de la persona responsable.;validada
 internal_disciplinary_control;tipos_remision;id;Identificador único del registro en la tabla tipos_remision. Se genera automáticamente.;validada
+legal_management;actas;;Actas de reuniones o sesiones de los expedientes de gestión jurídica. Un registro por acta, asociada a un expediente, con número, fecha, horario, duración, lugar, presidente, participantes, resumen, decisiones, tipo, estado (firmada o programada) y archivo del acta.;validada
 legal_management;actas;archivo_nombre;Nombre del archivo del acta.;validada
 legal_management;actas;archivo_tamano;Tamaño del archivo del acta, en bytes.;validada
 legal_management;actas;archivo_url;URL del archivo del acta.;validada
@@ -3946,6 +4035,7 @@ legal_management;actas;presidente;Nombre de quien presidió la reunión.;validad
 legal_management;actas;resumen;Resumen del contenido del acta.;validada
 legal_management;actas;tipo;Tipo de acta.;validada
 legal_management;actas;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;actors;;Actores de los expedientes de gestión jurídica: demandantes, demandados y otros. Un registro por actor de un expediente, con nombre, tipo de persona (natural o jurídica), identificación, rol, cargo, dependencia, apoderado y datos de contacto.;validada
 legal_management;actors;apoderado;Nombre del apoderado del actor.;validada
 legal_management;actors;cargo;"Cargo del actor; opcional, para demandados y otros.";validada
 legal_management;actors;created_at;Fecha y hora de creación del registro.;validada
@@ -3960,6 +4050,7 @@ legal_management;actors;rol;Rol del actor en el expediente. Valores: DEMANDANTE,
 legal_management;actors;telefono;Número de teléfono del actor del expediente.;validada
 legal_management;actors;tipo_persona;Tipo de persona del actor. Valores: NATURAL, JURIDICA.;validada
 legal_management;actors;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;actuaciones;;Historial unificado de actuaciones de los expedientes y procesos de la gestión jurídica. Un registro por actuación, con su tipo, fecha, documento soporte, responsable y origen (manual, audiencia, auto, acta, evidencia u oficio), y la referencia al registro que la generó. El expediente se identifica por texto, sin relación declarada con legal_management.expedientes.;validada
 legal_management;actuaciones;created_at;Fecha y hora de creación del registro.;validada
 legal_management;actuaciones;descripcion;Descripción de la actuación del expediente.;validada
 legal_management;actuaciones;documento_nombre;Nombre del documento soporte de la actuación.;validada
@@ -3981,6 +4072,7 @@ legal_management;adjuntos_correo;graph_message_id;Identificador del mensaje en M
 legal_management;adjuntos_correo;id;Identificador único del registro en la tabla adjuntos_correo. Se genera automáticamente.;validada
 legal_management;adjuntos_correo;nombre;Nombre del archivo adjunto del correo electrónico.;validada
 legal_management;adjuntos_correo;tamanio;Tamaño del adjunto, en bytes. Valor por defecto: 0.;validada
+legal_management;audiencias;;Audiencias programadas en los expedientes de la gestión jurídica. Un registro por audiencia, asociada a un expediente (legal_management.expedientes), con su fecha y hora, duración, modalidad (virtual o presencial), abogado responsable e historial de reprogramaciones. Su estado pasa por programada, realizada, cancelada o aplazada.;validada
 legal_management;audiencias;abogado_email;Correo electrónico del abogado responsable de la audiencia.;validada
 legal_management;audiencias;abogado_id;Identificador del abogado responsable de la audiencia. Tenía FK a la tabla abogados, que fue eliminada al pasar a la autenticación federada.;validada
 legal_management;audiencias;abogado_nombre;Nombre del abogado responsable de la audiencia.;validada
@@ -3996,6 +4088,7 @@ legal_management;audiencias;modalidad;Modalidad de la audiencia. Valores: VIRTUA
 legal_management;audiencias;notas_preparacion;Notas de preparación de la audiencia, registradas al crearla o editarla.;validada
 legal_management;audiencias;titulo;Título de la audiencia.;validada
 legal_management;audiencias;ubicacion;Lugar de realización de la audiencia.;validada
+legal_management;autos;;Autos emitidos dentro de los expedientes de la gestión jurídica. Un registro por auto, asociado a un expediente (legal_management.expedientes), con su número, tipo, fecha, juzgado, resumen y archivo. Su estado pasa por pendiente, notificado o archivado.;validada
 legal_management;autos;archivo_nombre;Nombre del archivo del auto.;validada
 legal_management;autos;archivo_url;URL del archivo del auto. Obligatoria.;validada
 legal_management;autos;created_at;Fecha y hora de creación del registro.;validada
@@ -4020,6 +4113,7 @@ legal_management;borradores_correos;solicitar_acuse;Indica si el usuario dejó m
 legal_management;borradores_correos;updated_at;Fecha y hora de la última actualización del registro.;validada
 legal_management;borradores_correos;usuario_id;"Identificador del usuario propietario del borrador; cada usuario solo ve sus propios borradores.";validada
 legal_management;borradores_correos;usuario_nombre;Nombre del usuario dueño del borrador.;validada
+legal_management;cat_tipos_requerimiento;;"Catálogo de tipos de requerimiento de los organismos de control. Un registro por tipo, con nombre, descripción, orden de presentación e indicador de activo; legal_management.requerimientos_oc toma de aquí su tipo de requerimiento.";validada
 legal_management;cat_tipos_requerimiento;activo;Indica si el tipo de requerimiento está activo.;validada
 legal_management;cat_tipos_requerimiento;created_at;Fecha y hora de creación del registro.;validada
 legal_management;cat_tipos_requerimiento;descripcion;Descripción del tipo de requerimiento.;validada
@@ -4027,6 +4121,7 @@ legal_management;cat_tipos_requerimiento;id;Identificador único del registro en
 legal_management;cat_tipos_requerimiento;nombre;Nombre del tipo de requerimiento.;validada
 legal_management;cat_tipos_requerimiento;orden;Posición del tipo de requerimiento en el ordenamiento.;validada
 legal_management;cat_tipos_requerimiento;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;coactivos_historial;;Historial de eventos de los procesos de cobro coactivo. Un registro por evento (creación, pago, cambio de etapa o actualización) de un proceso de legal_management.procesos_coactivos, con el campo modificado, sus valores anterior y nuevo, el usuario y la fecha.;validada
 legal_management;coactivos_historial;campo_modificado;Nombre del campo modificado en el evento: deudor, obligacion.valor o responsable (ACTUALIZACION), estado (CAMBIO_ETAPA), estadoArchivo (ARCHIVADO, RESTAURADO, ELIMINADO) o valorPagado (PAGO, ELIMINACION_PAGO). Queda vacío en CREACION.;validada
 legal_management;coactivos_historial;detalles;Descripción en texto del evento del historial (por ejemplo, cambio de responsable o motivo del archivo).;validada
 legal_management;coactivos_historial;fecha_evento;Fecha y hora del evento en el historial del proceso coactivo.;validada
@@ -4036,6 +4131,7 @@ legal_management;coactivos_historial;tipo_evento;Tipo de evento del historial de
 legal_management;coactivos_historial;usuario;Identificador o nombre del usuario responsable del evento.;validada
 legal_management;coactivos_historial;valor_anterior;Valor del campo antes de la modificación.;validada
 legal_management;coactivos_historial;valor_nuevo;Valor del campo después de la modificación.;validada
+legal_management;comentarios;;Comentarios registrados sobre los expedientes de la gestión jurídica. Un registro por comentario, asociado a un expediente (legal_management.expedientes), con su texto y el usuario autor.;validada
 legal_management;comentarios;contenido;Texto del comentario.;validada
 legal_management;comentarios;created_at;Fecha y hora de creación del registro.;validada
 legal_management;comentarios;expediente_id;Referencia al registro de legal_management.expedientes (id).;validada
@@ -4043,6 +4139,7 @@ legal_management;comentarios;id;Identificador único del registro en la tabla co
 legal_management;comentarios;updated_at;Fecha y hora de la última actualización del registro.;validada
 legal_management;comentarios;usuario_id;"Identificador del usuario autor del comentario, enviado por el cliente; el nombre va en usuario_nombre.";validada
 legal_management;comentarios;usuario_nombre;Nombre del usuario autor del comentario.;validada
+legal_management;comentarios_consulta;;Comentarios registrados sobre las consultas jurídicas. Un registro por comentario, asociado a una consulta de legal_management.consultas_juridicas, con el mensaje, el usuario autor, su cargo y la fecha.;validada
 legal_management;comentarios_consulta;cargo;Cargo del usuario autor del comentario.;validada
 legal_management;comentarios_consulta;consulta_id;Referencia al registro de legal_management.consultas_juridicas (id).;validada
 legal_management;comentarios_consulta;fecha;Fecha y hora del comentario. Valor por defecto: momento del registro.;validada
@@ -4055,6 +4152,7 @@ legal_management;comentarios_correo;fecha;Fecha y hora del comentario. Valor por
 legal_management;comentarios_correo;id;Identificador único del registro en la tabla comentarios_correo. Se genera automáticamente.;validada
 legal_management;comentarios_correo;mensaje;Texto del comentario sobre la comunicación.;validada
 legal_management;comentarios_correo;usuario;"Usuario autor del comentario, enviado por el cliente; Sistema cuando no se informa.";validada
+legal_management;comentarios_oc;;Comentarios registrados sobre los requerimientos de los organismos de control. Un registro por comentario, asociado a un requerimiento de legal_management.requerimientos_oc, con su tipo, contenido y autor.;validada
 legal_management;comentarios_oc;autor_id;Identificador del usuario autor del comentario.;validada
 legal_management;comentarios_oc;autor_nombre;Nombre del autor del comentario.;validada
 legal_management;comentarios_oc;contenido;Texto del comentario sobre el requerimiento.;validada
@@ -4063,6 +4161,7 @@ legal_management;comentarios_oc;id;Identificador único del registro en la tabla
 legal_management;comentarios_oc;requerimiento_id;Referencia al registro de legal_management.requerimientos_oc (id).;validada
 legal_management;comentarios_oc;tipo;Tipo de comentario del requerimiento (ACTUACION, ALERTA, COMENTARIO, actuacion, alerta, general, importante, interno, respuesta o seguimiento).;validada
 legal_management;comentarios_oc;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;conceptos_juridicos;;Conceptos jurídicos emitidos en respuesta a las consultas de asesoría jurídica. Un registro por concepto (concepto, memorando, revisión o viabilidad), asociado a una consulta de legal_management.consultas_juridicas, con su análisis, normatividad, conclusión, redactor, revisión, aprobación y emisión. Su estado pasa por borrador, en revisión, devuelto, aprobado o emitido, y puede publicarse en el banco de conceptos.;validada
 legal_management;conceptos_juridicos;abogado_redactor_id;Identificador del abogado que redactó el concepto. Tenía FK a la tabla abogados, eliminada al pasar a la autenticación federada.;validada
 legal_management;conceptos_juridicos;abogado_redactor_nombre;Nombre del abogado que redactó el concepto.;validada
 legal_management;conceptos_juridicos;analisis_juridico;Análisis jurídico que sustenta el concepto.;validada
@@ -4089,6 +4188,7 @@ legal_management;conceptos_juridicos;tipo_documento;Tipo de documento jurídico.
 legal_management;conceptos_juridicos;titulo;Título del concepto jurídico.;validada
 legal_management;conceptos_juridicos;updated_at;Fecha y hora de la última actualización del registro.;validada
 legal_management;conceptos_juridicos;visible_banco;Indica si el concepto jurídico es visible en el banco de conceptos.;validada
+legal_management;consulta_juridica_historial;;Historial de eventos de las consultas jurídicas. Un registro por evento (creación, asignación, reasignación, cambio de etapa, respuesta, envío o devolución por el jefe, entre otros) de una consulta de legal_management.consultas_juridicas, con su descripción, detalle, usuario y fecha.;validada
 legal_management;consulta_juridica_historial;consulta_id;Referencia al registro de legal_management.consultas_juridicas (id).;validada
 legal_management;consulta_juridica_historial;descripcion;Descripción del evento en el historial de la consulta jurídica.;validada
 legal_management;consulta_juridica_historial;detalle;Detalle adicional del evento, en texto plano (por ejemplo, radicado, nueva etapa, número de oficio y tipo de respuesta, o motivo de la devolución).;validada
@@ -4148,6 +4248,7 @@ legal_management;consultas_juridicas;tipo_usuario;Tipo de usuario solicitante. V
 legal_management;consultas_juridicas;updated_at;Fecha y hora de la última actualización del registro.;validada
 legal_management;consultas_juridicas;updated_by;Usuario que realizó la última actualización del registro.;validada
 legal_management;consultas_juridicas;usuario_archivo;Usuario que archivó la consulta.;validada
+legal_management;correo_juridico_historial;;Historial de eventos de los correos jurídicos. Un registro por evento (recepción, clasificación automática o manual, asociación a un proceso, lectura, archivo, respuesta, entre otros) de un correo de legal_management.correos_juridicos, con su descripción, usuario y fecha.;validada
 legal_management;correo_juridico_historial;correo_juridico_id;Referencia al registro de legal_management.correos_juridicos (id).;validada
 legal_management;correo_juridico_historial;descripcion;Descripción del evento en el historial del correo jurídico.;validada
 legal_management;correo_juridico_historial;detalle_json;Detalle del evento del correo, en formato JSON.;validada
@@ -4155,6 +4256,7 @@ legal_management;correo_juridico_historial;fecha_creacion;Fecha y hora de creaci
 legal_management;correo_juridico_historial;id;Identificador único del registro en la tabla correo_juridico_historial. Se genera automáticamente.;validada
 legal_management;correo_juridico_historial;tipo_evento;Tipo de evento del historial del correo jurídico. Valores: RECIBIDO, CLASIFICADO_IA, CLASIFICACION_MANUAL, ASOCIADO_PROCESO, LEIDO, ARCHIVADO, RESPONDIDO, REENVIADO.;validada
 legal_management;correo_juridico_historial;usuario;Usuario que generó el evento. Valor por defecto: Sistema.;validada
+legal_management;correo_tracking_tokens;;Tokens de seguimiento de apertura de los correos jurídicos y de descarga de sus adjuntos. Un registro por token (píxel de apertura o enlace de descarga), asociado a un correo de legal_management.correos_juridicos y, si aplica, a un adjunto de legal_management.adjuntos_correo, con la fecha, la dirección IP y el navegador de apertura.;validada
 legal_management;correo_tracking_tokens;abierto;Indica si se abrió el correo o el adjunto rastreado.;validada
 legal_management;correo_tracking_tokens;adjunto_id;Referencia al registro de legal_management.adjuntos_correo (id).;validada
 legal_management;correo_tracking_tokens;correo_id;Referencia al registro de legal_management.correos_juridicos (id).;validada
@@ -4166,6 +4268,7 @@ legal_management;correo_tracking_tokens;ip_apertura;Dirección IP desde la que s
 legal_management;correo_tracking_tokens;tipo;Tipo de token de seguimiento del correo. Valores permitidos: OPEN_PIXEL (píxel de apertura), DOWNLOAD_LINK (enlace de descarga).;validada
 legal_management;correo_tracking_tokens;token;Token único de seguimiento de apertura del correo o adjunto.;validada
 legal_management;correo_tracking_tokens;user_agent;Agente de usuario (navegador) registrado al abrir el correo o el adjunto rastreado.;validada
+legal_management;correos_juridicos;;Correos de los buzones jurídicos sincronizados desde Microsoft Graph y correos enviados desde la plataforma. Un registro por mensaje, con remitente, destinatarios, asunto, cuerpo, dirección (entrante o enviado), buzón, hilo de conversación y clasificación automática (tipo, categoría, módulo y proceso sugeridos). Se relaciona con sus adjuntos, comentarios, historial y tokens de seguimiento, y puede derivarse a un expediente o a una consulta jurídica.;validada
 legal_management;correos_juridicos;ai_suggested_category;Categoría del correo sugerida por inteligencia artificial.;validada
 legal_management;correos_juridicos;archivado;Indica si el correo jurídico está archivado.;validada
 legal_management;correos_juridicos;asunto;Asunto del correo.;validada
@@ -4235,6 +4338,7 @@ legal_management;documentos_consulta;nombre;Nombre del documento adjunto a la co
 legal_management;documentos_consulta;subido_por;Usuario que realizó la carga.;validada
 legal_management;documentos_consulta;tamano_bytes;Tamaño en bytes del documento adjunto a la consulta jurídica.;validada
 legal_management;documentos_consulta;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;documentos_oc;;Documentos asociados a los requerimientos de los organismos de control. Un registro por documento (oficio, respuesta, acuse, anexo, evidencia, informe u otro), asociado a un requerimiento de legal_management.requerimientos_oc, con su archivo, tamaño, tipo MIME, fecha y usuario que lo cargó.;validada
 legal_management;documentos_oc;archivo_url;URL del archivo del documento.;validada
 legal_management;documentos_oc;created_at;Fecha y hora de creación del registro.;validada
 legal_management;documentos_oc;descripcion;Descripción del documento del requerimiento.;validada
@@ -4247,6 +4351,7 @@ legal_management;documentos_oc;subido_por;Usuario que realizó la carga.;validad
 legal_management;documentos_oc;tamano_bytes;Tamaño en bytes del documento del requerimiento.;validada
 legal_management;documentos_oc;tipo_documento;Tipo de documento. Valores permitidos: acuse, anexo, evidencia, informe, oficio, otro, respuesta. Valor por defecto: otro.;validada
 legal_management;documentos_oc;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;evidencias;;Evidencias aportadas a los expedientes de la gestión jurídica. Un registro por evidencia, asociada a un expediente (legal_management.expedientes), con su descripción, quien la aportó, fecha de presentación, archivo, tipo y prioridad. Su estado pasa por pendiente, en revisión, admitida, válida o rechazada.;validada
 legal_management;evidencias;aportado_por;Persona que aportó la evidencia.;validada
 legal_management;evidencias;archivo_nombre;Nombre del archivo de la evidencia.;validada
 legal_management;evidencias;archivo_tamano;Tamaño del archivo de la evidencia, en bytes.;validada
@@ -4270,6 +4375,7 @@ legal_management;excepciones_procesales;id;Identificador único del registro en 
 legal_management;excepciones_procesales;presentado_por;Persona que presentó la excepción.;validada
 legal_management;excepciones_procesales;resolucion;Decisión adoptada sobre la excepción procesal.;validada
 legal_management;excepciones_procesales;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;expedientes;;Expedientes de los procesos de la gestión jurídica (defensa judicial, juzgamiento disciplinario y otros tipos de proceso configurados). Un registro por expediente, con su radicado, jurisdicción, tipo de proceso, partes, abogado sustanciador, etapa, términos procesales, provisión contable y estado de archivo. Es la tabla central del módulo: de ella dependen actas, actores, audiencias, autos, comentarios, decisiones, documentos, evidencias, excepciones, notas y tareas, y puede vincularse a un proceso principal.;validada
 legal_management;expedientes;abogado_sustanciador;"Identificador del usuario (id_user de auth.""user"") del abogado sustanciador: el usuario autenticado si resuelve solo, o el abogadoId enviado. La búsqueda por abogado también compara con public_id y con el nombre de la persona.";validada
 legal_management;expedientes;acto_administrativo_demandado;Acto administrativo demandado en el proceso.;validada
 legal_management;expedientes;campos_adicionales;Campos adicionales del expediente, en formato JSON: objeto con una entrada por campo dinámico del formulario. Los archivos cargados en base64 se guardan como documentos del expediente y en el JSON queda solo su metadata (nombre, tamaño). La territorial, antes guardada aquí, tiene columna propia.;validada
@@ -4317,6 +4423,7 @@ legal_management;expedientes;tipo_proceso;"Tipo de proceso del expediente. Toma 
 legal_management;expedientes;ubicacion_fisica;Ubicación física del expediente.;validada
 legal_management;expedientes;ultima_actuacion;Descripción de la última actuación registrada en el expediente.;validada
 legal_management;expedientes;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;hallazgos;;Hallazgos de auditoría de los organismos de control y su plan de mejoramiento. Un registro por hallazgo, asociado a un requerimiento de legal_management.requerimientos_oc, con su tipo (administrativo, disciplinario, fiscal o penal), causa, efecto, acción correctiva, responsables, indicador, avance y periodicidad de reporte. Su estado pasa por abierto, en curso, en revisión, cerrado o rechazado.;validada
 legal_management;hallazgos;accion_correctiva;Acción correctiva definida para subsanar el hallazgo.;validada
 legal_management;hallazgos;area_responsable;Nombre del área responsable de atender el hallazgo.;validada
 legal_management;hallazgos;causa_raiz;Causa raíz identificada para el hallazgo.;validada
@@ -4341,6 +4448,7 @@ legal_management;hallazgos;requerimiento_id;Referencia al registro de legal_mana
 legal_management;hallazgos;tipo_hallazgo;Tipo de hallazgo según su incidencia. Valores permitidos: ADMINISTRATIVO, DISCIPLINARIO, FISCAL, PENAL. Por defecto, ADMINISTRATIVO.;validada
 legal_management;hallazgos;titulo;Título del hallazgo.;validada
 legal_management;hallazgos;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;historial_consultas;;Bitácora de cambios de las consultas jurídicas. Un registro por acción sobre una consulta de legal_management.consultas_juridicas, con su descripción, los estados anterior y nuevo, el usuario y la fecha.;validada
 legal_management;historial_consultas;accion;Acción registrada sobre la consulta.;validada
 legal_management;historial_consultas;consulta_id;Referencia al registro de legal_management.consultas_juridicas (id).;validada
 legal_management;historial_consultas;descripcion;Descripción de la acción registrada en el historial de la consulta.;validada
@@ -4373,6 +4481,7 @@ legal_management;oficios_enviados;modulo;Módulo desde el que se envía el ofici
 legal_management;oficios_enviados;numero;Número del oficio enviado.;validada
 legal_management;oficios_enviados;plantilla;Plantilla usada en el oficio. Valores: prorroga, remision, contestacion, solicitudPruebas, oficioBlanco.;validada
 legal_management;oficios_enviados;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;organismos_control;;Catálogo de organismos de control externos que emiten requerimientos a la entidad. Un registro por organismo, con su sigla, nombre, descripción, correos de contacto e indicador de activo.;validada
 legal_management;organismos_control;activo;Indica si el organismo de control está activo.;validada
 legal_management;organismos_control;correos;Lista de correos electrónicos del organismo de control, en formato JSON. Por defecto, lista vacía.;validada
 legal_management;organismos_control;created_at;Fecha y hora de creación del registro.;validada
@@ -4381,6 +4490,7 @@ legal_management;organismos_control;id;Identificador único del registro en la t
 legal_management;organismos_control;nombre;Nombre del organismo de control.;validada
 legal_management;organismos_control;sigla;Sigla única del organismo de control.;validada
 legal_management;organismos_control;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;pagos_coactivos;;Pagos registrados en los procesos de cobro coactivo. Un registro por pago de un proceso de legal_management.procesos_coactivos, con su valor, fecha, soporte, origen (banco o manual) y su distribución entre capital, intereses y costas.;validada
 legal_management;pagos_coactivos;abono_capital;Parte del pago abonada al capital de la obligación. Por defecto, 0.;validada
 legal_management;pagos_coactivos;abono_costas;Parte del pago abonada a las costas del proceso. Por defecto, 0.;validada
 legal_management;pagos_coactivos;abono_intereses;Parte del pago abonada a los intereses de la obligación. Por defecto, 0.;validada
@@ -4393,6 +4503,7 @@ legal_management;pagos_coactivos;proceso_id;Referencia al registro de legal_mana
 legal_management;pagos_coactivos;soporte_url;URL del soporte del pago.;validada
 legal_management;pagos_coactivos;updated_at;Fecha y hora de la última actualización del registro.;validada
 legal_management;pagos_coactivos;valor;Valor total del pago registrado en el proceso coactivo.;validada
+legal_management;pei_indicadores;;"Indicadores del plan estratégico institucional (PEI) de la gestión jurídica. Un registro por indicador, con su eje estratégico, meta, unidad de medida, plazo, frecuencia de medición, prioridad y responsable; sus avances se registran en legal_management.pei_registros_avance. Su estado es activo, inactivo o archivado.";validada
 legal_management;pei_indicadores;archive_reason;Motivo por el que se archivó el indicador.;validada
 legal_management;pei_indicadores;archived_at;"Fecha y hora en que se archivó el indicador; vacío si está activo.";validada
 legal_management;pei_indicadores;archived_by;"Usuario que archivó el indicador; queda vacío al restaurarlo.";validada
@@ -4412,6 +4523,7 @@ legal_management;pei_indicadores;responsable_nombre;Nombre del responsable del i
 legal_management;pei_indicadores;tipo_indicador;Tipo de indicador del plan estratégico institucional. Por defecto, GESTION.;validada
 legal_management;pei_indicadores;unidad_medida;"Unidad de medida de la meta. Valores: PORCENTAJE, NUMERO, MONEDA; valor por defecto PORCENTAJE.";validada
 legal_management;pei_indicadores;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;pei_registros_avance;;Historial de avances de los indicadores del plan estratégico institucional (PEI). Un registro por reporte de avance de un indicador de legal_management.pei_indicadores, con el valor reportado, el porcentaje de avance frente a la meta, la justificación, la evidencia y el usuario que lo registró.;validada
 legal_management;pei_registros_avance;evidencia_url;"Enlace al documento soporte del avance; opcional.";validada
 legal_management;pei_registros_avance;fecha_registro;Fecha y hora de creación del registro.;validada
 legal_management;pei_registros_avance;id;Identificador único del registro en la tabla pei_registros_avance. Se genera automáticamente.;validada
@@ -4420,11 +4532,13 @@ legal_management;pei_registros_avance;observaciones;Justificación del avance re
 legal_management;pei_registros_avance;porcentaje_avance;Porcentaje de avance, calculado como (valor_reportado / meta) × 100.;validada
 legal_management;pei_registros_avance;usuario_registra_id;Identificador del usuario que registró el avance.;validada
 legal_management;pei_registros_avance;valor_reportado;Valor real del indicador reportado en el registro de avance.;validada
+legal_management;planes_comentarios;;Comentarios registrados sobre los planes de mejoramiento. Un registro por comentario, asociado a un plan de legal_management.planes_mejoramiento, con el mensaje y el usuario autor.;validada
 legal_management;planes_comentarios;created_at;Fecha y hora de creación del registro.;validada
 legal_management;planes_comentarios;id;Identificador único del registro en la tabla planes_comentarios. Se genera automáticamente.;validada
 legal_management;planes_comentarios;mensaje;Texto del comentario sobre el plan de mejoramiento.;validada
 legal_management;planes_comentarios;plan_id;Referencia al registro de legal_management.planes_mejoramiento (id).;validada
 legal_management;planes_comentarios;usuario_id;Identificador del usuario que escribió el comentario, enviado por el cliente.;validada
+legal_management;planes_evidencias;;Evidencias cargadas a los planes de mejoramiento. Un registro por archivo de evidencia, asociado a un plan de legal_management.planes_mejoramiento, con su título, URL, tipo de archivo y usuario que lo cargó.;validada
 legal_management;planes_evidencias;created_at;Fecha y hora de creación del registro.;validada
 legal_management;planes_evidencias;id;Identificador único del registro en la tabla planes_evidencias. Se genera automáticamente.;validada
 legal_management;planes_evidencias;plan_id;Referencia al registro de legal_management.planes_mejoramiento (id).;validada
@@ -4432,6 +4546,7 @@ legal_management;planes_evidencias;tipo_archivo;Tipo MIME del archivo de la evid
 legal_management;planes_evidencias;titulo;Título de la evidencia cargada al plan de mejoramiento.;validada
 legal_management;planes_evidencias;uploaded_by;Usuario que cargó la evidencia. Si no se informa, se registra «Sistema».;validada
 legal_management;planes_evidencias;url_archivo;URL del archivo de la evidencia.;validada
+legal_management;planes_hallazgos;;"Hallazgos o acciones de mejora asociados a los planes de mejoramiento. Un registro por hallazgo de un plan de legal_management.planes_mejoramiento, con su nombre, descripción, archivo de soporte y porcentaje de avance; el avance global del plan es el promedio de los avances de sus hallazgos.";validada
 legal_management;planes_hallazgos;archivo_mime;Tipo MIME del archivo de soporte del hallazgo.;validada
 legal_management;planes_hallazgos;archivo_nombre;Nombre del archivo de soporte del hallazgo.;validada
 legal_management;planes_hallazgos;archivo_url;URL del archivo de soporte del hallazgo.;validada
@@ -4443,6 +4558,7 @@ legal_management;planes_hallazgos;nombre;Nombre del hallazgo asociado al plan.;v
 legal_management;planes_hallazgos;plan_id;Referencia al registro de legal_management.planes_mejoramiento (id).;validada
 legal_management;planes_hallazgos;porcentaje_avance;Porcentaje de avance del hallazgo o acción de mejora (0 a 100). El avance global del plan es el promedio de los avances de sus hallazgos. Por defecto, 0.;validada
 legal_management;planes_hallazgos;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;planes_mejoramiento;;"Planes de mejoramiento de la entidad, originados en auditorías, organismos de control, autoevaluaciones o riesgos. Un registro por plan, con su código, origen, documento base, área y responsable, fechas, presupuesto, severidad y avance global; se relaciona con sus hallazgos, seguimientos, evidencias y comentarios. Su estado pasa por abierto, en ejecución, vencido o cerrado, y puede archivarse.";validada
 legal_management;planes_mejoramiento;archive_reason;Motivo por el que se archivó el plan de mejoramiento.;validada
 legal_management;planes_mejoramiento;archived_at;Fecha y hora en que se archivó el plan.;validada
 legal_management;planes_mejoramiento;archived_by;"Usuario que archivó el plan de mejoramiento; queda vacío al restaurarlo.";validada
@@ -4463,12 +4579,14 @@ legal_management;planes_mejoramiento;presupuesto;Presupuesto asignado al plan de
 legal_management;planes_mejoramiento;responsable_id;"Identificador del usuario responsable del plan (auth.""user"").";validada
 legal_management;planes_mejoramiento;titulo;Título del plan de mejoramiento.;validada
 legal_management;planes_mejoramiento;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;planes_seguimientos;;Bitácora de seguimiento de los planes de mejoramiento. Un registro por reporte de avance de un plan de legal_management.planes_mejoramiento, con la descripción, el porcentaje reportado, la fecha y el usuario que lo registró.;validada
 legal_management;planes_seguimientos;descripcion_avance;Descripción del avance reportado en el seguimiento del plan.;validada
 legal_management;planes_seguimientos;fecha_reporte;Fecha y hora del reporte de avance del plan.;validada
 legal_management;planes_seguimientos;id;Identificador único del registro en la tabla planes_seguimientos. Se genera automáticamente.;validada
 legal_management;planes_seguimientos;plan_id;Referencia al registro de legal_management.planes_mejoramiento (id).;validada
 legal_management;planes_seguimientos;porcentaje_reportado;Porcentaje de avance total reportado en el seguimiento. Al registrarlo, reemplaza el avance_porcentaje del plan.;validada
 legal_management;planes_seguimientos;usuario_id;Identificador del usuario que registró el seguimiento.;validada
+legal_management;plantillas_documentos;;Plantillas de documentos Word de la gestión jurídica. Un registro por plantilla, con su nombre, categoría (actas, evidencias, oficios, pruebas, comunicaciones, notificaciones o documentos generales), archivo original, tipo MIME, tamaño, contenido en Base64 y usuario que la cargó.;validada
 legal_management;plantillas_documentos;categoria;Categoría de la plantilla. Valores: actas, evidencias, oficios, pruebas, comunicaciones, notificaciones, documentos-generales.;validada
 legal_management;plantillas_documentos;contenido_base64;Contenido del archivo de la plantilla codificado en Base64.;validada
 legal_management;plantillas_documentos;created_at;Fecha y hora de creación del registro.;validada
@@ -4498,6 +4616,7 @@ legal_management;procesos_coactivos;updated_at;Fecha y hora de la última actual
 legal_management;procesos_coactivos;usuario_archivo;Usuario que archivó o eliminó el proceso.;validada
 legal_management;procesos_coactivos;valor_costas;Valor de las costas del proceso. Por defecto, 0.;validada
 legal_management;procesos_coactivos;valor_pagado;Valor total pagado en el proceso: suma acumulada de los pagos registrados en pagos_coactivos. Por defecto, 0.;validada
+legal_management;procesos_coactivos_adjuntos;;Archivos adjuntos de los procesos de cobro coactivo. Un registro por archivo, asociado a un proceso de legal_management.procesos_coactivos, con su nombre original y almacenado, tipo, tamaño, URL e indicador de si corresponde al título ejecutivo.;validada
 legal_management;procesos_coactivos_adjuntos;archivo_url;URL del archivo adjunto.;validada
 legal_management;procesos_coactivos_adjuntos;es_titulo_ejecutivo;Indica si el adjunto corresponde al título ejecutivo del proceso coactivo.;validada
 legal_management;procesos_coactivos_adjuntos;fecha_creacion;Fecha y hora de creación del registro.;validada
@@ -4508,6 +4627,7 @@ legal_management;procesos_coactivos_adjuntos;nombre_original;Nombre original del
 legal_management;procesos_coactivos_adjuntos;proceso_id;Referencia al registro de legal_management.procesos_coactivos (id).;validada
 legal_management;procesos_coactivos_adjuntos;tamano;Tamaño del archivo adjunto, en bytes.;validada
 legal_management;procesos_coactivos_adjuntos;tipo;Tipo de adjunto del proceso coactivo.;validada
+legal_management;requerimientos_oc;;"Requerimientos recibidos de los organismos de control. Un registro por requerimiento, con sus radicados externo e interno, organismo emisor, tipo, asunto, plazo y fecha de vencimiento, responsable, abogado asignado, prioridad y soportes de respuesta; se relaciona con sus comentarios, documentos, hallazgos, borradores de respuesta y solicitudes de insumos. Su estado pasa por recibido, en análisis, en respuesta, enviado, cerrado o vencido, y puede archivarse.";validada
 legal_management;requerimientos_oc;abogado_asignado_id;"Identificador del usuario de autenticación (auth.""user"") asignado como abogado del requerimiento; no referencia legal_management.abogados.";validada
 legal_management;requerimientos_oc;acuse_recibo_url;URL del acuse de recibo del requerimiento. El requerimiento no se puede cerrar sin acuse de recibo o sin oficio de respuesta.;validada
 legal_management;requerimientos_oc;archivo_adjunto_url;URL del archivo adjunto del requerimiento recibido.;validada
@@ -4550,6 +4670,7 @@ legal_management;riesgo_historial;descripcion;Descripción del evento o cambio e
 legal_management;riesgo_historial;id;Identificador único del registro en la tabla riesgo_historial. Se genera automáticamente.;validada
 legal_management;riesgo_historial;riesgo_id;Referencia al registro de legal_management.riesgos (id).;validada
 legal_management;riesgo_historial;usuario;"Usuario que generó el evento del riesgo. En la creación se toma el valor createdBy enviado por el cliente; los demás eventos se registran como «Sistema».";validada
+legal_management;riesgos;;"Riesgos institucionales de la gestión jurídica. Un registro por riesgo, con su código, proceso, tipo (corrupción, fiscal, gestión o seguridad digital), valoración inherente y residual (probabilidad, impacto y zona), causas, consecuencias, controles, plan de tratamiento, responsable y provisión contable, y el proceso jurídico de origen cuando aplica; su historial se registra en legal_management.riesgo_historial. Avanza por etapas desde identificado hasta cerrado.";validada
 legal_management;riesgos;causas;Causas del riesgo, como arreglo JSON.;validada
 legal_management;riesgos;codigo;Código del riesgo, único en la tabla.;validada
 legal_management;riesgos;consecuencias;Lista de consecuencias del riesgo, en formato JSON. Por defecto, lista vacía.;validada
@@ -4574,9 +4695,11 @@ legal_management;riesgos;tipo_riesgo;Tipo de riesgo. Valores permitidos: CORRUPC
 legal_management;riesgos;updated_at;Fecha y hora de la última actualización del registro.;validada
 legal_management;riesgos;zona_inherente;Zona de riesgo inherente. Valores permitidos: ALTO, BAJO, EXTREMO, MODERADO. Por defecto, MODERADO.;validada
 legal_management;riesgos;zona_residual;Zona de riesgo residual, después de aplicar los controles. Valores permitidos: ALTO, BAJO, EXTREMO, MODERADO. Por defecto, MODERADO.;validada
+legal_management;sequences;;Consecutivos genéricos de la gestión jurídica para generar radicados legibles por año (por ejemplo, TERM-2026-0001). Un registro por nombre de secuencia (prefijo y año), con el último número asignado.;validada
 legal_management;sequences;current_value;"Último número asignado de la secuencia. Cada fila es un consecutivo anual por prefijo (nombre <PREFIJO>_<año>); hoy se usa para el radicado de términos procesales (prefijo TERM). Por defecto, 0.";validada
 legal_management;sequences;name;Clave primaria de la tabla sequences: name.;validada
 legal_management;sequences;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;solicitudes_insumos;;Solicitudes de insumos que se delegan a otras áreas para responder los requerimientos de los organismos de control. Un registro por solicitud, asociada a un requerimiento de legal_management.requerimientos_oc, con el área y el funcionario destinatarios, los documentos solicitados, los plazos, la respuesta y los documentos entregados. Su estado pasa por pendiente, en proceso, entregado, rechazado o vencido.;validada
 legal_management;solicitudes_insumos;area_destino;Área a la que se solicitan los insumos para responder el requerimiento.;validada
 legal_management;solicitudes_insumos;comentario_respuesta;Comentario del área al responder la solicitud.;validada
 legal_management;solicitudes_insumos;created_at;Fecha y hora de creación del registro.;validada
@@ -4594,6 +4717,7 @@ legal_management;solicitudes_insumos;requerimiento_id;Referencia al registro de 
 legal_management;solicitudes_insumos;respondido_por;Funcionario que respondió la solicitud.;validada
 legal_management;solicitudes_insumos;solicitado_por;Usuario que realizó la solicitud.;validada
 legal_management;solicitudes_insumos;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;system_configurations;;Parámetros de configuración de los módulos de la gestión jurídica (por ejemplo, columnas del tablero Kanban y tipos de proceso). Un registro por clave de configuración, con el módulo al que pertenece, su valor en formato JSON y su descripción.;validada
 legal_management;system_configurations;created_at;Fecha y hora de creación del registro.;validada
 legal_management;system_configurations;description;Descripción del parámetro de configuración del sistema.;validada
 legal_management;system_configurations;key;Clave primaria de la tabla system_configurations: key.;validada
@@ -4612,6 +4736,7 @@ legal_management;tareas_expediente;responsable_id;Identificador del responsable 
 legal_management;tareas_expediente;responsable_nombre;"Nombre del responsable de la tarea; se usa cuando el responsable no es un abogado registrado.";validada
 legal_management;tareas_expediente;titulo;Título de la tarea.;validada
 legal_management;tareas_expediente;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;tasas_referencia;;Tasas de referencia mensuales para la liquidación de intereses en los procesos de cobro coactivo (Resolución 492). Un registro por año, mes y tipo de tasa (DIAN o usura), con su valor en porcentaje anual.;validada
 legal_management;tasas_referencia;anio;Año al que corresponde la tasa de referencia.;validada
 legal_management;tasas_referencia;created_at;Fecha y hora de creación del registro.;validada
 legal_management;tasas_referencia;id;Identificador único del registro en la tabla tasas_referencia. Se genera automáticamente.;validada
@@ -4619,6 +4744,7 @@ legal_management;tasas_referencia;mes;Mes de la tasa de referencia, de 1 a 12.;v
 legal_management;tasas_referencia;tipo_tasa;Tipo de tasa de referencia: DIAN o USURA. Por defecto, DIAN.;validada
 legal_management;tasas_referencia;updated_at;Fecha y hora de la última actualización del registro.;validada
 legal_management;tasas_referencia;valor_tasa;"Valor de la tasa de referencia para el año y el mes, en porcentaje anual; la liquidación lo divide entre 12 para el interés mensual.";validada
+legal_management;terminos_alertas_enviadas;;"Registro de las alertas de vencimiento ya enviadas para cada término procesal, para no reenviar la misma alerta. Un registro por envío, asociado a un término de legal_management.terminos_procesales y a la regla de legal_management.terminos_reglas_alerta que lo disparó; sin regla, corresponde a la anticipación personalizada del propio término.";validada
 legal_management;terminos_alertas_enviadas;fecha_envio;Fecha y hora de envío de la alerta de término.;validada
 legal_management;terminos_alertas_enviadas;id;Identificador único del registro en la tabla terminos_alertas_enviadas. Se genera automáticamente.;validada
 legal_management;terminos_alertas_enviadas;regla_id;Referencia al registro de legal_management.terminos_reglas_alerta (id).;validada
@@ -4649,6 +4775,7 @@ legal_management;terminos_procesales;responsable_nombre;Nombre del responsable d
 legal_management;terminos_procesales;tipo_dias;"Unidad del conteo del término. Valores permitidos: HABILES, CALENDARIO, HORAS; valor por defecto HABILES.";validada
 legal_management;terminos_procesales;ultimo_recordatorio_recurrente_en;"Fecha y hora del último recordatorio periódico enviado; el programador la usa para espaciar los recordatorios y se limpia al mover el vencimiento.";validada
 legal_management;terminos_procesales;updated_at;Fecha y hora de la última actualización del registro.;validada
+legal_management;terminos_reglas_alerta;;"Reglas globales de alerta automática de vencimiento de los términos procesales. Un registro por regla, con las horas de anticipación al vencimiento, los canales de envío (correo electrónico o notificación en la aplicación) e indicador de activa; los envíos se registran en legal_management.terminos_alertas_enviadas.";validada
 legal_management;terminos_reglas_alerta;activa;Indica si la regla de alerta de términos está activa.;validada
 legal_management;terminos_reglas_alerta;created_at;Fecha y hora de creación del registro.;validada
 legal_management;terminos_reglas_alerta;descripcion;Descripción de la regla de alerta de términos.;validada
@@ -4657,6 +4784,7 @@ legal_management;terminos_reglas_alerta;horas_anticipacion;Horas de anticipació
 legal_management;terminos_reglas_alerta;id;Identificador único del registro en la tabla terminos_reglas_alerta. Se genera automáticamente.;validada
 legal_management;terminos_reglas_alerta;notificar_in_app;Indica si la regla de alerta de términos genera una notificación dentro de la aplicación.;validada
 legal_management;terminos_reglas_alerta;updated_at;Fecha y hora de la última actualización del registro.;validada
+notifications;notificacion;;"Notificaciones de la plataforma dirigidas a los usuarios (RF014). Un registro por notificación a un usuario destinatario, con su tipo de evento, módulo, título, mensaje, prioridad, acción asociada y datos adicionales; registra su lectura, archivo y marca de favorita, y el envío, entrega, apertura y clic del correo electrónico correspondiente.";validada
 notifications;notificacion;archivada;Indica si la notificación está archivada.;validada
 notifications;notificacion;categoria;"Módulo o área de la notificación, usada para filtrar la bandeja; por ejemplo, VIATICOS, gestion-legal, DISCIPLINARIO o PTA. tipo_notificacion identifica el evento concreto.";validada
 notifications;notificacion;color;Color con que se muestra la notificación, como código hexadecimal (por ejemplo, #DC2626).;validada
@@ -4683,6 +4811,7 @@ notifications;notificacion;tiene_accion;Indica si la notificación tiene una acc
 notifications;notificacion;tipo_notificacion;"Código del tipo de evento que genera la notificación, definido por cada servicio emisor; por ejemplo, PROCESO_ASIGNADO o VIATICOS_RADICADA.";validada
 notifications;notificacion;titulo;Título de la notificación.;validada
 notifications;notificacion;url_accion;URL a la que dirige el botón de acción de la notificación.;validada
+public;config_entes_control;;Catálogo de configuración de los entes de control (por ejemplo, Contraloría y Procuraduría). Un registro por ente, con su código, nombre, descripción, color de identificación en la interfaz, orden e indicador de activo.;validada
 public;config_entes_control;activo;Indica si el ente de control está activo.;validada
 public;config_entes_control;codigo;Código único del ente de control (por ejemplo, CONTRALORIA, PROCURADURIA).;validada
 public;config_entes_control;color;Color con que se identifica el ente de control en la interfaz, en código hexadecimal. Por defecto, #3B82F6.;validada
@@ -4692,6 +4821,7 @@ public;config_entes_control;id;Identificador único del registro en la tabla con
 public;config_entes_control;nombre;Nombre del ente de control.;validada
 public;config_entes_control;orden;Posición del ente de control en el listado.;validada
 public;config_entes_control;updated_at;Fecha y hora de la última actualización del registro.;validada
+public;stage_configuration;;Configuración de días hábiles por etapa del proceso disciplinario. Un registro por etapa, con su descripción, el número de días hábiles asignados e indicador de activa.;validada
 public;stage_configuration;activo;Indica si la configuración de la etapa está activa.;validada
 public;stage_configuration;createdAt;Fecha y hora de creación del registro.;validada
 public;stage_configuration;descripcion;Descripción de la etapa.;validada
@@ -4699,11 +4829,13 @@ public;stage_configuration;diasHabiles;Número de días hábiles asignados a la 
 public;stage_configuration;etapa;Nombre de la etapa del proceso disciplinario configurada, con sus días hábiles. La tabla se creó con la configuración del módulo de control disciplinario interno.;validada
 public;stage_configuration;id;Identificador único del registro en la tabla stage_configuration. Se genera automáticamente.;validada
 public;stage_configuration;updatedAt;Fecha y hora de la última actualización del registro.;validada
+public;system_configuration;;Configuración global del módulo de control disciplinario interno. Registra, en formato JSON, la capacidad de procesos por cargo y los parámetros de notificaciones, alertas y seguridad.;validada
 public;system_configuration;alertSettings;Configuración de alertas del módulo de control disciplinario interno, en formato JSON: umbrales numéricos como porcentajeRiesgo, porcentajeCritico, capacidadAlerta y diasAnticipacion.;validada
 public;system_configuration;id;Identificador único del registro en la tabla system_configuration. Se genera automáticamente.;validada
 public;system_configuration;notificationSettings;Configuración de notificaciones del módulo de control disciplinario interno, en formato JSON: interruptores booleanos como vencimiento7dias, procesoVencido, cambioEtapa, resumenDiario o emailMasterSwitch.;validada
 public;system_configuration;roleCapacities;Capacidad de procesos por cargo del módulo de control disciplinario interno, en formato JSON: cada clave es un cargo y su valor la capacidad.;validada
 public;system_configuration;securitySettings;Configuración de seguridad y auditoría del módulo de control disciplinario interno, en formato JSON: banderas auditEnabled, digitalSignature y backupEnabled.;validada
+requerimientos_oc;avances_hallazgo;;Reportes de avance de los hallazgos de los organismos de control. Un registro por reporte de un hallazgo de requerimientos_oc.hallazgos, con la fecha, el porcentaje de avance, la descripción, los documentos de soporte, el reporte a SIRECI y el funcionario que lo reportó.;validada
 requerimientos_oc;avances_hallazgo;created_at;Fecha y hora de creación del registro.;validada
 requerimientos_oc;avances_hallazgo;descripcion_avance;Descripción del avance reportado.;validada
 requerimientos_oc;avances_hallazgo;documentos_adjuntos_urls;Lista de URL de los documentos que soportan el avance.;validada
@@ -4722,6 +4854,7 @@ requerimientos_oc;cat_organismos_control;nombre;Nombre del organismo de control.
 requerimientos_oc;cat_organismos_control;sigla;Sigla del organismo de control.;validada
 requerimientos_oc;cat_organismos_control;tipo;Tipo de organismo de control. Valores: CONTRALORIA, PROCURADURIA, MINISTERIO, SUPERINTENDENCIA, OTROS.;validada
 requerimientos_oc;cat_organismos_control;updated_at;Fecha y hora de la última actualización del registro.;validada
+requerimientos_oc;hallazgos;;"Hallazgos de auditoría de los organismos de control y su plan de mejoramiento. Un registro por hallazgo, asociado a un requerimiento de requerimientos_oc.requerimientos, con su código, número interno, tipo (administrativo, disciplinario, fiscal o penal), causa, efecto, acción correctiva, responsables, indicador, avance y periodicidad de reporte; sus avances se registran en requerimientos_oc.avances_hallazgo. Su estado pasa por abierto, en curso, en revisión, cerrado o rechazado.";validada
 requerimientos_oc;hallazgos;accion_correctiva;Acción correctiva definida para subsanar el hallazgo.;validada
 requerimientos_oc;hallazgos;area_responsable;"Nombre del área responsable de atender el hallazgo, registrado como texto; no está enlazado a un catálogo.";validada
 requerimientos_oc;hallazgos;causa_raiz;Causa raíz identificada para el hallazgo.;validada
@@ -4747,6 +4880,7 @@ requerimientos_oc;hallazgos;requerimiento_id;Referencia al registro de requerimi
 requerimientos_oc;hallazgos;tipo_hallazgo;Tipo de hallazgo según su incidencia. Valores permitidos: ADMINISTRATIVO, DISCIPLINARIO, FISCAL, PENAL. Por defecto, ADMINISTRATIVO.;validada
 requerimientos_oc;hallazgos;titulo;Título del hallazgo.;validada
 requerimientos_oc;hallazgos;updated_at;Fecha y hora de la última actualización del registro.;validada
+requerimientos_oc;historial_requerimientos;;"Bitácora de acciones sobre los requerimientos de los organismos de control. Un registro por acción (creación, asignación, delegación, cambio de estado, respuesta o cierre) sobre un requerimiento de requerimientos_oc.requerimientos, con su descripción, los estados anterior y nuevo, el usuario, su área y la fecha; los cambios de estado se registran automáticamente.";validada
 requerimientos_oc;historial_requerimientos;accion;Acción registrada sobre el requerimiento: CREACION, ASIGNACION, DELEGACION, CAMBIO_ESTADO, RESPUESTA o CIERRE. El trigger registra CAMBIO_ESTADO cuando cambia el estado.;validada
 requerimientos_oc;historial_requerimientos;area_usuario;Área a la que pertenece el usuario que realizó la acción.;validada
 requerimientos_oc;historial_requerimientos;descripcion;Descripción de la acción registrada en el historial del requerimiento.;validada
@@ -4778,6 +4912,7 @@ requerimientos_oc;requerimientos;tipo_requerimiento;Tipo de requerimiento del ó
 requerimientos_oc;requerimientos;unidad_tiempo;Unidad de tiempo del plazo otorgado. Valores permitidos: DIAS_CALENDARIO, DIAS_HABILES, HORAS. Por defecto, DIAS_HABILES.;validada
 requerimientos_oc;requerimientos;updated_at;Fecha y hora de la última actualización del registro.;validada
 requerimientos_oc;requerimientos;usuario_asignado_id;"Identificador del usuario asignado al requerimiento; referencia a auth.personas.";validada
+requerimientos_oc;solicitudes_insumos;;Solicitudes de insumos que se delegan a otras áreas para responder los requerimientos de los organismos de control. Un registro por solicitud, asociada a un requerimiento de requerimientos_oc.requerimientos, con el área y el funcionario destinatarios, los documentos solicitados, los plazos, la respuesta y los documentos entregados. Su estado pasa por pendiente, en proceso, entregado, rechazado o vencido.;validada
 requerimientos_oc;solicitudes_insumos;area_destino;Área a la que se solicitan los insumos para responder el requerimiento.;validada
 requerimientos_oc;solicitudes_insumos;comentario_respuesta;Comentario del área al responder la solicitud.;validada
 requerimientos_oc;solicitudes_insumos;created_at;Fecha y hora de creación del registro.;validada

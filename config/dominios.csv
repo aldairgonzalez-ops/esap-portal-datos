@@ -1,15 +1,15 @@
 esquema;nombre;orden;descripcion
-auth;Identidad y acceso;1;Personas, usuarios, roles, permisos, sedes, seccionales y división geopolítica. Contiene la fuente maestra de personas (auth.personas).
-academic_registration;Registro académico;2;Inscripción, admisión y matrícula de estudiantes en los programas académicos.
-academic_work_plan;Plan de trabajo académico;3;Planes de trabajo y asignación académica de docentes.
-certification;Certificaciones;4;Solicitud y expedición de certificados.
-legal_management;Gestión jurídica;5;Procesos, actuaciones y abogados de la gestión jurídica.
+auth;Identidad y acceso;1;Personas (fuente maestra), cuentas de usuario, roles, permisos y módulos de la SuperApp, y los catálogos institucionales de sedes, seccionales, dependencias, cargos y división geopolítica.
+academic_registration;Registro académico y grados;2;Graduados y certificados de grado: registro de graduados y sus archivos, solicitudes de certificado y su revisión, certificados emitidos con código QR, validación pública, firmantes y configuración de plantillas.
+academic_work_plan;Plan de trabajo académico;3;Plan de trabajo académico (PTA) y registro de docentes (RUND): personas y docentes, programas, asignaturas, CETAP y periodos, planes de trabajo con sus revisiones y aprobaciones, y los datos, soportes y documentos del perfil RUND.
+certification;Certificaciones laborales;4;Certificados laborales: solicitudes de los servidores, certificados emitidos con código QR y su validación, perfiles y funciones de los cargos, bonificación técnica, plantillas, firmantes y solicitudes de corrección.
+legal_management;Gestión jurídica;5;"Gestión jurídica de la ESAP: expedientes judiciales con sus actores, actuaciones, documentos y términos procesales; consultas jurídicas, correos de los buzones jurídicos, procesos de cobro coactivo y alertas de vencimiento."
 control_interno;Control interno;6;Planes de auditoría, hallazgos y seguimiento de control interno.
-internal_disciplinary_control;Control disciplinario interno;7;Procesos de control disciplinario interno.
-requerimientos_oc;Requerimientos;8;Requerimientos y solicitudes registrados en la plataforma.
-notifications;Notificaciones;9;Mensajes y notificaciones enviados por la plataforma.
+internal_disciplinary_control;Control disciplinario interno;7;Control disciplinario interno: noticias disciplinarias, procesos con sus actuaciones, autos y versiones, términos procesales y días festivos, tareas, evidencias, alertas, reasignaciones y catálogo de conductas.
+requerimientos_oc;Requerimientos de organismos de control;8;Requerimientos de los organismos de control a la ESAP: radicación y cálculo de vencimientos, solicitudes de insumos a otras áreas, bitácora de acciones, hallazgos con sus avances y catálogo de organismos.
+notifications;Notificaciones;9;Notificaciones de la plataforma dirigidas a los usuarios.
 audit;Auditoría y trazabilidad;10;Bitácora de cambios y trazabilidad de operaciones.
-public;Esquema público;11;Objetos en el esquema por defecto de PostgreSQL.
+public;Configuración del control disciplinario;11;Configuración del módulo de control disciplinario interno: días hábiles por etapa, entes de control y parámetros globales.
 academic-schedule;Programación académica;12;
 hiring;Contratación;13;Proceso de contratación de la ESAP, desde la radicación y los estudios previos hasta la liquidación y el cierre: procesos por modalidad, CDP y registro presupuestal, publicaciones en SECOP, evaluación de ofertas y adjudicación, contratos, garantías, supervisión, pagos, modificaciones, incumplimientos y expediente electrónico.
 travel_expenses;Viáticos y gastos de viaje;14;Trámite de comisiones de servicio: solicitudes de contratistas, docentes, estudiantes, funcionarios e investigadores, liquidación de viáticos y tiquetes, registro presupuestal, obligación y pago, legalización, reintegros y paz y salvos, con las escalas, tarifas y parámetros que se aplican.
